@@ -4,9 +4,13 @@ import socketIOClient from "socket.io-client";
 class UserStore {
   constructor() {
     this.rooms = [];
+    this.socket = socketIOClient(process.env.ENDPOINT);
+    this.socket.on("hello", response => {
+      console.log(response);
+    });
   }
 
-  async createRoom(userName, roomName, roomPassword) {
+  createRoom(userName, roomName, roomPassword) {
     this.userName = userName;
     this.roomName = roomName;
     const data = {
@@ -14,18 +18,26 @@ class UserStore {
       roomName: this.roomName,
       roomPassword: roomPassword
     };
-    this.socket = socketIOClient(process.env.ENDPOINT);
-    await this.socket.emit("createRoom", data);
+    this.socket.emit("createRoom", data);
     this.socket.on("createRoom", response => {
-      console.log(response);
+      this.roomName = response.roomId;
     });
   }
-  async fetchRooms() {
+  fetchRooms() {
     this.socket.on("fetchRooms", response => {
       this.rooms = response;
     });
   }
-  async joinRoom() {}
+  joinRoom(roomId, roomPassword, userName) {
+    this.userName = userName;
+    this.roomName = roomId;
+    const data = {
+      userName: this.userName,
+      roomId: this.roomName,
+      roomPassword: roomPassword
+    };
+    this.socket.emit("joinRoom", data);
+  }
 }
 
 decorate(UserStore, {

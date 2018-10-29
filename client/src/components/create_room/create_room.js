@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Grid, Card, Input } from "@material-ui/core";
+import { Grid, Card, Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
+import { inject, observer } from "mobx-react";
 
 const StyledGrid = styled(Grid)`
   height: calc(100vh - 64px);
@@ -10,6 +11,19 @@ const StyledCard = styled(Card)`
   height: calc(100vh - 64px);
 `;
 
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+  top: calc(50vh - 186px);
+`;
+
+const StyledButton = styled(Button)`
+  padding-top: 40px;
+`;
+
 class CreateRoom extends Component {
   state = {
     userName: "",
@@ -17,55 +31,68 @@ class CreateRoom extends Component {
     roomPassword: ""
   };
 
-  handleChange = (e, input) => {
-    if (input === "userName") {
+  handleChange = e => {
+    if (e.target.id === "user-name") {
       this.setState({ userName: e.target.value });
     }
-    if (input === "roomName") {
+    if (e.target.id === "room-name") {
       this.setState({ roomName: e.target.value });
     }
-    if (input === "roomPassword") {
+    if (e.target.id === "room-password") {
       this.setState({ roomPassword: e.target.value });
     }
   };
+
+  handleSubmit = () => {
+    if (
+      this.state.userName !== "" &&
+      this.state.roomName !== "" &&
+      this.state.roomPassword !== ""
+    ) {
+      this.props.store.createRoom(
+        this.state.userName,
+        this.state.roomName,
+        this.state.roomPassword
+      );
+    } else {
+      return;
+    }
+  };
+
   render() {
     return (
       <StyledGrid item xs={6}>
         <StyledCard>
-          <form noValidate autoComplete="off">
-            <Input
+          <FormWrapper>
+            <TextField
               id="user-name"
               label="User Name"
               value={this.state.userName}
-              // onChange={this.handleChange('userName')}
+              onChange={this.handleChange}
               margin="normal"
-              defaultValue=""
-              ref={input => {
-                this.state.userName = input.value;
-              }}
             />
-            <Input
+
+            <TextField
               id="room-name"
               label="Room Name"
-              value={this.state.name}
-              onChange={this.handleChange("roomName")}
-              margin="normal"
+              value={this.state.roomName}
+              onChange={this.handleChange}
               defaultValue=""
             />
-            <Input
+            <TextField
               id="room-password"
               label="Room Password"
-              value={this.state.name}
-              onChange={this.handleChange("roomPassword")}
-              margin="normal"
+              value={this.state.roomPassword}
+              onChange={this.handleChange}
               defaultValue=""
+              type="password"
             />
-            <button onSubmit={this.handleSubmit}>Create Room</button>
-          </form>
+            <StyledButton onClick={this.handleSubmit}>Create Room</StyledButton>
+          </FormWrapper>
         </StyledCard>
       </StyledGrid>
     );
   }
 }
 
-export default CreateRoom;
+export default inject("store")(observer(CreateRoom));

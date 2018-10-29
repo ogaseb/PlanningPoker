@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.store.createRoom("ProPanek", "Inzy meeting", "testpassword");
+    // this.props.store.createRoom("ProPanek", "Inzy meeting", "123");
     this.props.store.fetchRooms();
   }
 
