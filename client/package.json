@@ -12,6 +12,7 @@
     "mobx-react": "^5.2.8",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
     "socket.io-client": "^2.1.1",
     "styled-components": "^4.0.2"
@@ -20,7 +21,6 @@
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "enzyme-to-json": "^3.3.4",
-    "husky": "^1.0.0-rc.15",
     "jest-styled-components": "^6.2.1",
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
@@ -35,24 +35,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
-      "!**/node_modules/**",
-      "!**/vendor/**",
-      "!**/utils/**",
-      "!src/*.{js,jsx}"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "CI=true yarn test"
-    }
   },
   "browserslist": [
     ">0.2%",

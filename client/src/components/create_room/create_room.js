@@ -2,13 +2,18 @@ import React, { Component } from "react";
 import { Grid, Card, Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
+import { withRouter } from "react-router-dom";
 
 const StyledGrid = styled(Grid)`
+  &&{
   height: calc(100vh - 64px);
+  }
 `;
 
 const StyledCard = styled(Card)`
+  &&{
   height: calc(100vh - 64px);
+  }
 `;
 
 const FormWrapper = styled.div`
@@ -43,7 +48,7 @@ class CreateRoom extends Component {
     }
   };
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     if (
       this.state.userName !== "" &&
       this.state.roomName !== "" &&
@@ -54,8 +59,9 @@ class CreateRoom extends Component {
         this.state.roomName,
         this.state.roomPassword
       );
-    } else {
-      return;
+      setTimeout(() => {this.props.history.push(`/room/${this.props.store.roomId}/${this.state.roomPassword}`)}, 500)
+      this.props.store.notificationMessage = "You have created a Room"
+      this.props.store.notificationVariant = "success"
     }
   };
 
@@ -77,14 +83,12 @@ class CreateRoom extends Component {
               label="Room Name"
               value={this.state.roomName}
               onChange={this.handleChange}
-              defaultValue=""
             />
             <TextField
               id="room-password"
               label="Room Password"
               value={this.state.roomPassword}
               onChange={this.handleChange}
-              defaultValue=""
               type="password"
             />
             <StyledButton onClick={this.handleSubmit}>Create Room</StyledButton>
@@ -95,4 +99,4 @@ class CreateRoom extends Component {
   }
 }
 
-export default inject("store")(observer(CreateRoom));
+export default inject("store")(withRouter(observer(CreateRoom)));

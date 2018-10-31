@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
+import { withRouter } from "react-router-dom";
 import "./app.css";
 import { Grid } from "@material-ui/core";
 import Header from "./components/static/header";
-import CreateRoom from "./components/create_room/create_room";
-import JoinRoom from "./components/join_room/join_room";
+import Router from './components/router/router';
+import Notification from './components/notification/notification'
+
 
 class App extends Component {
   constructor() {
@@ -12,18 +14,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // this.props.store.createRoom("ProPanek", "Inzy meeting", "123");
     this.props.store.fetchRooms();
   }
 
   render() {
     return (
       <div className="App">
-        <Header />
+        <Notification />
+        <Header roomName={this.props.store.roomName} userName={this.props.store.userName} />
         <div style={{ textAlign: "center" }}>
           <Grid container>
-            <CreateRoom />
-            <JoinRoom />
+           <Router />
           </Grid>
         </div>
       </div>
@@ -31,6 +32,6 @@ class App extends Component {
   }
 }
 
-export default inject("store")(observer(App));
+export default inject("store")(withRouter(observer(App)));
 
 // export default App;

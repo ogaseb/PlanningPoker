@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notification renders without errors 1`] = `
+<Styled(WithStyles(Snackbar))
+  ContentProps={
+    Object {
+      "aria-describedby": "message-id",
+    }
+  }
+  action={
+    Array [
+      <WithStyles(IconButton)
+        aria-label="Close"
+        color="inherit"
+        onClick={false}
+    >
+        <pure(CloseIcon)
+            name="close"
+        />
+    </WithStyles(IconButton)>,
+    ]
+  }
+  anchorOrigin={
+    Object {
+      "horizontal": "left",
+      "vertical": "bottom",
+    }
+  }
+  message={
+    <span
+      id="message-id"
+    >
+      test
+    </span>
+  }
+  onClose={false}
+  open={true}
+  wide={0}
+/>
+`;

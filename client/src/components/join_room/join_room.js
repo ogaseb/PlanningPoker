@@ -28,10 +28,10 @@ class JoinRoom extends Component {
   };
 
   handleChange = e => {
-    if (e.target.id === "room-password") {
+    if (e.target.id === "join-room-password") {
       this.setState({ roomPassword: e.target.value });
     }
-    if (e.target.id === "user-name") {
+    if (e.target.id === "join-user-name") {
       this.setState({ userName: e.target.value });
     }
   };
@@ -47,12 +47,14 @@ class JoinRoom extends Component {
         this.state.roomPassword,
         this.state.userName
       );
-    } else {
-      return;
+      setTimeout(() => {this.props.history.push(`/room/${this.props.store.roomId}/${this.state.roomPassword}`)}, 500)
+      this.props.store.notificationMessage = "You have joined to the Room"
+      this.props.store.notificationVariant = "success"
     }
   };
 
   render() {
+    // {console.log(this.props.store.rooms)}
     return (
       <StyledGrid item xs={6}>
         <StyledCard>
@@ -62,24 +64,23 @@ class JoinRoom extends Component {
                 this.props.store.rooms.map((data, index) => {
                   return (
                     <option key={index} value={data.roomId}>
-                      {data.roomName} - users: {data.user.length}
+                      Room Name: {data.roomName} - users: {data.user.length}
                     </option>
                   );
                 })}
             </select>
             <TextField
-              id="user-name"
+              id="join-user-name"
               label="User Name"
               value={this.state.userName}
               onChange={this.handleChange}
               margin="normal"
             />
             <TextField
-              id="room-password"
+              id="join-room-password"
               label="Room Password"
               value={this.state.roomPassword}
               onChange={this.handleChange}
-              defaultValue=""
               type="password"
             />
             <Button onClick={this.handleSubmit}>Join room</Button>
