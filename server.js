@@ -3,8 +3,10 @@ const http = require('http')
 const socketIO = require('socket.io')
 const lodash = require('lodash');
 const crypto = require('crypto')
+const path = require('path');
 
-const port = 5000
+
+const port = process.env.PORT || 5000;
 const app = express()
 const server = http.createServer(app)
 const io = socketIO(server, {
