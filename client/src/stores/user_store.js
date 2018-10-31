@@ -50,6 +50,13 @@ class UserStore {
         console.log(this.admin)
       }
     })
+    this.socket.on("broadcastTitle", (title) => {
+      this.title = title
+    })
+    this.socket.on("broadcastDescription", (description) => {
+      this.description = description
+    })
+
   }
 
   createRoom(userName, roomName, roomPassword) {
@@ -138,6 +145,22 @@ class UserStore {
     };
     this.socket.emit("changeAdmin", data)
   }
+
+  broadcastTitle(title){
+    const data = {
+      title: title,
+      roomId: this.roomId,
+    };
+    this.socket.emit("broadcastTitle", data)
+  }
+
+  broadcastDescription(description){
+    const data = {
+      description: description,
+      roomId: this.roomId,
+    };
+    this.socket.emit("broadcastDescription", data)
+  }
 }
 
 decorate(UserStore, {
@@ -156,7 +179,9 @@ decorate(UserStore, {
   notificationMessage: observable,
   notificationVariant: observable,
   blockCard: observable,
-  openJoinDialog: observable
+  openJoinDialog: observable,
+  title:observable,
+  description:observable
 });
 
 export default UserStore;

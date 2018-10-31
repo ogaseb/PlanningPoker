@@ -129,6 +129,15 @@ class Room extends Component {
     this.props.store.cardResults = []
   }
 
+  handleChange = (e) =>{
+    if (e.target.id === "title"){
+      this.props.store.broadcastTitle(e.target.value)
+    }
+    if (e.target.id === "description"){
+      this.props.store.broadcastDescription(e.target.value)
+    }
+  }
+
 
   render() {
 
@@ -138,20 +147,24 @@ class Room extends Component {
         <StyledGrid item xs={10}>
           <StyledCard>
             <div>
+              <Typography variant="subtitle2">
+                Title
+              </Typography>
               <StyledTextField
                 id="title"
-                label="Title"
-                value={this.state.title}
+                value={this.props.store.title}
                 onChange={this.handleChange}
                 margin="normal"
               />
             </div>
             <div>
+              <Typography variant="subtitle2">
+                Description
+              </Typography>
               <StyledTextField
                 id="description"
-                label="Description"
                 multiline
-                value={this.state.description}
+                value={this.props.store.description}
                 onChange={this.handleChange}
                 margin="normal"
                 variant="filled"
@@ -216,9 +229,6 @@ class Room extends Component {
 
 decorate(Room, {
   selectedCard: observable,
-  title: observable,
-  description: observable
-
 });
 
 export default inject("store")(withRouter(observer(Room)));

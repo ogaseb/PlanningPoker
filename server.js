@@ -177,6 +177,20 @@ io.on('connection', socket => {
     }
   })
 
+  socket.on('broadcastTitle', (data) =>{
+    let room_temp = rooms.get(data.roomId)
+    room_temp.title = data.title
+    io.in(data.roomId).emit("broadcastTitle", data.title)
+    rooms.set(data.roomId, room_temp)
+  })
+
+  socket.on('broadcastDescription', (data) =>{
+    let room_temp = rooms.get(data.roomId)
+    room_temp.description = data.description
+    io.in(data.roomId).emit("broadcastDescription", data.description)
+    rooms.set(data.roomId, room_temp)
+  })
+
   socket.on('disconnect', () => {
     let roomId = users.get(socket.id)
     if (roomId !== undefined) {
