@@ -61,7 +61,7 @@ class CreateRoom extends Component {
       );
       const interval = setInterval(() => {
         if(this.props.store.connected){
-          setTimeout(() => {this.props.history.push(`/room/${this.props.store.roomId}/${this.state.roomPassword}`)}, 500)
+          this.props.history.push(`/room/${this.props.store.roomId}/${this.state.roomPassword}`)
           this.props.store.notificationMessage = "You have created a Room"
           this.props.store.notificationVariant = "success"
           clearInterval(interval)
