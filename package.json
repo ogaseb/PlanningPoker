@@ -1,0 +1,21 @@
+{
+  "name": "example-create-react-app-express",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "crypto": "^1.0.1",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
+  }
+}
