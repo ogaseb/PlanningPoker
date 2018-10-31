@@ -65,6 +65,7 @@ class CreateRoom extends Component {
           clearInterval(interval)
         }
       }, 100)
+
     }
   };
 

@@ -53,6 +53,7 @@ class JoinRoom extends Component {
           clearInterval(interval)
         }
       }, 100)
+
     }
   };
 
