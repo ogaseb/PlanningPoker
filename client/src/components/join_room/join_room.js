@@ -47,9 +47,11 @@ class JoinRoom extends Component {
         this.state.roomPassword,
         this.state.userName
       );
-      setTimeout(() => {this.props.history.push(`/room/${this.props.store.roomId}/${this.state.roomPassword}`)}, 500)
-      this.props.store.notificationMessage = "You have joined to the Room"
-      this.props.store.notificationVariant = "success"
+      if(this.props.store.connected){
+        setTimeout(() => {this.props.history.push(`/room/${this.props.store.roomId}/${this.state.roomPassword}`)}, 500)
+        this.props.store.notificationMessage = "You have joined to the Room"
+        this.props.store.notificationVariant = "success"
+      }
     }
   };
 
