@@ -3,8 +3,10 @@ const http = require('http')
 const socketIO = require('socket.io')
 const lodash = require('lodash');
 const crypto = require('crypto')
+const path = require('path');
 
-const port = 5000
+
+const port = process.env.PORT || 5000;
 const app = express()
 const server = http.createServer(app)
 const io = socketIO(server, {
@@ -175,21 +177,36 @@ io.on('connection', socket => {
     }
   })
 
+  socket.on('broadcastTitle', (data) =>{
+    let room_temp = rooms.get(data.roomId)
+    room_temp.title = data.title
+    io.in(data.roomId).emit("broadcastTitle", data.title)
+    rooms.set(data.roomId, room_temp)
+  })
+
+  socket.on('broadcastDescription', (data) =>{
+    let room_temp = rooms.get(data.roomId)
+    room_temp.description = data.description
+    io.in(data.roomId).emit("broadcastDescription", data.description)
+    rooms.set(data.roomId, room_temp)
+  })
+
   socket.on('disconnect', () => {
     let roomId = users.get(socket.id)
-    if (roomId) {
+    if (roomId !== undefined) {
       let room_temp = rooms.get(roomId.toString())
-      console.log(room_temp)
-      let index = lodash.findIndex(room_temp.user, function (o) {
-        return o.userId === socket.id;
-      });
-      if (index !== -1) {
-        room_temp.user.splice(index, 1)
-        if (room_temp.user.length === 1){
-          io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
+      if (room_temp !== undefined) {
+        let index = lodash.findIndex(room_temp.user, function (o) {
+          return o.userId === socket.id;
+        });
+        if (index !== -1) {
+          room_temp.user.splice(index, 1)
+          if (room_temp.user.length === 1){
+            io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
+          }
+          rooms.set(roomId.toString(), room_temp)
+          console.log('user disconnected from room')
         }
-        rooms.set(roomId.toString(), room_temp)
-        console.log('user disconnected from room')
       }
     }
     console.log('user disconnected from server')
@@ -199,5 +216,14 @@ io.on('connection', socket => {
     console.log(reason)
   });
 })
+
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  // Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 server.listen(port, () => console.log(`Listening on port ${port}`))

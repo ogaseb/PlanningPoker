@@ -1,4 +1,4 @@
-import React , {Component} from 'react'
+import React, {Component} from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -15,19 +15,20 @@ class JoinDialog extends Component {
   handleChange = (e) => {
     this.input = e.target.value
   }
-  joinRoom = (name) =>{
-    const { match:{params} } = this.props
+  joinRoom = (name) => {
+    const {match: {params}} = this.props
     this.props.store.joinRoom(params.id, params.password, name)
     this.props.store.openJoinDialog = false
+    this.props.store.connected = true
   }
 
-  cancelJoinRoom = () =>{
+  cancelJoinRoom = () => {
     this.props.history.push(`/`)
   }
 
-  render(){
+  render() {
 
-    return(
+    return (
       <Dialog
         open={this.props.store.openJoinDialog}
         onClose={this.props.store.openJoinDialog}
@@ -53,7 +54,9 @@ class JoinDialog extends Component {
           <Button onClick={this.cancelJoinRoom} color="primary">
             Cancel Join
           </Button>
-          <Button onClick={()=>{this.joinRoom(this.input)}} color="primary">
+          <Button onClick={() => {
+            this.joinRoom(this.input)
+          }} color="primary">
             Join Room
           </Button>
         </DialogActions>

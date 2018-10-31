@@ -31,8 +31,8 @@ const Header = ({roomName, userName}) => {
           Scrum Poker
         </Typography>
         <RoomName variant="subtitle1" color="inherit">
-          {userName !== undefined && <div> User Name: {userName}</div> }
-          {roomName !== undefined && <div> Room Name: {roomName}</div> }
+          {userName !== "" && <div> User Name: {userName}</div> }
+          {roomName !== "" && <div> Room Name: {roomName}</div> }
         </RoomName>
         <StyledIconButton
           href="https://github.com/ProPanek/ScrumPoker"
