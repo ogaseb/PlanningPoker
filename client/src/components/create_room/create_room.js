@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Grid, Card, Button, TextField } from "@material-ui/core";
+import React, {Component} from "react";
+import {Grid, Card, Button, TextField} from "@material-ui/core";
 import styled from "styled-components";
-import { inject, observer } from "mobx-react";
-import { withRouter } from "react-router-dom";
+import {inject, observer} from "mobx-react";
+import {withRouter} from "react-router-dom";
 
 const StyledGrid = styled(Grid)`
   &&{
@@ -38,13 +38,13 @@ class CreateRoom extends Component {
 
   handleChange = e => {
     if (e.target.id === "user-name") {
-      this.setState({ userName: e.target.value });
+      this.setState({userName: e.target.value});
     }
     if (e.target.id === "room-name") {
-      this.setState({ roomName: e.target.value });
+      this.setState({roomName: e.target.value});
     }
     if (e.target.id === "room-password") {
-      this.setState({ roomPassword: e.target.value });
+      this.setState({roomPassword: e.target.value});
     }
   };
 
@@ -60,10 +60,8 @@ class CreateRoom extends Component {
         this.state.roomPassword
       );
       const interval = setInterval(() => {
-        if(this.props.store.connected){
+        if (this.props.store.connected) {
           this.props.history.push(`/room/${this.props.store.roomId}/${this.state.roomPassword}`)
-          this.props.store.notificationMessage = "You have created a Room"
-          this.props.store.notificationVariant = "success"
           clearInterval(interval)
         }
       }, 100)

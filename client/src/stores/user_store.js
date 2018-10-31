@@ -1,10 +1,11 @@
 import React from 'react'
 import { decorate, observable } from "mobx";
-import {  } from 'react-router-dom'
 import socketIOClient from "socket.io-client";
 
 class UserStore {
   constructor() {
+    this.userName = ""
+    this.roomName = ""
     this.rooms = [];
     this.cardResults = [];
     this.users = [];
@@ -27,19 +28,25 @@ class UserStore {
       this.blockCard = false
     });
     this.socket.on("kickUser", (data) =>{
-      console.log(data)
       if (this.userId !== "" && this.userId === data.userId){
         this.kicked = true
-        this.notificationMessage = "You have been kicked from the Room"
+        this.admin = false;
+        this.connected = false
+        this.userName = ""
+        this.roomName = ""
+        this.userId = ""
+        this.roomId = ""
+        this.openJoinDialog = false
         this.notificationVariant = "error"
+        this.notificationMessage = "You have been kicked from the Room"
       }
     })
     this.socket.on("changeAdmin", (data) =>{
       console.log(data)
       if (this.userId === data){
         this.admin = true
-        this.notificationMessage = "You have been given admin privileges"
         this.notificationVariant = "info"
+        this.notificationMessage = "You have been given admin privileges"
         console.log(this.admin)
       }
     })
@@ -54,13 +61,14 @@ class UserStore {
     };
     this.socket.emit("createRoom", data);
     this.socket.on("createRoom", response => {
-      console.log(response)
       this.userId = response.user[response.user.length - 1].userId;
       this.roomId = response.roomId;
       this.roomName = response.roomName
+      this.openJoinDialog = false
       this.admin = true
       this.connected = true
-
+      this.notificationVariant = "success"
+      this.notificationMessage = "You have created a Room"
     });
 
   }
@@ -83,7 +91,10 @@ class UserStore {
       this.userId = response.user[response.user.length - 1].userId;
       this.roomId = response.roomId;
       this.roomName = response.roomName
+      this.openJoinDialog = false
       this.connected = true
+      this.notificationVariant = "success"
+      this.notificationMessage = "You have joined to the Room"
     });
   }
 

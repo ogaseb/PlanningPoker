@@ -179,19 +179,20 @@ io.on('connection', socket => {
 
   socket.on('disconnect', () => {
     let roomId = users.get(socket.id)
-    if (roomId) {
+    if (roomId !== undefined) {
       let room_temp = rooms.get(roomId.toString())
-      console.log(room_temp)
-      let index = lodash.findIndex(room_temp.user, function (o) {
-        return o.userId === socket.id;
-      });
-      if (index !== -1) {
-        room_temp.user.splice(index, 1)
-        if (room_temp.user.length === 1){
-          io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
+      if (room_temp !== undefined) {
+        let index = lodash.findIndex(room_temp.user, function (o) {
+          return o.userId === socket.id;
+        });
+        if (index !== -1) {
+          room_temp.user.splice(index, 1)
+          if (room_temp.user.length === 1){
+            io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
+          }
+          rooms.set(roomId.toString(), room_temp)
+          console.log('user disconnected from room')
         }
-        rooms.set(roomId.toString(), room_temp)
-        console.log('user disconnected from room')
       }
     }
     console.log('user disconnected from server')
