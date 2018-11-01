@@ -9,15 +9,31 @@ const Wrapper = styled(Card)`
   display: flex;
   flex-direction: row;
   margin: 0 auto;
+    margin-top:10px;
+
   width: 90%;
   flex-wrap: wrap;
 `;
 
-
-const CardResults = ({store: {cardResults}}) => {
+const WrapperWait = styled(Card)`
+  &&{
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  width: 90%;
+  flex-wrap: wrap;
+  margin-top:10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  justify-content: center;
+  }
+`;
+const CardResults = ({store: {cardResults, waiting}}) => {
 
   return (
     <Wrapper>
+      <WrapperWait> We're waiting for : {waiting} users </WrapperWait>
+
       {cardResults.map((result, index) => (
         <Card key={index} style={{width: "100px", minHeight: "20px"}}>
           <Typography>
