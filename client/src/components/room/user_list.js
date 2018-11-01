@@ -10,7 +10,7 @@ const Select = styled.select`
   width:100%;
 `
 
-const RoomName = styled(Typography)`
+const RoomName = styled.div`
   && {
   margin: 0 auto;
   }
