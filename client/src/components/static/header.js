@@ -21,7 +21,7 @@ const Header = () => {
     <AppBar position="static" color="default">
       <Toolbar>
         <Typography variant="title" color="inherit">
-          Scrum Poker
+          Planning Poker
         </Typography>
 
         <StyledIconButton
