@@ -26,19 +26,7 @@ const ButtonWrapper = styled.div`
    bottom:100px;
 `;
 
-const Wrapper = styled(Card)`
-  &&{
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-  width: 90%;
-  flex-wrap: wrap;
-  margin-top:10px;
-  margin-bottom: 10px;
-  padding: 5px;
-  justify-content: center;
-  }
-`;
+
 const cards = [0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
 
 class Controls extends Component {
@@ -61,7 +49,6 @@ class Controls extends Component {
   render() {
     return (
       <React.Fragment>
-        <Wrapper> We're waiting for : {this.props.store.waiting} users </Wrapper>
         <Button disabled={this.props.store.blockCard} variant="contained" color="secondary"
                 onClick={this.handleCard}>Send Card</Button>
         {this.props.store.admin && (
