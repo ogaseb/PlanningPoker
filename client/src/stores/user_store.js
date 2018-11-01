@@ -26,6 +26,9 @@ class UserStore {
     this.socket.on("resetCards", () => {
       this.cardResults = []
       this.blockCard = false
+      this.description = ""
+      this.title = ""
+
     });
     this.socket.on("kickUser", (data) =>{
       if (this.userId !== "" && this.userId === data.userId){
@@ -47,14 +50,15 @@ class UserStore {
         this.admin = true
         this.notificationVariant = "info"
         this.notificationMessage = "You have been given admin privileges"
-        console.log(this.admin)
       }
     })
     this.socket.on("broadcastTitle", (title) => {
-      this.title = title
+        this.title = title
+        console.log("gettin title", title)
     })
     this.socket.on("broadcastDescription", (description) => {
-      this.description = description
+        this.description = description
+        console.log("gettin description", description)
     })
 
   }
@@ -146,17 +150,17 @@ class UserStore {
     this.socket.emit("changeAdmin", data)
   }
 
-  broadcastTitle(title){
+  broadcastTitle(){
     const data = {
-      title: title,
+      title: this.title,
       roomId: this.roomId,
     };
     this.socket.emit("broadcastTitle", data)
   }
 
-  broadcastDescription(description){
+  broadcastDescription(){
     const data = {
-      description: description,
+      description: this.description,
       roomId: this.roomId,
     };
     this.socket.emit("broadcastDescription", data)

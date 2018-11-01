@@ -31,7 +31,6 @@ class JoinDialog extends Component {
     return (
       <Dialog
         open={this.props.store.openJoinDialog}
-        onClose={this.props.store.openJoinDialog}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Join Room</DialogTitle>
@@ -56,7 +55,7 @@ class JoinDialog extends Component {
           </Button>
           <Button onClick={() => {
             this.joinRoom(this.input)
-          }} color="primary">
+          }} color="primary" variant="contained">
             Join Room
           </Button>
         </DialogActions>
