@@ -22,6 +22,8 @@ const ButtonWrapper = styled.div`
   width: 83.333333%;
   height: 10vh;
   flex-wrap: wrap;
+   position:absolute;
+   bottom:100px;
 `;
 
 const Wrapper = styled(Card)`
