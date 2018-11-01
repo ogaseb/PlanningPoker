@@ -14,15 +14,15 @@ const Wrapper = styled(Card)`
 
 class ControlledEditor extends Component {
   handleChange = (value) => {
-    this.props.store.description = value
-    this.props.store.broadcastDescription()
+      this.props.store.description = value
+      this.props.store.broadcastDescription()
   }
 
   render() {
     return (
       <Wrapper>
         <ReactQuill
-          value={this.props.store.description}
+          value={this.props.store.description || ''}
           onChange={this.handleChange}/>
       </Wrapper>
     )
