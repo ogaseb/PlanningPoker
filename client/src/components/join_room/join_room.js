@@ -4,17 +4,17 @@ import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 
 const StyledGrid = styled(Grid)`
-  height: calc(100vh - 64px);
+  height: calc(100vh - 48px);
 `;
 
 const StyledCard = styled(Card)`
-  height: calc(100vh - 64px);
+  height: calc(100vh - 48px);
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   position: relative;
   top: calc(50vh - 144px);

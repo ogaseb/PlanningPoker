@@ -9,14 +9,9 @@ import Notification from './components/notification/notification'
 
 
 class App extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     this.props.store.fetchRooms();
   }
-
   render() {
     return (
       <div className="App">

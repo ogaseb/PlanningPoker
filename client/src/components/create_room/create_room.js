@@ -6,27 +6,29 @@ import {withRouter} from "react-router-dom";
 
 const StyledGrid = styled(Grid)`
   &&{
-  height: calc(100vh - 64px);
+  height: calc(100vh - 48px);
   }
 `;
 
 const StyledCard = styled(Card)`
   &&{
-  height: calc(100vh - 64px);
+  height: calc(100vh - 48px);
   }
 `;
 
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   position: relative;
   top: calc(50vh - 186px);
 `;
 
 const StyledButton = styled(Button)`
-  padding-top: 40px;
+  &&{
+  margin-top: 40px;
+  }
 `;
 
 class CreateRoom extends Component {

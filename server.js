@@ -84,7 +84,7 @@ io.on('connection', socket => {
         return o.roomId === data.roomId;
       });
 
-      if(index !== -1){
+      if (index !== -1) {
         fetch_rooms[index].user.push({userId: socket.id, userName: data.userName})
       }
 
@@ -116,13 +116,15 @@ io.on('connection', socket => {
     while (rooms_temp.game.length) {
       rooms_temp.game.pop();
     }
+    rooms_temp.title = ""
+    rooms_temp.description = ""
+
     io.in(data.roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
     io.in(data.roomId).emit("resetCards")
     rooms.set(data.roomId, rooms_temp)
   })
 
   socket.on("fetchUsers", (data) => {
-
     setInterval(() => {
       if (data) {
         const temp_room = rooms.get(data.roomId)
@@ -138,7 +140,6 @@ io.on('connection', socket => {
           }
         }
       }
-
     }, 1000)
   })
 
@@ -149,12 +150,12 @@ io.on('connection', socket => {
       let index = lodash.findIndex(room_temp.user, function (o) {
         return o.userId === data.userId;
       });
-      if (index !== -1){
+      if (index !== -1) {
         io.in(roomId.toString()).emit("kickUser", room_temp.user[index])
 
         room_temp.user.splice(index, 1)
         io.in(roomId.toString()).emit("waitingFor", room_temp.user.length - room_temp.game.length)
-        if (room_temp.user.length === 1){
+        if (room_temp.user.length === 1) {
           io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
         }
         rooms.set(roomId.toString(), room_temp)
@@ -163,32 +164,36 @@ io.on('connection', socket => {
     }
   })
 
-  socket.on('changeAdmin', (data) =>{
+  socket.on('changeAdmin', (data) => {
     let roomId = users.get(data.userId)
     if (roomId) {
       let room_temp = rooms.get(roomId.toString())
       let index = lodash.findIndex(room_temp.user, function (o) {
         return o.userId === data.userId;
       });
-      if(index !== -1){
+      if (index !== -1) {
         io.in(roomId.toString()).emit("changeAdmin", room_temp.user[index].userId)
         console.log('admin permissions given')
       }
     }
   })
 
-  socket.on('broadcastTitle', (data) =>{
+  socket.on('broadcastTitle', (data) => {
     let room_temp = rooms.get(data.roomId)
-    room_temp.title = data.title
-    io.in(data.roomId).emit("broadcastTitle", data.title)
-    rooms.set(data.roomId, room_temp)
+    if (room_temp.title !== data.title) {
+      room_temp.title = data.title
+      socket.broadcast.to(data.roomId).emit("broadcastTitle", data.title)
+      rooms.set(data.roomId, room_temp)
+    }
   })
 
-  socket.on('broadcastDescription', (data) =>{
+  socket.on('broadcastDescription', (data) => {
     let room_temp = rooms.get(data.roomId)
-    room_temp.description = data.description
-    io.in(data.roomId).emit("broadcastDescription", data.description)
-    rooms.set(data.roomId, room_temp)
+    if (room_temp.description !== data.description) {
+      room_temp.description = data.description
+      socket.broadcast.to(data.roomId).emit("broadcastDescription", data.description)
+      rooms.set(data.roomId, room_temp)
+    }
   })
 
   socket.on('disconnect', () => {
@@ -201,7 +206,8 @@ io.on('connection', socket => {
         });
         if (index !== -1) {
           room_temp.user.splice(index, 1)
-          if (room_temp.user.length === 1){
+          io.in(roomId.toString()).emit("waitingFor", room_temp.user.length - room_temp.game.length)
+          if (room_temp.user.length === 1) {
             io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
           }
           rooms.set(roomId.toString(), room_temp)
@@ -221,7 +227,7 @@ if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
+  app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
