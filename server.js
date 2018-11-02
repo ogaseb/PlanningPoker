@@ -57,7 +57,7 @@ io.on('connection', socket => {
     })
     jira.board.getAllBoards({startAt:0}, function(error, boards) {
       socket.emit("jiraLogin", boards)
-      console.log('Jira -> connecting and fetching boards')
+      console.log('Jira -> connecting and fetching boards', error)
 
     })
   })
@@ -65,7 +65,7 @@ io.on('connection', socket => {
   socket.on('jiraGetBoard', (data) => {
     jira.board.getIssuesForBacklog({boardId:data}, function(error, board) {
       socket.emit("jiraGetBoard", board)
-      console.log('Jira -> fetching singe board')
+      console.log('Jira -> fetching singe board', error)
 
     })
   })
