@@ -27,7 +27,7 @@
     "prettier": "^1.14.3",
     "sinon": "^6.3.4"
   },
-  "proxy": "https://scrum-poker-uk.herokuapp.com/",
+  "proxy": "https://planning-poker-uk.herokuapp.com/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
