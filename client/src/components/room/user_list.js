@@ -3,7 +3,7 @@ import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
-import {Button, Card} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 
 const Select = styled.select`
@@ -23,9 +23,19 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
 `;
 
+const UserDiv = styled.div`
+  height:50%;
+  overflow-y:auto;
+`;
+const JiraDiv = styled.div`
+  height:50%;
+  overflow-y:auto;
+`;
+
 class UserList extends Component {
   state = {
-    userId: ""
+    userId: "",
+    selectBoardId: ""
   }
 
   handleSelect = e => {
@@ -43,10 +53,24 @@ class UserList extends Component {
     }
   }
 
+  selectBoard = (e) => {
+    // this.setState({selectBoardId: e.target.value});
+    this.props.store.selectBoard(e.target.value)
+  }
+
+  selectIssue = (e) => {
+    const fields = e.target.value.split("_")
+    this.props.store.title = fields[0]
+    this.props.store.description = fields[1]
+    this.props.store.broadcastTitle()
+    this.props.store.broadcastDescription()
+  }
+
   render() {
 
     return (
       <React.Fragment>
+        <UserDiv>
         <RoomName variant="body1" color="inherit">
           {this.props.store.userName !== "" && <div> User Name: {this.props.store.userName}</div> }
           {this.props.store.roomName !== "" && <div> Room Name: {this.props.store.roomName}</div> }
@@ -68,7 +92,30 @@ class UserList extends Component {
             <Button onClick={this.handleAdmin}>Give admin </Button>
           </Wrapper>
         )}
-
+        </UserDiv>
+        <JiraDiv>
+          <Typography>Jira Task Picker</Typography>
+          {this.props.store.jira.jiraBoards.values.length > 0 &&
+          <Select onChange={this.selectBoard}>
+            {this.props.store.jira.jiraBoards.values.map((data, index) => {
+              return (
+                <option key={index} value={data.id}>
+                  {data.name}
+                </option>
+              );
+            })}
+          </Select>}
+          {this.props.store.jira.activeBoard.issues.length > 0 &&
+          <Select onChange={this.selectIssue}>
+            {this.props.store.jira.activeBoard.issues.map((data, index) => {
+              return (
+                <option key={index} value={`${data.fields.summary}_${data.fields.description}`}>
+                  {data.key} - {data.fields.summary}
+                </option>
+              );
+            })}
+          </Select>}
+        </JiraDiv>
       </React.Fragment>
     )
   }
