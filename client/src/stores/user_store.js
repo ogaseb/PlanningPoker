@@ -47,7 +47,6 @@ class UserStore {
       }
     })
     this.socket.on("changeAdmin", (data) => {
-      console.log(data)
       if (this.userId === data) {
         this.admin = true
         this.notificationVariant = "info"
@@ -56,11 +55,9 @@ class UserStore {
     })
     this.socket.on("broadcastTitle", (title) => {
       this.title = title
-      console.log("gettin title", title)
     })
     this.socket.on("broadcastDescription", (description) => {
       this.description = description
-      console.log("gettin description", description)
     })
 
   }
@@ -185,8 +182,6 @@ class UserStore {
     this.socket.emit("jiraGetBoard", boardId)
     this.socket.on("jiraGetBoard", (data) => {
       this.jira.activeBoard = data
-      console.log(this.jira.activeBoard)
-
     })
 
   }
