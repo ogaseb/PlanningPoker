@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, {PureComponent} from "react"
 import Snackbar from "@material-ui/core/Snackbar"
 import IconButton from "@material-ui/core/IconButton"
 import CloseIcon from "@material-ui/icons/Close"
@@ -26,7 +26,7 @@ const NotificationSnackbar = styled(Snackbar)`
   }
 `
 
-class Notification extends Component{
+class Notification extends PureComponent{
 
   openNotification = (message, variant) => {
     this.notificationVariant = variant

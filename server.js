@@ -4,6 +4,8 @@ const socketIO = require('socket.io')
 const lodash = require('lodash');
 const crypto = require('crypto')
 const path = require('path');
+const JiraClient = require('jira-connector');
+
 
 
 const port = process.env.PORT || 5000;
@@ -20,7 +22,7 @@ let fetch_rooms = []
 let users = new Map()
 let rooms = new Map()
 let rooms_password = new Map()
-
+let jira
 function createRoomHash(roomName) {
   const current_date = (new Date()).valueOf().toString();
   const random = Math.random().toString();
@@ -39,11 +41,34 @@ function createRoomObject() {
 }
 
 io.on('connection', socket => {
-  console.log('User connected', socket.id)
+  console.log('User -> connected to server id:', socket.id)
 
   function fetchRooms() {
     socket.emit("fetchRooms", fetch_rooms)
   }
+
+  socket.on('jiraLogin', (data) => {
+    jira = new JiraClient( {
+      host: `${data.jiraSubdomain}.atlassian.net`,
+      basic_auth: {
+        username: `${data.jiraLogin}`,
+        password: `${data.jiraPassword}`
+      }
+    })
+    jira.board.getAllBoards({startAt:0}, function(error, boards) {
+      socket.emit("jiraLogin", boards)
+      console.log('Jira -> connecting and fetching boards')
+
+    })
+  })
+
+  socket.on('jiraGetBoard', (data) => {
+    jira.board.getIssuesForBacklog({boardId:data}, function(error, board) {
+      socket.emit("jiraGetBoard", board)
+      console.log('Jira -> fetching singe board')
+
+    })
+  })
 
   socket.on('createRoom', (data) => {
     const Room = createRoomObject();
@@ -63,7 +88,7 @@ io.on('connection', socket => {
     socket.emit("createRoom", Room)
     socket.join(RoomId);
     io.in(RoomId).emit("waitingFor", Room.user.length - Room.game.length)
-    console.log("userCreatedRoom! RoomId: ", RoomId)
+    console.log("User -> Created room! RoomId:", RoomId)
   })
 
   setInterval(() => {
@@ -88,7 +113,7 @@ io.on('connection', socket => {
         fetch_rooms[index].user.push({userId: socket.id, userName: data.userName})
       }
 
-      console.log("userJoined! RoomId: ", data.roomId)
+      console.log("User -> Joined room! RoomId:", data.roomId)
       socket.emit('joinRoom', rooms_temp)
 
       rooms.set(data.roomId, rooms_temp)
@@ -136,7 +161,7 @@ io.on('connection', socket => {
             });
             fetch_rooms.splice(index, 1)
             rooms.delete(data.roomId)
-            console.log("Room deleted!")
+            console.log("Server -> Room deleted! RoomId:", data.roomId)
           }
         }
       }
@@ -159,7 +184,7 @@ io.on('connection', socket => {
           io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
         }
         rooms.set(roomId.toString(), room_temp)
-        console.log('user kicked')
+        console.log('User -> kicked')
       }
     }
   })
@@ -173,7 +198,7 @@ io.on('connection', socket => {
       });
       if (index !== -1) {
         io.in(roomId.toString()).emit("changeAdmin", room_temp.user[index].userId)
-        console.log('admin permissions given')
+        console.log('User -> admin permissions given')
       }
     }
   })
@@ -211,15 +236,15 @@ io.on('connection', socket => {
             io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
           }
           rooms.set(roomId.toString(), room_temp)
-          console.log('user disconnected from room')
+          console.log('User -> disconnected from room')
         }
       }
     }
-    console.log('user disconnected from server')
+    console.log('User -> disconnected from server')
   })
 
   socket.on('disconnecting', (reason) => {
-    console.log(reason)
+    console.log("User -> disconnecting reason:",reason)
   });
 })
 

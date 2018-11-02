@@ -1,5 +1,5 @@
 import React from 'react'
-import { decorate, observable } from "mobx";
+import {decorate, observable} from "mobx";
 import socketIOClient from "socket.io-client";
 
 class UserStore {
@@ -7,6 +7,7 @@ class UserStore {
     this.userName = ""
     this.roomName = ""
     this.rooms = [];
+    this.jira = {jiraBoards: [], activeBoard: {issues:[]}};
     this.cardResults = [];
     this.users = [];
     this.admin = false;
@@ -16,6 +17,7 @@ class UserStore {
     this.notificationVariant = "info"
     this.blockCard = false
     this.openJoinDialog = false
+    this.jiraLoggedIn = false
     this.socket = socketIOClient(process.env.ENDPOINT);
     this.socket.on("sendCard", (response) => {
       this.cardResults = response
@@ -30,8 +32,8 @@ class UserStore {
       this.title = ""
 
     });
-    this.socket.on("kickUser", (data) =>{
-      if (this.userId !== "" && this.userId === data.userId){
+    this.socket.on("kickUser", (data) => {
+      if (this.userId !== "" && this.userId === data.userId) {
         this.kicked = true
         this.admin = false;
         this.connected = false
@@ -44,21 +46,21 @@ class UserStore {
         this.notificationMessage = "You have been kicked from the Room"
       }
     })
-    this.socket.on("changeAdmin", (data) =>{
+    this.socket.on("changeAdmin", (data) => {
       console.log(data)
-      if (this.userId === data){
+      if (this.userId === data) {
         this.admin = true
         this.notificationVariant = "info"
         this.notificationMessage = "You have been given admin privileges"
       }
     })
     this.socket.on("broadcastTitle", (title) => {
-        this.title = title
-        console.log("gettin title", title)
+      this.title = title
+      console.log("gettin title", title)
     })
     this.socket.on("broadcastDescription", (description) => {
-        this.description = description
-        console.log("gettin description", description)
+      this.description = description
+      console.log("gettin description", description)
     })
 
   }
@@ -85,7 +87,7 @@ class UserStore {
   }
 
   fetchRooms() {
-    this.socket.on("fetchRooms", (response )=> {
+    this.socket.on("fetchRooms", (response) => {
       this.rooms = response;
     });
   }
@@ -109,7 +111,7 @@ class UserStore {
     });
   }
 
-  sendCard(card){
+  sendCard(card) {
     const data = {
       userName: this.userName,
       roomId: this.roomId,
@@ -118,7 +120,7 @@ class UserStore {
     this.socket.emit("sendCard", data);
   }
 
-  resetCards(){
+  resetCards() {
     const data = {
       roomId: this.roomId,
     };
@@ -126,31 +128,31 @@ class UserStore {
 
   }
 
-  fetchUsers(){
+  fetchUsers() {
     const data = {
       roomId: this.roomId,
     };
     this.socket.emit("fetchUsers", data)
-    this.socket.on("fetchUsers", (response )=> {
+    this.socket.on("fetchUsers", (response) => {
       this.users = response;
     });
   }
 
-  kickUser(userId){
+  kickUser(userId) {
     const data = {
-      userId: userId ,
+      userId: userId,
     };
     this.socket.emit("kickUser", data)
   }
 
-  changeAdmin(userId){
+  changeAdmin(userId) {
     const data = {
-      userId: userId ,
+      userId: userId,
     };
     this.socket.emit("changeAdmin", data)
   }
 
-  broadcastTitle(){
+  broadcastTitle() {
     const data = {
       title: this.title,
       roomId: this.roomId,
@@ -158,12 +160,35 @@ class UserStore {
     this.socket.emit("broadcastTitle", data)
   }
 
-  broadcastDescription(){
+  broadcastDescription() {
     const data = {
       description: this.description,
       roomId: this.roomId,
     };
     this.socket.emit("broadcastDescription", data)
+  }
+
+  jiraLogin(jiraSubdomain, jiraLogin, jiraPassword) {
+    const data = {
+      jiraSubdomain: jiraSubdomain,
+      jiraLogin: jiraLogin,
+      jiraPassword: jiraPassword
+    };
+    this.socket.emit("jiraLogin", data)
+    this.socket.on("jiraLogin", (data) => {
+      this.jiraLoggedIn = true
+      this.jira.jiraBoards = data
+    })
+  }
+
+  selectBoard(boardId) {
+    this.socket.emit("jiraGetBoard", boardId)
+    this.socket.on("jiraGetBoard", (data) => {
+      this.jira.activeBoard = data
+      console.log(this.jira.activeBoard)
+
+    })
+
   }
 }
 
@@ -184,8 +209,10 @@ decorate(UserStore, {
   notificationVariant: observable,
   blockCard: observable,
   openJoinDialog: observable,
-  title:observable,
-  description:observable
+  title: observable,
+  description: observable,
+  jiraLoggedIn: observable,
+  jira: observable
 });
 
 export default UserStore;

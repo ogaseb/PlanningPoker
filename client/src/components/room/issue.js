@@ -39,10 +39,7 @@ class Issue extends Component {
       this.props.store.title = e.target.value
       this.props.store.broadcastTitle()
     }
-    if (e.target.id === "description"){
-      // this.props.store.description = e.target.value
-      // this.props.store.broadcastDescription()
-    }
+
   }
 
   render() {
