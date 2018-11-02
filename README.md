@@ -30,7 +30,7 @@ cd client/
 yarn install 
 ```
 
-Next you need to go to the `package.json` in your `root` and change or add line to
+Next you need to go to the `package.json` in your `/client` and change or add line to
 
 ```
 "proxy": "http://localhost:5000",
