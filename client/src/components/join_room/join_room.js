@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Grid, Card, Button, TextField } from "@material-ui/core";
+import React, {Component} from "react";
+import {Grid, Card, Button, TextField} from "@material-ui/core";
 import styled from "styled-components";
-import { inject, observer } from "mobx-react";
+import {inject, observer} from "mobx-react";
 
 const StyledGrid = styled(Grid)`
   height: calc(100vh - 48px);
@@ -29,15 +29,15 @@ class JoinRoom extends Component {
 
   handleChange = e => {
     if (e.target.id === "join-room-password") {
-      this.setState({ roomPassword: e.target.value });
+      this.setState({roomPassword: e.target.value});
     }
     if (e.target.id === "join-user-name") {
-      this.setState({ userName: e.target.value });
+      this.setState({userName: e.target.value});
     }
   };
 
   handleSelect = e => {
-    this.setState({ roomId: e.target.value });
+    this.setState({roomId: e.target.value});
   };
 
   handleSubmit = () => {
@@ -48,8 +48,8 @@ class JoinRoom extends Component {
         this.state.userName
       );
       const interval = setInterval(() => {
-        if(this.props.store.connected){
-          this.props.history.push(`/room/${this.props.store.roomId}/${this.state.roomPassword}`)
+        if (this.props.store.connected) {
+          this.props.history.push(`/room/${this.props.store.room.roomId}/${this.state.roomPassword}`)
           clearInterval(interval)
         }
       }, 100)
@@ -58,19 +58,20 @@ class JoinRoom extends Component {
   };
 
   render() {
+    const {store: {room: {rooms}}} = this.props
     return (
       <StyledGrid item xs={6}>
         <StyledCard>
           <Wrapper>
             <select size="10" onClick={this.handleSelect}>
-              {this.props.store.rooms.length > 0 &&
-                this.props.store.rooms.map((data, index) => {
-                  return (
-                    <option key={index} value={data.roomId}>
-                      Room Name: {data.roomName} - users: {data.user.length}
-                    </option>
-                  );
-                })}
+              {rooms.length > 0 &&
+              rooms.map((data, index) => {
+                return (
+                  <option key={index} value={data.roomId}>
+                    Room Name: {data.roomName} - users: {data.user.length}
+                  </option>
+                );
+              })}
             </select>
             <TextField
               id="join-user-name"

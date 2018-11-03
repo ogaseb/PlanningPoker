@@ -19,7 +19,7 @@ class JoinDialog extends Component {
     const {match: {params}} = this.props
     this.props.store.joinRoom(params.id, params.password, name)
     this.props.store.openJoinDialog = false
-    this.props.store.connected = true
+    this.props.store.user.connected = true
   }
 
   cancelJoinRoom = () => {
@@ -27,10 +27,10 @@ class JoinDialog extends Component {
   }
 
   render() {
-
+    const {store:{openJoinDialog}} = this.props
     return (
       <Dialog
-        open={this.props.store.openJoinDialog}
+        open={openJoinDialog}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Join Room</DialogTitle>

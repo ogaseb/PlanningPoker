@@ -46,7 +46,8 @@ class Controls extends Component {
 
   handleReset = () => {
     this.props.store.resetCards()
-    this.props.store.cardResults = []
+    this.props.store.room.cardResults = []
+    this.props.store.jira.issueId = ""
   }
 
   handleCard = () => {
@@ -61,7 +62,7 @@ class Controls extends Component {
 
   handleEstimation = () => {
     this.props.store.setIssueEstimation()
-    this.props.store.issueId = ""
+    this.props.store.jira.issueId = ""
   }
 
 
@@ -70,11 +71,11 @@ class Controls extends Component {
       <React.Fragment>
         <Button disabled={this.props.store.blockCard} variant="contained" color="secondary"
                 onClick={this.handleCard}>Send Card</Button>
-        {this.props.store.admin && (
+        {this.props.store.user.admin && (
           <React.Fragment>
             <Button onClick={this.handleReset}>Next issue</Button>
             <Button
-              disabled={this.props.store.issueId === ""}
+              disabled={this.props.store.jira.issueId === ""}
               onClick={this.handleEstimation}>Set estimation point</Button>
           </React.Fragment>
         )}

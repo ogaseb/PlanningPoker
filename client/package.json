@@ -28,7 +28,7 @@
     "prettier": "^1.14.3",
     "sinon": "^6.3.4"
   },
-  "proxy": "https://planning-poker-uk.herokuapp.com/",
+  "proxy": "http://localhost:5000/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

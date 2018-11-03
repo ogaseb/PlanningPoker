@@ -3,63 +3,74 @@ import socketIOClient from "socket.io-client";
 
 class UserStore {
   constructor() {
-    this.userName = ""
-    this.roomName = ""
-    this.rooms = [];
-    this.jira = {jiraBoards: [], activeBoard: {issues:[]}};
-    this.cardResults = [];
-    this.users = [];
-    this.admin = false;
-    this.kicked = false
-    this.connected = false
+    this.user = {
+      userName: "",
+      userId: "",
+      users: [],
+      kicked: false,
+      connected: false,
+      admin: false
+    }
+
+    this.room = {
+      roomName: "",
+      roomId: "",
+      rooms: [],
+      cardResults: [],
+      waiting: 0
+    }
+
+    this.jira = {
+      jiraBoards: [],
+      activeBoard: {
+        issues: []
+      },
+      title: "",
+      description: "",
+      jiraLoggedIn: false,
+      issueId:"",
+      boardId:"",
+      estimationScore: ""
+    }
+
     this.notificationMessage = null
     this.notificationVariant = "info"
     this.blockCard = false
     this.openJoinDialog = false
-    this.jiraLoggedIn = false
-    this.issueId = ""
-    this.boardId = ""
-    this.estimationScore = ""
     this.socket = socketIOClient(process.env.ENDPOINT);
     this.socket.on("sendCard", (response) => {
-      this.cardResults = response
+      this.room.cardResults = response
     });
     this.socket.on("waitingFor", (response) => {
-      this.waiting = response
+      this.room.waiting = response
     });
     this.socket.on("resetCards", () => {
-      this.cardResults = []
+      this.room.cardResults = []
       this.blockCard = false
-      this.description = ""
-      this.title = ""
+      this.jira.description = this.jira.title = ""
 
     });
     this.socket.on("kickUser", (data) => {
-      if (this.userId !== "" && this.userId === data.userId) {
-        this.kicked = true
-        this.admin = false;
-        this.connected = false
-        this.userName = ""
-        this.roomName = ""
-        this.userId = ""
-        this.roomId = ""
-        this.openJoinDialog = false
+      if (this.user.userId !== "" && this.user.userId === data.userId) {
+        this.user.kicked = true
+        this.user.admin = this.user.connected = this.openJoinDialog = false;
+        this.user.userName = this.room.roomName = this.user.userId = this.room.roomId = ""
         this.notificationVariant = "error"
         this.notificationMessage = "You have been kicked from the Room"
       }
     })
     this.socket.on("changeAdmin", (data) => {
-      if (this.userId === data) {
-        this.admin = true
+      if (this.user.userId === data) {
+        this.user.admin = true
         this.notificationVariant = "info"
         this.notificationMessage = "You have been given admin privileges"
       }
     })
     this.socket.on("broadcastTitle", (title) => {
-      this.title = title
+      this.jira.title = title
     })
     this.socket.on("broadcastDescription", (description) => {
-      this.description = description
+      this.jira.description = description
     })
     this.socket.on("error", (description) => {
       this.notificationVariant = "warning"
@@ -69,20 +80,21 @@ class UserStore {
   }
 
   createRoom(userName, roomName, roomPassword) {
-    this.userName = userName;
+    console.log(this.user)
+    this.user.userName = userName;
     const data = {
-      userName: this.userName,
+      userName: this.user.userName,
       roomName,
       roomPassword: roomPassword
     };
     this.socket.emit("createRoom", data);
     this.socket.on("createRoom", response => {
-      this.userId = response.user[response.user.length - 1].userId;
-      this.roomId = response.roomId;
-      this.roomName = response.roomName
+      this.user.userId = response.user[response.user.length - 1].userId;
+      this.room.roomId = response.roomId;
+      this.room.roomName = response.roomName
       this.openJoinDialog = false
-      this.admin = true
-      this.connected = true
+      this.user.admin = true
+      this.user.connected = true
       this.notificationVariant = "success"
       this.notificationMessage = "You have created a Room"
     });
@@ -91,24 +103,24 @@ class UserStore {
 
   fetchRooms() {
     this.socket.on("fetchRooms", (response) => {
-      this.rooms = response;
+      this.room.rooms = response;
     });
   }
 
   joinRoom(roomId, roomPassword, userName) {
-    this.userName = userName;
+    this.user.userName = userName;
     const data = {
-      userName: this.userName,
+      userName: this.user.userName,
       roomId: roomId,
       roomPassword: roomPassword
     };
     this.socket.emit("joinRoom", data);
     this.socket.on("joinRoom", (response) => {
-      this.userId = response.user[response.user.length - 1].userId;
-      this.roomId = response.roomId;
-      this.roomName = response.roomName
+      this.user.userId = response.user[response.user.length - 1].userId;
+      this.room.roomId = response.roomId;
+      this.room.roomName = response.roomName
       this.openJoinDialog = false
-      this.connected = true
+      this.user.connected = true
       this.notificationVariant = "success"
       this.notificationMessage = "You have joined to the Room"
     });
@@ -116,8 +128,8 @@ class UserStore {
 
   sendCard(card) {
     const data = {
-      userName: this.userName,
-      roomId: this.roomId,
+      userName: this.user.userName,
+      roomId: this.room.roomId,
       cardValue: card
     };
     this.socket.emit("sendCard", data);
@@ -125,7 +137,7 @@ class UserStore {
 
   resetCards() {
     const data = {
-      roomId: this.roomId,
+      roomId: this.room.roomId,
     };
     this.socket.emit("resetCards", data);
 
@@ -133,11 +145,12 @@ class UserStore {
 
   fetchUsers() {
     const data = {
-      roomId: this.roomId,
+      roomId: this.room.roomId,
     };
     this.socket.emit("fetchUsers", data)
     this.socket.on("fetchUsers", (response) => {
-      this.users = response;
+      console.log(response)
+      this.user.users = response;
     });
   }
 
@@ -157,16 +170,16 @@ class UserStore {
 
   broadcastTitle() {
     const data = {
-      title: this.title,
-      roomId: this.roomId,
+      title: this.jira.title,
+      roomId: this.room.roomId,
     };
     this.socket.emit("broadcastTitle", data)
   }
 
   broadcastDescription() {
     const data = {
-      description: this.description,
-      roomId: this.roomId,
+      description: this.jira.description,
+      roomId: this.room.roomId,
     };
     this.socket.emit("broadcastDescription", data)
   }
@@ -179,7 +192,7 @@ class UserStore {
     };
     this.socket.emit("jiraLogin", data)
     this.socket.on("jiraLogin", (data) => {
-      this.jiraLoggedIn = true
+      this.jira.jiraLoggedIn = true
       this.jira.jiraBoards = data
     })
   }
@@ -196,42 +209,27 @@ class UserStore {
     })
   }
 
-  setIssueEstimation(){
+  setIssueEstimation() {
     const data = {
-      issueId: this.issueId,
-      boardId: this.boardId,
-      estimationScore: this.estimationScore
+      issueId: this.jira.issueId,
+      boardId: this.jira.boardId,
+      estimationScore: this.jira.estimationScore
     };
-    if (this.issueId !== undefined) {
+    if (this.jira.issueId !== undefined) {
       this.socket.emit("jiraSetEstimation", data)
     }
   }
 }
 
 decorate(UserStore, {
-  userName: observable,
-  userId: observable,
-  roomName: observable,
-  roomId: observable,
+  user: observable,
+  room: observable,
+  jira: observable,
   socket: observable,
-  rooms: observable,
-  waiting: observable,
-  cardResults: observable,
-  users: observable,
-  kicked: observable,
-  admin: observable,
-  connected: observable,
   notificationMessage: observable,
   notificationVariant: observable,
   blockCard: observable,
-  openJoinDialog: observable,
-  title: observable,
-  description: observable,
-  jiraLoggedIn: observable,
-  jira: observable,
-  issueId: observable,
-  boardId: observable,
-  estimationScore: observable
+  openJoinDialog: observable
 });
 
 export default UserStore;

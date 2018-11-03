@@ -62,15 +62,15 @@ class UserList extends Component {
   }
 
   selectBoard = (e) => {
-    this.props.store.boardId = e.target.value
+    this.props.store.jira.boardId = e.target.value
     this.props.store.selectBoard(e.target.value)
   }
 
   selectIssue = (e) => {
     const fields = e.target.value.split("_")
-    this.props.store.title = fields[0]
-    this.props.store.description = fields[1]
-    this.props.store.issueId = fields[2]
+    this.props.store.jira.title = fields[0]
+    this.props.store.jira.description = fields[1]
+    this.props.store.jira.issueId = fields[2]
     this.props.store.broadcastTitle()
     this.props.store.broadcastDescription()
   }
@@ -80,26 +80,26 @@ class UserList extends Component {
   };
 
   render() {
-
     return (
       <React.Fragment>
         <UserDiv>
           <RoomName variant="body1" color="inherit">
-            {this.props.store.userName !== "" && <div> User Name: {this.props.store.userName}</div>}
-            {this.props.store.roomName !== "" && <div> Room Name: {this.props.store.roomName}</div>}
+            {this.props.store.user.userName !== "" && <div> User Name: {this.props.store.user.userName}</div>}
+            {this.props.store.room.roomName !== "" && <div> Room Name: {this.props.store.room.roomName}</div>}
           </RoomName>
-          <Typography>users : {this.props.store.users.length}</Typography>
-          <DefaultSelect size={this.props.store.users.length} onChange={this.handleSelect}>
-            {this.props.store.users.length > 0 &&
-            this.props.store.users.map((data, index) => {
+          <Typography>users : {this.props.store.user.users.length}</Typography>
+          <DefaultSelect size={this.props.store.user.users.length} onChange={this.handleSelect}>
+            {this.props.store.user.users.length > 0 &&
+            this.props.store.user.users.map((data, index) => {
               return (
                 <option key={index} value={data.userId}>
+                  {console.log(data)}
                   {data.userName}
                 </option>
               );
             })}
           </DefaultSelect>
-          {this.props.store.admin && (
+          {this.props.store.user.admin && (
             <Wrapper>
               <Button onClick={this.handleKick}>Kick User</Button>
               <Button onClick={this.handleAdmin}>Give admin </Button>

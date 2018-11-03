@@ -12,21 +12,22 @@ const Wrapper = styled(Card)`
   margin-bottom:20px;
 `;
 
-class ControlledEditor extends Component {
+class Editor extends Component {
   handleChange = (value) => {
-      this.props.store.description = value
+      this.props.store.jira.description = value
       this.props.store.broadcastDescription()
   }
 
   render() {
+    const {store:{jira:{description}}} = this.props
     return (
       <Wrapper>
         <ReactQuill
-          value={this.props.store.description || ''}
+          value={description || ''}
           onChange={this.handleChange}/>
       </Wrapper>
     )
   }
 }
 
-export default inject("store")(withRouter(observer(ControlledEditor)));
+export default inject("store")(withRouter(observer(Editor)));

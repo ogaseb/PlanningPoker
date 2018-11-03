@@ -28,11 +28,11 @@ class Room extends Component {
     this.props.store.fetchUsers()
     window.onpopstate = this.onBackButtonEvent
     setInterval(() => {
-      if (this.props.store.kicked) {
+      if (this.props.store.user.kicked) {
         this.props.history.push(`/`)
-        this.props.store.kicked = false
+        this.props.store.user.kicked = false
       }
-      if (!this.props.store.connected) {
+      if (!this.props.store.user.connected) {
         this.props.store.openJoinDialog = true
       }
     }, 250)
@@ -40,15 +40,10 @@ class Room extends Component {
 
   onBackButtonEvent = (e) => {
     e.preventDefault()
-    this.props.store.kickUser(this.props.store.userId)
-    this.props.store.rooms = []
-    this.props.store.users = []
-    this.props.store.admin = false
-    this.props.store.connected = false
-    this.props.store.userName = ""
-    this.props.store.userId = ""
-    this.props.store.roomName = ""
-    this.props.store.roomId = ""
+    this.props.store.kickUser(this.props.store.user.userId)
+    this.props.store.room.rooms = this.props.store.user.users = []
+    this.props.store.user.admin = this.props.store.user.connected = false
+    this.props.store.user.userName =  this.props.store.user.userId = this.props.store.room.roomName = this.props.store.room.roomId = ""
     setTimeout(() => {
       this.props.store.notificationMessage = "You have leaved the Room"
       this.props.store.notificationVariant = "warning"

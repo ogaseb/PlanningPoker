@@ -78,5 +78,4 @@ decorate(Notification, {
   notificationVariant: observable
 });
 
-export { Notification }
 export default inject("store")(observer(Notification))

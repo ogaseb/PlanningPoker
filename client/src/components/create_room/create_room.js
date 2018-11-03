@@ -62,8 +62,8 @@ class CreateRoom extends Component {
         this.state.roomPassword
       );
       const interval = setInterval(() => {
-        if (this.props.store.connected) {
-          this.props.history.push(`/room/${this.props.store.roomId}/${this.state.roomPassword}`)
+        if (this.props.store.user.connected) {
+          this.props.history.push(`/room/${this.props.store.room.roomId}/${this.state.roomPassword}`)
           clearInterval(interval)
         }
       }, 100)

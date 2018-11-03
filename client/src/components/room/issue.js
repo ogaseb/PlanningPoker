@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 
 import styled from "styled-components";
-import ControlledEditor from '../../components/editor/ControlledEditor'
+import Editor from '../editor/editor'
 
 const StyledTextField = styled(TextField)`
   &&{
@@ -29,7 +29,7 @@ class Issue extends Component {
 
   handleChange = (e) =>{
     if (e.target.id === "title"){
-      this.props.store.title = e.target.value
+      this.props.store.jira.title = e.target.value
       this.props.store.broadcastTitle()
     }
 
@@ -45,7 +45,7 @@ class Issue extends Component {
           </Typography>
           <StyledTextField
             id="title"
-            value={this.props.store.title}
+            value={this.props.store.jira.title}
             onChange={this.handleChange}
             margin="normal"
           />
@@ -54,7 +54,7 @@ class Issue extends Component {
           <Typography variant="subtitle2">
             Description
           </Typography>
-          <ControlledEditor />
+          <Editor />
 
         </StyledTitleCard>
       </React.Fragment>
