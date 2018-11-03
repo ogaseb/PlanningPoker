@@ -3,28 +3,35 @@ import styled from 'styled-components'
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-
-
 import {Jira} from 'mdi-material-ui'
 import {TextField} from "@material-ui/core";
 import {decorate, observable} from "mobx";
+import Paper from "@material-ui/core/Paper/Paper";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 
-const StyledMenu = styled(Menu)`
+
+const StyledPaper = styled(Paper)`
   && {
   padding:0;
-  width:50vw;
-  min-width:50vw;
+  width:100%;
   }
 `
 
 const DefaultSelect = styled.select`
   width:100%;
+`
+
+const StyledExpansionPanelDetails = styled(ExpansionPanelDetails)`
+  &&{
+  padding:0;
+  }
 `
 
 class JiraConnector extends Component {
@@ -35,24 +42,15 @@ class JiraConnector extends Component {
     this.jiraSubdomain = ""
     this.subdomains = []
     this.state = {
-      anchorEl: null
+      open: false,
     };
   }
 
   componentDidMount() {
     if (localStorage.getItem("jira-credentials") !== null && localStorage.getItem("jira-subdomains") !== null) {
-      const subdomains =  JSON.parse(localStorage.getItem('jira-subdomains'));
-      this.subdomains = subdomains
+      this.subdomains = JSON.parse(localStorage.getItem('jira-subdomains'))
     }
   }
-
-  handleClick = event => {
-    this.setState({anchorEl: event.currentTarget});
-  };
-
-  handleClose = () => {
-    this.setState({anchorEl: null});
-  };
 
   handleChange = (e) => {
     if (e.target.id === "login-jira") {
@@ -80,6 +78,7 @@ class JiraConnector extends Component {
       this.jiraLogin = this.jiraPassword = this.jiraSubdomain = ""
       localStorage.setItem('jira-subdomains', JSON.stringify(subDomains));
       localStorage.setItem('jira-credentials', JSON.stringify(data));
+      this.subdomains = JSON.parse(localStorage.getItem('jira-subdomains'))
     }
   }
 
@@ -91,8 +90,7 @@ class JiraConnector extends Component {
 
   addSubdomain = () => {
     if (localStorage.getItem("jira-subdomains") !== null) {
-      let subdomains = localStorage.getItem('jira-subdomains');
-      subdomains = JSON.parse(subdomains)
+      let subdomains = JSON.parse(localStorage.getItem('jira-subdomains'));
       subdomains.push(this.jiraSubdomainMore)
       this.jiraSubdomainMore = ""
       localStorage.setItem('jira-subdomains', JSON.stringify(subdomains));
@@ -103,10 +101,8 @@ class JiraConnector extends Component {
 
   changeSubdomain = (e) => {
     if (localStorage.getItem("jira-credentials") !== null) {
-      let data = localStorage.getItem('jira-credentials');
-      let subdomains = localStorage.getItem('jira-subdomains');
-      data = JSON.parse(data)
-      subdomains = JSON.parse(subdomains)
+      const data =  JSON.parse(localStorage.getItem('jira-credentials'));
+      const subdomains = JSON.parse(localStorage.getItem('jira-subdomains'));
       this.props.store.jiraLogin(subdomains[parseInt(e.target.value)], data.jiraLogin, data.jiraPassword)
       this.subdomains = subdomains
     }
@@ -117,73 +113,87 @@ class JiraConnector extends Component {
     return (
       <React.Fragment>
         <Divider/>
-        <ListItem button onClick={this.handleClick}>
-          <ListItemIcon><Jira/> </ListItemIcon>
-          <ListItemText primary={"Jira"}/>
-        </ListItem>
 
-        <StyledMenu
-          id="simple-menu"
-          anchorEl={this.state.anchorEl}
-          open={Boolean(this.state.anchorEl)}
-          onClose={this.handleClose}
-        >
-          {this.props.store.jira.jiraLoggedIn && <div>
-            <MenuItem>
-              <TextField
-                id="more-subdomain-jira"
-                label="Add more subdomains"
-                placeholder="subdomain.atlassian.net"
-                value={this.jiraSubdomainMore}
-                onChange={this.handleChange}
-                type="text"
-              />
-            </MenuItem>
-            <MenuItem onClick={this.addSubdomain}>Save subdomain</MenuItem>
-            <DefaultSelect onChange={this.changeSubdomain}>
-              {this.subdomains.length > 0 && this.subdomains.map((data, index) => {
-                return (
-                  <option value={index}>{data}</option>
-                )
-              })}
-            </DefaultSelect>
-            <Divider/>
-            <MenuItem onClick={this.handleJiraLogout}>Log Out</MenuItem>
+        <ExpansionPanel>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <ListItemIcon><Jira /></ListItemIcon>
+            <ListItemText primary={"Jira"}/>
+          </ExpansionPanelSummary>
+          <StyledExpansionPanelDetails>
+            <StyledPaper>
+              {this.props.store.jira.jiraLoggedIn && <div>
+                <MenuItem>
+                  <TextField
+                    id="more-subdomain-jira"
+                    label="Add more subdomains"
+                    placeholder="subdomain.atlassian.net"
+                    value={this.jiraSubdomainMore}
+                    onChange={this.handleChange}
+                    type="text"
+                  />
+                </MenuItem>
+                <MenuItem onClick={this.addSubdomain}>Save subdomain</MenuItem>
+                <DefaultSelect onChange={this.changeSubdomain}>
+                  {this.subdomains.length > 0 && this.subdomains.map((data, index) => {
+                    return (
+                      <option key={index} value={index}>{data}</option>
+                    )
+                  })}
+                </DefaultSelect>
+                <Divider/>
+                <MenuItem onClick={this.handleJiraLogout}>Log Out</MenuItem>
 
-          </div>}
-          {!this.props.store.jira.jiraLoggedIn && <div>
-            <MenuItem>
-              <TextField
-                id="subdomain-jira"
-                label="Jira subdomain"
-                placeholder="subdomain.atlassian.net"
-                value={this.jiraSubdomain}
-                onChange={this.handleChange}
-                type="text"
-              />
-            </MenuItem>
-            <MenuItem>
-              <TextField
-                id="login-jira"
-                label="Jira E-mail"
-                value={this.jiraLogin}
-                onChange={this.handleChange}
-                type="email"
-              />
-            </MenuItem>
-            <MenuItem>
-              <TextField
-                id="password-jira"
-                label="Jira api-key"
-                value={this.jiraPassword}
-                onChange={this.handleChange}
-                type="password"
-              />
-            </MenuItem>
-            <Divider/>
-            <MenuItem onClick={this.handleJiraLogin}>Login</MenuItem>
-          </div>}
-        </StyledMenu>
+              </div>}
+              {!this.props.store.jira.jiraLoggedIn && <div>
+                <MenuItem>
+                  <TextField
+                    id="subdomain-jira"
+                    label="Jira subdomain"
+                    placeholder="subdomain.atlassian.net"
+                    value={this.jiraSubdomain}
+                    onChange={this.handleChange}
+                    type="text"
+                  />
+                </MenuItem>
+                <MenuItem>
+                  <TextField
+                    id="login-jira"
+                    label="Jira E-mail"
+                    value={this.jiraLogin}
+                    onChange={this.handleChange}
+                    type="email"
+                  />
+                </MenuItem>
+                <MenuItem>
+                  <TextField
+                    id="password-jira"
+                    label="Jira api-key"
+                    value={this.jiraPassword}
+                    onChange={this.handleChange}
+                    type="password"
+                  />
+                </MenuItem>
+                <Divider/>
+                <MenuItem onClick={this.handleJiraLogin}>Login</MenuItem>
+              </div>}
+            </StyledPaper>
+          </StyledExpansionPanelDetails>
+        </ExpansionPanel>
+        {/*<Popper open={this.state.open} onClose={this.handleClose} anchorEl={this.anchorEl} transition disablePortal>*/}
+          {/*{({ TransitionProps, placement, jiraSubdomain, jiraEmail, jiraPassword, jiraLogin, jiraSubdomainMore,  }) => (*/}
+            {/*<Grow*/}
+              {/*{...TransitionProps}*/}
+              {/*id="menu-list-grow"*/}
+              {/*style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}*/}
+            {/*>*/}
+              {/*<StyledPaper>*/}
+                {/*<ClickAwayListener onClickAway={this.handleClose}>*/}
+
+                {/*</ClickAwayListener>*/}
+              {/*</StyledPaper>*/}
+            {/*</Grow>*/}
+          {/*)}*/}
+        {/*</Popper>*/}
       </React.Fragment>
     );
   }

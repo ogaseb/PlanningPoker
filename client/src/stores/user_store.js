@@ -48,7 +48,6 @@ class UserStore {
       this.room.cardResults = []
       this.blockCard = false
       this.jira.description = this.jira.title = ""
-
     });
     this.socket.on("kickUser", (data) => {
       if (this.user.userId !== "" && this.user.userId === data.userId) {
@@ -76,7 +75,6 @@ class UserStore {
       this.notificationVariant = "warning"
       this.notificationMessage = description
     })
-
   }
 
   createRoom(userName, roomName, roomPassword) {
@@ -98,7 +96,6 @@ class UserStore {
       this.notificationVariant = "success"
       this.notificationMessage = "You have created a Room"
     });
-
   }
 
   fetchRooms() {
@@ -119,7 +116,7 @@ class UserStore {
       this.user.userId = response.user[response.user.length - 1].userId;
       this.room.roomId = response.roomId;
       this.room.roomName = response.roomName
-      this.openJoinDialog = false
+      this.jira.openJoinDialog = false
       this.user.connected = true
       this.notificationVariant = "success"
       this.notificationMessage = "You have joined to the Room"
