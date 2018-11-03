@@ -14,19 +14,12 @@ const StyledTextField = styled(TextField)`
   }
 `
 
-const StyledCard = styled(Card)`
-  &&{
-  margin: 0 auto;
-  width:95%;
-  }
-`
-
 const StyledTitleCard = styled(Card)`
   &&{
   margin: 0 auto;
     margin-top:20px;
 
-  width:90%;
+  width:100%;
   margin-bottom: 15px;
   }
 `
@@ -45,7 +38,7 @@ class Issue extends Component {
   render() {
 
     return (
-      <StyledCard>
+      <React.Fragment>
         <StyledTitleCard>
           <Typography variant="subtitle2">
             Title
@@ -57,14 +50,14 @@ class Issue extends Component {
             margin="normal"
           />
         </StyledTitleCard>
-        <div>
+        <StyledTitleCard>
           <Typography variant="subtitle2">
             Description
           </Typography>
           <ControlledEditor />
 
-        </div>
-      </StyledCard>
+        </StyledTitleCard>
+      </React.Fragment>
     )
   }
 }

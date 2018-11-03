@@ -3,10 +3,16 @@ import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
-import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button"
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 
-const Select = styled.select`
+const StyledSelect = styled(Select)`
+  width:100%;
+`
+
+const DefaultSelect = styled.select`
   width:100%;
 `
 
@@ -35,7 +41,9 @@ const JiraDiv = styled.div`
 class UserList extends Component {
   state = {
     userId: "",
-    selectBoardId: ""
+    selectBoardId: "",
+    board: "",
+    issue: ""
   }
 
   handleSelect = e => {
@@ -54,7 +62,7 @@ class UserList extends Component {
   }
 
   selectBoard = (e) => {
-    // this.setState({selectBoardId: e.target.value});
+    this.props.store.boardId = e.target.value
     this.props.store.selectBoard(e.target.value)
   }
 
@@ -62,59 +70,83 @@ class UserList extends Component {
     const fields = e.target.value.split("_")
     this.props.store.title = fields[0]
     this.props.store.description = fields[1]
+    this.props.store.issueId = fields[2]
     this.props.store.broadcastTitle()
     this.props.store.broadcastDescription()
   }
+
+  handleChange = event => {
+    this.setState({[event.target.name]: event.target.value});
+  };
 
   render() {
 
     return (
       <React.Fragment>
         <UserDiv>
-        <RoomName variant="body1" color="inherit">
-          {this.props.store.userName !== "" && <div> User Name: {this.props.store.userName}</div> }
-          {this.props.store.roomName !== "" && <div> Room Name: {this.props.store.roomName}</div> }
-        </RoomName>
-        <Typography>users : {this.props.store.users.length}</Typography>
-        <Select size={this.props.store.users.length} onClick={this.handleSelect}>
-          {this.props.store.users.length > 0 &&
-          this.props.store.users.map((data, index) => {
-            return (
-              <option key={index} value={data.userId}>
-                {data.userName}
-              </option>
-            );
-          })}
-        </Select>
-        {this.props.store.admin && (
-          <Wrapper>
-            <Button onClick={this.handleKick}>Kick User</Button>
-            <Button onClick={this.handleAdmin}>Give admin </Button>
-          </Wrapper>
-        )}
+          <RoomName variant="body1" color="inherit">
+            {this.props.store.userName !== "" && <div> User Name: {this.props.store.userName}</div>}
+            {this.props.store.roomName !== "" && <div> Room Name: {this.props.store.roomName}</div>}
+          </RoomName>
+          <Typography>users : {this.props.store.users.length}</Typography>
+          <DefaultSelect size={this.props.store.users.length} onChange={this.handleSelect}>
+            {this.props.store.users.length > 0 &&
+            this.props.store.users.map((data, index) => {
+              return (
+                <option key={index} value={data.userId}>
+                  {data.userName}
+                </option>
+              );
+            })}
+          </DefaultSelect>
+          {this.props.store.admin && (
+            <Wrapper>
+              <Button onClick={this.handleKick}>Kick User</Button>
+              <Button onClick={this.handleAdmin}>Give admin </Button>
+            </Wrapper>
+          )}
         </UserDiv>
         <JiraDiv>
           <Typography>Jira Task Picker</Typography>
           {this.props.store.jira.jiraBoards.values.length > 0 &&
-          <Select onChange={this.selectBoard}>
+          <StyledSelect
+            inputProps={{
+              name: 'board',
+              id: 'board'
+            }}
+            value={this.state.board} onChange={(e) => {
+            this.selectBoard(e);
+            this.handleChange(e);
+          }}>
+
             {this.props.store.jira.jiraBoards.values.map((data, index) => {
               return (
-                <option key={index} value={data.id}>
+                <MenuItem key={index} value={data.id}>
                   {data.name}
-                </option>
+                </MenuItem>
               );
             })}
-          </Select>}
+          </StyledSelect>}
           {this.props.store.jira.activeBoard.issues.length > 0 &&
-          <Select onChange={this.selectIssue}>
+          <StyledSelect
+            inputProps={{
+              name: 'issue',
+              id: 'issue'
+            }}
+            value={this.state.issue}
+            onChange={(e) => {
+              this.selectIssue(e);
+              this.handleChange(e);
+            }}>
             {this.props.store.jira.activeBoard.issues.map((data, index) => {
               return (
-                <option key={index} value={`${data.fields.summary}_${data.fields.description}`}>
+                <MenuItem key={index} value={`${data.fields.summary}_${data.fields.description}_${data.id}`}>
                   {data.key} - {data.fields.summary}
-                </option>
+                  {console.log(data)}
+                </MenuItem>
               );
             })}
-          </Select>}
+          </StyledSelect>}
         </JiraDiv>
       </React.Fragment>
     )

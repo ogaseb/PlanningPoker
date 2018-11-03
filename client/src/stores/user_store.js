@@ -1,4 +1,3 @@
-import React from 'react'
 import {decorate, observable} from "mobx";
 import socketIOClient from "socket.io-client";
 
@@ -18,6 +17,9 @@ class UserStore {
     this.blockCard = false
     this.openJoinDialog = false
     this.jiraLoggedIn = false
+    this.issueId = ""
+    this.boardId = ""
+    this.estimationScore = ""
     this.socket = socketIOClient(process.env.ENDPOINT);
     this.socket.on("sendCard", (response) => {
       this.cardResults = response
@@ -58,6 +60,10 @@ class UserStore {
     })
     this.socket.on("broadcastDescription", (description) => {
       this.description = description
+    })
+    this.socket.on("error", (description) => {
+      this.notificationVariant = "warning"
+      this.notificationMessage = description
     })
 
   }
@@ -180,10 +186,25 @@ class UserStore {
 
   selectBoard(boardId) {
     this.socket.emit("jiraGetBoard", boardId)
-    this.socket.on("jiraGetBoard", (data) => {
-      this.jira.activeBoard = data
+    this.socket.on("jiraGetBacklogBoard", (data) => {
+      this.jira.activeBoard.issues = []
+      this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
     })
+    this.socket.on("jiraGetBoard", (data) => {
+      this.jira.activeBoard.issues = []
+      this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
+    })
+  }
 
+  setIssueEstimation(){
+    const data = {
+      issueId: this.issueId,
+      boardId: this.boardId,
+      estimationScore: this.estimationScore
+    };
+    if (this.issueId !== undefined) {
+      this.socket.emit("jiraSetEstimation", data)
+    }
   }
 }
 
@@ -207,7 +228,10 @@ decorate(UserStore, {
   title: observable,
   description: observable,
   jiraLoggedIn: observable,
-  jira: observable
+  jira: observable,
+  issueId: observable,
+  boardId: observable,
+  estimationScore: observable
 });
 
 export default UserStore;

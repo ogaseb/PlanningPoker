@@ -10,7 +10,7 @@ import {decorate, observable} from "mobx";
 const StyledButtonCard = styled(Button)`
   &&{
   width: 10%;
-  height: 5vh;
+  height: 10vh;
   margin:5px;
   flex:1;
   }
@@ -23,8 +23,6 @@ const ButtonWrapper = styled.div`
   width: 83.333333%;
   height: 10vh;
   flex-wrap: wrap;
-   position:absolute;
-   bottom:100px;
 `;
 
 const YourCard = styled(Card)`
@@ -41,7 +39,7 @@ const YourCard = styled(Card)`
 const cards = [0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
 
 class Controls extends Component {
-  constructor(){
+  constructor() {
     super()
     this.selectedCard = ""
   }
@@ -59,8 +57,13 @@ class Controls extends Component {
 
   chooseCard = (card) => {
     this.selectedCard = card
-
   }
+
+  handleEstimation = () => {
+    this.props.store.setIssueEstimation()
+    this.props.store.issueId = ""
+  }
+
 
   render() {
     return (
@@ -68,7 +71,12 @@ class Controls extends Component {
         <Button disabled={this.props.store.blockCard} variant="contained" color="secondary"
                 onClick={this.handleCard}>Send Card</Button>
         {this.props.store.admin && (
-          <Button onClick={this.handleReset}>Next issue</Button>
+          <React.Fragment>
+            <Button onClick={this.handleReset}>Next issue</Button>
+            <Button
+              disabled={this.props.store.issueId === ""}
+              onClick={this.handleEstimation}>Set estimation point</Button>
+          </React.Fragment>
         )}
         {this.selectedCard !== "" && <YourCard> {this.selectedCard}</YourCard>}
         <ButtonWrapper>
