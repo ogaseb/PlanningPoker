@@ -106,6 +106,7 @@ class UserStore {
 
   joinRoom(roomId, roomPassword, userName) {
     this.user.userName = userName;
+    localStorage.setItem('userName', JSON.stringify(userName));
     const data = {
       userName: this.user.userName,
       roomId: roomId,
