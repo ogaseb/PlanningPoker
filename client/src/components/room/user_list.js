@@ -88,12 +88,11 @@ class UserList extends Component {
             {this.props.store.room.roomName !== "" && <div> Room Name: {this.props.store.room.roomName}</div>}
           </RoomName>
           <Typography>users : {this.props.store.user.users.length}</Typography>
-          <DefaultSelect size={this.props.store.user.users.length} onChange={this.handleSelect}>
+          <DefaultSelect size={this.props.store.user.users.length} onClick={this.handleSelect}>
             {this.props.store.user.users.length > 0 &&
             this.props.store.user.users.map((data, index) => {
               return (
                 <option key={index} value={data.userId}>
-                  {console.log(data)}
                   {data.userName}
                 </option>
               );

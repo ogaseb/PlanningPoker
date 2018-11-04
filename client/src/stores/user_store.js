@@ -147,7 +147,6 @@ class UserStore {
     };
     this.socket.emit("fetchUsers", data)
     this.socket.on("fetchUsers", (response) => {
-      console.log(response)
       this.user.users = response;
     });
   }
