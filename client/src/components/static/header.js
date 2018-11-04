@@ -7,9 +7,7 @@ import GithubCircle from 'mdi-material-ui/GithubCircle'
 import styled from 'styled-components'
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
-import Menu from "@material-ui/core/Menu";
 import JiraConnector from "./jira/jira"
-
 import {decorate, observable} from "mobx";
 import List from "@material-ui/core/List/List";
 import Drawer from "@material-ui/core/Drawer/Drawer";

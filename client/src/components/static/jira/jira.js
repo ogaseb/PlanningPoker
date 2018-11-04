@@ -179,21 +179,6 @@ class JiraConnector extends Component {
             </StyledPaper>
           </StyledExpansionPanelDetails>
         </ExpansionPanel>
-        {/*<Popper open={this.state.open} onClose={this.handleClose} anchorEl={this.anchorEl} transition disablePortal>*/}
-          {/*{({ TransitionProps, placement, jiraSubdomain, jiraEmail, jiraPassword, jiraLogin, jiraSubdomainMore,  }) => (*/}
-            {/*<Grow*/}
-              {/*{...TransitionProps}*/}
-              {/*id="menu-list-grow"*/}
-              {/*style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}*/}
-            {/*>*/}
-              {/*<StyledPaper>*/}
-                {/*<ClickAwayListener onClickAway={this.handleClose}>*/}
-
-                {/*</ClickAwayListener>*/}
-              {/*</StyledPaper>*/}
-            {/*</Grow>*/}
-          {/*)}*/}
-        {/*</Popper>*/}
       </React.Fragment>
     );
   }

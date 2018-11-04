@@ -27,6 +27,12 @@ class JoinRoom extends Component {
     roomId: ""
   };
 
+  componentDidMount() {
+    if (localStorage.getItem("userName") !== null) {
+      this.setState({userName:JSON.parse(localStorage.getItem("userName"))});
+    }
+  }
+
   handleChange = e => {
     if (e.target.id === "join-room-password") {
       this.setState({roomPassword: e.target.value});

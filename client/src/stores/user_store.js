@@ -79,6 +79,7 @@ class UserStore {
 
   createRoom(userName, roomName, roomPassword) {
     this.user.userName = userName;
+    localStorage.setItem('userName', JSON.stringify(userName));
     const data = {
       userName: this.user.userName,
       roomName,

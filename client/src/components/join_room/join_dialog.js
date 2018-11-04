@@ -12,6 +12,11 @@ import {decorate, observable} from "mobx";
 
 
 class JoinDialog extends Component {
+  componentDidMount() {
+    if (localStorage.getItem("userName") !== null) {
+      this.input = JSON.parse(localStorage.getItem("userName"))
+    }
+  }
   handleChange = (e) => {
     this.input = e.target.value
   }

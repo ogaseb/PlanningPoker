@@ -38,6 +38,12 @@ class CreateRoom extends Component {
     roomPassword: ""
   };
 
+  componentDidMount() {
+    if (localStorage.getItem("userName") !== null) {
+      this.setState({userName:JSON.parse(localStorage.getItem("userName"))});
+    }
+  }
+
   handleChange = e => {
     if (e.target.id === "user-name") {
       this.setState({userName: e.target.value});
