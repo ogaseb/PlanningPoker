@@ -85,7 +85,7 @@ class JiraConnector extends Component {
   handleJiraLogout = () => {
     localStorage.removeItem('jira-credentials');
     localStorage.removeItem('jira-subdomains');
-    this.props.store.jiraLoggedIn = false
+    this.props.store.jira.jiraLoggedIn = false
   }
 
   addSubdomain = () => {

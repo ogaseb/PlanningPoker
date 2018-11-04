@@ -78,7 +78,6 @@ class UserStore {
   }
 
   createRoom(userName, roomName, roomPassword) {
-    console.log(this.user)
     this.user.userName = userName;
     const data = {
       userName: this.user.userName,

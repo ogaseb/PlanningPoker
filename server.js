@@ -23,11 +23,14 @@ let users = new Map()
 let rooms = new Map()
 let rooms_password = new Map()
 let jira
-function createRoomHash(roomName) {
+
+function createHash(name) {
   const current_date = (new Date()).valueOf().toString();
   const random = Math.random().toString();
-  return crypto.createHash('sha1').update(current_date + random + roomName).digest('hex');
+  return crypto.createHash('sha1').update(current_date + random + name).digest('hex');
 }
+
+
 
 function createRoomObject() {
   return (
@@ -77,8 +80,7 @@ io.on('connection', socket => {
 
   socket.on('createRoom', (data) => {
     const Room = createRoomObject();
-    const RoomId = createRoomHash(data.roomName);
-
+    const RoomId = createHash(data.roomName);
 
     Room.user.push({userId: socket.id, userName: data.userName})
     users.set(socket.id, RoomId)
