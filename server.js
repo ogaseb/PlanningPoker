@@ -6,15 +6,10 @@ const crypto = require('crypto')
 const path = require('path');
 const JiraClient = require('jira-connector');
 
-
-
 const port = process.env.PORT || 5000;
 const app = express()
 const server = http.createServer(app)
 const io = socketIO(server, {
-  // below are engine.IO options
-  pingInterval: 60000,
-  pingTimeout: 60000,
   cookie: false
 })
 
@@ -29,8 +24,6 @@ function createHash(name) {
   const random = Math.random().toString();
   return crypto.createHash('sha1').update(current_date + random + name).digest('hex');
 }
-
-
 
 function createRoomObject() {
   return (
@@ -58,66 +51,75 @@ io.on('connection', socket => {
         password: `${data.jiraPassword}`
       }
     })
+
     jira.board.getAllBoards({startAt:0}, function(error, boards) {
       socket.emit("jiraLogin", boards)
-      console.log('Jira -> connecting and fetching boards', error)
-
+      console.log('Jira -> connecting and fetching boards')
+      if (error) {
+        socket.emit("errors", {error:error})
+      }
     })
   })
 
   socket.on('jiraGetBoard', (data) => {
     jira.board.getIssuesForBacklog({boardId:data}, function(error, board) {
       socket.emit("jiraGetBacklogBoard", board)
-      console.log('Jira -> fetching singe board', error)
+      console.log('Jira -> fetching singe board')
+      if (error) {
+        socket.emit("errors", {error:error})
+      }
 
     })
+
     jira.board.getIssuesForBoard({boardId:data}, function(error, board) {
       socket.emit("jiraGetBoard", board)
-      console.log('Jira -> fetching singe board', error)
-
+      console.log('Jira -> fetching singe board')
+      if (error) {
+        socket.emit("errors", {error:error})
+      }
     })
   })
 
   socket.on('jiraSetEstimation', (data) => {
     jira.issue.setIssueEstimation({issueId:data.issueId,boardId:data.boardId, value:data.estimationScore}, function(error) {
-      console.log(`Jira -> setting estimation for id: ${data.issueId} value: ${data.estimationScore}`, error)
+      console.log(`Jira -> setting estimation for id: ${data.issueId} value: ${data.estimationScore}`)
+      if (error) {
+        socket.emit("errors", {error:error})
+      }
     })
-
   })
-
 
   socket.on('createRoom', (data) => {
     const Room = createRoomObject();
     const RoomId = createHash(data.roomName);
 
     Room.user.push({userId: socket.id, userName: data.userName})
-    users.set(socket.id, RoomId)
     Room.roomName = data.roomName;
     Room.roomId = RoomId;
-    rooms.set(RoomId, Room)
-    fetch_rooms.push(Room)
-    Room.roomName = data.roomName;
 
     rooms_password.set(RoomId, data.roomPassword)
+    rooms.set(RoomId, Room)
+    users.set(socket.id, RoomId)
+    fetch_rooms.push(Room)
+    socket.join(RoomId);
 
     socket.emit("createRoom", Room)
-    socket.join(RoomId);
     io.in(RoomId).emit("waitingFor", Room.user.length - Room.game.length)
     console.log("User -> Created room! RoomId:", RoomId)
   })
 
   setInterval(() => {
     fetchRooms()
-  }, 1000)
+  }, 2000)
 
   socket.on('joinRoom', (data) => {
     const password = rooms_password.get(data.roomId)
+
     if (data.roomPassword === password) {
       let rooms_temp = rooms.get(data.roomId)
-      console.log(rooms_temp)
       rooms_temp.user.push({userId: socket.id, userName: data.userName})
-      users.set(socket.id, data.roomId)
 
+      users.set(socket.id, data.roomId)
       socket.join(data.roomId);
 
       let index = lodash.findIndex(rooms_temp, function (o) {
@@ -135,7 +137,7 @@ io.on('connection', socket => {
       io.in(data.roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
     }
     else {
-      socket.emit("error", "Invalid password")
+      socket.emit("errors", {error:"Invalid Password"})
     }
   })
 
@@ -153,15 +155,17 @@ io.on('connection', socket => {
 
   socket.on("resetCards", (data) => {
     let rooms_temp = rooms.get(data.roomId)
-    while (rooms_temp.game.length) {
-      rooms_temp.game.pop();
-    }
-    rooms_temp.title = ""
-    rooms_temp.description = ""
+    if (rooms_temp !== undefined){
+      while (rooms_temp.game.length) {
+        rooms_temp.game.pop();
+      }
+      rooms_temp.title = ""
+      rooms_temp.description = ""
 
-    io.in(data.roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
-    io.in(data.roomId).emit("resetCards")
-    rooms.set(data.roomId, rooms_temp)
+      io.in(data.roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
+      io.in(data.roomId).emit("resetCards")
+      rooms.set(data.roomId, rooms_temp)
+    }
   })
 
   socket.on("fetchUsers", (data) => {
@@ -180,7 +184,7 @@ io.on('connection', socket => {
           }
         }
       }
-    }, 1000)
+    }, 2000)
   })
 
   socket.on('kickUser', (data) => {
@@ -261,12 +265,17 @@ io.on('connection', socket => {
   socket.on('disconnecting', (reason) => {
     console.log("User -> disconnecting reason:",reason)
   });
+
+  socket.on('reconnecting', (reason) => {
+    console.log("User -> lost connection in process of reconnection reason:",reason)
+  });
+  socket.on('reconnect', () => {
+    console.log("User -> user reconnected")
+  });
 })
 
 if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
-  // Handle React routing, return all requests to React app
   app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });

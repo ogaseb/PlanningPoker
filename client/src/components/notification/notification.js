@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react"
+import React, {Component} from "react"
 import Snackbar from "@material-ui/core/Snackbar"
 import IconButton from "@material-ui/core/IconButton"
 import CloseIcon from "@material-ui/icons/Close"
@@ -26,21 +26,11 @@ const NotificationSnackbar = styled(Snackbar)`
   }
 `
 
-class Notification extends PureComponent{
-
-  openNotification = (message, variant) => {
-    this.notificationVariant = variant
-    this.notificationMessage = message
-  }
-
-  componentWillReceiveProps(){
-    this.openNotification(this.props.store.notificationMessage, this.props.store.notificationVariant)
-  }
+class Notification extends Component {
 
   closeNotification =() => {
-    this.notificationMessage = null
+    this.props.store.notificationMessage = null
   }
-
 
   render(){
     return (
@@ -50,14 +40,14 @@ class Notification extends PureComponent{
           horizontal: "left"
         }}
         wide={300}
-        open={!!this.notificationMessage}
+        open={!!this.props.store.notificationMessage}
         autoHideDuration={3000}
         onClose={this.closeNotification}
         ContentProps={{
           "aria-describedby": "message-id"
         }}
-        variant={this.notificationVariant}
-        message={<span id="message-id">{this.notificationMessage}</span>}
+        variant={this.props.store.notificationVariant}
+        message={<span id="message-id">{this.props.store.notificationMessage}</span>}
         action={[
           <IconButton
             key="close"

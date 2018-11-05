@@ -3,6 +3,10 @@ import {Grid, Card, Button, TextField} from "@material-ui/core";
 import styled from "styled-components";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
+import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+import Select from "@material-ui/core/Select/Select";
+import FormLabel from '@material-ui/core/FormLabel';
+
 
 const StyledGrid = styled(Grid)`
   &&{
@@ -30,6 +34,10 @@ const StyledButton = styled(Button)`
   margin-top: 40px;
   }
 `;
+
+const StyledSelect = styled(Select)`
+  width:100%;
+`
 
 class CreateRoom extends Component {
   state = {
@@ -77,6 +85,17 @@ class CreateRoom extends Component {
     }
   };
 
+
+  handleChangeBoard = event => {
+    this.setState({[event.target.name]: event.target.value});
+  };
+
+  selectBoard = (e) => {
+    this.props.store.jira.boardId = e.target.value
+    this.props.store.selectBoard(e.target.value)
+  }
+
+
   render() {
     return (
       <StyledGrid item xs={6}>
@@ -103,6 +122,26 @@ class CreateRoom extends Component {
               onChange={this.handleChange}
               type="password"
             />
+            <FormLabel> Jira Board </FormLabel>
+            {this.props.store.jira.jiraBoards.values.length > 0 &&
+            <StyledSelect
+              inputProps={{
+                name: 'board',
+                id: 'board'
+              }}
+              value={this.state.board} onChange={(e) => {
+              this.selectBoard(e);
+              this.handleChangeBoard(e);
+            }}>
+
+              {this.props.store.jira.jiraBoards.values.map((data, index) => {
+                return (
+                  <MenuItem key={index} value={data.id}>
+                    {data.name}
+                  </MenuItem>
+                );
+              })}
+            </StyledSelect>}
             <StyledButton onClick={this.handleSubmit}>Create Room</StyledButton>
           </FormWrapper>
         </StyledCard>

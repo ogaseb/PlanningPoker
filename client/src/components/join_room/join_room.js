@@ -54,12 +54,11 @@ class JoinRoom extends Component {
         this.state.userName
       );
       const interval = setInterval(() => {
-        if (this.props.store.connected) {
+        if (this.props.store.user.connected) {
           this.props.history.push(`/room/${this.props.store.room.roomId}/${this.state.roomPassword}`)
           clearInterval(interval)
         }
       }, 100)
-
     }
   };
 

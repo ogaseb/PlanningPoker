@@ -48,6 +48,8 @@ class UserStore {
       this.room.cardResults = []
       this.blockCard = false
       this.jira.description = this.jira.title = ""
+      this.notificationVariant = "info"
+      this.notificationMessage = "Card reset"
     });
     this.socket.on("kickUser", (data) => {
       if (this.user.userId !== "" && this.user.userId === data.userId) {
@@ -71,9 +73,9 @@ class UserStore {
     this.socket.on("broadcastDescription", (description) => {
       this.jira.description = description
     })
-    this.socket.on("error", (description) => {
-      this.notificationVariant = "warning"
-      this.notificationMessage = description
+    this.socket.on("errors", (description) => {
+        this.notificationVariant = "error"
+        this.notificationMessage = description.error
     })
   }
 

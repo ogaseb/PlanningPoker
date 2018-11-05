@@ -6,11 +6,10 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button"
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {decorate, observable} from "mobx";
 
 
-const StyledSelect = styled(Select)`
-  width:100%;
-`
+
 
 const DefaultSelect = styled.select`
   width:100%;
@@ -66,18 +65,9 @@ class UserList extends Component {
     this.props.store.selectBoard(e.target.value)
   }
 
-  selectIssue = (e) => {
-    const fields = e.target.value.split("_")
-    this.props.store.jira.title = fields[0]
-    this.props.store.jira.description = fields[1]
-    this.props.store.jira.issueId = fields[2]
-    this.props.store.broadcastTitle()
-    this.props.store.broadcastDescription()
-  }
 
-  handleChange = event => {
-    this.setState({[event.target.name]: event.target.value});
-  };
+
+
 
   render() {
     return (
@@ -106,52 +96,16 @@ class UserList extends Component {
           )}
         </UserDiv>
         <JiraDiv>
-          <Typography>Jira Task Picker</Typography>
-          {this.props.store.jira.jiraBoards.values.length > 0 &&
-          <StyledSelect
-            inputProps={{
-              name: 'board',
-              id: 'board'
-            }}
-            value={this.state.board} onChange={(e) => {
-            this.selectBoard(e);
-            this.handleChange(e);
-          }}>
 
-            {this.props.store.jira.jiraBoards.values.map((data, index) => {
-              return (
-                <MenuItem key={index} value={data.id}>
-                  {data.name}
-                </MenuItem>
-              );
-            })}
-          </StyledSelect>}
-          {this.props.store.jira.activeBoard.issues.length > 0 &&
-          <StyledSelect
-            inputProps={{
-              name: 'issue',
-              id: 'issue'
-            }}
-            value={this.state.issue}
-            onChange={(e) => {
-              this.selectIssue(e);
-              this.handleChange(e);
-            }}>
-            {this.props.store.jira.activeBoard.issues.map((data, index) => {
-              return (
-                <MenuItem key={index} value={`${data.fields.summary}_${data.fields.description}_${data.id}`}>
-                  {data.key} - {data.fields.summary}
-                  {console.log(data)}
-                </MenuItem>
-              );
-            })}
-          </StyledSelect>}
         </JiraDiv>
       </React.Fragment>
     )
   }
 }
 
+decorate(UserList, {
+  bufferIssues: observable,
+});
 
 export default inject("store")(withRouter(observer(UserList)));
 
