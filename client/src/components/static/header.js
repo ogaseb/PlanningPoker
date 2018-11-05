@@ -24,6 +24,13 @@ const StyledIconButton = styled(IconButton)`
   }
 `
 
+const StyledDrawer = styled(Drawer)`
+  && {
+  height:0;
+  max-height:50%;
+  }
+`
+
 class Header extends Component {
   state = {
     left: false
@@ -34,9 +41,9 @@ class Header extends Component {
       const data = JSON.parse(localStorage.getItem('jira-credentials'));
       const subdomains =  JSON.parse(localStorage.getItem('jira-subdomains'));
       this.props.store.jiraLogin(subdomains[0], data.jiraLogin, data.jiraPassword)
-
     }
   }
+
   toggleDrawer = (side, open) => () => {
     this.setState({
       [side]: open,
@@ -50,7 +57,7 @@ class Header extends Component {
           <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
             <MenuButton/>
           </IconButton>
-          <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+          <StyledDrawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
             <div style={{width: "200px"}}>
               <List>
                 <ListItem button onClick={this.toggleDrawer('left', false)}>
@@ -60,7 +67,7 @@ class Header extends Component {
                 <JiraConnector/>
               </List>
             </div>
-          </Drawer>
+          </StyledDrawer>
           <Typography variant="title" color="inherit">
             Planning Poker
           </Typography>

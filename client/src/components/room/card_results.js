@@ -52,6 +52,20 @@ const CardsWrapper = styled.div`
   margin: 0 auto;
   width: 90%;
   margin-bottom:10px;
+  display:flex;
+  }
+`;
+
+const StyledCard = styled(Card)`
+  &&{
+    width:57px;
+    height:89px;
+    font-size: -webkit-xxx-large;
+    line-height: 89px;
+    margin: 5px;
+    margin: 0 auto;
+    background-color:#303F9F;
+    color:white;
   }
 `;
 
@@ -74,9 +88,9 @@ class CardResults extends Component {
                 <Typography>
                   {result.userName}
                 </Typography>
-                <Typography>
+                <StyledCard>
                   {result.cardValue}
-                </Typography>
+                </StyledCard>
 
               </Card>
             )) || <Typography style={{margin: "0 auto"}}> Waiting for response from all users </Typography>}

@@ -78,6 +78,14 @@ io.on('connection', socket => {
     })
   })
 
+  socket.on('jiraSetEstimation', (data) => {
+    jira.issue.setIssueEstimation({issueId:data.issueId,boardId:data.boardId, value:data.estimationScore}, function(error) {
+      console.log(`Jira -> setting estimation for id: ${data.issueId} value: ${data.estimationScore}`, error)
+    })
+
+  })
+
+
   socket.on('createRoom', (data) => {
     const Room = createRoomObject();
     const RoomId = createHash(data.roomName);

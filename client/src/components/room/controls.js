@@ -75,7 +75,10 @@ class Controls extends Component {
           <React.Fragment>
             <Button onClick={this.handleReset}>Next issue</Button>
             <Button
-              disabled={this.props.store.jira.issueId === ""}
+              disabled={(this.props.store.jira.issueId !== "" &&
+                this.props.store.jira.issueId !== null &&
+                this.props.store.jira.issueId !== undefined &&
+                this.props.store.user.admin === false)}
               onClick={this.handleEstimation}>Set estimation point</Button>
           </React.Fragment>
         )}
