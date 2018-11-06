@@ -2,8 +2,8 @@ const express = require('express')
 const http = require('http')
 const socketIO = require('socket.io')
 const lodash = require('lodash');
-const crypto = require('crypto')
 const path = require('path');
+const uuid = require('uuid/v4');
 const JiraClient = require('jira-connector');
 
 const port = process.env.PORT || 5000;
@@ -20,9 +20,7 @@ let rooms_password = new Map()
 let jira
 
 function createHash(name) {
-  const current_date = (new Date()).valueOf().toString();
-  const random = Math.random().toString();
-  return crypto.createHash('sha1').update(current_date + random + name).digest('hex');
+  return uuid()
 }
 
 function createRoomObject() {
@@ -43,20 +41,17 @@ io.on('connection', socket => {
     socket.emit("fetchRooms", fetch_rooms)
   }
 
-  socket.on('jiraLogin', (data) => {
+  socket.on('jiraLogin', ({ jiraLogin: username, jiraPassword: password, jiraSubdomain }) => {
     jira = new JiraClient( {
-      host: `${data.jiraSubdomain}.atlassian.net`,
-      basic_auth: {
-        username: `${data.jiraLogin}`,
-        password: `${data.jiraPassword}`
-      }
+      host: `${jiraSubdomain}.atlassian.net`,
+      basic_auth: { username, password }
     })
 
     jira.board.getAllBoards({startAt:0}, function(error, boards) {
       socket.emit("jiraLogin", boards)
       console.log('Jira -> connecting and fetching boards')
       if (error) {
-        socket.emit("errors", {error:error})
+        socket.emit("errors", { error })
       }
     })
   })
@@ -80,11 +75,11 @@ io.on('connection', socket => {
     })
   })
 
-  socket.on('jiraSetEstimation', (data) => {
-    jira.issue.setIssueEstimation({issueId:data.issueId,boardId:data.boardId, value:data.estimationScore}, function(error) {
-      console.log(`Jira -> setting estimation for id: ${data.issueId} value: ${data.estimationScore}`)
+  socket.on('jiraSetEstimation', ({ issueId, boardId, estimationScore }) => {
+    jira.issue.setIssueEstimation({issueId, boardId, value: estimationScore}, function(error) {
+      console.log(`Jira -> setting estimation for id: ${issueId} value: ${estimationScore}`)
       if (error) {
-        socket.emit("errors", {error:error})
+        socket.emit("errors", {error})
       }
     })
   })
@@ -110,7 +105,7 @@ io.on('connection', socket => {
 
   setInterval(() => {
     fetchRooms()
-  }, 2000)
+  }, 1000)
 
   socket.on('joinRoom', (data) => {
     const password = rooms_password.get(data.roomId)
@@ -144,6 +139,13 @@ io.on('connection', socket => {
   socket.on("sendCard", (data) => {
     let rooms_temp = rooms.get(data.roomId)
     rooms_temp.game.push({userName: data.userName, cardValue: data.cardValue})
+
+    let index = lodash.findIndex(rooms_temp.user, function (o) {
+      return o.userName === data.userName;
+    });
+
+    rooms_temp.user[index].userName = `${rooms_temp.user[index].userName} - ✔`
+
     if (rooms_temp.user.length === rooms_temp.game.length) {
       io.in(data.roomId).emit("sendCard", rooms_temp.game)
       io.in(data.roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
@@ -156,6 +158,12 @@ io.on('connection', socket => {
   socket.on("resetCards", (data) => {
     let rooms_temp = rooms.get(data.roomId)
     if (rooms_temp !== undefined){
+
+     for (let i = 0; i < rooms_temp.user.length; i++){
+       let splitted = rooms_temp.user[i].userName.split(" - ")
+       rooms_temp.user[i].userName = splitted[0]
+     } 
+
       while (rooms_temp.game.length) {
         rooms_temp.game.pop();
       }
@@ -173,6 +181,8 @@ io.on('connection', socket => {
       if (data) {
         const temp_room = rooms.get(data.roomId)
         if (temp_room) {
+
+
           io.in(data.roomId).emit("fetchUsers", temp_room.user)
           if (temp_room.user.length === 0) {
             let index = lodash.findIndex(fetch_rooms, function (o) {
@@ -180,11 +190,11 @@ io.on('connection', socket => {
             });
             fetch_rooms.splice(index, 1)
             rooms.delete(data.roomId)
-            console.log("Server -> Room deleted! RoomId:", data.roomId)
+            console.log("Server -> Room is empty! RoomId:", data.roomId)
           }
         }
       }
-    }, 2000)
+    }, 1000)
   })
 
   socket.on('kickUser', (data) => {

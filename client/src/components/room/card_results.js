@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
+
 import {Card, TextField} from "@material-ui/core";
 
 
@@ -64,7 +65,7 @@ const StyledCard = styled(Card)`
     line-height: 89px;
     margin: 5px;
     margin: 0 auto;
-    background-color:#303F9F;
+    background-color:${props => props.color || "#303F9F"};
     color:white;
   }
 `;
@@ -88,10 +89,9 @@ class CardResults extends Component {
                 <Typography>
                   {result.userName}
                 </Typography>
-                <StyledCard>
+                <StyledCard color={result.color}>
                   {result.cardValue}
                 </StyledCard>
-
               </Card>
             )) || <Typography style={{margin: "0 auto"}}> Waiting for response from all users </Typography>}
           </CardsWrapper>

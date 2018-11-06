@@ -1,5 +1,6 @@
 import {decorate, observable} from "mobx";
 import socketIOClient from "socket.io-client";
+import sortBy from 'lodash/sortBy'
 
 class UserStore {
   constructor() {
@@ -17,6 +18,7 @@ class UserStore {
       roomId: "",
       rooms: [],
       cardResults: [],
+      cardsAreTheSame: false,
       waiting: 0
     }
 
@@ -39,14 +41,27 @@ class UserStore {
     this.openJoinDialog = false
     this.socket = socketIOClient(process.env.ENDPOINT);
     this.socket.on("sendCard", (response) => {
-      this.room.cardResults = response
+      let card = sortBy(response, "cardValue")
+      const allEqual = arr => arr.every( v => v.cardValue === arr[0].cardValue )
+      this.room.cardsAreTheSame = allEqual( card )
+
+      if (!this.room.cardsAreTheSame) {
+        card[card.length -1].color =  card[0].color = "#E33B3B"
+        this.room.cardResults = card
+      }else {
+        for (let i = 0; i < card.length; i++) {
+          card[i].color = "#37C26D"
+        }
+        this.room.cardResults = card
+      }
+
     });
     this.socket.on("waitingFor", (response) => {
       this.room.waiting = response
     });
     this.socket.on("resetCards", () => {
       this.room.cardResults = []
-      this.blockCard = false
+      this.blockCard = this.room.cardsAreTheSame = false
       this.jira.description = this.jira.title = ""
       this.notificationVariant = "info"
       this.notificationMessage = "Card reset"
@@ -202,17 +217,17 @@ class UserStore {
       this.jira.activeBoard.issues = []
       this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
     })
-    this.socket.on("jiraGetBoard", (data) => {
-      this.jira.activeBoard.issues = []
-      this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
-    })
+    // this.socket.on("jiraGetBoard", (data) => {
+    //   this.jira.activeBoard.issues = []
+    //   this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
+    // })
   }
 
   setIssueEstimation() {
     const data = {
       issueId: this.jira.issueId,
       boardId: this.jira.boardId,
-      estimationScore: this.jira.estimationScore
+      estimationScore: this.room.cardResults[0].cardValue
     };
     if (this.jira.issueId !== undefined) {
       this.socket.emit("jiraSetEstimation", data)
