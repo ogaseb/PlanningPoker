@@ -43,11 +43,8 @@ class Notification extends Component {
         open={!!this.props.store.notificationMessage}
         autoHideDuration={3000}
         onClose={this.closeNotification}
-        ContentProps={{
-          "aria-describedby": "message-id"
-        }}
         variant={this.props.store.notificationVariant}
-        message={<span id="message-id">{this.props.store.notificationMessage}</span>}
+        message={this.props.store.notificationMessage}
         action={[
           <IconButton
             key="close"

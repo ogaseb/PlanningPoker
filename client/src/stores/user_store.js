@@ -41,23 +41,26 @@ class UserStore {
     this.openJoinDialog = false
     this.socket = socketIOClient(process.env.ENDPOINT);
     this.socket.on("sendCard", (response) => {
-      let card = sortBy(response, "cardValue")
-      const allEqual = arr => arr.every( v => v.cardValue === arr[0].cardValue )
-      this.room.cardsAreTheSame = allEqual( card )
+      if (response){
+        let card = sortBy(response, "cardValue")
+        const allEqual = arr => arr.every( v => v.cardValue === arr[0].cardValue )
+        this.room.cardsAreTheSame = allEqual( card )
 
-      if (!this.room.cardsAreTheSame) {
-        card[card.length -1].color =  card[0].color = "#E33B3B"
-        this.room.cardResults = card
-      }else {
-        for (let i = 0; i < card.length; i++) {
-          card[i].color = "#37C26D"
+        if (!this.room.cardsAreTheSame) {
+          card[card.length -1].color =  card[0].color = "#E33B3B"
+          this.room.cardResults = card
+        }else {
+          for (let i = 0; i < card.length; i++) {
+            card[i].color = "#37C26D"
+          }
+          this.room.cardResults = card
         }
-        this.room.cardResults = card
       }
-
     });
     this.socket.on("waitingFor", (response) => {
-      this.room.waiting = response
+      if (response){
+        this.room.waiting = response
+      }
     });
     this.socket.on("resetCards", () => {
       this.room.cardResults = []
@@ -67,30 +70,38 @@ class UserStore {
       this.notificationMessage = "Card reset"
     });
     this.socket.on("kickUser", (data) => {
-      if (this.user.userId !== "" && this.user.userId === data.userId) {
-        this.user.kicked = true
-        this.user.admin = this.user.connected = this.openJoinDialog = false;
-        this.user.userName = this.room.roomName = this.user.userId = this.room.roomId = ""
-        this.notificationVariant = "error"
-        this.notificationMessage = "You have been kicked from the Room"
+      if (data){
+        if (this.user.userId !== "" && this.user.userId === data.userId) {
+          this.user.kicked = true
+          this.user.admin = this.user.connected = this.openJoinDialog = false;
+          this.user.userName = this.room.roomName = this.user.userId = this.room.roomId = ""
+          this.notificationVariant = "error"
+          this.notificationMessage = "You have been kicked from the Room"
+        }
       }
     })
     this.socket.on("changeAdmin", (data) => {
-      if (this.user.userId === data) {
-        this.user.admin = true
-        this.notificationVariant = "info"
-        this.notificationMessage = "You have been given admin privileges"
+      if (data){
+        if (this.user.userId === data) {
+          this.user.admin = true
+          this.notificationVariant = "info"
+          this.notificationMessage = "You have been given admin privileges"
+        }
       }
     })
     this.socket.on("broadcastTitle", (title) => {
-      this.jira.title = title
+      if (title){
+        this.jira.title = title
+      }
     })
     this.socket.on("broadcastDescription", (description) => {
       this.jira.description = description
     })
     this.socket.on("errors", (description) => {
+      if (description){
         this.notificationVariant = "error"
         this.notificationMessage = description.error
+      }
     })
   }
 
@@ -206,8 +217,10 @@ class UserStore {
     };
     this.socket.emit("jiraLogin", data)
     this.socket.on("jiraLogin", (data) => {
-      this.jira.jiraLoggedIn = true
-      this.jira.jiraBoards = data
+      if (data){
+        this.jira.jiraLoggedIn = true
+        this.jira.jiraBoards = data
+      }
     })
   }
 
@@ -217,10 +230,10 @@ class UserStore {
       this.jira.activeBoard.issues = []
       this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
     })
-    // this.socket.on("jiraGetBoard", (data) => {
-    //   this.jira.activeBoard.issues = []
-    //   this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
-    // })
+    this.socket.on("jiraGetBoard", (data) => {
+      this.jira.activeBoard.issues = []
+      this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
+    })
   }
 
   setIssueEstimation() {

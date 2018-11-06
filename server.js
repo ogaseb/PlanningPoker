@@ -49,9 +49,9 @@ io.on('connection', socket => {
 
     jira.board.getAllBoards({startAt:0}, function(error, boards) {
       socket.emit("jiraLogin", boards)
-      console.log('Jira -> connecting and fetching boards')
+      console.log('Jira -> connecting and fetching boards', error)
       if (error) {
-        socket.emit("errors", { error })
+        socket.emit("errors", { error:error })
       }
     })
   })
@@ -79,7 +79,7 @@ io.on('connection', socket => {
     jira.issue.setIssueEstimation({issueId, boardId, value: estimationScore}, function(error) {
       console.log(`Jira -> setting estimation for id: ${issueId} value: ${estimationScore}`)
       if (error) {
-        socket.emit("errors", {error})
+        socket.emit("errors", {error:error})
       }
     })
   })
