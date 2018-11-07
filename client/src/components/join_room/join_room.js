@@ -95,7 +95,6 @@ class JoinRoom extends Component {
 
   selectBoard = (e) => {
     this.props.store.jira.boardId = e.target.value
-    this.props.store.selectBoard(e.target.value)
   }
 
   render() {

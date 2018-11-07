@@ -4,9 +4,11 @@ import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button"
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import {decorate, observable} from "mobx";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 
 
 
@@ -96,7 +98,19 @@ class UserList extends Component {
           )}
         </UserDiv>
         <JiraDiv>
+          {console.log(this.props.store.room.cardHistory)}
+          {this.props.store.room.cardHistory.map((data, index) => {
+            return (
+              <ExpansionPanel  >
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
 
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            );
+          })}
         </JiraDiv>
       </React.Fragment>
     )

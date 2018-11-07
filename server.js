@@ -100,7 +100,7 @@ io.on('connection', socket => {
     socket.join(RoomId);
 
     socket.emit("createRoom", Room)
-    io.in(RoomId).emit("waitingFor", Room.user.length - Room.game.length)
+    io.in(RoomId).emit("waitingFor", Room.game.length)
     console.log("User -> Created room! RoomId:", RoomId)
   })
 
@@ -130,7 +130,7 @@ io.on('connection', socket => {
       socket.emit('joinRoom', rooms_temp)
 
       rooms.set(roomId, rooms_temp)
-      io.in(roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
+      io.in(roomId).emit("waitingFor", rooms_temp.game.length)
     }
     else {
       socket.emit("errors", {error: "Invalid Password"})
@@ -162,9 +162,9 @@ io.on('connection', socket => {
 
     if (rooms_temp.user.length === rooms_temp.game.length) {
       io.in(roomId).emit("sendCard", rooms_temp.game)
-      io.in(roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
+      io.in(roomId).emit("waitingFor", rooms_temp.game.length)
     } else {
-      io.in(roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
+      io.in(roomId).emit("waitingFor", rooms_temp.game.length)
     }
     rooms.set(roomId, rooms_temp)
   })
@@ -178,14 +178,15 @@ io.on('connection', socket => {
         rooms_temp.user[i].userName = splitted[0]
       }
 
+      rooms_temp.gameHistory.push(rooms_temp.game)
       while (rooms_temp.game.length) {
         rooms_temp.game.pop();
       }
       rooms_temp.title = ""
       rooms_temp.description = ""
 
-      io.in(roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
-      io.in(roomId).emit("resetCards")
+      io.in(roomId).emit("waitingFor", rooms_temp.game.length)
+      io.in(roomId).emit("resetCards", rooms_temp.gameHistory)
       rooms.set(roomId, rooms_temp)
     }
   })
@@ -213,7 +214,7 @@ io.on('connection', socket => {
         io.in(roomId.toString()).emit("kickUser", room_temp.user[index])
 
         room_temp.user.splice(index, 1)
-        io.in(roomId.toString()).emit("waitingFor", room_temp.user.length - room_temp.game.length)
+        io.in(roomId.toString()).emit("waitingFor", room_temp.game.length)
         if (room_temp.user.length === 1) {
           io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
         }
@@ -265,7 +266,7 @@ io.on('connection', socket => {
         });
         if (index !== -1) {
           room_temp.user.splice(index, 1)
-          io.in(roomId.toString()).emit("waitingFor", room_temp.user.length - room_temp.game.length)
+          io.in(roomId.toString()).emit("waitingFor", room_temp.game.length)
           if (room_temp.user.length === 1) {
             io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
           }

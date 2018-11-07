@@ -19,8 +19,9 @@ class UserStore {
       roomId: "",
       rooms: [],
       cardResults: [],
+      cardHistory: [],
       cardsAreTheSame: false,
-      waiting: 0
+      waiting: []
     }
 
     this.jira = {
@@ -44,6 +45,7 @@ class UserStore {
     this.openJoinDialog = false
     this.socket = socketIOClient(process.env.ENDPOINT);
     this.socket.on("sendCard", (response) => {
+      this.room.waiting = []
       if (response){
         let card = sortBy(response, "cardValue")
         const allEqual = arr => arr.every( v => v.cardValue === arr[0].cardValue )
@@ -61,16 +63,22 @@ class UserStore {
       }
     });
     this.socket.on("waitingFor", (response) => {
-      if (response){
-        this.room.waiting = response
+      if (response && this.room.cardResults.length === 0){
+        this.room.waiting = []
+        for (let i = 0; i < response; i ++){
+          this.room.waiting.push(true)
+        }
       }
     });
-    this.socket.on("resetCards", () => {
+    this.socket.on("resetCards", (data) => {
       this.room.cardResults = []
       this.blockCard = this.room.cardsAreTheSame = false
       this.jira.description = this.jira.title = ""
       this.notificationVariant = "info"
       this.notificationMessage = "Card reset"
+      if (data){
+        console.log(data)
+      }
     });
     this.socket.on("kickUser", (data) => {
       if (data){
@@ -85,10 +93,10 @@ class UserStore {
     })
     this.socket.on("changeAdmin", (data) => {
       if (data){
-        if (this.user.userId === data) {
+        if (this.user.userId === data && this.user.admin === false) {
           this.user.admin = true
-          // this.notificationVariant = "info"
-          // this.notificationMessage = "You have been given admin privileges"
+          this.notificationVariant = "info"
+          this.notificationMessage = "You have been given admin privileges"
         }
       }
     })
@@ -243,13 +251,13 @@ class UserStore {
     this.socket.on("jiraGetBacklogBoard", (data) => {
       this.jira.activeBoard.issues = []
       this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
+      this.socket.on("jiraGetBoard", (data) => {
+        this.jira.activeBoard.issues = []
+        this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
+        this.jira.activeBoardFetching = false
+      })
+    })
 
-    })
-    this.socket.on("jiraGetBoard", (data) => {
-      this.jira.activeBoard.issues = []
-      this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
-      this.jira.activeBoardFetching = false
-    })
 
   }
 
