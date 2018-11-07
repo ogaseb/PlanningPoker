@@ -5,12 +5,13 @@ import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import styled from "styled-components";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider/Divider";
+import Divider from "@material-ui/core/Divider";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 const StyledTextField = styled(TextField)`
@@ -94,7 +95,10 @@ class Issue extends Component {
       <React.Fragment>
         <Typography>Jira Task Picker</Typography>
         {console.log(this.props.store.jira.activeBoard.issues)}
-        {(this.props.store.jira.activeBoard.issues.length > 0 && this.props.store.user.admin) &&
+        {this.props.store.jira.activeBoardFetching && <CircularProgress/>}
+        {(this.props.store.jira.activeBoard.issues.length > 0 &&
+          this.props.store.user.admin &&
+          !this.props.store.jira.activeBoardFetching) &&
         <StyledTaskContener>
           {this.props.store.jira.activeBoard.issues.map((data, index) => {
             return (

@@ -19,7 +19,7 @@ let rooms = new Map()
 let rooms_password = new Map()
 let jira
 
-function createHash(name) {
+function createHash() {
   return uuid()
 }
 
@@ -29,7 +29,8 @@ function createRoomObject() {
       roomName: "",
       roomId: "",
       user: [],
-      game: []
+      game: [],
+      gameHistory: []
     }
   );
 }
@@ -41,58 +42,58 @@ io.on('connection', socket => {
     socket.emit("fetchRooms", fetch_rooms)
   }
 
-  socket.on('jiraLogin', ({ jiraLogin: username, jiraPassword: password, jiraSubdomain }) => {
-    jira = new JiraClient( {
+  socket.on('jiraLogin', ({jiraLogin: username, jiraPassword: password, jiraSubdomain}) => {
+    jira = new JiraClient({
       host: `${jiraSubdomain}.atlassian.net`,
-      basic_auth: { username, password }
+      basic_auth: {username, password}
     })
 
-    jira.board.getAllBoards({startAt:0}, function(error, boards) {
+    jira.board.getAllBoards({startAt: 0}, function (error, boards) {
       socket.emit("jiraLogin", boards)
       console.log('Jira -> connecting and fetching boards', error)
       if (error) {
-        socket.emit("errors", { error:error })
+        socket.emit("errors", {error})
       }
     })
   })
 
-  socket.on('jiraGetBoard', (data) => {
-    jira.board.getIssuesForBacklog({boardId:data}, function(error, board) {
+  socket.on('jiraGetBoard', (boardId) => {
+    jira.board.getIssuesForBacklog({boardId}, function (error, board) {
       socket.emit("jiraGetBacklogBoard", board)
       console.log('Jira -> fetching singe board')
       if (error) {
-        socket.emit("errors", {error:error})
+        socket.emit("errors", {error})
       }
 
     })
 
-    jira.board.getIssuesForBoard({boardId:data}, function(error, board) {
+    jira.board.getIssuesForBoard({boardId}, function (error, board) {
       socket.emit("jiraGetBoard", board)
       console.log('Jira -> fetching singe board')
       if (error) {
-        socket.emit("errors", {error:error})
+        socket.emit("errors", {error})
       }
     })
   })
 
-  socket.on('jiraSetEstimation', ({ issueId, boardId, estimationScore }) => {
-    jira.issue.setIssueEstimation({issueId, boardId, value: estimationScore}, function(error) {
+  socket.on('jiraSetEstimation', ({issueId, boardId, estimationScore}) => {
+    jira.issue.setIssueEstimation({issueId, boardId, value: estimationScore}, function (error) {
       console.log(`Jira -> setting estimation for id: ${issueId} value: ${estimationScore}`)
       if (error) {
-        socket.emit("errors", {error:error})
+        socket.emit("errors", {error})
       }
     })
   })
 
-  socket.on('createRoom', (data) => {
+  socket.on('createRoom', ({userName, roomName, roomPassword}) => {
     const Room = createRoomObject();
-    const RoomId = createHash(data.roomName);
+    const RoomId = createHash();
 
-    Room.user.push({userId: socket.id, userName: data.userName})
-    Room.roomName = data.roomName;
+    Room.user.push({userId: socket.id, userName})
+    Room.roomName = roomName;
     Room.roomId = RoomId;
 
-    rooms_password.set(RoomId, data.roomPassword)
+    rooms_password.set(RoomId, roomPassword)
     rooms.set(RoomId, Room)
     users.set(socket.id, RoomId)
     fetch_rooms.push(Room)
@@ -107,62 +108,75 @@ io.on('connection', socket => {
     fetchRooms()
   }, 1000)
 
-  socket.on('joinRoom', (data) => {
-    const password = rooms_password.get(data.roomId)
+  socket.on('joinRoom', ({roomId, roomPassword, userName}) => {
+    const password = rooms_password.get(roomId)
 
-    if (data.roomPassword === password) {
-      let rooms_temp = rooms.get(data.roomId)
-      rooms_temp.user.push({userId: socket.id, userName: data.userName})
+    if (roomPassword === password) {
+      let rooms_temp = rooms.get(roomId)
+      rooms_temp.user.push({userId: socket.id, userName})
 
-      users.set(socket.id, data.roomId)
-      socket.join(data.roomId);
+      users.set(socket.id, roomId)
+      socket.join(roomId);
 
       let index = lodash.findIndex(rooms_temp, function (o) {
-        return o.roomId === data.roomId;
+        return o.roomId === roomId;
       });
 
       if (index !== -1) {
-        fetch_rooms[index].user.push({userId: socket.id, userName: data.userName})
+        fetch_rooms[index].user.push({userId: socket.id, userName})
       }
 
-      console.log("User -> Joined room! RoomId:", data.roomId)
+      console.log("User -> Joined room! RoomId:", roomId)
       socket.emit('joinRoom', rooms_temp)
 
-      rooms.set(data.roomId, rooms_temp)
-      io.in(data.roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
+      rooms.set(roomId, rooms_temp)
+      io.in(roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
     }
     else {
-      socket.emit("errors", {error:"Invalid Password"})
+      socket.emit("errors", {error: "Invalid Password"})
     }
   })
 
-  socket.on("sendCard", (data) => {
-    let rooms_temp = rooms.get(data.roomId)
-    rooms_temp.game.push({userName: data.userName, cardValue: data.cardValue})
+  socket.on("deleteRoom", ({roomId, roomPassword}) => {
+    const password = rooms_password.get(roomId)
+    if (roomPassword === password) {
+      let index = lodash.findIndex(fetch_rooms, function (o) {
+        return o.roomId === roomId;
+      });
+      fetch_rooms.splice(index, 1)
+      rooms.delete(roomId)
+    } else {
+      socket.emit("errors", {error: "Invalid Password"})
+    }
+  })
+
+  socket.on("sendCard", ({roomId, userName, cardValue}) => {
+    let rooms_temp = rooms.get(roomId)
+    rooms_temp.game.push({userName, cardValue})
 
     let index = lodash.findIndex(rooms_temp.user, function (o) {
-      return o.userName === data.userName;
+      return o.userName === userName;
     });
 
     rooms_temp.user[index].userName = `${rooms_temp.user[index].userName} - ✔`
 
     if (rooms_temp.user.length === rooms_temp.game.length) {
-      io.in(data.roomId).emit("sendCard", rooms_temp.game)
-      io.in(data.roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
+      io.in(roomId).emit("sendCard", rooms_temp.game)
+      io.in(roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
     } else {
-      io.in(data.roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
+      io.in(roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
     }
-    rooms.set(data.roomId, rooms_temp)
+    rooms.set(roomId, rooms_temp)
   })
 
-  socket.on("resetCards", (data) => {
-    let rooms_temp = rooms.get(data.roomId)
-    if (rooms_temp !== undefined){
+  socket.on("resetCards", ({roomId}) => {
+    let rooms_temp = rooms.get(roomId)
+    if (rooms_temp !== undefined) {
 
-     for (let i = 0; i < rooms_temp.user.length; i++){
-       let splitted = rooms_temp.user[i].userName.split(" - ")
-       rooms_temp.user[i].userName = splitted[0]
-     } 
+      for (let i = 0; i < rooms_temp.user.length; i++) {
+        let splitted = rooms_temp.user[i].userName.split(" - ")
+        rooms_temp.user[i].userName = splitted[0]
+      }
 
       while (rooms_temp.game.length) {
         rooms_temp.game.pop();
@@ -170,39 +184,27 @@ io.on('connection', socket => {
       rooms_temp.title = ""
       rooms_temp.description = ""
 
-      io.in(data.roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
-      io.in(data.roomId).emit("resetCards")
-      rooms.set(data.roomId, rooms_temp)
+      io.in(roomId).emit("waitingFor", rooms_temp.user.length - rooms_temp.game.length)
+      io.in(roomId).emit("resetCards")
+      rooms.set(roomId, rooms_temp)
     }
   })
 
-  socket.on("fetchUsers", (data) => {
+  socket.on("fetchUsers", ({roomId}) => {
     setInterval(() => {
-      if (data) {
-        const temp_room = rooms.get(data.roomId)
+        const temp_room = rooms.get(roomId)
         if (temp_room) {
-
-
-          io.in(data.roomId).emit("fetchUsers", temp_room.user)
-          if (temp_room.user.length === 0) {
-            let index = lodash.findIndex(fetch_rooms, function (o) {
-              return o.roomId === data.roomId;
-            });
-            fetch_rooms.splice(index, 1)
-            rooms.delete(data.roomId)
-            console.log("Server -> Room is empty! RoomId:", data.roomId)
-          }
+          io.in(roomId).emit("fetchUsers", temp_room.user)
         }
-      }
     }, 1000)
   })
 
-  socket.on('kickUser', (data) => {
-    let roomId = users.get(data.userId)
+  socket.on('kickUser', ({userId}) => {
+    let roomId = users.get(userId)
     if (roomId) {
       let room_temp = rooms.get(roomId.toString())
       let index = lodash.findIndex(room_temp.user, function (o) {
-        return o.userId === data.userId;
+        return o.userId === userId;
       });
       if (index !== -1) {
         io.in(roomId.toString()).emit("kickUser", room_temp.user[index])
@@ -218,12 +220,12 @@ io.on('connection', socket => {
     }
   })
 
-  socket.on('changeAdmin', (data) => {
-    let roomId = users.get(data.userId)
+  socket.on('changeAdmin', ({userId}) => {
+    let roomId = users.get(userId)
     if (roomId) {
       let room_temp = rooms.get(roomId.toString())
       let index = lodash.findIndex(room_temp.user, function (o) {
-        return o.userId === data.userId;
+        return o.userId === userId;
       });
       if (index !== -1) {
         io.in(roomId.toString()).emit("changeAdmin", room_temp.user[index].userId)
@@ -232,21 +234,21 @@ io.on('connection', socket => {
     }
   })
 
-  socket.on('broadcastTitle', (data) => {
-    let room_temp = rooms.get(data.roomId)
-    if (room_temp.title !== data.title) {
-      room_temp.title = data.title
-      socket.broadcast.to(data.roomId).emit("broadcastTitle", data.title)
-      rooms.set(data.roomId, room_temp)
+  socket.on('broadcastTitle', ({roomId,title}) => {
+    let room_temp = rooms.get(roomId)
+    if (room_temp.title !== title) {
+      room_temp.title = title
+      socket.broadcast.to(roomId).emit("broadcastTitle", title)
+      rooms.set(roomId, room_temp)
     }
   })
 
-  socket.on('broadcastDescription', (data) => {
-    let room_temp = rooms.get(data.roomId)
-    if (room_temp.description !== data.description) {
-      room_temp.description = data.description
-      socket.broadcast.to(data.roomId).emit("broadcastDescription", data.description)
-      rooms.set(data.roomId, room_temp)
+  socket.on('broadcastDescription', ({roomId, description}) => {
+    let room_temp = rooms.get(roomId)
+    if (room_temp.description !== description) {
+      room_temp.description = description
+      socket.broadcast.to(roomId).emit("broadcastDescription", description)
+      rooms.set(roomId, room_temp)
     }
   })
 
@@ -273,11 +275,11 @@ io.on('connection', socket => {
   })
 
   socket.on('disconnecting', (reason) => {
-    console.log("User -> disconnecting reason:",reason)
+    console.log("User -> disconnecting reason:", reason)
   });
 
   socket.on('reconnecting', (reason) => {
-    console.log("User -> lost connection in process of reconnection reason:",reason)
+    console.log("User -> lost connection in process of reconnection reason:", reason)
   });
   socket.on('reconnect', () => {
     console.log("User -> user reconnected")

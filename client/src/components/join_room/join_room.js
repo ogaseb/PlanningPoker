@@ -46,6 +46,8 @@ class JoinRoom extends Component {
     this.setState({roomId: e.target.value});
   };
 
+
+
   handleSubmit = () => {
     if (this.state.roomPassword !== "" && this.state.roomId !== "") {
       this.props.store.joinRoom(
@@ -59,6 +61,15 @@ class JoinRoom extends Component {
           clearInterval(interval)
         }
       }, 100)
+    }
+  };
+
+  handleDelete = () => {
+    if (this.state.roomPassword !== "" && this.state.roomId !== "") {
+      this.props.store.deleteRoom(
+        this.state.roomId,
+        this.state.roomPassword
+      );
     }
   };
 
@@ -93,6 +104,8 @@ class JoinRoom extends Component {
               type="password"
             />
             <Button onClick={this.handleSubmit}>Join room</Button>
+            <Button onClick={this.handleDelete}>Delete room</Button>
+
           </Wrapper>
         </StyledCard>
       </StyledGrid>

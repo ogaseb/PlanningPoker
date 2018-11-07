@@ -95,16 +95,7 @@ class CardResults extends Component {
               </Card>
             )) || <Typography style={{margin: "0 auto"}}> Waiting for response from all users </Typography>}
           </CardsWrapper>
-          <WrapperWaitInput> {cardResults.length > 0 && <StyledTextField
-            id="estimation-score"
-            label="Estimation score"
-            value={estimationScore}
-            onChange={this.handleChange}
-            type="number"
-          />} </WrapperWaitInput>
-
         </Wrapper>
-
       </React.Fragment>
     );
   }

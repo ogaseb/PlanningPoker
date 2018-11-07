@@ -6,6 +6,7 @@ import {withRouter} from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Select from "@material-ui/core/Select/Select";
 import FormLabel from '@material-ui/core/FormLabel';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 const StyledGrid = styled(Grid)`
@@ -39,6 +40,12 @@ const StyledSelect = styled(Select)`
   width:100%;
 `
 
+const StyledCircularProgress = styled(CircularProgress)`
+  &&{
+  margin: 0 auto;
+  }
+`
+
 class CreateRoom extends Component {
   state = {
     userName: "",
@@ -48,7 +55,7 @@ class CreateRoom extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("userName") !== null) {
-      this.setState({userName:JSON.parse(localStorage.getItem("userName"))});
+      this.setState({userName: JSON.parse(localStorage.getItem("userName"))});
     }
   }
 
@@ -123,7 +130,9 @@ class CreateRoom extends Component {
               type="password"
             />
             <FormLabel> Jira Board </FormLabel>
+            {this.props.store.jira.jiraBoardsFetching && <StyledCircularProgress/>}
             {this.props.store.jira.jiraBoards.values.length > 0 &&
+            !this.props.store.jira.jiraBoardsFetching &&
             <StyledSelect
               inputProps={{
                 name: 'board',

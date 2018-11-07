@@ -74,7 +74,7 @@ class Controls extends Component {
                 onClick={this.handleCard}>Send Card</Button>
         {this.props.store.user.admin && (
           <React.Fragment>
-            <Button onClick={this.handleReset}>Next issue</Button>
+            <Button onClick={this.handleReset}>Reset cards</Button>
             <Button
               disabled={!this.props.store.room.cardsAreTheSame}
               onClick={this.handleEstimation}>Set estimation point</Button>

@@ -9,6 +9,7 @@ class UserStore {
       userId: "",
       users: [],
       kicked: false,
+      userIsConnecting:false,
       connected: false,
       admin: false
     }
@@ -23,7 +24,9 @@ class UserStore {
     }
 
     this.jira = {
+      jiraBoardsFetching: false,
       jiraBoards: [],
+      activeBoardFetching: false,
       activeBoard: {
         issues: []
       },
@@ -111,7 +114,7 @@ class UserStore {
     const data = {
       userName: this.user.userName,
       roomName,
-      roomPassword: roomPassword
+      roomPassword
     };
     this.socket.emit("createRoom", data);
     this.socket.on("createRoom", response => {
@@ -124,6 +127,14 @@ class UserStore {
       this.notificationVariant = "success"
       this.notificationMessage = "You have created a Room"
     });
+  }
+
+  deleteRoom(roomId, roomPassword){
+    const data = {
+      roomId,
+      roomPassword
+    };
+    this.socket.emit("deleteRoom", data);
   }
 
   fetchRooms() {
@@ -210,6 +221,7 @@ class UserStore {
   }
 
   jiraLogin(jiraSubdomain, jiraLogin, jiraPassword) {
+    this.jira.jiraBoardsFetching = true
     const data = {
       jiraSubdomain: jiraSubdomain,
       jiraLogin: jiraLogin,
@@ -220,20 +232,25 @@ class UserStore {
       if (data){
         this.jira.jiraLoggedIn = true
         this.jira.jiraBoards = data
+        this.jira.jiraBoardsFetching = false
       }
     })
   }
 
   selectBoard(boardId) {
+    this.jira.activeBoardFetching = true
     this.socket.emit("jiraGetBoard", boardId)
     this.socket.on("jiraGetBacklogBoard", (data) => {
       this.jira.activeBoard.issues = []
       this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
+
     })
     this.socket.on("jiraGetBoard", (data) => {
       this.jira.activeBoard.issues = []
       this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
+      this.jira.activeBoardFetching = false
     })
+
   }
 
   setIssueEstimation() {
