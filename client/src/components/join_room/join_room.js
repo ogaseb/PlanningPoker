@@ -2,6 +2,11 @@ import React, {Component} from "react";
 import {Grid, Card, Button, TextField} from "@material-ui/core";
 import styled from "styled-components";
 import {inject, observer} from "mobx-react";
+import FormLabel from "@material-ui/core/FormLabel/FormLabel";
+import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Select from "@material-ui/core/Select";
+
 
 const StyledGrid = styled(Grid)`
   height: calc(100vh - 48px);
@@ -19,6 +24,17 @@ const Wrapper = styled.div`
   position: relative;
   top: calc(50vh - 144px);
 `;
+
+const StyledCircularProgress = styled(CircularProgress)`
+  &&{
+  margin: 0 auto;
+  }
+`
+
+const StyledSelect = styled(Select)`
+  width:100%;
+`
+
 
 class JoinRoom extends Component {
   state = {
@@ -73,6 +89,15 @@ class JoinRoom extends Component {
     }
   };
 
+  handleChangeBoard = event => {
+    this.setState({[event.target.name]: event.target.value});
+  };
+
+  selectBoard = (e) => {
+    this.props.store.jira.boardId = e.target.value
+    this.props.store.selectBoard(e.target.value)
+  }
+
   render() {
     const {store: {room: {rooms}}} = this.props
     return (
@@ -103,6 +128,28 @@ class JoinRoom extends Component {
               onChange={this.handleChange}
               type="password"
             />
+            <FormLabel> Jira Board </FormLabel>
+            {this.props.store.jira.jiraBoardsFetching && <StyledCircularProgress/>}
+            {this.props.store.jira.jiraBoards.values.length > 0 &&
+            !this.props.store.jira.jiraBoardsFetching &&
+            <StyledSelect
+              inputProps={{
+                name: 'board',
+                id: 'board'
+              }}
+              value={this.state.board} onChange={(e) => {
+              this.selectBoard(e);
+              this.handleChangeBoard(e);
+            }}>
+
+              {this.props.store.jira.jiraBoards.values.map((data, index) => {
+                return (
+                  <MenuItem key={index} value={data.id}>
+                    {data.name}
+                  </MenuItem>
+                );
+              })}
+            </StyledSelect>}
             <Button onClick={this.handleSubmit}>Join room</Button>
             <Button onClick={this.handleDelete}>Delete room</Button>
 

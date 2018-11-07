@@ -76,7 +76,7 @@ class UserStore {
       if (data){
         if (this.user.userId !== "" && this.user.userId === data.userId) {
           this.user.kicked = true
-          this.user.admin = this.user.connected = this.openJoinDialog = false;
+          this.user.admin = this.openJoinDialog = false;
           this.user.userName = this.room.roomName = this.user.userId = this.room.roomId = ""
           this.notificationVariant = "error"
           this.notificationMessage = "You have been kicked from the Room"
@@ -87,8 +87,8 @@ class UserStore {
       if (data){
         if (this.user.userId === data) {
           this.user.admin = true
-          this.notificationVariant = "info"
-          this.notificationMessage = "You have been given admin privileges"
+          // this.notificationVariant = "info"
+          // this.notificationMessage = "You have been given admin privileges"
         }
       }
     })

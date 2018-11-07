@@ -195,6 +195,9 @@ io.on('connection', socket => {
         const temp_room = rooms.get(roomId)
         if (temp_room) {
           io.in(roomId).emit("fetchUsers", temp_room.user)
+          if (temp_room.user.length === 1) {
+            io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
+          }
         }
     }, 1000)
   })
