@@ -101,6 +101,6 @@ decorate(Controls, {
   selectedCard: observable,
 });
 
-
+export {Controls}
 export default inject("store")(withRouter(observer(Controls)));
 

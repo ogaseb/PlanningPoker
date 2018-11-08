@@ -200,6 +200,6 @@ class Issue extends Component {
   }
 }
 
-
+export {Issue}
 export default inject("store")(withRouter(observer(Issue)));
 

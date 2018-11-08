@@ -165,5 +165,5 @@ class JoinRoom extends Component {
   }
 }
 
-// export default JoinRoom;
+export {JoinRoom};
 export default inject("store")(observer(JoinRoom));

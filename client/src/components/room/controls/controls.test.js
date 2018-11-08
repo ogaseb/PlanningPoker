@@ -1,15 +1,17 @@
 import React from "react"
-import { Notification } from "./notification"
+import { Controls } from "./controls"
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-describe("Notification", () => {
+describe("Controls", () => {
   it("renders without errors", () => {
     const store = {
-      notificationMessage: ""
+      room: { cardsAreTheSame : false, cardResults : []},
+      user: {admin: true}
     }
-    const component = shallow(<Notification store={store} />)
+
+    const component = shallow(<Controls store={store} />)
     expect(component).toMatchSnapshot()
   })
 })

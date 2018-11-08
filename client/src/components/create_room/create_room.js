@@ -160,5 +160,5 @@ class CreateRoom extends Component {
     );
   }
 }
-
+export {CreateRoom}
 export default inject("store")(withRouter(observer(CreateRoom)));

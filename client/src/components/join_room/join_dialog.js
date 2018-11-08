@@ -72,6 +72,7 @@ class JoinDialog extends Component {
 decorate(JoinDialog, {
   input: observable
 });
+
+export {JoinDialog}
 export default inject("store")(withRouter(observer(JoinDialog)));
 
-// export default JoinDialog

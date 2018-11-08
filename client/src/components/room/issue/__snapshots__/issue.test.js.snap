@@ -1,0 +1,543 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Issue renders without errors 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Issue
+    store={
+      Object {
+        "jira": Object {
+          "activeBoard": Object {
+            "issues": Array [],
+          },
+          "activeBoardFetching": false,
+        },
+        "room": Object {
+          "cardResults": Array [],
+          "cardsAreTheSame": false,
+        },
+        "user": Object {
+          "admin": true,
+        },
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        false,
+        false,
+        <ForwardRef>
+          <WithStyles(Typography)
+            variant="subtitle2"
+          >
+            Title
+          </WithStyles(Typography)>
+          <ForwardRef
+            id="title"
+            margin="normal"
+            multiline={true}
+            onChange={[Function]}
+          />
+        </ForwardRef>,
+        <ForwardRef>
+          <WithStyles(Typography)
+            variant="subtitle2"
+          >
+            Description
+          </WithStyles(Typography)>
+          <ForwardRef
+            id="description"
+            margin="normal"
+            multiline={true}
+            onChange={[Function]}
+          />
+        </ForwardRef>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      false,
+      false,
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": Array [
+            <WithStyles(Typography)
+              variant="subtitle2"
+            >
+              Title
+            </WithStyles(Typography)>,
+            <ForwardRef
+              id="title"
+              margin="normal"
+              multiline={true}
+              onChange={[Function]}
+            />,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": "Title",
+              "variant": "subtitle2",
+            },
+            "ref": null,
+            "rendered": "Title",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "id": "title",
+              "margin": "normal",
+              "multiline": true,
+              "onChange": [Function],
+              "value": undefined,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "attrs": undefined,
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-bdVaJa",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  &&{
+  width:90%;
+  }
+",
+                ],
+              },
+              "displayName": "Styled(TextField)",
+              "render": [Function],
+              "styledComponentId": "sc-bdVaJa",
+              "target": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            },
+          },
+        ],
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "Naked": [Function],
+          "attrs": undefined,
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bwzfXH",
+            "isStatic": true,
+            "rules": Array [
+              "
+  &&{
+  margin: 0 auto;
+    margin-top:20px;
+
+  width:100%;
+  margin-bottom: 15px;
+  }
+",
+            ],
+          },
+          "displayName": "Styled(WithStyles(Card))",
+          "options": Object {
+            "name": "MuiCard",
+          },
+          "render": [Function],
+          "styledComponentId": "sc-bwzfXH",
+          "target": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+          Symbol(Symbol.hasInstance): [Function],
+        },
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": Array [
+            <WithStyles(Typography)
+              variant="subtitle2"
+            >
+              Description
+            </WithStyles(Typography)>,
+            <ForwardRef
+              id="description"
+              margin="normal"
+              multiline={true}
+              onChange={[Function]}
+            />,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": "Description",
+              "variant": "subtitle2",
+            },
+            "ref": null,
+            "rendered": "Description",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "id": "description",
+              "margin": "normal",
+              "multiline": true,
+              "onChange": [Function],
+              "value": undefined,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "attrs": undefined,
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-bdVaJa",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  &&{
+  width:90%;
+  }
+",
+                ],
+              },
+              "displayName": "Styled(TextField)",
+              "render": [Function],
+              "styledComponentId": "sc-bdVaJa",
+              "target": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            },
+          },
+        ],
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "Naked": [Function],
+          "attrs": undefined,
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bwzfXH",
+            "isStatic": true,
+            "rules": Array [
+              "
+  &&{
+  margin: 0 auto;
+    margin-top:20px;
+
+  width:100%;
+  margin-bottom: 15px;
+  }
+",
+            ],
+          },
+          "displayName": "Styled(WithStyles(Card))",
+          "options": Object {
+            "name": "MuiCard",
+          },
+          "render": [Function],
+          "styledComponentId": "sc-bwzfXH",
+          "target": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+          Symbol(Symbol.hasInstance): [Function],
+        },
+      },
+    ],
+    "type": Symbol(react.fragment),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          false,
+          false,
+          <ForwardRef>
+            <WithStyles(Typography)
+              variant="subtitle2"
+            >
+              Title
+            </WithStyles(Typography)>
+            <ForwardRef
+              id="title"
+              margin="normal"
+              multiline={true}
+              onChange={[Function]}
+            />
+          </ForwardRef>,
+          <ForwardRef>
+            <WithStyles(Typography)
+              variant="subtitle2"
+            >
+              Description
+            </WithStyles(Typography)>
+            <ForwardRef
+              id="description"
+              margin="normal"
+              multiline={true}
+              onChange={[Function]}
+            />
+          </ForwardRef>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        false,
+        false,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              <WithStyles(Typography)
+                variant="subtitle2"
+              >
+                Title
+              </WithStyles(Typography)>,
+              <ForwardRef
+                id="title"
+                margin="normal"
+                multiline={true}
+                onChange={[Function]}
+              />,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Title",
+                "variant": "subtitle2",
+              },
+              "ref": null,
+              "rendered": "Title",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "id": "title",
+                "margin": "normal",
+                "multiline": true,
+                "onChange": [Function],
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": undefined,
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bdVaJa",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  &&{
+  width:90%;
+  }
+",
+                  ],
+                },
+                "displayName": "Styled(TextField)",
+                "render": [Function],
+                "styledComponentId": "sc-bdVaJa",
+                "target": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+                Symbol(Symbol.hasInstance): [Function],
+              },
+            },
+          ],
+          "type": Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "Naked": [Function],
+            "attrs": undefined,
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-bwzfXH",
+              "isStatic": true,
+              "rules": Array [
+                "
+  &&{
+  margin: 0 auto;
+    margin-top:20px;
+
+  width:100%;
+  margin-bottom: 15px;
+  }
+",
+              ],
+            },
+            "displayName": "Styled(WithStyles(Card))",
+            "options": Object {
+              "name": "MuiCard",
+            },
+            "render": [Function],
+            "styledComponentId": "sc-bwzfXH",
+            "target": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          },
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              <WithStyles(Typography)
+                variant="subtitle2"
+              >
+                Description
+              </WithStyles(Typography)>,
+              <ForwardRef
+                id="description"
+                margin="normal"
+                multiline={true}
+                onChange={[Function]}
+              />,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Description",
+                "variant": "subtitle2",
+              },
+              "ref": null,
+              "rendered": "Description",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "id": "description",
+                "margin": "normal",
+                "multiline": true,
+                "onChange": [Function],
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": undefined,
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bdVaJa",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  &&{
+  width:90%;
+  }
+",
+                  ],
+                },
+                "displayName": "Styled(TextField)",
+                "render": [Function],
+                "styledComponentId": "sc-bdVaJa",
+                "target": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+                Symbol(Symbol.hasInstance): [Function],
+              },
+            },
+          ],
+          "type": Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "Naked": [Function],
+            "attrs": undefined,
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-bwzfXH",
+              "isStatic": true,
+              "rules": Array [
+                "
+  &&{
+  margin: 0 auto;
+    margin-top:20px;
+
+  width:100%;
+  margin-bottom: 15px;
+  }
+",
+              ],
+            },
+            "displayName": "Styled(WithStyles(Card))",
+            "options": Object {
+              "name": "MuiCard",
+            },
+            "render": [Function],
+            "styledComponentId": "sc-bwzfXH",
+            "target": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          },
+        },
+      ],
+      "type": Symbol(react.fragment),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

@@ -127,6 +127,6 @@ class UserList extends Component {
 decorate(UserList, {
   bufferIssues: observable,
 });
-
+export {UserList}
 export default inject("store")(withRouter(observer(UserList)));
 

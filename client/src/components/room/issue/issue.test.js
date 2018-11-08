@@ -1,15 +1,18 @@
 import React from "react"
-import { Notification } from "./notification"
+import { Issue} from "./issue"
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-describe("Notification", () => {
+describe("Issue", () => {
   it("renders without errors", () => {
     const store = {
-      notificationMessage: ""
+      room: { cardsAreTheSame : false, cardResults : []},
+      user: {admin: true},
+      jira: {activeBoardFetching: false, activeBoard: { issues: []}}
     }
-    const component = shallow(<Notification store={store} />)
+
+    const component = shallow(<Issue store={store} />)
     expect(component).toMatchSnapshot()
   })
 })

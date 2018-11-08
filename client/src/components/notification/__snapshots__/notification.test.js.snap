@@ -1,40 +1,165 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Notification renders without errors 1`] = `
-<Styled(WithStyles(Snackbar))
-  ContentProps={
-    Object {
-      "aria-describedby": "message-id",
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Notification
+    store={
+      Object {
+        "notificationMessage": "",
+      }
     }
-  }
-  action={
-    Array [
-      <WithStyles(IconButton)
-        aria-label="Close"
-        color="inherit"
-        onClick={false}
-    >
-        <pure(CloseIcon)
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "action": Array [
+        <WithStyles(IconButton)
+          aria-label="Close"
+          color="inherit"
+          onClick={[Function]}
+        >
+          <pure(CloseIcon)
             name="close"
-        />
-    </WithStyles(IconButton)>,
-    ]
+          />
+        </WithStyles(IconButton)>,
+      ],
+      "anchorOrigin": Object {
+        "horizontal": "left",
+        "vertical": "bottom",
+      },
+      "autoHideDuration": 3000,
+      "message": "",
+      "onClose": [Function],
+      "open": false,
+      "variant": undefined,
+      "wide": 300,
+    },
+    "ref": null,
+    "rendered": null,
+    "type": Object {
+      "$$typeof": Symbol(react.forward_ref),
+      "Naked": [Function],
+      "attrs": undefined,
+      "componentStyle": ComponentStyle {
+        "componentId": "sc-bdVaJa",
+        "isStatic": false,
+        "rules": Array [
+          "
+  & > div {
+    max-width: ",
+          [Function],
+          ";
+    background-color: ",
+          [Function],
+          ";
   }
-  anchorOrigin={
+",
+        ],
+      },
+      "displayName": "Styled(WithStyles(Snackbar))",
+      "options": Object {
+        "flip": false,
+        "name": "MuiSnackbar",
+      },
+      "render": [Function],
+      "styledComponentId": "sc-bdVaJa",
+      "target": [Function],
+      "warnTooManyClasses": [Function],
+      "withComponent": [Function],
+      Symbol(Symbol.hasInstance): [Function],
+    },
+  },
+  Symbol(enzyme.__nodes__): Array [
     Object {
-      "horizontal": "left",
-      "vertical": "bottom",
-    }
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "action": Array [
+          <WithStyles(IconButton)
+            aria-label="Close"
+            color="inherit"
+            onClick={[Function]}
+          >
+            <pure(CloseIcon)
+              name="close"
+            />
+          </WithStyles(IconButton)>,
+        ],
+        "anchorOrigin": Object {
+          "horizontal": "left",
+          "vertical": "bottom",
+        },
+        "autoHideDuration": 3000,
+        "message": "",
+        "onClose": [Function],
+        "open": false,
+        "variant": undefined,
+        "wide": 300,
+      },
+      "ref": null,
+      "rendered": null,
+      "type": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "Naked": [Function],
+        "attrs": undefined,
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bdVaJa",
+          "isStatic": false,
+          "rules": Array [
+            "
+  & > div {
+    max-width: ",
+            [Function],
+            ";
+    background-color: ",
+            [Function],
+            ";
   }
-  message={
-    <span
-      id="message-id"
-    >
-      test
-    </span>
-  }
-  onClose={false}
-  open={true}
-  wide={0}
-/>
+",
+          ],
+        },
+        "displayName": "Styled(WithStyles(Snackbar))",
+        "options": Object {
+          "flip": false,
+          "name": "MuiSnackbar",
+        },
+        "render": [Function],
+        "styledComponentId": "sc-bdVaJa",
+        "target": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+        Symbol(Symbol.hasInstance): [Function],
+      },
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
 `;

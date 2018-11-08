@@ -26,7 +26,6 @@ class App extends Component {
     );
   }
 }
-
+export {App};
 export default inject("store")(withRouter(observer(App)));
 
-// export default App;

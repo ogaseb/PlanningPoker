@@ -7,7 +7,9 @@
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-    "postinstall": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "postinstall": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "precommit": "lint-staged",
+    "prepush": "yarn test"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -19,6 +21,44 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "concurrently": "^4.0.1"
+    "eslint": "^5.8.0",
+    "concurrently": "^4.0.1",
+    "husky": "^1.1.3",
+    "lint-staged": "^8.0.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "client/src/**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "jest": {
+    "modulePaths": [
+      "<rootDir>/client/src",
+      "<rootDir>/client",
+      "<rootDir>"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|scss)$": "identity-obj-proxy"
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/utils/**",
+      "!src/*.{js,jsx}"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   }
 }

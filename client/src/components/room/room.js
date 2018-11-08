@@ -5,10 +5,10 @@ import styled from "styled-components";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import JoinDialog from '../join_room/join_dialog'
-import Issue from './issue'
-import CardResults from './card_results'
-import Controls from './controls'
-import UserList from './user_list'
+import Issue from './issue/issue'
+import CardResults from './card_results/card_results'
+import Controls from './controls/controls'
+import UserList from './user_list/user_list'
 
 const StyledGrid = styled(Grid)`
   &&{
@@ -75,6 +75,5 @@ class Room extends Component {
   }
 }
 
-
-
+export {Room}
 export default inject("store")(withRouter(observer(Room)));

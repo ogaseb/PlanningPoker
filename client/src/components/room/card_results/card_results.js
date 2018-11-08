@@ -77,5 +77,6 @@ class CardResults extends Component {
   }
 }
 
+export {CardResults}
 export default inject("store")(withRouter(observer(CardResults)));
 

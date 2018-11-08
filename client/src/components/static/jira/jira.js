@@ -191,5 +191,6 @@ decorate(JiraConnector, {
 
 });
 
+export {Jira}
 export default inject("store")(withRouter(observer(JiraConnector)));
 
