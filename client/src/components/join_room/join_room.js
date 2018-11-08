@@ -45,7 +45,7 @@ class JoinRoom extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("userName") !== null) {
-      this.setState({userName:JSON.parse(localStorage.getItem("userName"))});
+      this.setState({userName: JSON.parse(localStorage.getItem("userName"))});
     }
   }
 
@@ -61,7 +61,6 @@ class JoinRoom extends Component {
   handleSelect = e => {
     this.setState({roomId: e.target.value});
   };
-
 
 
   handleSubmit = () => {
@@ -127,28 +126,31 @@ class JoinRoom extends Component {
               onChange={this.handleChange}
               type="password"
             />
-            <FormLabel> Jira Board </FormLabel>
+
             {this.props.store.jira.jiraBoardsFetching && <StyledCircularProgress/>}
             {this.props.store.jira.jiraBoards.values.length > 0 &&
             !this.props.store.jira.jiraBoardsFetching &&
-            <StyledSelect
-              inputProps={{
-                name: 'board',
-                id: 'board'
-              }}
-              value={this.state.board} onChange={(e) => {
-              this.selectBoard(e);
-              this.handleChangeBoard(e);
-            }}>
+            <React.Fragment>
+              <FormLabel> Jira Board </FormLabel>
+              <StyledSelect
+                inputProps={{
+                  name: 'board',
+                  id: 'board'
+                }}
+                value={this.state.board} onChange={(e) => {
+                this.selectBoard(e);
+                this.handleChangeBoard(e);
+              }}>
 
-              {this.props.store.jira.jiraBoards.values.map((data, index) => {
-                return (
-                  <MenuItem key={index} value={data.id}>
-                    {data.name}
-                  </MenuItem>
-                );
-              })}
-            </StyledSelect>}
+                {this.props.store.jira.jiraBoards.values.map((data, index) => {
+                  return (
+                    <MenuItem key={index} value={data.id}>
+                      {data.name}
+                    </MenuItem>
+                  );
+                })}
+              </StyledSelect>
+            </React.Fragment>}
             <Button onClick={this.handleSubmit}>Join room</Button>
             <Button onClick={this.handleDelete}>Delete room</Button>
 

@@ -9,8 +9,8 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-
-
+import Divider from "@material-ui/core/Divider/Divider";
+import Card from "@material-ui/core/Card";
 
 
 const DefaultSelect = styled.select`
@@ -68,9 +68,6 @@ class UserList extends Component {
   }
 
 
-
-
-
   render() {
     return (
       <React.Fragment>
@@ -98,17 +95,30 @@ class UserList extends Component {
           )}
         </UserDiv>
         <JiraDiv>
-          {console.log(this.props.store.room.cardHistory)}
-          {this.props.store.room.cardHistory.map((data, index) => {
+
+          {this.props.store.room.cardHistory.length > 0 && this.props.store.room.cardHistory.map((data, index) => {
             return (
-              <ExpansionPanel  >
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
+              <React.Fragment>
+                <Typography>Jira Cards History</Typography>
+                <ExpansionPanel key={index}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                    {`deal ${index}`}
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    {data.map((data) => (
+                      <Card style={{display: "flex", flexDirection: "column", textAlign: "center", margin: "5px"}}>
+                        <div style={{color: "black"}}>
+                          {data.userName}
+                        </div>
+                        <Divider/>
+                        <div style={{textAlign: "center", color: "black"}}>
+                          {data.cardValue}
+                        </div>
+                      </Card>)
+                    )}
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              </React.Fragment>
             );
           })}
         </JiraDiv>

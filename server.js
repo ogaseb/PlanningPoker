@@ -179,14 +179,14 @@ io.on('connection', socket => {
       }
 
       rooms_temp.gameHistory.push(rooms_temp.game)
-      while (rooms_temp.game.length) {
-        rooms_temp.game.pop();
-      }
+      console.log(rooms_temp.gameHistory)
+      io.in(roomId).emit("resetCards", rooms_temp.gameHistory)
+
+      rooms_temp.game = []
       rooms_temp.title = ""
       rooms_temp.description = ""
 
       io.in(roomId).emit("waitingFor", rooms_temp.game.length)
-      io.in(roomId).emit("resetCards", rooms_temp.gameHistory)
       rooms.set(roomId, rooms_temp)
     }
   })

@@ -78,6 +78,7 @@ class UserStore {
       this.notificationMessage = "Card reset"
       if (data){
         console.log(data)
+        this.room.cardHistory = data
       }
     });
     this.socket.on("kickUser", (data) => {
@@ -124,14 +125,14 @@ class UserStore {
       roomName,
       roomPassword
     };
+    this.openJoinDialog = false
+    this.user.connected = true
     this.socket.emit("createRoom", data);
     this.socket.on("createRoom", response => {
       this.user.userId = response.user[response.user.length - 1].userId;
       this.room.roomId = response.roomId;
       this.room.roomName = response.roomName
-      this.openJoinDialog = false
       this.user.admin = true
-      this.user.connected = true
       this.notificationVariant = "success"
       this.notificationMessage = "You have created a Room"
     });
@@ -159,13 +160,14 @@ class UserStore {
       roomId: roomId,
       roomPassword: roomPassword
     };
+    this.openJoinDialog = false
+    this.user.connected = true
     this.socket.emit("joinRoom", data);
     this.socket.on("joinRoom", (response) => {
       this.user.userId = response.user[response.user.length - 1].userId;
       this.room.roomId = response.roomId;
       this.room.roomName = response.roomName
-      this.jira.openJoinDialog = false
-      this.user.connected = true
+      this.room.cardHistory = response.gameHistory
       this.notificationVariant = "success"
       this.notificationMessage = "You have joined to the Room"
     });

@@ -48,13 +48,36 @@ const StyledComment = styled(Card)`
   }
 `
 
+const TitleCard = styled(Card)`
+  &&{
+    padding: 10px; 
+    max-width: 80%; 
+    text-align: left; 
+    background-color:white;
+    color:black;
+  }
+`
+
+const PointsCard = styled(Card)`
+  &&{
+    padding: 10px; 
+    margin-left: 20px;
+    position: absolute; 
+    right: 60px; 
+    color: black;
+  }
+`
+
+
 class Issue extends Component {
   state = {
     userId: "",
     selectBoardId: "",
     board: "",
     expanded: null,
-    issue: ""
+    issue: "",
+    taskContents: null
+
   }
 
   handleChange = (e) => {
@@ -72,8 +95,15 @@ class Issue extends Component {
     }
   }
 
-  selectIssue = (index, event) => {
-    console.log(event)
+  selectIssue = (index) => {
+    const issues = document.getElementById("issues").childNodes
+    for (let i = 0; i < issues.length; i++) {
+      issues[i].style.backgroundColor = "white"
+      issues[i].style.color = "black"
+    }
+    issues[index].style.backgroundColor = "#303F9F"
+    issues[index].style.color = "white"
+
     this.props.store.jira.title = this.props.store.jira.activeBoard.issues[index].fields.summary
     this.props.store.jira.description = this.props.store.jira.activeBoard.issues[index].fields.description
     this.props.store.jira.issueId = this.props.store.jira.activeBoard.issues[index].id
@@ -93,53 +123,54 @@ class Issue extends Component {
 
     return (
       <React.Fragment>
-        <Typography>Jira Task Picker</Typography>
-        {console.log(this.props.store.jira.activeBoard.issues)}
         {this.props.store.jira.activeBoardFetching && <CircularProgress/>}
         {(this.props.store.jira.activeBoard.issues.length > 0 &&
           this.props.store.user.admin &&
           !this.props.store.jira.activeBoardFetching) &&
-        <StyledTaskContener>
-          {this.props.store.jira.activeBoard.issues.map((data, index) => {
-            return (
-              <ExpansionPanel expanded={this.state.expanded === `panel${index}`} onChange={(event) => {
-                this.selectIssue(index, event);
-                this.handleExpansionChange(`panel${index}`);
-              }}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-                  <div style={{padding: "10px", width: "90%", textAlign: "left"}}>
-                    <img width={16} height={16} src={data.fields.issuetype.iconUrl}/>
-                    <img width={16} height={16} src={data.fields.priority.iconUrl}/>
-                    {data.fields.priority.name} | {data.key} - {data.fields.summary}
-                  </div>
-                  <Card style={{padding: "10px", marginLeft: "20px", position: "absolute", right: "60px"}}>Story
-                    points: {data.fields.customfield_10022}</Card>
-                </ExpansionPanelSummary>
-                <StyledExpansionPanelDetails>
-                  <Grid container>
-                    <Grid item xs={data.fields.comment.comments.length > 0 ? 8 : 12}>
+        <React.Fragment>
+          <Typography>Jira Task Picker</Typography>
+          <StyledTaskContener id="issues">
+            {this.props.store.jira.activeBoard.issues.map((data, index) => {
+              return (
+                <ExpansionPanel expanded={this.state.expanded === `panel${index}`} onChange={() => {
+                  this.selectIssue(index);
+                  this.handleExpansionChange(`panel${index}`);
+                }}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                    <TitleCard>
+                      <img width={16} height={16} src={data.fields.issuetype.iconUrl}/>
+                      <img width={16} height={16} src={data.fields.priority.iconUrl}/>
+                      {data.fields.priority.name} | {data.key} - {data.fields.summary}
+                    </TitleCard>
+                    <PointsCard
+                      style={{}}>Story
+                      points: {data.fields.customfield_10022 || data.fields.customfield_10033}</PointsCard>
+                  </ExpansionPanelSummary>
+                  <StyledExpansionPanelDetails>
+                    <Grid container>
+                      <Grid item xs={data.fields.comment.comments.length > 0 ? 8 : 12}>
 
+                      </Grid>
+                      <Grid item xs={data.fields.comment.comments.length > 0 ? 4 : 0}>
+                        {data.fields.comment.comments.length > 0 &&
+                        data.fields.comment.comments.map((comment) => (
+                          <StyledComment>
+                            <div style={{color: "black"}}>
+                              {comment.author.name}
+                            </div>
+                            <Divider/>
+                            <div style={{textAlign: "left", color: "black"}}>
+                              {comment.body}
+                            </div>
+                          </StyledComment>)
+                        )}
+                      </Grid>
                     </Grid>
-                    <Grid item xs={data.fields.comment.comments.length > 0 ? 4 : 0}>
-                      {data.fields.comment.comments.length > 0 &&
-                      data.fields.comment.comments.map((comment) => (
-                        <StyledComment>
-                          <div>
-                            {comment.author.name}
-                          </div>
-                          <Divider/>
-                          <div style={{textAlign: "left"}}>
-                            {comment.body}
-                          </div>
-                        </StyledComment>)
-                      )}
-                    </Grid>
-                  </Grid>
-                </StyledExpansionPanelDetails>
-              </ExpansionPanel>
-            );
-          })}
-        </StyledTaskContener>}
+                  </StyledExpansionPanelDetails>
+                </ExpansionPanel>
+              );
+            })}
+          </StyledTaskContener></React.Fragment>}
         <StyledTitleCard>
           <Typography variant="subtitle2">
             Title
