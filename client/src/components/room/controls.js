@@ -39,8 +39,8 @@ const YourCard = styled(Card)`
 const cards = [0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
 
 class Controls extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.selectedCard = ""
   }
 

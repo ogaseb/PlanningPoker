@@ -17,20 +17,6 @@ const Wrapper = styled(Card)`
   flex-wrap: wrap;
 `;
 
-const WrapperWait = styled(Card)`
-  &&{
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-  width: 90%;
-  flex-wrap: wrap;
-  margin-top:10px;
-  margin-bottom: 10px;
-  padding: 5px;
-  justify-content: center;
-  }
-`;
-
 const CardsWrapper = styled.div`
   &&{
   margin: 0 auto;
@@ -62,7 +48,6 @@ class CardResults extends Component {
     return (
       <React.Fragment>
         <Wrapper>
-          {/*<WrapperWait> We're waiting for : {waiting} users </WrapperWait>*/}
           <CardsWrapper>
             {waiting.length > 0 && waiting.map((result, index) => (
               <Card key={index} style={{width: "100px", minHeight: "20px"}}>

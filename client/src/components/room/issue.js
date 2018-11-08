@@ -138,8 +138,8 @@ class Issue extends Component {
                 }}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                     <TitleCard>
-                      <img width={16} height={16} src={data.fields.issuetype.iconUrl}/>
-                      <img width={16} height={16} src={data.fields.priority.iconUrl}/>
+                      <img alt="issueType" width={16} height={16} src={data.fields.issuetype.iconUrl}/>
+                      <img alt="priority" width={16} height={16} src={data.fields.priority.iconUrl}/>
                       {data.fields.priority.name} | {data.key} - {data.fields.summary}
                     </TitleCard>
                     <PointsCard

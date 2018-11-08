@@ -40,7 +40,8 @@ class JoinRoom extends Component {
   state = {
     userName: "",
     roomPassword: "",
-    roomId: ""
+    roomId: "",
+    board: ""
   };
 
   componentDidMount() {
@@ -64,7 +65,7 @@ class JoinRoom extends Component {
 
 
   handleSubmit = () => {
-    if (this.state.roomPassword !== "" && this.state.roomId !== "") {
+    if (this.state.roomPassword !== "" && this.state.roomId !== "" ) {
       this.props.store.joinRoom(
         this.state.roomId,
         this.state.roomPassword,
@@ -76,6 +77,9 @@ class JoinRoom extends Component {
           clearInterval(interval)
         }
       }, 100)
+    }else {
+      this.props.store.notificationVariant = "warning"
+      this.props.store.notificationMessage = "Choose a room you want to join"
     }
   };
 

@@ -8,7 +8,6 @@ import Select from "@material-ui/core/Select/Select";
 import FormLabel from '@material-ui/core/FormLabel';
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-
 const StyledGrid = styled(Grid)`
   &&{
   height: calc(100vh - 48px);
@@ -50,7 +49,8 @@ class CreateRoom extends Component {
   state = {
     userName: "",
     roomName: "",
-    roomPassword: ""
+    roomPassword: "",
+    board: ""
   };
 
   componentDidMount() {
@@ -88,7 +88,10 @@ class CreateRoom extends Component {
           clearInterval(interval)
         }
       }, 100)
-
+    }
+    else {
+      this.props.store.notificationVariant = "warning"
+      this.props.store.notificationMessage = "To create a room you need to fill all inputs"
     }
   };
 
@@ -100,7 +103,6 @@ class CreateRoom extends Component {
   selectBoard = (e) => {
     this.props.store.jira.boardId = e.target.value
   }
-
 
   render() {
     return (
@@ -114,7 +116,6 @@ class CreateRoom extends Component {
               onChange={this.handleChange}
               margin="normal"
             />
-
             <TextField
               id="room-name"
               label="Room Name"
@@ -128,6 +129,7 @@ class CreateRoom extends Component {
               onChange={this.handleChange}
               type="password"
             />
+
             {this.props.store.jira.jiraBoardsFetching && <StyledCircularProgress/>}
             {this.props.store.jira.jiraBoards.values.length > 0 &&
             !this.props.store.jira.jiraBoardsFetching &&
@@ -142,7 +144,6 @@ class CreateRoom extends Component {
                 this.selectBoard(e);
                 this.handleChangeBoard(e);
               }}>
-
                 {this.props.store.jira.jiraBoards.values.map((data, index) => {
                   return (
                     <MenuItem key={index} value={data.id}>

@@ -25,7 +25,7 @@ const StyledCard = styled(Card)`
 
 class Room extends Component {
   componentDidMount() {
-    if (this.props.store.jira.jiraLoggedIn){
+    if (this.props.store.jira.jiraLoggedIn && this.props.store.jira.boardId !== ""){
       this.props.store.selectBoard(this.props.store.jira.boardId)
     }
     this.props.store.fetchUsers()

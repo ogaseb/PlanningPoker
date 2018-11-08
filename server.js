@@ -106,36 +106,41 @@ io.on('connection', socket => {
 
   setInterval(() => {
     fetchRooms()
-  }, 1000)
+  }, 1000);
 
   socket.on('joinRoom', ({roomId, roomPassword, userName}) => {
-    const password = rooms_password.get(roomId)
+    let temp_room = rooms.get(roomId)
+    if (temp_room) {
+      const password = rooms_password.get(roomId)
 
-    if (roomPassword === password) {
-      let rooms_temp = rooms.get(roomId)
-      rooms_temp.user.push({userId: socket.id, userName})
+      if (roomPassword === password) {
+        temp_room.user.push({userId: socket.id, userName})
 
-      users.set(socket.id, roomId)
-      socket.join(roomId);
+        users.set(socket.id, roomId)
+        socket.join(roomId);
 
-      let index = lodash.findIndex(rooms_temp, function (o) {
-        return o.roomId === roomId;
-      });
+        let index = lodash.findIndex(temp_room, function (o) {
+          return o.roomId === roomId;
+        });
 
-      if (index !== -1) {
-        fetch_rooms[index].user.push({userId: socket.id, userName})
+        if (index !== -1) {
+          fetch_rooms[index].user.push({userId: socket.id, userName})
+        }
+
+        console.log("User -> Joined room! RoomId:", roomId)
+        socket.emit('joinRoom', temp_room)
+
+        rooms.set(roomId, temp_room)
+        io.in(roomId).emit("waitingFor", temp_room.game.length)
       }
-
-      console.log("User -> Joined room! RoomId:", roomId)
-      socket.emit('joinRoom', rooms_temp)
-
-      rooms.set(roomId, rooms_temp)
-      io.in(roomId).emit("waitingFor", rooms_temp.game.length)
+      else {
+        socket.emit("errors", {error: "Invalid Password"})
+      }
     }
     else {
-      socket.emit("errors", {error: "Invalid Password"})
+      socket.emit("errors", {error: "Room not found"})
     }
-  })
+  });
 
   socket.on("deleteRoom", ({roomId, roomPassword}) => {
     const password = rooms_password.get(roomId)
@@ -151,74 +156,76 @@ io.on('connection', socket => {
   })
 
   socket.on("sendCard", ({roomId, userName, cardValue}) => {
-    let rooms_temp = rooms.get(roomId)
-    rooms_temp.game.push({userName, cardValue})
+    let temp_room = rooms.get(roomId)
+    if (temp_room) {
+      temp_room.game.push({userName, cardValue})
 
-    let index = lodash.findIndex(rooms_temp.user, function (o) {
-      return o.userName === userName;
-    });
+      let index = lodash.findIndex(temp_room.user, function (o) {
+        return o.userName === userName;
+      });
 
-    rooms_temp.user[index].userName = `${rooms_temp.user[index].userName} - ✔`
+      temp_room.user[index].userName = `${temp_room.user[index].userName} - ✔`
 
-    if (rooms_temp.user.length === rooms_temp.game.length) {
-      io.in(roomId).emit("sendCard", rooms_temp.game)
-      io.in(roomId).emit("waitingFor", rooms_temp.game.length)
-    } else {
-      io.in(roomId).emit("waitingFor", rooms_temp.game.length)
+      if (temp_room.user.length === temp_room.game.length) {
+        io.in(roomId).emit("sendCard", temp_room.game)
+        io.in(roomId).emit("waitingFor", temp_room.game.length)
+      } else {
+        io.in(roomId).emit("waitingFor", temp_room.game.length)
+      }
+      rooms.set(roomId, temp_room)
     }
-    rooms.set(roomId, rooms_temp)
   })
 
   socket.on("resetCards", ({roomId}) => {
-    let rooms_temp = rooms.get(roomId)
-    if (rooms_temp !== undefined) {
+    let temp_room = rooms.get(roomId)
+    if (temp_room) {
 
-      for (let i = 0; i < rooms_temp.user.length; i++) {
-        let splitted = rooms_temp.user[i].userName.split(" - ")
-        rooms_temp.user[i].userName = splitted[0]
+      for (let i = 0; i < temp_room.user.length; i++) {
+        let splitted = temp_room.user[i].userName.split(" - ")
+        temp_room.user[i].userName = splitted[0]
       }
 
-      rooms_temp.gameHistory.push(rooms_temp.game)
-      console.log(rooms_temp.gameHistory)
-      io.in(roomId).emit("resetCards", rooms_temp.gameHistory)
+      temp_room.gameHistory.push(temp_room.game)
+      console.log(temp_room.gameHistory)
+      io.in(roomId).emit("resetCards", temp_room.gameHistory)
 
-      rooms_temp.game = []
-      rooms_temp.title = ""
-      rooms_temp.description = ""
+      temp_room.game = []
+      temp_room.title = ""
+      temp_room.description = ""
 
-      io.in(roomId).emit("waitingFor", rooms_temp.game.length)
-      rooms.set(roomId, rooms_temp)
+      io.in(roomId).emit("waitingFor", temp_room.game.length)
+      rooms.set(roomId, temp_room)
     }
   })
 
   socket.on("fetchUsers", ({roomId}) => {
     setInterval(() => {
-        const temp_room = rooms.get(roomId)
-        if (temp_room) {
-          io.in(roomId).emit("fetchUsers", temp_room.user)
-          if (temp_room.user.length === 1) {
-            io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
-          }
+      const temp_room = rooms.get(roomId)
+      if (temp_room) {
+        io.in(roomId).emit("fetchUsers", temp_room.user)
+        if (temp_room.user.length === 1) {
+          io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
         }
+      }
     }, 1000)
   })
 
   socket.on('kickUser', ({userId}) => {
     let roomId = users.get(userId)
     if (roomId) {
-      let room_temp = rooms.get(roomId.toString())
-      let index = lodash.findIndex(room_temp.user, function (o) {
+      let temp_room = rooms.get(roomId.toString())
+      let index = lodash.findIndex(temp_room.user, function (o) {
         return o.userId === userId;
       });
       if (index !== -1) {
-        io.in(roomId.toString()).emit("kickUser", room_temp.user[index])
+        io.in(roomId.toString()).emit("kickUser", temp_room.user[index])
 
-        room_temp.user.splice(index, 1)
-        io.in(roomId.toString()).emit("waitingFor", room_temp.game.length)
-        if (room_temp.user.length === 1) {
-          io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
+        temp_room.user.splice(index, 1)
+        io.in(roomId.toString()).emit("waitingFor", temp_room.game.length)
+        if (temp_room.user.length === 1) {
+          io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
         }
-        rooms.set(roomId.toString(), room_temp)
+        rooms.set(roomId.toString(), temp_room)
         console.log('User -> kicked')
       }
     }
@@ -227,50 +234,50 @@ io.on('connection', socket => {
   socket.on('changeAdmin', ({userId}) => {
     let roomId = users.get(userId)
     if (roomId) {
-      let room_temp = rooms.get(roomId.toString())
-      let index = lodash.findIndex(room_temp.user, function (o) {
+      let temp_room = rooms.get(roomId.toString())
+      let index = lodash.findIndex(temp_room.user, function (o) {
         return o.userId === userId;
       });
       if (index !== -1) {
-        io.in(roomId.toString()).emit("changeAdmin", room_temp.user[index].userId)
+        io.in(roomId.toString()).emit("changeAdmin", temp_room.user[index].userId)
         console.log('User -> admin permissions given')
       }
     }
   })
 
-  socket.on('broadcastTitle', ({roomId,title}) => {
-    let room_temp = rooms.get(roomId)
-    if (room_temp.title !== title) {
-      room_temp.title = title
+  socket.on('broadcastTitle', ({roomId, title}) => {
+    let temp_room = rooms.get(roomId)
+    if (temp_room.title !== title) {
+      temp_room.title = title
       socket.broadcast.to(roomId).emit("broadcastTitle", title)
-      rooms.set(roomId, room_temp)
+      rooms.set(roomId, temp_room)
     }
   })
 
   socket.on('broadcastDescription', ({roomId, description}) => {
-    let room_temp = rooms.get(roomId)
-    if (room_temp.description !== description) {
-      room_temp.description = description
+    let temp_room = rooms.get(roomId)
+    if (temp_room.description !== description) {
+      temp_room.description = description
       socket.broadcast.to(roomId).emit("broadcastDescription", description)
-      rooms.set(roomId, room_temp)
+      rooms.set(roomId, temp_room)
     }
   })
 
   socket.on('disconnect', () => {
     let roomId = users.get(socket.id)
     if (roomId !== undefined) {
-      let room_temp = rooms.get(roomId.toString())
-      if (room_temp !== undefined) {
-        let index = lodash.findIndex(room_temp.user, function (o) {
+      let temp_room = rooms.get(roomId.toString())
+      if (temp_room !== undefined) {
+        let index = lodash.findIndex(temp_room.user, function (o) {
           return o.userId === socket.id;
         });
         if (index !== -1) {
-          room_temp.user.splice(index, 1)
-          io.in(roomId.toString()).emit("waitingFor", room_temp.game.length)
-          if (room_temp.user.length === 1) {
-            io.in(roomId.toString()).emit("changeAdmin", room_temp.user[0].userId)
+          temp_room.user.splice(index, 1)
+          io.in(roomId.toString()).emit("waitingFor", temp_room.game.length)
+          if (temp_room.user.length === 1) {
+            io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
           }
-          rooms.set(roomId.toString(), room_temp)
+          rooms.set(roomId.toString(), temp_room)
           console.log('User -> disconnected from room')
         }
       }
