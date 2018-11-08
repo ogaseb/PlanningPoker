@@ -80,7 +80,6 @@ class UserStore {
       this.notificationVariant = "info"
       this.notificationMessage = "Card reset"
       if (data){
-        console.log(data)
         this.room.cardHistory = data
       }
     });

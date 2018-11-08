@@ -102,7 +102,7 @@ class UserList extends Component {
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                     {`deal ${index}`}
                   </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
+                  <ExpansionPanelDetails style={{display: "flex", flexWrap:"wrap"}}>
                     {data.map((data) => (
                       <Card style={{display: "flex", flexDirection: "column", textAlign: "center", margin: "5px"}}>
                         <div style={{color: "black"}}>
