@@ -6,8 +6,6 @@ import JoinRoom from '../../components/join_room/join_room'
 import Room from '../../components/room/room'
 import routes from '../../routes'
 
-
-
 class Router extends React.Component {
   render() {
     return (

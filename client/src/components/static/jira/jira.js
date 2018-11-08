@@ -10,12 +10,10 @@ import {Jira} from 'mdi-material-ui'
 import {TextField} from "@material-ui/core";
 import {decorate, observable} from "mobx";
 import Paper from "@material-ui/core/Paper/Paper";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
-
 
 const StyledPaper = styled(Paper)`
   && {

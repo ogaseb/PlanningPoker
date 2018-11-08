@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <div className="App">
         <Notification />
-        <Header roomName={this.props.store.roomName} userName={this.props.store.userName} />
+        <Header />
         <div style={{ textAlign: "center" }}>
           <Grid container>
            <Router />
