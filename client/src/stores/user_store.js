@@ -42,11 +42,13 @@ class UserStore {
     this.notificationMessage = null
     this.notificationVariant = "info"
     this.blockCard = false
+    this.blockReset = true
     this.openJoinDialog = false
     this.socket = socketIOClient(process.env.ENDPOINT);
     this.socket.on("sendCard", (response) => {
       this.room.waiting = []
       if (response){
+        this.blockReset = false
         let card = sortBy(response, "cardValue")
         const allEqual = arr => arr.every( v => v.cardValue === arr[0].cardValue )
         this.room.cardsAreTheSame = allEqual( card )
@@ -71,6 +73,7 @@ class UserStore {
       }
     });
     this.socket.on("resetCards", (data) => {
+      this.blockReset = true
       this.room.cardResults = []
       this.blockCard = this.room.cardsAreTheSame = false
       this.jira.description = this.jira.title = ""
@@ -283,6 +286,7 @@ decorate(UserStore, {
   notificationMessage: observable,
   notificationVariant: observable,
   blockCard: observable,
+  blockReset: observable,
   openJoinDialog: observable
 });
 

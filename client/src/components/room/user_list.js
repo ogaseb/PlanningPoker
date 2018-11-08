@@ -95,11 +95,9 @@ class UserList extends Component {
           )}
         </UserDiv>
         <JiraDiv>
-
+          {this.props.store.room.cardHistory.length > 0 && <Typography>Jira Cards History</Typography>}
           {this.props.store.room.cardHistory.length > 0 && this.props.store.room.cardHistory.map((data, index) => {
             return (
-              <React.Fragment>
-                <Typography>Jira Cards History</Typography>
                 <ExpansionPanel key={index}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                     {`deal ${index}`}
@@ -118,7 +116,6 @@ class UserList extends Component {
                     )}
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
-              </React.Fragment>
             );
           })}
         </JiraDiv>
