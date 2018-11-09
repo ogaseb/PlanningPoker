@@ -254,10 +254,9 @@ class UserStore {
     this.socket.emit("jiraGetBoard", boardId)
     this.socket.on("jiraGetBacklogBoard", (data) => {
       this.jira.activeBoard.issues = []
-      this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
+      this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data]
       this.socket.on("jiraGetBoard", (data) => {
-        this.jira.activeBoard.issues = []
-        this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data.issues]
+        this.jira.activeBoard.issues = [...this.jira.activeBoard.issues, ...data]
         this.jira.activeBoardFetching = false
       })
     })

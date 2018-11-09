@@ -12,6 +12,8 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Fuse from 'fuse.js'
+import {decorate, computed, observable, toJS} from "mobx";
 
 
 const StyledTextField = styled(TextField)`
@@ -74,9 +76,16 @@ class Issue extends Component {
     expanded: null,
   }
 
+  componentDidMount() {
+    if (this.props.store.jira.jiraLoggedIn && this.props.store.jira.boardId !== "") {
+      this.props.store.selectBoard(this.props.store.jira.boardId)
+    }
+  }
+
   handleChange = (e) => {
     if (e.target.id === "title") {
       if (this.props.store.user.admin) {
+        this.issueFilter = e.target.value
         this.props.store.jira.title = e.target.value
         this.props.store.broadcastTitle()
       }
@@ -98,9 +107,9 @@ class Issue extends Component {
     issues[index].style.backgroundColor = "#303F9F"
     issues[index].style.color = "white"
 
-    this.props.store.jira.title = this.props.store.jira.activeBoard.issues[index].fields.summary
-    this.props.store.jira.description = this.props.store.jira.activeBoard.issues[index].fields.description
-    this.props.store.jira.issueId = this.props.store.jira.activeBoard.issues[index].id
+    this.props.store.jira.title = this.searchResults[index].summary
+    this.props.store.jira.description = this.searchResults[index].description
+    this.props.store.jira.issueId = this.searchResults[index].id
     this.props.store.broadcastTitle()
     this.props.store.broadcastDescription()
   }
@@ -113,6 +122,17 @@ class Issue extends Component {
 
   };
 
+  get fuse() {
+    return new Fuse(toJS(this.props.store.jira.activeBoard.issues), {
+      keys: ['key', 'summary'],
+      threshold: 0.6
+    })
+  }
+
+  get searchResults() {
+    return this.fuse.search(this.issueFilter)
+  }
+
   render() {
 
     return (
@@ -124,7 +144,7 @@ class Issue extends Component {
         <React.Fragment>
           <Typography>Jira Task Picker</Typography>
           <StyledTaskContener id="issues">
-            {this.props.store.jira.activeBoard.issues.map((data, index) => {
+            {this.searchResults.map(({key, priorityType, id, description, issueUrl, priorityUrl, summary, comments}, index) => {
               return (
                 <ExpansionPanel expanded={this.state.expanded === `panel${index}`} onChange={() => {
                   this.selectIssue(index);
@@ -132,29 +152,25 @@ class Issue extends Component {
                 }}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                     <TitleCard>
-                      <img alt="issueType" width={16} height={16} src={data.fields.issuetype.iconUrl}/>
-                      <img alt="priority" width={16} height={16} src={data.fields.priority.iconUrl}/>
-                      {data.fields.priority.name} | {data.key} - {data.fields.summary}
+                      <img alt="issueType" width={16} height={16} src={issueUrl}/>
+                      <img alt="priority" width={16} height={16} src={priorityUrl}/>
+                      {priorityType} | {key} - {summary}
                     </TitleCard>
-                    <PointsCard
-                      style={{}}>Story
-                      points: {data.fields.customfield_10022 || data.fields.customfield_10033}</PointsCard>
                   </ExpansionPanelSummary>
                   <StyledExpansionPanelDetails>
                     <Grid container>
-                      <Grid item xs={data.fields.comment.comments.length > 0 ? 8 : 12}>
-
+                      <Grid item xs={comments.length > 0 ? 8 : 12}>
                       </Grid>
-                      <Grid item xs={data.fields.comment.comments.length > 0 ? 4 : 0}>
-                        {data.fields.comment.comments.length > 0 &&
-                        data.fields.comment.comments.map((comment) => (
+                      <Grid item xs={comments.length > 0 ? 4 : 0}>
+                        {comments.length > 0 &&
+                        comments.map(({author:{name}, body}) => (
                           <StyledComment>
                             <div style={{color: "black"}}>
-                              {comment.author.name}
+                              {name}
                             </div>
                             <Divider/>
                             <div style={{textAlign: "left", color: "black"}}>
-                              {comment.body}
+                              {body}
                             </div>
                           </StyledComment>)
                         )}
@@ -193,6 +209,13 @@ class Issue extends Component {
     )
   }
 }
+
+decorate(Issue, {
+  issueFilter: observable,
+  issueBoard: observable,
+  fuse: computed,
+  searchResults: computed
+});
 
 export {Issue}
 export default inject("store")(withRouter(observer(Issue)));

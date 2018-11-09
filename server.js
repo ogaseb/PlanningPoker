@@ -62,7 +62,22 @@ io.on('connection', socket => {
 
   socket.on('jiraGetBoard', (boardId) => {
     jira.board.getIssuesForBacklog({boardId}, function (error, board) {
-      socket.emit("jiraGetBacklogBoard", board)
+      let sendBoard = []
+      for (let i = 0; i < board.issues.length; i++) {
+        sendBoard.push(
+          {
+            id: board.issues[i].id,
+            key: board.issues[i].key,
+            summary: board.issues[i].fields.summary,
+            description: board.issues[i].fields.description,
+            comments: board.issues[i].fields.comment.comments,
+            priorityType: board.issues[i].fields.priority.name,
+            priorityUrl: board.issues[i].fields.priority.iconUrl,
+            issueUrl: board.issues[i].fields.issuetype.iconUrl
+          }
+        )
+      }
+      socket.emit("jiraGetBacklogBoard", sendBoard)
       console.log('Jira -> fetching singe board')
       if (error) {
         socket.emit("errors", {error})
@@ -71,7 +86,22 @@ io.on('connection', socket => {
     })
 
     jira.board.getIssuesForBoard({boardId}, function (error, board) {
-      socket.emit("jiraGetBoard", board)
+      let sendBoard = []
+      for (let i = 0; i < board.issues.length; i++) {
+        sendBoard.push(
+          {
+            id: board.issues[i].id,
+            key: board.issues[i].key,
+            summary: board.issues[i].fields.summary,
+            description: board.issues[i].fields.description,
+            comments: board.issues[i].fields.comment.comments,
+            priorityType: board.issues[i].fields.priority.name,
+            priorityUrl: board.issues[i].fields.priority.iconUrl,
+            issueUrl: board.issues[i].fields.issuetype.iconUrl
+          }
+        )
+      }
+      socket.emit("jiraGetBoard", sendBoard)
       console.log('Jira -> fetching singe board')
       if (error) {
         socket.emit("errors", {error})
