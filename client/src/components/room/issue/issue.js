@@ -60,15 +60,6 @@ const TitleCard = styled(Card)`
   }
 `
 
-const PointsCard = styled(Card)`
-  &&{
-    padding: 10px; 
-    margin-left: 20px;
-    position: absolute; 
-    right: 60px; 
-    color: black;
-  }
-`
 
 
 class Issue extends Component {
