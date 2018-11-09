@@ -98,11 +98,9 @@ class CreateRoom extends Component {
 
   handleChangeBoard = event => {
     this.setState({[event.target.name]: event.target.value});
-  };
+    this.props.store.jira.boardId = event.target.value
 
-  selectBoard = (e) => {
-    this.props.store.jira.boardId = e.target.value
-  }
+  };
 
   render() {
     return (
@@ -140,10 +138,8 @@ class CreateRoom extends Component {
                   name: 'board',
                   id: 'board'
                 }}
-                value={this.state.board} onChange={(e) => {
-                this.selectBoard(e);
-                this.handleChangeBoard(e);
-              }}>
+                value={this.state.board}
+                onChange={this.handleChangeBoard}>
                 {this.props.store.jira.jiraBoards.values.map((data, index) => {
                   return (
                     <MenuItem key={index} value={data.id}>

@@ -71,13 +71,7 @@ const PointsCard = styled(Card)`
 
 class Issue extends Component {
   state = {
-    userId: "",
-    selectBoardId: "",
-    board: "",
     expanded: null,
-    issue: "",
-    taskContents: null
-
   }
 
   handleChange = (e) => {

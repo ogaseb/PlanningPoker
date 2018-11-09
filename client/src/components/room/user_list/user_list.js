@@ -40,25 +40,20 @@ const JiraDiv = styled.div`
 `;
 
 class UserList extends Component {
-  state = {
-    userId: "",
-    selectBoardId: "",
-    board: "",
-    issue: ""
-  }
+
 
   handleSelect = e => {
-    this.setState({userId: e.target.value});
+    this.userId = e.target.value
   };
 
   handleKick = () => {
-    if (this.state.userId !== "") {
-      this.props.store.kickUser(this.state.userId)
+    if (this.userId) {
+      this.props.store.kickUser(this.userId)
     }
   }
   handleAdmin = () => {
-    if (this.state.userId !== "") {
-      this.props.store.changeAdmin(this.state.userId)
+    if (this.userId) {
+      this.props.store.changeAdmin(this.userId)
     }
   }
 
@@ -125,7 +120,7 @@ class UserList extends Component {
 }
 
 decorate(UserList, {
-  bufferIssues: observable,
+  userId: observable,
 });
 export {UserList}
 export default inject("store")(withRouter(observer(UserList)));

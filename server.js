@@ -5,6 +5,8 @@ const lodash = require('lodash');
 const path = require('path');
 const uuid = require('uuid/v4');
 const JiraClient = require('jira-connector');
+const date = require('date-and-time');
+
 
 const port = process.env.PORT || 5000;
 const app = express()
@@ -28,6 +30,7 @@ function createRoomObject() {
     {
       roomName: "",
       roomId: "",
+      createTimestamp: "",
       user: [],
       game: [],
       gameHistory: []
@@ -88,10 +91,13 @@ io.on('connection', socket => {
   socket.on('createRoom', ({userName, roomName, roomPassword}) => {
     const Room = createRoomObject();
     const RoomId = createHash();
-
+    let timestamp = new Date()
+    timestamp = date.format(timestamp, 'YYYY/MM/DD HH:mm:ss')
     Room.user.push({userId: socket.id, userName})
     Room.roomName = roomName;
     Room.roomId = RoomId;
+    Room.createTimestamp = timestamp;
+
 
     rooms_password.set(RoomId, roomPassword)
     rooms.set(RoomId, Room)

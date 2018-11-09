@@ -25,7 +25,8 @@ const StyledCard = styled(Card)`
 
 class Room extends Component {
   componentDidMount() {
-    if (this.props.store.jira.jiraLoggedIn && this.props.store.jira.boardId !== ""){
+
+    if (this.props.store.jira.jiraLoggedIn && this.props.store.jira.boardId !== "") {
       this.props.store.selectBoard(this.props.store.jira.boardId)
     }
     this.props.store.fetchUsers()
@@ -46,7 +47,7 @@ class Room extends Component {
     this.props.store.kickUser(this.props.store.user.userId)
     this.props.store.room.rooms = this.props.store.user.users = []
     this.props.store.user.admin = this.props.store.user.connected = false
-    this.props.store.user.userName =  this.props.store.user.userId = this.props.store.room.roomName = this.props.store.room.roomId = ""
+    this.props.store.user.userName = this.props.store.user.userId = this.props.store.room.roomName = this.props.store.room.roomId = ""
     setTimeout(() => {
       this.props.store.notificationMessage = "You have leaved the Room"
       this.props.store.notificationVariant = "warning"
@@ -60,14 +61,14 @@ class Room extends Component {
         <JoinDialog/>
         <StyledGrid item xs={10}>
           <StyledCard>
-            <Issue />
-            <CardResults />
-            <Controls />
+            <Issue/>
+            <CardResults/>
+            <Controls/>
           </StyledCard>
         </StyledGrid>
         <StyledGrid item xs={2}>
           <StyledCard>
-            <UserList />
+            <UserList/>
           </StyledCard>
         </StyledGrid>
       </React.Fragment>

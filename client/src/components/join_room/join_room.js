@@ -7,7 +7,6 @@ import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Select from "@material-ui/core/Select";
 
-
 const StyledGrid = styled(Grid)`
   height: calc(100vh - 48px);
 `;
@@ -29,11 +28,11 @@ const StyledCircularProgress = styled(CircularProgress)`
   &&{
   margin: 0 auto;
   }
-`
+`;
 
 const StyledSelect = styled(Select)`
   width:100%;
-`
+`;
 
 
 class JoinRoom extends Component {
@@ -94,11 +93,9 @@ class JoinRoom extends Component {
 
   handleChangeBoard = event => {
     this.setState({[event.target.name]: event.target.value});
-  };
+    this.props.store.jira.boardId = event.target.value
 
-  selectBoard = (e) => {
-    this.props.store.jira.boardId = e.target.value
-  }
+  };
 
   render() {
     const {store: {room: {rooms}}} = this.props
@@ -111,7 +108,7 @@ class JoinRoom extends Component {
               rooms.map((data, index) => {
                 return (
                   <option key={index} value={data.roomId}>
-                    Room Name: {data.roomName} - users: {data.user.length}
+                    Room Name: {data.roomName} - users: {data.user.length} - create date: {data.createTimestamp}
                   </option>
                 );
               })}
@@ -141,11 +138,7 @@ class JoinRoom extends Component {
                   name: 'board',
                   id: 'board'
                 }}
-                value={this.state.board} onChange={(e) => {
-                this.selectBoard(e);
-                this.handleChangeBoard(e);
-              }}>
-
+                value={this.state.board} onChange={this.handleChangeBoard}>
                 {this.props.store.jira.jiraBoards.values.map((data, index) => {
                   return (
                     <MenuItem key={index} value={data.id}>
@@ -157,7 +150,6 @@ class JoinRoom extends Component {
             </React.Fragment>}
             <Button onClick={this.handleSubmit}>Join room</Button>
             <Button onClick={this.handleDelete}>Delete room</Button>
-
           </Wrapper>
         </StyledCard>
       </StyledGrid>

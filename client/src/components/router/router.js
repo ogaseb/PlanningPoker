@@ -21,7 +21,7 @@ class Router extends React.Component {
           component={JoinRoom}
         />
         <Route
-          exact
+
           path={routes.room(":id", ":password")}
           component={Room}
         />
