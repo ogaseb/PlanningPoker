@@ -12,7 +12,7 @@ If you want to start project locally follow the instructions below.
 ```
 node.js ^8.*.*
 
-npm or yarn as packgage manager
+npm or yarn as package manager
 ```
 
 ### Installing
@@ -68,7 +68,7 @@ After you deploy this program into some kind of hosting you need to remember to 
 
 * **Sebastian Ogarek** - *Main work* - [ProPanek](https://github.com/ProPanek)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ProPanek/PlanningPoker/contributors) who participated in this project.
 
 ## License
 
