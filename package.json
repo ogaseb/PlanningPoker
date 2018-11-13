@@ -9,7 +9,8 @@
     "test": "test -u",
     "heroku-postbuild": "webpack --config webpack.server.config.js && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build ",
     "precommit": "lint-staged",
-    "prepush": "CI=true yarn test"
+    "prepush": "CI=true yarn test",
+    "webpack": "webpack --config webpack.server.config.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -19,7 +20,8 @@
     "jira-connector": "^2.9.0",
     "lodash": "^4.17.11",
     "socket.io": "^2.1.1",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
