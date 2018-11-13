@@ -1,6 +1,7 @@
 const path = require('path');
 const serverConfig = {
   target: 'node',
+  mode: 'production',
   entry: './server.js',
   externals: {
     uws: "uws"
