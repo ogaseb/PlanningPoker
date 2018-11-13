@@ -1,15 +1,23 @@
 const path = require('path');
-const serverConfig = {
+const fs = require('fs');
+
+let nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
+
+module.exports = {
   target: 'node',
-  mode: 'production',
+  mode: 'development',
   entry: './server.js',
-  externals: {
-    uws: "uws"
-  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'lib.node.js'
-  }
-};
+  },
+  externals: nodeModules
+}
 
-module.exports = serverConfig
