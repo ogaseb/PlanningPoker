@@ -5,7 +5,7 @@
     "client": "cd client && yarn start",
     "server": "nodemon --exec babel-node server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "node server.js",
+    "start": "node --exec babel-node server.js",
     "test": "test -u",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "precommit": "lint-staged",
