@@ -47,7 +47,13 @@ And that's it!
 
 ## Testing
 
-There is no test for now as i need to wait for the `StyledComponent` jest package to be updated.
+```
+jest, enzyme, sinon
+```
+
+To test type
+
+`yarn test`
 
 
 ## Deployment
