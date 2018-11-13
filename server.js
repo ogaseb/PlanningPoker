@@ -1,12 +1,11 @@
-const express = require('express')
-const http = require('http')
-const socketIO = require('socket.io')
-const lodash = require('lodash');
-const path = require('path');
-const uuid = require('uuid/v4');
-const JiraClient = require('jira-connector');
-const date = require('date-and-time');
-
+import express from 'express'
+import http from 'http'
+import socketIO from 'socket.io'
+import {findIndex} from 'lodash/findIndex'
+import path from 'path'
+import uuid from 'uuid/v4'
+import JiraClient from 'jira-connector'
+import date from 'date-and-time'
 
 const port = process.env.PORT || 5000;
 const app = express()
@@ -50,14 +49,15 @@ io.on('connection', socket => {
       host: `${jiraSubdomain}.atlassian.net`,
       basic_auth: {username, password}
     })
-
-    jira.board.getAllBoards({startAt: 0}, function (error, boards) {
-      socket.emit("jiraLogin", boards)
-      console.log('Jira -> connecting and fetching boards', error)
-      if (error) {
-        socket.emit("errors", {error})
-      }
-    })
+    if (jira){
+      jira.board.getAllBoards({startAt: 0}, function (error, boards) {
+        socket.emit("jiraLogin", boards)
+        console.log('Jira -> connecting and fetching boards', error)
+        if (error) {
+          socket.emit("errors", {error})
+        }
+      })
+    }
   })
 
   socket.on('jiraGetBoard', (boardId) => {
@@ -155,7 +155,7 @@ io.on('connection', socket => {
         users.set(socket.id, roomId)
         socket.join(roomId);
 
-        let index = lodash.findIndex(temp_room, function (o) {
+        let index = findIndex(temp_room, function (o) {
           return o.roomId === roomId;
         });
 
@@ -196,7 +196,7 @@ io.on('connection', socket => {
     if (temp_room) {
       temp_room.game.push({userName, cardValue})
 
-      let index = lodash.findIndex(temp_room.user, function (o) {
+      let index = findIndex(temp_room.user, function (o) {
         return o.userName === userName;
       });
 
@@ -250,7 +250,7 @@ io.on('connection', socket => {
     let roomId = users.get(userId)
     if (roomId) {
       let temp_room = rooms.get(roomId.toString())
-      let index = lodash.findIndex(temp_room.user, function (o) {
+      let index = findIndex(temp_room.user, function (o) {
         return o.userId === userId;
       });
       if (index !== -1) {
@@ -271,7 +271,7 @@ io.on('connection', socket => {
     let roomId = users.get(userId)
     if (roomId) {
       let temp_room = rooms.get(roomId.toString())
-      let index = lodash.findIndex(temp_room.user, function (o) {
+      let index = findIndex(temp_room.user, function (o) {
         return o.userId === userId;
       });
       if (index !== -1) {
@@ -304,7 +304,7 @@ io.on('connection', socket => {
     if (roomId !== undefined) {
       let temp_room = rooms.get(roomId.toString())
       if (temp_room !== undefined) {
-        let index = lodash.findIndex(temp_room.user, function (o) {
+        let index = findIndex(temp_room.user, function (o) {
           return o.userId === socket.id;
         });
         if (index !== -1) {

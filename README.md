@@ -36,7 +36,7 @@ Next you need to go to the `package.json` in your `/client` and change or add li
 "proxy": "http://localhost:5000",
 ```
 
-This allow our `create-react-app` application to know where our api is running (which port).
+This allow our `create-react-app` application to know where our api is running (which port and domain if you have server on different machine).
 After you finish just type in `root` folder
 
 ```
@@ -72,4 +72,4 @@ See also the list of [contributors](https://github.com/ProPanek/PlanningPoker/co
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/ProPanek/PlanningPoker/blob/master/LICENSE) file for details
