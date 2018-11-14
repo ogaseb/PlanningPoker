@@ -12,7 +12,7 @@ describe("CreateRoom", () => {
   it("renders without crashing", () => {
     const store = {
       jira: {
-        jiraBoardsFetching: true,
+        jiraBoardsFetching: false,
         jiraBoards: {values: []}
       }
     }

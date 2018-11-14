@@ -6,7 +6,7 @@
     "server": "webpack --config webpack.server.config.js && nodemon lib.node.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "start": "cd dist && node lib.node.js",
-    "test": "test -u",
+    "test": "cd client && CI=true yarn test",
     "heroku-postbuild": "webpack --config webpack.server.config.js && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build ",
     "precommit": "lint-staged",
     "prepush": "CI=true yarn test",

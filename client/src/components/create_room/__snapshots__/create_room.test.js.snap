@@ -10,7 +10,7 @@ ShallowWrapper {
           "jiraBoards": Object {
             "values": Array [],
           },
-          "jiraBoardsFetching": true,
+          "jiraBoardsFetching": false,
         },
       }
     }
@@ -59,7 +59,6 @@ ShallowWrapper {
             value=""
             variant="standard"
           />
-          <ForwardRef />
           <ForwardRef
             onClick={[Function]}
           >
@@ -106,7 +105,6 @@ ShallowWrapper {
             value=""
             variant="standard"
           />
-          <ForwardRef />
           <ForwardRef
             onClick={[Function]}
           >
@@ -150,7 +148,7 @@ ShallowWrapper {
               value=""
               variant="standard"
             />,
-            <ForwardRef />,
+            false,
             false,
             <ForwardRef
               onClick={[Function]}
@@ -214,42 +212,7 @@ ShallowWrapper {
             "rendered": null,
             "type": [Function],
           },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {},
-            "ref": null,
-            "rendered": null,
-            "type": Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "Naked": [Function],
-              "attrs": undefined,
-              "componentStyle": ComponentStyle {
-                "componentId": "sc-EHOje",
-                "isStatic": true,
-                "rules": Array [
-                  "
-  &&{
-  margin: 0 auto;
-  }
-",
-                ],
-              },
-              "displayName": "Styled(WithStyles(CircularProgress))",
-              "options": Object {
-                "flip": false,
-                "name": "MuiCircularProgress",
-              },
-              "render": [Function],
-              "styledComponentId": "sc-EHOje",
-              "target": [Function],
-              "toString": [Function],
-              "warnTooManyClasses": [Function],
-              "withComponent": [Function],
-              Symbol(Symbol.hasInstance): [Function],
-            },
-          },
+          false,
           false,
           Object {
             "instance": null,
@@ -409,7 +372,6 @@ ShallowWrapper {
               value=""
               variant="standard"
             />
-            <ForwardRef />
             <ForwardRef
               onClick={[Function]}
             >
@@ -456,7 +418,6 @@ ShallowWrapper {
               value=""
               variant="standard"
             />
-            <ForwardRef />
             <ForwardRef
               onClick={[Function]}
             >
@@ -500,7 +461,7 @@ ShallowWrapper {
                 value=""
                 variant="standard"
               />,
-              <ForwardRef />,
+              false,
               false,
               <ForwardRef
                 onClick={[Function]}
@@ -564,42 +525,7 @@ ShallowWrapper {
               "rendered": null,
               "type": [Function],
             },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {},
-              "ref": null,
-              "rendered": null,
-              "type": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "Naked": [Function],
-                "attrs": undefined,
-                "componentStyle": ComponentStyle {
-                  "componentId": "sc-EHOje",
-                  "isStatic": true,
-                  "rules": Array [
-                    "
-  &&{
-  margin: 0 auto;
-  }
-",
-                  ],
-                },
-                "displayName": "Styled(WithStyles(CircularProgress))",
-                "options": Object {
-                  "flip": false,
-                  "name": "MuiCircularProgress",
-                },
-                "render": [Function],
-                "styledComponentId": "sc-EHOje",
-                "target": [Function],
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-                Symbol(Symbol.hasInstance): [Function],
-              },
-            },
+            false,
             false,
             Object {
               "instance": null,

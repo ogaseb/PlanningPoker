@@ -8,7 +8,6 @@ If you want to start project locally follow the instructions below.
 
 ### Prerequisites
 
-
 ```
 node.js ^8.*.*
 
@@ -55,7 +54,6 @@ To test type
 
 `yarn test`
 
-
 ## Deployment
 
 After you deploy this program into some kind of hosting you need to remember to change `proxy` in our `package.json` in `/client/package.json` to
@@ -66,13 +64,13 @@ After you deploy this program into some kind of hosting you need to remember to 
 
 ## Built With
 
-* [create-react-app](https://github.com/facebook/create-react-app) - client side
-* [node.js](https://github.com/nodejs) - server
-* [socket.io](https://github.com/socketio/socket.io) - WebSockets
+*   [create-react-app](https://github.com/facebook/create-react-app) - client side
+*   [node.js](https://github.com/nodejs) - server
+*   [socket.io](https://github.com/socketio/socket.io) - WebSockets
 
 ## Authors
 
-* **Sebastian Ogarek** - *Main work* - [ProPanek](https://github.com/ProPanek)
+*   **Sebastian Ogarek** - *Main work* - [ProPanek](https://github.com/ProPanek)
 
 See also the list of [contributors](https://github.com/ProPanek/PlanningPoker/contributors) who participated in this project.
 

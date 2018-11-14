@@ -11,7 +11,7 @@ describe("Room", () => {
     const store = {
       room: { cardsAreTheSame : false, cardResults : [], cardHistory: []},
       user: {admin: true, users: []},
-      jira: {activeBoardFetching: false, activeBoard: { issues: []}},
+      jira: {activeBoardFetching: false,  activeBoard: { issues: []}},
       fetchUsers: noop
     }
 
