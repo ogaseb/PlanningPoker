@@ -1,0 +1,571 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HistoryList renders without errors 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <UserList
+    store={
+      Object {
+        "jira": Object {
+          "activeBoard": Object {
+            "issues": Array [],
+          },
+          "activeBoardFetching": false,
+        },
+        "room": Object {
+          "cardHistory": Array [],
+          "cardResults": Array [],
+          "cardsAreTheSame": false,
+        },
+        "user": Object {
+          "admin": true,
+          "users": Array [],
+        },
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <ForwardRef
+          color="inherit"
+          variant="body1"
+        >
+          <div>
+             User Name: 
+          </div>
+          <div>
+             Room Name: 
+          </div>
+        </ForwardRef>,
+        <WithStyles(Typography)>
+          users : 
+          0
+        </WithStyles(Typography)>,
+        <ForwardRef
+          onClick={[Function]}
+          size={0}
+        />,
+        <ForwardRef>
+          <WithStyles(Button)
+            onClick={[Function]}
+          >
+            Kick User
+          </WithStyles(Button)>
+          <WithStyles(Button)
+            onClick={[Function]}
+          >
+            Give admin 
+          </WithStyles(Button)>
+        </ForwardRef>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": Array [
+            <div>
+               User Name: 
+            </div>,
+            <div>
+               Room Name: 
+            </div>,
+          ],
+          "color": "inherit",
+          "variant": "body1",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                " User Name: ",
+                undefined,
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              " User Name: ",
+              undefined,
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                " Room Name: ",
+                undefined,
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              " Room Name: ",
+              undefined,
+            ],
+            "type": "div",
+          },
+        ],
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": undefined,
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bwzfXH",
+            "isStatic": true,
+            "rules": Array [
+              "
+  && {
+  margin: 0 auto;
+  }
+",
+            ],
+          },
+          "displayName": "styled.div",
+          "render": [Function],
+          "styledComponentId": "sc-bwzfXH",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        },
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            "users : ",
+            0,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          "users : ",
+          0,
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": false,
+          "onClick": [Function],
+          "size": 0,
+        },
+        "ref": null,
+        "rendered": false,
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": undefined,
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bdVaJa",
+            "isStatic": true,
+            "rules": Array [
+              "
+  width:100%;
+",
+            ],
+          },
+          "displayName": "styled.select",
+          "render": [Function],
+          "styledComponentId": "sc-bdVaJa",
+          "target": "select",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        },
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": Array [
+            <WithStyles(Button)
+              onClick={[Function]}
+            >
+              Kick User
+            </WithStyles(Button)>,
+            <WithStyles(Button)
+              onClick={[Function]}
+            >
+              Give admin 
+            </WithStyles(Button)>,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": "Kick User",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": "Kick User",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": "Give admin ",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": "Give admin ",
+            "type": [Function],
+          },
+        ],
+        "type": Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": undefined,
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-htpNat",
+            "isStatic": true,
+            "rules": Array [
+              "
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  flex-wrap: wrap;
+",
+            ],
+          },
+          "displayName": "styled.div",
+          "render": [Function],
+          "styledComponentId": "sc-htpNat",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        },
+      },
+    ],
+    "type": Object {
+      "$$typeof": Symbol(react.forward_ref),
+      "attrs": undefined,
+      "componentStyle": ComponentStyle {
+        "componentId": "sc-bxivhb",
+        "isStatic": true,
+        "rules": Array [
+          "
+  height:50%;
+  overflow-y:auto;
+",
+        ],
+      },
+      "displayName": "styled.div",
+      "render": [Function],
+      "styledComponentId": "sc-bxivhb",
+      "target": "div",
+      "toString": [Function],
+      "warnTooManyClasses": [Function],
+      "withComponent": [Function],
+    },
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <ForwardRef
+            color="inherit"
+            variant="body1"
+          >
+            <div>
+               User Name: 
+            </div>
+            <div>
+               Room Name: 
+            </div>
+          </ForwardRef>,
+          <WithStyles(Typography)>
+            users : 
+            0
+          </WithStyles(Typography)>,
+          <ForwardRef
+            onClick={[Function]}
+            size={0}
+          />,
+          <ForwardRef>
+            <WithStyles(Button)
+              onClick={[Function]}
+            >
+              Kick User
+            </WithStyles(Button)>
+            <WithStyles(Button)
+              onClick={[Function]}
+            >
+              Give admin 
+            </WithStyles(Button)>
+          </ForwardRef>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              <div>
+                 User Name: 
+              </div>,
+              <div>
+                 Room Name: 
+              </div>,
+            ],
+            "color": "inherit",
+            "variant": "body1",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  " User Name: ",
+                  undefined,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                " User Name: ",
+                undefined,
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  " Room Name: ",
+                  undefined,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                " Room Name: ",
+                undefined,
+              ],
+              "type": "div",
+            },
+          ],
+          "type": Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": undefined,
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-bwzfXH",
+              "isStatic": true,
+              "rules": Array [
+                "
+  && {
+  margin: 0 auto;
+  }
+",
+              ],
+            },
+            "displayName": "styled.div",
+            "render": [Function],
+            "styledComponentId": "sc-bwzfXH",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          },
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              "users : ",
+              0,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            "users : ",
+            0,
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": false,
+            "onClick": [Function],
+            "size": 0,
+          },
+          "ref": null,
+          "rendered": false,
+          "type": Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": undefined,
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-bdVaJa",
+              "isStatic": true,
+              "rules": Array [
+                "
+  width:100%;
+",
+              ],
+            },
+            "displayName": "styled.select",
+            "render": [Function],
+            "styledComponentId": "sc-bdVaJa",
+            "target": "select",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          },
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              <WithStyles(Button)
+                onClick={[Function]}
+              >
+                Kick User
+              </WithStyles(Button)>,
+              <WithStyles(Button)
+                onClick={[Function]}
+              >
+                Give admin 
+              </WithStyles(Button)>,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Kick User",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": "Kick User",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Give admin ",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": "Give admin ",
+              "type": [Function],
+            },
+          ],
+          "type": Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": undefined,
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-htpNat",
+              "isStatic": true,
+              "rules": Array [
+                "
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  flex-wrap: wrap;
+",
+              ],
+            },
+            "displayName": "styled.div",
+            "render": [Function],
+            "styledComponentId": "sc-htpNat",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          },
+        },
+      ],
+      "type": Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": undefined,
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bxivhb",
+          "isStatic": true,
+          "rules": Array [
+            "
+  height:50%;
+  overflow-y:auto;
+",
+          ],
+        },
+        "displayName": "styled.div",
+        "render": [Function],
+        "styledComponentId": "sc-bxivhb",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      },
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

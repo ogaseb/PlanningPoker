@@ -152,8 +152,7 @@ ShallowWrapper {
               "
   &&{
   margin: 0 auto;
-    margin-top:20px;
-
+  margin-top:20px;
   width:100%;
   margin-bottom: 15px;
   }
@@ -255,8 +254,7 @@ ShallowWrapper {
               "
   &&{
   margin: 0 auto;
-    margin-top:20px;
-
+  margin-top:20px;
   width:100%;
   margin-bottom: 15px;
   }
@@ -402,8 +400,7 @@ ShallowWrapper {
                 "
   &&{
   margin: 0 auto;
-    margin-top:20px;
-
+  margin-top:20px;
   width:100%;
   margin-bottom: 15px;
   }
@@ -505,8 +502,7 @@ ShallowWrapper {
                 "
   &&{
   margin: 0 auto;
-    margin-top:20px;
-
+  margin-top:20px;
   width:100%;
   margin-bottom: 15px;
   }

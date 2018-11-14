@@ -64,7 +64,7 @@ class JoinRoom extends Component {
 
 
   handleSubmit = () => {
-    if (this.state.roomPassword !== "" && this.state.roomId !== "" ) {
+    if (this.state.roomPassword !== "" && this.state.roomId !== "" && this.state.userName !== "" ) {
       this.props.store.joinRoom(
         this.state.roomId,
         this.state.roomPassword,

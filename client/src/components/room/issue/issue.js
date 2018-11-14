@@ -25,8 +25,7 @@ const StyledTextField = styled(TextField)`
 const StyledTitleCard = styled(Card)`
   &&{
   margin: 0 auto;
-    margin-top:20px;
-
+  margin-top:20px;
   width:100%;
   margin-bottom: 15px;
   }
@@ -52,11 +51,11 @@ const StyledComment = styled(Card)`
 
 const TitleCard = styled(Card)`
   &&{
-    padding: 10px; 
-    max-width: 80%; 
-    text-align: left; 
-    background-color:white;
-    color:black;
+  padding: 10px; 
+  max-width: 80%; 
+  text-align: left; 
+  background-color:white;
+  color:black;
   }
 `
 
@@ -99,10 +98,12 @@ class Issue extends Component {
     issues[index].style.color = "white"
 
     this.props.store.jira.title = this.searchResults[index].summary
-    this.props.store.jira.description = this.searchResults[index].description
-    this.props.store.jira.issueId = this.searchResults[index].id
     this.props.store.broadcastTitle()
+
+    this.props.store.jira.description = this.searchResults[index].description
     this.props.store.broadcastDescription()
+
+    this.props.store.jira.issueId = this.searchResults[index].id
   }
 
 

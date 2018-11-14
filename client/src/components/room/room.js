@@ -8,7 +8,7 @@ import JoinDialog from '../join_room/join_dialog'
 import Issue from './issue/issue'
 import CardResults from './card_results/card_results'
 import Controls from './controls/controls'
-import UserList from './user_list/user_list'
+import Lists from './lists/lists'
 
 const StyledGrid = styled(Grid)`
   &&{
@@ -25,8 +25,6 @@ const StyledCard = styled(Card)`
 
 class Room extends Component {
   componentDidMount() {
-
-
     this.props.store.fetchUsers()
     window.onpopstate = this.onBackButtonEvent
     setInterval(() => {
@@ -66,7 +64,7 @@ class Room extends Component {
         </StyledGrid>
         <StyledGrid item xs={2}>
           <StyledCard>
-            <UserList/>
+            <Lists/>
           </StyledCard>
         </StyledGrid>
       </React.Fragment>

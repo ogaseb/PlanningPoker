@@ -8,13 +8,12 @@ import styled from 'styled-components'
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import JiraConnector from "./jira/jira"
-import {decorate, observable} from "mobx";
 import List from "@material-ui/core/List/List";
 import Drawer from "@material-ui/core/Drawer/Drawer";
 import MenuButton from "@material-ui/icons/Menu";
 import ListItem from "@material-ui/core/ListItem/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 
 
 const StyledIconButton = styled(IconButton)`
@@ -22,14 +21,14 @@ const StyledIconButton = styled(IconButton)`
   position:absolute;
   right: 0
   }
-`
+`;
 
 const StyledDrawer = styled(Drawer)`
   && {
   height:0;
   max-height:50%;
   }
-`
+`;
 
 class Header extends Component {
   state = {
@@ -86,15 +85,6 @@ class Header extends Component {
   }
 }
 
-
-decorate(Header, {
-  jiraLogin: observable,
-  jiraPassword: observable,
-  jiraSubdomain: observable,
-  jiraSubdomainMore: observable,
-  subdomains: observable
-
-});
 
 export default inject("store")(withRouter(observer(Header)));
 

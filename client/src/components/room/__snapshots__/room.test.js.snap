@@ -55,7 +55,7 @@ ShallowWrapper {
           xs={2}
         >
           <ForwardRef>
-            <inject-withRouter(UserList)-with-store />
+            <inject-withRouter(Lists)-with-store />
           </ForwardRef>
         </ForwardRef>,
       ],
@@ -189,7 +189,7 @@ ShallowWrapper {
         "nodeType": "function",
         "props": Object {
           "children": <ForwardRef>
-            <inject-withRouter(UserList)-with-store />
+            <inject-withRouter(Lists)-with-store />
           </ForwardRef>,
           "item": true,
           "xs": 2,
@@ -200,7 +200,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
-            "children": <inject-withRouter(UserList)-with-store />,
+            "children": <inject-withRouter(Lists)-with-store />,
           },
           "ref": null,
           "rendered": Object {
@@ -295,7 +295,7 @@ ShallowWrapper {
             xs={2}
           >
             <ForwardRef>
-              <inject-withRouter(UserList)-with-store />
+              <inject-withRouter(Lists)-with-store />
             </ForwardRef>
           </ForwardRef>,
         ],
@@ -429,7 +429,7 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": <ForwardRef>
-              <inject-withRouter(UserList)-with-store />
+              <inject-withRouter(Lists)-with-store />
             </ForwardRef>,
             "item": true,
             "xs": 2,
@@ -440,7 +440,7 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "function",
             "props": Object {
-              "children": <inject-withRouter(UserList)-with-store />,
+              "children": <inject-withRouter(Lists)-with-store />,
             },
             "ref": null,
             "rendered": Object {
