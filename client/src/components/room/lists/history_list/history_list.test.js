@@ -3,7 +3,6 @@ import {HistoryList} from "./history_list"
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import sinon from "sinon";
-import {JoinDialog} from "../../../join_room/join_dialog";
 
 configure({adapter: new Adapter()});
 

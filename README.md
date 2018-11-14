@@ -1,4 +1,7 @@
 # Planning Poker
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bc4ede09cfb34695993224552e1cb2af)](https://www.codacy.com/app/ProPanek/PlanningPoker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ProPanek/PlanningPoker&amp;utm_campaign=Badge_Grade)
+[![dependencies Status](https://david-dm.org/expressjs/express/status.svg)](https://david-dm.org/expressjs/express)
+[![devDependencies Status](https://david-dm.org/expressjs/express/dev-status.svg)](https://david-dm.org/expressjs/express?type=dev)
 
 Let's make your planning session go online!
 
