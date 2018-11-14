@@ -34,7 +34,7 @@ function createRoomObject() {
       game: [],
       gameHistory: []
     }
-  );
+  )
 }
 
 io.on("connection", socket => {
@@ -122,7 +122,7 @@ io.on("connection", socket => {
     const Room = createRoomObject();
     const RoomId = createHash();
     let timestamp = new Date();
-    timestamp = date.format(timestamp,"YYYY/MM/DD HH:mm:ss");
+    timestamp = date.format(timestamp, "YYYY/MM/DD HH:mm:ss");
     Room.user.push({userId: socket.id, userName});
     Room.roomName = roomName;
     Room.roomId = RoomId;
