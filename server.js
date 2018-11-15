@@ -131,7 +131,6 @@ io.on("connection", socket => {
     Room.createTimestamp = timestamp;
 
     bcrypt.hash(roomPassword, 10, function(err, hash) {
-      console.log(hash)
       rooms_password.set(RoomId, hash);
       if (err){
         socket.emit("errors", {error:err})
@@ -156,10 +155,8 @@ io.on("connection", socket => {
     let temp_room = rooms.get(roomId);
     if (temp_room) {
       const password = rooms_password.get(roomId);
-
       bcrypt.compare(roomPassword, password, function(err, res) {
         if(res) {
-          console.log(res)
           temp_room.user.push({userId: socket.id, userName});
 
           users.set(socket.id, roomId);
