@@ -57,6 +57,20 @@ ShallowWrapper {
             onClick={[Function]}
             variant="contained"
           >
+            ☕
+          </ForwardRef>
+          <ForwardRef
+            color="primary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            0
+          </ForwardRef>
+          <ForwardRef
+            color="primary"
+            onClick={[Function]}
+            variant="contained"
+          >
             0.5
           </ForwardRef>
           <ForwardRef
@@ -204,6 +218,20 @@ ShallowWrapper {
               onClick={[Function]}
               variant="contained"
             >
+              ☕
+            </ForwardRef>,
+            <ForwardRef
+              color="primary"
+              onClick={[Function]}
+              variant="contained"
+            >
+              0
+            </ForwardRef>,
+            <ForwardRef
+              color="primary"
+              onClick={[Function]}
+              variant="contained"
+            >
               0.5
             </ForwardRef>,
             <ForwardRef
@@ -278,6 +306,92 @@ ShallowWrapper {
             "key": "0",
             "nodeType": "function",
             "props": Object {
+              "children": "☕",
+              "color": "primary",
+              "onClick": [Function],
+              "variant": "contained",
+            },
+            "ref": null,
+            "rendered": "☕",
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "Naked": [Function],
+              "attrs": undefined,
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-bdVaJa",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  &&{
+  width: 10%;
+  height: 10vh;
+  margin:5px;
+  flex:1;
+  }
+",
+                ],
+              },
+              "displayName": "Styled(WithStyles(Button))",
+              "options": Object {
+                "name": "MuiButton",
+              },
+              "render": [Function],
+              "styledComponentId": "sc-bdVaJa",
+              "target": [Function],
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            },
+          },
+          Object {
+            "instance": null,
+            "key": "1",
+            "nodeType": "function",
+            "props": Object {
+              "children": 0,
+              "color": "primary",
+              "onClick": [Function],
+              "variant": "contained",
+            },
+            "ref": null,
+            "rendered": 0,
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "Naked": [Function],
+              "attrs": undefined,
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-bdVaJa",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  &&{
+  width: 10%;
+  height: 10vh;
+  margin:5px;
+  flex:1;
+  }
+",
+                ],
+              },
+              "displayName": "Styled(WithStyles(Button))",
+              "options": Object {
+                "name": "MuiButton",
+              },
+              "render": [Function],
+              "styledComponentId": "sc-bdVaJa",
+              "target": [Function],
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            },
+          },
+          Object {
+            "instance": null,
+            "key": "2",
+            "nodeType": "function",
+            "props": Object {
               "children": 0.5,
               "color": "primary",
               "onClick": [Function],
@@ -318,7 +432,7 @@ ShallowWrapper {
           },
           Object {
             "instance": null,
-            "key": "1",
+            "key": "3",
             "nodeType": "function",
             "props": Object {
               "children": 1,
@@ -361,7 +475,7 @@ ShallowWrapper {
           },
           Object {
             "instance": null,
-            "key": "2",
+            "key": "4",
             "nodeType": "function",
             "props": Object {
               "children": 2,
@@ -404,7 +518,7 @@ ShallowWrapper {
           },
           Object {
             "instance": null,
-            "key": "3",
+            "key": "5",
             "nodeType": "function",
             "props": Object {
               "children": 3,
@@ -447,7 +561,7 @@ ShallowWrapper {
           },
           Object {
             "instance": null,
-            "key": "4",
+            "key": "6",
             "nodeType": "function",
             "props": Object {
               "children": 5,
@@ -490,7 +604,7 @@ ShallowWrapper {
           },
           Object {
             "instance": null,
-            "key": "5",
+            "key": "7",
             "nodeType": "function",
             "props": Object {
               "children": 8,
@@ -533,7 +647,7 @@ ShallowWrapper {
           },
           Object {
             "instance": null,
-            "key": "6",
+            "key": "8",
             "nodeType": "function",
             "props": Object {
               "children": 13,
@@ -576,7 +690,7 @@ ShallowWrapper {
           },
           Object {
             "instance": null,
-            "key": "7",
+            "key": "9",
             "nodeType": "function",
             "props": Object {
               "children": 20,
@@ -619,7 +733,7 @@ ShallowWrapper {
           },
           Object {
             "instance": null,
-            "key": "8",
+            "key": "10",
             "nodeType": "function",
             "props": Object {
               "children": 40,
@@ -662,7 +776,7 @@ ShallowWrapper {
           },
           Object {
             "instance": null,
-            "key": "9",
+            "key": "11",
             "nodeType": "function",
             "props": Object {
               "children": 100,
@@ -762,6 +876,20 @@ ShallowWrapper {
           </React.Fragment>,
           false,
           <ForwardRef>
+            <ForwardRef
+              color="primary"
+              onClick={[Function]}
+              variant="contained"
+            >
+              ☕
+            </ForwardRef>
+            <ForwardRef
+              color="primary"
+              onClick={[Function]}
+              variant="contained"
+            >
+              0
+            </ForwardRef>
             <ForwardRef
               color="primary"
               onClick={[Function]}
@@ -914,6 +1042,20 @@ ShallowWrapper {
                 onClick={[Function]}
                 variant="contained"
               >
+                ☕
+              </ForwardRef>,
+              <ForwardRef
+                color="primary"
+                onClick={[Function]}
+                variant="contained"
+              >
+                0
+              </ForwardRef>,
+              <ForwardRef
+                color="primary"
+                onClick={[Function]}
+                variant="contained"
+              >
                 0.5
               </ForwardRef>,
               <ForwardRef
@@ -988,6 +1130,92 @@ ShallowWrapper {
               "key": "0",
               "nodeType": "function",
               "props": Object {
+                "children": "☕",
+                "color": "primary",
+                "onClick": [Function],
+                "variant": "contained",
+              },
+              "ref": null,
+              "rendered": "☕",
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "Naked": [Function],
+                "attrs": undefined,
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bdVaJa",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  &&{
+  width: 10%;
+  height: 10vh;
+  margin:5px;
+  flex:1;
+  }
+",
+                  ],
+                },
+                "displayName": "Styled(WithStyles(Button))",
+                "options": Object {
+                  "name": "MuiButton",
+                },
+                "render": [Function],
+                "styledComponentId": "sc-bdVaJa",
+                "target": [Function],
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+                Symbol(Symbol.hasInstance): [Function],
+              },
+            },
+            Object {
+              "instance": null,
+              "key": "1",
+              "nodeType": "function",
+              "props": Object {
+                "children": 0,
+                "color": "primary",
+                "onClick": [Function],
+                "variant": "contained",
+              },
+              "ref": null,
+              "rendered": 0,
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "Naked": [Function],
+                "attrs": undefined,
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bdVaJa",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  &&{
+  width: 10%;
+  height: 10vh;
+  margin:5px;
+  flex:1;
+  }
+",
+                  ],
+                },
+                "displayName": "Styled(WithStyles(Button))",
+                "options": Object {
+                  "name": "MuiButton",
+                },
+                "render": [Function],
+                "styledComponentId": "sc-bdVaJa",
+                "target": [Function],
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+                Symbol(Symbol.hasInstance): [Function],
+              },
+            },
+            Object {
+              "instance": null,
+              "key": "2",
+              "nodeType": "function",
+              "props": Object {
                 "children": 0.5,
                 "color": "primary",
                 "onClick": [Function],
@@ -1028,7 +1256,7 @@ ShallowWrapper {
             },
             Object {
               "instance": null,
-              "key": "1",
+              "key": "3",
               "nodeType": "function",
               "props": Object {
                 "children": 1,
@@ -1071,7 +1299,7 @@ ShallowWrapper {
             },
             Object {
               "instance": null,
-              "key": "2",
+              "key": "4",
               "nodeType": "function",
               "props": Object {
                 "children": 2,
@@ -1114,7 +1342,7 @@ ShallowWrapper {
             },
             Object {
               "instance": null,
-              "key": "3",
+              "key": "5",
               "nodeType": "function",
               "props": Object {
                 "children": 3,
@@ -1157,7 +1385,7 @@ ShallowWrapper {
             },
             Object {
               "instance": null,
-              "key": "4",
+              "key": "6",
               "nodeType": "function",
               "props": Object {
                 "children": 5,
@@ -1200,7 +1428,7 @@ ShallowWrapper {
             },
             Object {
               "instance": null,
-              "key": "5",
+              "key": "7",
               "nodeType": "function",
               "props": Object {
                 "children": 8,
@@ -1243,7 +1471,7 @@ ShallowWrapper {
             },
             Object {
               "instance": null,
-              "key": "6",
+              "key": "8",
               "nodeType": "function",
               "props": Object {
                 "children": 13,
@@ -1286,7 +1514,7 @@ ShallowWrapper {
             },
             Object {
               "instance": null,
-              "key": "7",
+              "key": "9",
               "nodeType": "function",
               "props": Object {
                 "children": 20,
@@ -1329,7 +1557,7 @@ ShallowWrapper {
             },
             Object {
               "instance": null,
-              "key": "8",
+              "key": "10",
               "nodeType": "function",
               "props": Object {
                 "children": 40,
@@ -1372,7 +1600,7 @@ ShallowWrapper {
             },
             Object {
               "instance": null,
-              "key": "9",
+              "key": "11",
               "nodeType": "function",
               "props": Object {
                 "children": 100,
