@@ -6,6 +6,8 @@ import path from "path"
 import uuid from "uuid/v4"
 import JiraClient from "jira-connector"
 import date from "date-and-time"
+import bcrypt from "bcrypt"
+
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -128,8 +130,14 @@ io.on("connection", socket => {
     Room.roomId = RoomId;
     Room.createTimestamp = timestamp;
 
+    bcrypt.hash(roomPassword, 10, function(err, hash) {
+      console.log(hash)
+      rooms_password.set(RoomId, hash);
+      if (err){
+        socket.emit("errors", {error:err})
+      }
+    });
 
-    rooms_password.set(RoomId, roomPassword);
     rooms.set(RoomId, Room);
     users.set(socket.id, RoomId);
     fetch_rooms.push(Room);
@@ -149,29 +157,33 @@ io.on("connection", socket => {
     if (temp_room) {
       const password = rooms_password.get(roomId);
 
-      if (roomPassword === password) {
-        temp_room.user.push({userId: socket.id, userName});
+      bcrypt.compare(roomPassword, password, function(err, res) {
+        if(res) {
+          console.log(res)
+          temp_room.user.push({userId: socket.id, userName});
 
-        users.set(socket.id, roomId);
-        socket.join(roomId);
+          users.set(socket.id, roomId);
+          socket.join(roomId);
 
-        let index = findIndex(temp_room, function (o) {
-          return o.roomId === roomId;
-        });
+          let index = findIndex(temp_room, function (o) {
+            return o.roomId === roomId;
+          });
 
-        if (index !== -1) {
-          fetch_rooms[index].user.push({userId: socket.id, userName})
+          if (index !== -1) {
+            fetch_rooms[index].user.push({userId: socket.id, userName})
+          }
+
+          console.log("User -> Joined room! RoomId:", roomId);
+          socket.emit("joinRoom", temp_room);
+
+          rooms.set(roomId, temp_room);
+          io.in(roomId).emit("waitingFor", temp_room.game.length)
+
+        } else {
+          // Passwords don't match
+          socket.emit("errors", {error: "Invalid Password"})
         }
-
-        console.log("User -> Joined room! RoomId:", roomId);
-        socket.emit("joinRoom", temp_room);
-
-        rooms.set(roomId, temp_room);
-        io.in(roomId).emit("waitingFor", temp_room.game.length)
-      }
-      else {
-        socket.emit("errors", {error: "Invalid Password"})
-      }
+      });
     }
     else {
       socket.emit("errors", {error: "Room not found"})
