@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component} from "react";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
@@ -8,7 +8,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Divider from "@material-ui/core/Divider/Divider";
-import Card from "@material-ui/core/Card"
+import Card from "@material-ui/core/Card";
 
 const JiraDiv = styled.div`
   height:50%;
@@ -16,12 +16,10 @@ const JiraDiv = styled.div`
 `;
 
 class HistoryList extends Component {
-
   selectBoard = (e) => {
     this.props.store.jira.boardId = e.target.value
     this.props.store.selectBoard(e.target.value)
   }
-
 
   render() {
     return (

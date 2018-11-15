@@ -1,15 +1,14 @@
-import React, {Component} from 'react'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import TextField from '@material-ui/core/TextField'
-import DialogActions from '@material-ui/core/DialogActions'
-import Button from '@material-ui/core/Button'
+import React, {Component} from "react"
+import Dialog from "@material-ui/core/Dialog"
+import DialogTitle from "@material-ui/core/DialogTitle"
+import DialogContent from "@material-ui/core/DialogContent"
+import DialogContentText from "@material-ui/core/DialogContentText"
+import TextField from "@material-ui/core/TextField"
+import DialogActions from "@material-ui/core/DialogActions"
+import Button from "@material-ui/core/Button"
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import {decorate, observable} from "mobx";
-
 
 class JoinDialog extends Component {
   componentDidMount() {
@@ -28,7 +27,7 @@ class JoinDialog extends Component {
   }
 
   cancelJoinRoom = () => {
-    this.props.history.push(`/`)
+    this.props.history.push("/")
   }
 
   render() {

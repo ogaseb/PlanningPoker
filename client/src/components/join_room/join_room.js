@@ -62,7 +62,6 @@ class JoinRoom extends Component {
     this.setState({roomId: e.target.value});
   };
 
-
   handleSubmit = () => {
     if (this.state.roomPassword !== "" && this.state.roomId !== "" && this.state.userName !== "" ) {
       this.props.store.joinRoom(
@@ -94,7 +93,6 @@ class JoinRoom extends Component {
   handleChangeBoard = event => {
     this.setState({[event.target.name]: event.target.value});
     this.props.store.jira.boardId = event.target.value
-
   };
 
   render() {
@@ -135,8 +133,8 @@ class JoinRoom extends Component {
               <FormLabel> Jira Board </FormLabel>
               <StyledSelect
                 inputProps={{
-                  name: 'board',
-                  id: 'board'
+                  name: "board",
+                  id: "board"
                 }}
                 value={this.state.board} onChange={this.handleChangeBoard}>
                 {this.props.store.jira.jiraBoards.values.map((data, index) => {

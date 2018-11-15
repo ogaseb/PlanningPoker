@@ -3,11 +3,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import GithubCircle from 'mdi-material-ui/GithubCircle'
-import styled from 'styled-components'
+import GithubCircle from "mdi-material-ui/GithubCircle";
+import styled from "styled-components";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
-import JiraConnector from "./jira/jira"
+import JiraConnector from "./jira/jira";
 import List from "@material-ui/core/List/List";
 import Drawer from "@material-ui/core/Drawer/Drawer";
 import MenuButton from "@material-ui/icons/Menu";
@@ -70,8 +70,6 @@ class Header extends Component {
           <Typography variant="title" color="inherit">
             Planning Poker
           </Typography>
-
-
           <StyledIconButton
             href="https://github.com/ProPanek/ScrumPoker"
             aria-haspopup="true"

@@ -64,5 +64,6 @@ decorate(Notification, {
   notificationMessage: observable,
   notificationVariant: observable
 });
+
 export {Notification}
 export default inject("store")(observer(Notification))

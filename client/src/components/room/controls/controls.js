@@ -1,10 +1,9 @@
-import React, {Component} from 'react'
+import React, {Component} from "react"
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import styled from "styled-components";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
-
 import {decorate, observable} from "mobx";
 
 const StyledButtonCard = styled(Button)`
@@ -35,8 +34,7 @@ const YourCard = styled(Card)`
   text-align: center;
 `;
 
-
-const cards = [0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
+const cards = ["☕",0,0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
 
 class Controls extends Component {
   constructor(props) {
@@ -65,7 +63,6 @@ class Controls extends Component {
     this.props.store.jira.issueId = ""
     this.props.store.selectBoard(this.props.store.jira.boardId)
   }
-
 
   render() {
     return (

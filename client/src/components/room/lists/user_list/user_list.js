@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component} from "react"
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
@@ -28,10 +28,7 @@ const UserDiv = styled.div`
   overflow-y:auto;
 `;
 
-
 class UserList extends Component {
-
-
   handleSelect = e => {
     this.userId = e.target.value
   };

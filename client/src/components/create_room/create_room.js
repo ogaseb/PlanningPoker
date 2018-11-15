@@ -5,7 +5,7 @@ import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Select from "@material-ui/core/Select/Select";
-import FormLabel from '@material-ui/core/FormLabel';
+import FormLabel from "@material-ui/core/FormLabel";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const StyledGrid = styled(Grid)`
@@ -37,13 +37,13 @@ const StyledButton = styled(Button)`
 
 const StyledSelect = styled(Select)`
   width:100%;
-`
+`;
 
 const StyledCircularProgress = styled(CircularProgress)`
   &&{
   margin: 0 auto;
   }
-`
+`;
 
 class CreateRoom extends Component {
   state = {
@@ -95,11 +95,9 @@ class CreateRoom extends Component {
     }
   };
 
-
   handleChangeBoard = event => {
     this.setState({[event.target.name]: event.target.value});
     this.props.store.jira.boardId = event.target.value
-
   };
 
   render() {

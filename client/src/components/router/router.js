@@ -1,10 +1,10 @@
 import React from "react"
 import { Route, withRouter } from "react-router-dom"
 import { inject, observer } from "mobx-react"
-import CreateRoom from '../../components/create_room/create_room'
-import JoinRoom from '../../components/join_room/join_room'
-import Room from '../../components/room/room'
-import routes from '../../routes'
+import CreateRoom from "../../components/create_room/create_room"
+import JoinRoom from "../../components/join_room/join_room"
+import Room from "../../components/room/room"
+import routes from "../../routes"
 
 class Router extends React.Component {
   render() {

@@ -4,11 +4,11 @@ import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
-import JoinDialog from '../join_room/join_dialog'
-import Issue from './issue/issue'
-import CardResults from './card_results/card_results'
-import Controls from './controls/controls'
-import Lists from './lists/lists'
+import JoinDialog from "../join_room/join_dialog";
+import Issue from "./issue/issue";
+import CardResults from "./card_results/card_results";
+import Controls from "./controls/controls";
+import Lists from "./lists/lists";
 
 const StyledGrid = styled(Grid)`
   &&{

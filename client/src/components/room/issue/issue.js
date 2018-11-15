@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import TextField from '@material-ui/core/TextField'
+import React, {Component} from "react"
+import TextField from "@material-ui/core/TextField"
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
@@ -12,15 +12,14 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Fuse from 'fuse.js'
+import Fuse from "fuse.js"
 import {decorate, computed, observable, toJS} from "mobx";
-
 
 const StyledTextField = styled(TextField)`
   &&{
   width:90%;
   }
-`
+`;
 
 const StyledTitleCard = styled(Card)`
   &&{
@@ -29,25 +28,26 @@ const StyledTitleCard = styled(Card)`
   width:100%;
   margin-bottom: 15px;
   }
-`
+`;
 
 const StyledExpansionPanelDetails = styled(ExpansionPanelDetails)`
   &&{
   padding:0;
   }
-`
-const StyledTaskContener = styled(Card)`
+`;
+
+const StyledTaskContainer = styled(Card)`
   &&{
   max-height: 300px;
   overflow-y:auto;
   }
-`
+`;
 
 const StyledComment = styled(Card)`
   &&{
   margin-bottom:10px;
   }
-`
+`;
 
 const TitleCard = styled(Card)`
   &&{
@@ -57,9 +57,7 @@ const TitleCard = styled(Card)`
   background-color:white;
   color:black;
   }
-`
-
-
+`;
 
 class Issue extends Component {
   state = {
@@ -135,7 +133,7 @@ class Issue extends Component {
           !this.props.store.jira.activeBoardFetching) &&
         <React.Fragment>
           <Typography>Jira Task Picker</Typography>
-          <StyledTaskContener id="issues">
+          <StyledTaskContainer id="issues">
             {this.searchResults.map(({key, priorityType, id, description, issueUrl, priorityUrl, summary, comments}, index) => {
               return (
                 <ExpansionPanel expanded={this.state.expanded === `panel${index}`} onChange={() => {
@@ -172,7 +170,7 @@ class Issue extends Component {
                 </ExpansionPanel>
               );
             })}
-          </StyledTaskContener></React.Fragment>}
+          </StyledTaskContainer></React.Fragment>}
         <StyledTitleCard>
           <Typography variant="subtitle2">
             Title
