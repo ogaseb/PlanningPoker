@@ -93,7 +93,6 @@ class JiraConnector extends Component {
       this.jiraSubdomainMore = ""
       localStorage.setItem("jira-subdomains", JSON.stringify(subdomains));
       this.subdomains = subdomains
-
     }
   }
 
@@ -104,7 +103,6 @@ class JiraConnector extends Component {
       this.props.store.jiraLogin(subdomains[parseInt(e.target.value)], data.jiraLogin, data.jiraPassword)
       this.subdomains = subdomains
     }
-
   }
 
   render() {
@@ -179,7 +177,7 @@ class JiraConnector extends Component {
       </React.Fragment>
     );
   }
-};
+}
 
 decorate(JiraConnector, {
   jiraLogin: observable,

@@ -8,7 +8,7 @@ import {decorate, observable} from "mobx";
 
 const NotificationSnackbar = styled(Snackbar)`
   & > div {
-    max-width: ${props => props.wide && "100% !important"};
+    max-width: ${(props) => props.wide && "100% !important"};
     background-color: ${props => {
       if (props.variant === "error") {
         return "#D32F2F"

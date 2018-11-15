@@ -133,8 +133,8 @@ class CreateRoom extends Component {
               <FormLabel> Jira Board </FormLabel>
               <StyledSelect
                 inputProps={{
-                  name: 'board',
-                  id: 'board'
+                  name: "board",
+                  id: "board"
                 }}
                 value={this.state.board}
                 onChange={this.handleChangeBoard}>

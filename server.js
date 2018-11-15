@@ -16,10 +16,10 @@ const io = socketIO(server, {
   cookie: false
 });
 
-let fetch_rooms = [];
+let fetchRoom = [];
 let users = new Map();
 let rooms = new Map();
-let rooms_password = new Map();
+let roomsPassword = new Map();
 let jira;
 
 function createHash() {
@@ -43,7 +43,7 @@ io.on("connection", socket => {
   console.log("User -> connected to server id:", socket.id);
 
   function fetchRooms() {
-    socket.emit("fetchRooms", fetch_rooms)
+    socket.emit("fetchRooms", fetchRoom)
   }
 
   socket.on("jiraLogin", ({jiraLogin: username, jiraPassword: password, jiraSubdomain}) => {
@@ -131,7 +131,7 @@ io.on("connection", socket => {
     Room.createTimestamp = timestamp;
 
     bcrypt.hash(roomPassword, 10, function(err, hash) {
-      rooms_password.set(RoomId, hash);
+      roomsPassword.set(RoomId, hash);
       if (err){
         socket.emit("errors", {error:err})
       }
@@ -139,7 +139,7 @@ io.on("connection", socket => {
 
     rooms.set(RoomId, Room);
     users.set(socket.id, RoomId);
-    fetch_rooms.push(Room);
+    fetchRoom.push(Room);
     socket.join(RoomId);
 
     socket.emit("createRoom", Room);
@@ -154,7 +154,7 @@ io.on("connection", socket => {
   socket.on("joinRoom", ({roomId, roomPassword, userName}) => {
     let temp_room = rooms.get(roomId);
     if (temp_room) {
-      const password = rooms_password.get(roomId);
+      const password = roomsPassword.get(roomId);
       bcrypt.compare(roomPassword, password, function(err, res) {
         if(res) {
           temp_room.user.push({userId: socket.id, userName});
@@ -167,7 +167,7 @@ io.on("connection", socket => {
           });
 
           if (index !== -1) {
-            fetch_rooms[index].user.push({userId: socket.id, userName})
+            fetchRoom[index].user.push({userId: socket.id, userName})
           }
 
           console.log("User -> Joined room! RoomId:", roomId);
@@ -188,12 +188,12 @@ io.on("connection", socket => {
   });
 
   socket.on("deleteRoom", ({roomId, roomPassword}) => {
-    const password = rooms_password.get(roomId);
+    const password = roomsPassword.get(roomId);
     if (roomPassword === password) {
-      let index = lodash.findIndex(fetch_rooms, function (o) {
+      let index = lodash.findIndex(fetchRoom, function (o) {
         return o.roomId === roomId;
       });
-      fetch_rooms.splice(index, 1);
+      fetchRoom.splice(index, 1);
       rooms.delete(roomId)
     } else {
       socket.emit("errors", {error: "Invalid Password"})
