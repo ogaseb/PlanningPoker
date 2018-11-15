@@ -1,7 +1,7 @@
 import React from "react"
 import {UserList} from "./user_list"
-import {configure, shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {configure, shallow} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import sinon from "sinon";
 
 configure({adapter: new Adapter()});

@@ -1,7 +1,7 @@
 import React from "react"
 import {Jira} from "./jira"
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 configure({ adapter: new Adapter() });
 
 describe("Jira", () => {

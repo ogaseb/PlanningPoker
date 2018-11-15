@@ -1,7 +1,7 @@
 import React from "react"
 import { CardResults } from "./card_results"
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow } from" 'enzyme'";
+import Adapter from "enzyme-adapter-react-16";
 configure({ adapter: new Adapter() });
 
 describe("CardResults", () => {

@@ -1,8 +1,8 @@
 import React from "react";
 import {JoinDialog} from "./join_dialog";
-import sinon from 'sinon'
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import sinon from "sinon"
+import { configure, shallow } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 configure({ adapter: new Adapter() });
 
 

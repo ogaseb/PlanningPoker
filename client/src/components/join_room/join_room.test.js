@@ -1,7 +1,7 @@
 import React from "react";
 import {JoinRoom} from "./join_room";
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import sinon from "sinon";
 import {JoinDialog} from "./join_dialog";
 configure({ adapter: new Adapter() });
