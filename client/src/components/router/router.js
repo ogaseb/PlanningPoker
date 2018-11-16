@@ -22,7 +22,7 @@ class Router extends React.Component {
         />
         <Route
 
-          path={routes.room(":id", ":password")}
+          path={routes.room(":roomName",":id")}
           component={Room}
         />
       </React.Fragment>

@@ -1,6 +1,6 @@
 const routes = {
   root: () => "/",
-  room: (id, password) => `/room/${id}/${password}`,
+  room: (roomName,id) => `/room/${roomName}/${id}`,
 }
 
 export default routes

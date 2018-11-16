@@ -84,6 +84,7 @@ class JiraConnector extends Component {
     localStorage.removeItem("jira-credentials");
     localStorage.removeItem("jira-subdomains");
     this.props.store.jira.jiraLoggedIn = false
+    this.props.store.jira.jiraBoards = []
   }
 
   addSubdomain = () => {
@@ -139,7 +140,7 @@ class JiraConnector extends Component {
                 <MenuItem onClick={this.handleJiraLogout}>Log Out</MenuItem>
               </div>}
 
-              {!this.props.store.jira.jiraLoggedIn && <div>
+              {!this.props.store.jira.jiraLoggedIn && <form>
                 <MenuItem>
                   <TextField
                     id="subdomain-jira"
@@ -170,7 +171,7 @@ class JiraConnector extends Component {
                 </MenuItem>
                 <Divider/>
                 <MenuItem onClick={this.handleJiraLogin}>Login</MenuItem>
-              </div>}
+              </form>}
             </StyledPaper>
           </StyledExpansionPanelDetails>
         </ExpansionPanel>

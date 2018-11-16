@@ -86,6 +86,7 @@ class UserStore {
       if (data){
         this.room.cardHistory = data
       }
+
     });
 
     this.socket.on("kickUser", (data) => {
@@ -150,6 +151,7 @@ class UserStore {
   }
 
   deleteRoom(roomId, roomPassword){
+    console.log(roomId, roomPassword)
     const data = {
       roomId,
       roomPassword

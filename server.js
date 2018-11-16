@@ -189,15 +189,19 @@ io.on("connection", socket => {
 
   socket.on("deleteRoom", ({roomId, roomPassword}) => {
     const password = roomsPassword.get(roomId);
-    if (roomPassword === password) {
-      let index = lodash.findIndex(fetchRoom, function (o) {
-        return o.roomId === roomId;
-      });
-      fetchRoom.splice(index, 1);
-      rooms.delete(roomId)
-    } else {
-      socket.emit("errors", {error: "Invalid Password"})
-    }
+    bcrypt.compare(roomPassword, password, function(err, res) {
+      console.log(res)
+      if(res) {
+        let index = findIndex(fetchRoom, function (o) {
+          return o.roomId === roomId;
+        });
+        fetchRoom.splice(index, 1);
+        rooms.delete(roomId)
+        console.log("User -> Deleted room! RoomId:", roomId);
+      }else {
+        socket.emit("errors", {error: "Invalid Password (delete)"})
+      }
+    });
   });
 
   socket.on("sendCard", ({roomId, userName, cardValue}) => {

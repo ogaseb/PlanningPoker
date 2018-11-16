@@ -58,16 +58,37 @@ ShallowWrapper {
           size={0}
         />,
         <ForwardRef>
-          <WithStyles(Button)
+          <ForwardRef
             onClick={[Function]}
           >
             Kick User
-          </WithStyles(Button)>
-          <WithStyles(Button)
+          </ForwardRef>
+          <ForwardRef
             onClick={[Function]}
           >
             Give admin 
-          </WithStyles(Button)>
+          </ForwardRef>
+          <ForwardRef
+            id="room-password"
+            label="Room Password"
+            margin="normal"
+            onChange={[Function]}
+            type="password"
+          />
+          <ForwardRef
+            color="secondary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            Delete room
+            <pure(DeleteIcon)
+              style={
+                Object {
+                  "marginLeft": "10px",
+                }
+              }
+            />
+          </ForwardRef>
         </ForwardRef>,
       ],
     },
@@ -204,16 +225,37 @@ ShallowWrapper {
         "nodeType": "function",
         "props": Object {
           "children": Array [
-            <WithStyles(Button)
+            <ForwardRef
               onClick={[Function]}
             >
               Kick User
-            </WithStyles(Button)>,
-            <WithStyles(Button)
+            </ForwardRef>,
+            <ForwardRef
               onClick={[Function]}
             >
               Give admin 
-            </WithStyles(Button)>,
+            </ForwardRef>,
+            <ForwardRef
+              id="room-password"
+              label="Room Password"
+              margin="normal"
+              onChange={[Function]}
+              type="password"
+            />,
+            <ForwardRef
+              color="secondary"
+              onClick={[Function]}
+              variant="contained"
+            >
+              Delete room
+              <pure(DeleteIcon)
+                style={
+                  Object {
+                    "marginLeft": "10px",
+                  }
+                }
+              />
+            </ForwardRef>,
           ],
         },
         "ref": null,
@@ -221,26 +263,180 @@ ShallowWrapper {
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "class",
+            "nodeType": "function",
             "props": Object {
               "children": "Kick User",
               "onClick": [Function],
             },
             "ref": null,
             "rendered": "Kick User",
-            "type": [Function],
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "Naked": [Function],
+              "attrs": undefined,
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-ifAKCX",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  &&{
+  width:100%;
+  }
+",
+                ],
+              },
+              "displayName": "Styled(WithStyles(Button))",
+              "options": Object {
+                "name": "MuiButton",
+              },
+              "render": [Function],
+              "styledComponentId": "sc-ifAKCX",
+              "target": [Function],
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            },
           },
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "class",
+            "nodeType": "function",
             "props": Object {
               "children": "Give admin ",
               "onClick": [Function],
             },
             "ref": null,
             "rendered": "Give admin ",
-            "type": [Function],
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "Naked": [Function],
+              "attrs": undefined,
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-ifAKCX",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  &&{
+  width:100%;
+  }
+",
+                ],
+              },
+              "displayName": "Styled(WithStyles(Button))",
+              "options": Object {
+                "name": "MuiButton",
+              },
+              "render": [Function],
+              "styledComponentId": "sc-ifAKCX",
+              "target": [Function],
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            },
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "id": "room-password",
+              "label": "Room Password",
+              "margin": "normal",
+              "onChange": [Function],
+              "type": "password",
+              "value": undefined,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "attrs": undefined,
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-EHOje",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  &&{
+  width:100%;
+  }
+",
+                ],
+              },
+              "displayName": "Styled(TextField)",
+              "render": [Function],
+              "styledComponentId": "sc-EHOje",
+              "target": [Function],
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            },
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "children": Array [
+                "Delete room",
+                <pure(DeleteIcon)
+                  style={
+                    Object {
+                      "marginLeft": "10px",
+                    }
+                  }
+                />,
+              ],
+              "color": "secondary",
+              "onClick": [Function],
+              "variant": "contained",
+            },
+            "ref": null,
+            "rendered": Array [
+              "Delete room",
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "style": Object {
+                    "marginLeft": "10px",
+                  },
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
+            "type": Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "Naked": [Function],
+              "attrs": undefined,
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-ifAKCX",
+                "isStatic": true,
+                "rules": Array [
+                  "
+  &&{
+  width:100%;
+  }
+",
+                ],
+              },
+              "displayName": "Styled(WithStyles(Button))",
+              "options": Object {
+                "name": "MuiButton",
+              },
+              "render": [Function],
+              "styledComponentId": "sc-ifAKCX",
+              "target": [Function],
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+              Symbol(Symbol.hasInstance): [Function],
+            },
           },
         ],
         "type": Object {
@@ -317,16 +513,37 @@ ShallowWrapper {
             size={0}
           />,
           <ForwardRef>
-            <WithStyles(Button)
+            <ForwardRef
               onClick={[Function]}
             >
               Kick User
-            </WithStyles(Button)>
-            <WithStyles(Button)
+            </ForwardRef>
+            <ForwardRef
               onClick={[Function]}
             >
               Give admin 
-            </WithStyles(Button)>
+            </ForwardRef>
+            <ForwardRef
+              id="room-password"
+              label="Room Password"
+              margin="normal"
+              onChange={[Function]}
+              type="password"
+            />
+            <ForwardRef
+              color="secondary"
+              onClick={[Function]}
+              variant="contained"
+            >
+              Delete room
+              <pure(DeleteIcon)
+                style={
+                  Object {
+                    "marginLeft": "10px",
+                  }
+                }
+              />
+            </ForwardRef>
           </ForwardRef>,
         ],
       },
@@ -463,16 +680,37 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": Array [
-              <WithStyles(Button)
+              <ForwardRef
                 onClick={[Function]}
               >
                 Kick User
-              </WithStyles(Button)>,
-              <WithStyles(Button)
+              </ForwardRef>,
+              <ForwardRef
                 onClick={[Function]}
               >
                 Give admin 
-              </WithStyles(Button)>,
+              </ForwardRef>,
+              <ForwardRef
+                id="room-password"
+                label="Room Password"
+                margin="normal"
+                onChange={[Function]}
+                type="password"
+              />,
+              <ForwardRef
+                color="secondary"
+                onClick={[Function]}
+                variant="contained"
+              >
+                Delete room
+                <pure(DeleteIcon)
+                  style={
+                    Object {
+                      "marginLeft": "10px",
+                    }
+                  }
+                />
+              </ForwardRef>,
             ],
           },
           "ref": null,
@@ -480,26 +718,180 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "class",
+              "nodeType": "function",
               "props": Object {
                 "children": "Kick User",
                 "onClick": [Function],
               },
               "ref": null,
               "rendered": "Kick User",
-              "type": [Function],
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "Naked": [Function],
+                "attrs": undefined,
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-ifAKCX",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  &&{
+  width:100%;
+  }
+",
+                  ],
+                },
+                "displayName": "Styled(WithStyles(Button))",
+                "options": Object {
+                  "name": "MuiButton",
+                },
+                "render": [Function],
+                "styledComponentId": "sc-ifAKCX",
+                "target": [Function],
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+                Symbol(Symbol.hasInstance): [Function],
+              },
             },
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "class",
+              "nodeType": "function",
               "props": Object {
                 "children": "Give admin ",
                 "onClick": [Function],
               },
               "ref": null,
               "rendered": "Give admin ",
-              "type": [Function],
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "Naked": [Function],
+                "attrs": undefined,
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-ifAKCX",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  &&{
+  width:100%;
+  }
+",
+                  ],
+                },
+                "displayName": "Styled(WithStyles(Button))",
+                "options": Object {
+                  "name": "MuiButton",
+                },
+                "render": [Function],
+                "styledComponentId": "sc-ifAKCX",
+                "target": [Function],
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+                Symbol(Symbol.hasInstance): [Function],
+              },
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "id": "room-password",
+                "label": "Room Password",
+                "margin": "normal",
+                "onChange": [Function],
+                "type": "password",
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": undefined,
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-EHOje",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  &&{
+  width:100%;
+  }
+",
+                  ],
+                },
+                "displayName": "Styled(TextField)",
+                "render": [Function],
+                "styledComponentId": "sc-EHOje",
+                "target": [Function],
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+                Symbol(Symbol.hasInstance): [Function],
+              },
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "children": Array [
+                  "Delete room",
+                  <pure(DeleteIcon)
+                    style={
+                      Object {
+                        "marginLeft": "10px",
+                      }
+                    }
+                  />,
+                ],
+                "color": "secondary",
+                "onClick": [Function],
+                "variant": "contained",
+              },
+              "ref": null,
+              "rendered": Array [
+                "Delete room",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "style": Object {
+                      "marginLeft": "10px",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+              ],
+              "type": Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "Naked": [Function],
+                "attrs": undefined,
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-ifAKCX",
+                  "isStatic": true,
+                  "rules": Array [
+                    "
+  &&{
+  width:100%;
+  }
+",
+                  ],
+                },
+                "displayName": "Styled(WithStyles(Button))",
+                "options": Object {
+                  "name": "MuiButton",
+                },
+                "render": [Function],
+                "styledComponentId": "sc-ifAKCX",
+                "target": [Function],
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+                Symbol(Symbol.hasInstance): [Function],
+              },
             },
           ],
           "type": Object {

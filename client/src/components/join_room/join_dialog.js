@@ -13,17 +13,24 @@ import {decorate, observable} from "mobx";
 class JoinDialog extends Component {
   componentDidMount() {
     if (localStorage.getItem("userName") !== null) {
-      this.input = JSON.parse(localStorage.getItem("userName"))
+      this.userName = JSON.parse(localStorage.getItem("userName"))
     }
   }
-  handleChange = (e) => {
-    this.input = e.target.value
-  }
-  joinRoom = (name) => {
+
+  handleChange = e => {
+    if (e.target.id === "userName") {
+      this.userName = e.target.value
+    }
+    if (e.target.id === "roomPassword") {
+      this.roomPassword = e.target.value
+    }
+  };
+  joinRoom = (name, password) => {
     const {match: {params}} = this.props
-    this.props.store.joinRoom(params.id, params.password, name)
+    this.props.store.joinRoom(params.id, password, name)
     this.props.store.openJoinDialog = false
     this.props.store.user.connected = true
+
   }
 
   cancelJoinRoom = () => {
@@ -45,11 +52,21 @@ class JoinDialog extends Component {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="userName"
             label="User Name"
             type="text"
             fullWidth
-            value={this.input}
+            value={this.userName}
+            onChange={this.handleChange}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="roomPassword"
+            label="Room Password"
+            type="text"
+            fullWidth
+            value={this.roomPassword}
             onChange={this.handleChange}
           />
         </DialogContent>
@@ -58,7 +75,7 @@ class JoinDialog extends Component {
             Cancel Join
           </Button>
           <Button onClick={() => {
-            this.joinRoom(this.input)
+            this.joinRoom(this.userName, this.roomPassword)
           }} color="primary" variant="contained">
             Join Room
           </Button>
@@ -69,7 +86,8 @@ class JoinDialog extends Component {
 }
 
 decorate(JoinDialog, {
-  input: observable
+  userName: observable,
+  roomPassword: observable
 });
 
 export {JoinDialog}

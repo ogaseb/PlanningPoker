@@ -6,7 +6,10 @@ import {withRouter} from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import Select from "@material-ui/core/Select/Select";
 import FormLabel from "@material-ui/core/FormLabel";
+import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import AddCircle from '@material-ui/icons/AddCircle'
+
 
 const StyledGrid = styled(Grid)`
   &&{
@@ -16,7 +19,7 @@ const StyledGrid = styled(Grid)`
 
 const StyledCard = styled(Card)`
   &&{
-  height: calc(100vh - 48px);
+  height: calc(100vh - 64px);
   }
 `;
 
@@ -26,7 +29,7 @@ const FormWrapper = styled.div`
   width: 90%;
   margin: 0 auto;
   position: relative;
-  top: calc(50vh - 186px);
+  top: calc(50vh - 200px);
 `;
 
 const StyledButton = styled(Button)`
@@ -84,7 +87,7 @@ class CreateRoom extends Component {
       );
       const interval = setInterval(() => {
         if (this.props.store.user.connected) {
-          this.props.history.push(`/room/${this.props.store.room.roomId}/${this.state.roomPassword}`)
+          this.props.history.push(`/room/${this.state.roomName}/${this.props.store.room.roomId}`)
           clearInterval(interval)
         }
       }, 100)
@@ -105,6 +108,9 @@ class CreateRoom extends Component {
       <StyledGrid item xs={6}>
         <StyledCard>
           <FormWrapper>
+            <Typography variant="h3" align={"center"} >
+              Create Room
+            </Typography>
             <TextField
               id="user-name"
               label="User Name"
@@ -117,6 +123,7 @@ class CreateRoom extends Component {
               label="Room Name"
               value={this.state.roomName}
               onChange={this.handleChange}
+              margin="normal"
             />
             <TextField
               id="room-password"
@@ -124,6 +131,7 @@ class CreateRoom extends Component {
               value={this.state.roomPassword}
               onChange={this.handleChange}
               type="password"
+              margin="normal"
             />
 
             {this.props.store.jira.jiraBoardsFetching && <StyledCircularProgress/>}
@@ -147,7 +155,10 @@ class CreateRoom extends Component {
                 })}
               </StyledSelect>
             </React.Fragment>}
-            <StyledButton onClick={this.handleSubmit}>Create Room</StyledButton>
+            <StyledButton color="primary" variant="contained" onClick={this.handleSubmit}>
+              Create Room
+              <AddCircle style={{marginLeft:"10px"}} />
+            </StyledButton>
           </FormWrapper>
         </StyledCard>
       </StyledGrid>

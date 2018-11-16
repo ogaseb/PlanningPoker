@@ -13,6 +13,7 @@ import Lists from "./lists/lists";
 const StyledGrid = styled(Grid)`
   &&{
   height: calc(100vh - 48px);
+  text-align:center;
   }
 `;
 
@@ -20,6 +21,7 @@ const StyledCard = styled(Card)`
   &&{
   height: calc(100vh - 48px);
   overflow-y: auto;
+  text-align:center;
   }
 `;
 
