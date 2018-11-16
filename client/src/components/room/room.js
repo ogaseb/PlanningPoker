@@ -49,7 +49,7 @@ class Room extends Component {
     setTimeout(() => {
       this.props.store.notificationMessage = "You have leaved the Room"
       this.props.store.notificationVariant = "warning"
-      this.props.history.push(`/`)
+      this.props.history.push("/")
     }, 100)
   }
 

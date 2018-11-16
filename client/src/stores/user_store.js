@@ -51,7 +51,6 @@ class UserStore {
       if (response){
         this.blockReset = false;
         let card = sortBy(response, "cardValue");
-        console.log(card)
         const allEqual = arr => arr.every( v => v.cardValue === arr[0].cardValue );
         this.room.cardsAreTheSame = allEqual( card );
 
@@ -131,7 +130,7 @@ class UserStore {
 
   createRoom(userName, roomName, roomPassword) {
     this.user.userName = userName;
-    localStorage.setItem('userName', JSON.stringify(userName));
+    localStorage.setItem("userName", JSON.stringify(userName));
     const data = {
       userName: this.user.userName,
       roomName,
@@ -151,7 +150,6 @@ class UserStore {
   }
 
   deleteRoom(roomId, roomPassword){
-    console.log(roomId, roomPassword)
     const data = {
       roomId,
       roomPassword
@@ -167,11 +165,11 @@ class UserStore {
 
   joinRoom(roomId, roomPassword, userName) {
     this.user.userName = userName;
-    localStorage.setItem('userName', JSON.stringify(userName));
+    localStorage.setItem("userName", JSON.stringify(userName));
     const data = {
       userName: this.user.userName,
-      roomId: roomId,
-      roomPassword: roomPassword
+      roomId,
+      roomPassword
     };
     this.openJoinDialog = false
     this.user.connected = true
@@ -215,14 +213,14 @@ class UserStore {
 
   kickUser(userId) {
     const data = {
-      userId: userId,
+      userId
     };
     this.socket.emit("kickUser", data)
   }
 
   changeAdmin(userId) {
     const data = {
-      userId: userId,
+      userId
     };
     this.socket.emit("changeAdmin", data)
   }
@@ -246,9 +244,9 @@ class UserStore {
   jiraLogin(jiraSubdomain, jiraLogin, jiraPassword) {
     this.jira.jiraBoardsFetching = true
     const data = {
-      jiraSubdomain: jiraSubdomain,
-      jiraLogin: jiraLogin,
-      jiraPassword: jiraPassword
+      jiraSubdomain,
+      jiraLogin,
+      jiraPassword
     };
     this.socket.emit("jiraLogin", data)
     this.socket.on("jiraLogin", (data) => {
@@ -281,7 +279,7 @@ class UserStore {
       boardId: this.jira.boardId,
       estimationScore: this.room.cardResults[0].cardValue
     };
-    if (this.jira.issueId !== undefined) {
+    if (this.jira.issueId) {
       this.socket.emit("jiraSetEstimation", data)
     }
   }

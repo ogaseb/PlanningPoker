@@ -114,7 +114,7 @@ class Issue extends Component {
 
   get fuse() {
     return new Fuse(toJS(this.props.store.jira.activeBoard.issues), {
-      keys: ['key', 'summary'],
+      keys: ["key", "summary"],
       threshold: 0.6
     })
   }

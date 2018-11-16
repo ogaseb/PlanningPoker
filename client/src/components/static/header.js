@@ -37,8 +37,8 @@ class Header extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("jira-credentials") !== null && localStorage.getItem("jira-subdomains") !== null) {
-      const data = JSON.parse(localStorage.getItem('jira-credentials'));
-      const subdomains =  JSON.parse(localStorage.getItem('jira-subdomains'));
+      const data = JSON.parse(localStorage.getItem("jira-credentials"));
+      const subdomains =  JSON.parse(localStorage.getItem("jira-subdomains"));
       this.props.store.jiraLogin(subdomains[0], data.jiraLogin, data.jiraPassword)
     }
   }
@@ -53,13 +53,13 @@ class Header extends Component {
     return (
       <AppBar position="static" color="default">
         <Toolbar>
-          <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
+          <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer("left", true)}>
             <MenuButton/>
           </IconButton>
-          <StyledDrawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+          <StyledDrawer open={this.state.left} onClose={this.toggleDrawer("left", false)}>
             <div style={{width: "200px"}}>
               <List>
-                <ListItem button onClick={this.toggleDrawer('left', false)}>
+                <ListItem button onClick={this.toggleDrawer("left", false)}>
                   <ListItemIcon><MenuButton/> </ListItemIcon>
                   <ListItemText primary={"back"}/>
                 </ListItem>

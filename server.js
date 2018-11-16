@@ -190,7 +190,6 @@ io.on("connection", socket => {
   socket.on("deleteRoom", ({roomId, roomPassword}) => {
     const password = roomsPassword.get(roomId);
     bcrypt.compare(roomPassword, password, function(err, res) {
-      console.log(res)
       if(res) {
         let index = findIndex(fetchRoom, function (o) {
           return o.roomId === roomId;
@@ -235,7 +234,6 @@ io.on("connection", socket => {
       }
 
       temp_room.gameHistory.push(temp_room.game);
-      console.log(temp_room.gameHistory);
       io.in(roomId).emit("resetCards", temp_room.gameHistory);
 
       temp_room.game = [];
