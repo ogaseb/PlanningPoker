@@ -31,7 +31,7 @@ class Room extends Component {
     window.onpopstate = this.onBackButtonEvent
     setInterval(() => {
       if (this.props.store.user.kicked) {
-        this.props.history.push(`/`)
+        this.props.history.push("/")
         this.props.store.user.kicked = false
       }
       if (!this.props.store.user.connected) {

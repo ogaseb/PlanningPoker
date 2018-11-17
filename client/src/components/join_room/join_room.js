@@ -6,8 +6,8 @@ import FormLabel from "@material-ui/core/FormLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Select from "@material-ui/core/Select";
-import DeleteIcon from '@material-ui/icons/Delete'
-import {ArrowUpBold} from 'mdi-material-ui'
+import DeleteIcon from "@material-ui/icons/Delete"
+import {ArrowUpBold} from "mdi-material-ui"
 import Typography from "@material-ui/core/Typography/Typography";
 
 const StyledGrid = styled(Grid)`

@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button"
 import {decorate, observable} from "mobx";
-import DeleteIcon from '@material-ui/icons/Delete'
+import DeleteIcon from "@material-ui/icons/Delete"
 import {TextField} from "@material-ui/core";
 
 
