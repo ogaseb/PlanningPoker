@@ -74,9 +74,10 @@ class Controls extends Component {
             <Button
               disabled={this.props.store.blockReset}
               onClick={this.handleReset}>Reset cards</Button>
-            <Button
+            {this.props.store.jira.jiraLoggedIn && <Button
               disabled={!this.props.store.room.cardsAreTheSame}
               onClick={this.handleEstimation}>Set estimation point</Button>
+            }
           </React.Fragment>
         )}
         {this.selectedCard !== "" && <YourCard> {this.selectedCard}</YourCard>}
