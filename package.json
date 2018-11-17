@@ -7,7 +7,7 @@
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "start": "node lib.node.js",
     "test": "cd client && CI=true yarn test",
-    "heroku-postbuild": "webpack --config webpack.server.config.js && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "heroku-postbuild": "webpack --config webpack.server.config.js && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build && cd ..",
     "precommit": "lint-staged",
     "prepush": "CI=true yarn test",
     "webpack": "webpack --config webpack.server.config.js"
