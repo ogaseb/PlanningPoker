@@ -350,7 +350,7 @@ if (process.env.NODE_ENV === 'production') {
   console.log(__dirname)
   // Handle React routing, return all requests to React app
   app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'), { root: __dirname });
     console.log(__dirname)
   });
 }
