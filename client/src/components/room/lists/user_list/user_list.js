@@ -7,11 +7,7 @@ import Button from "@material-ui/core/Button"
 import {decorate, observable} from "mobx";
 import DeleteIcon from "@material-ui/icons/Delete"
 import {TextField} from "@material-ui/core";
-
-
-const DefaultSelect = styled.select`
-  width:100%;
-`
+import Card from "@material-ui/core/Card";
 
 const RoomName = styled.div`
   && {
@@ -26,6 +22,14 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
 `;
 
+const UserWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  flex-wrap: wrap;
+`;
+
+
 const UserDiv = styled.div`
   height:50%;
   overflow-y:auto;
@@ -36,7 +40,14 @@ const StyledButton = styled(Button)`
   width:100%;
   }
 `;
+
 const StyledTextField = styled(TextField)`
+  &&{
+  width:100%;
+  }
+`;
+
+const StyledCard = styled(Card)`
   &&{
   width:100%;
   }
@@ -82,16 +93,16 @@ class UserList extends Component {
           {this.props.store.room.roomName !== "" && <div> Room Name: {this.props.store.room.roomName}</div>}
         </RoomName>
         <Typography>users : {this.props.store.user.users.length}</Typography>
-        <DefaultSelect size={this.props.store.user.users.length} onClick={this.handleSelect}>
+        <UserWrapper>
           {this.props.store.user.users.length > 0 &&
           this.props.store.user.users.map((data, index) => {
             return (
-              <option key={index} value={data.userId}>
+              <StyledCard>
                 {data.userName}
-              </option>
+              </StyledCard>
             );
           })}
-        </DefaultSelect>
+        </UserWrapper>
         {this.props.store.user.admin && (
             <Wrapper>
               <StyledButton onClick={this.handleKick}>Kick User</StyledButton>

@@ -4,6 +4,8 @@ import { inject, observer } from "mobx-react"
 import CreateRoom from "../../components/create_room/create_room"
 import JoinRoom from "../../components/join_room/join_room"
 import Room from "../../components/room/room"
+import ConnectJira from "../../components/connect_jira/connect_jira"
+
 import routes from "../../routes"
 
 class Router extends React.Component {
@@ -17,11 +19,15 @@ class Router extends React.Component {
         />
         <Route
           exact
-          path={routes.root()}
+          path={routes.join()}
           component={JoinRoom}
         />
         <Route
-
+          exact
+          path={routes.jira()}
+          component={ConnectJira}
+        />
+        <Route
           path={routes.room(":roomName",":id")}
           component={Room}
         />

@@ -21,10 +21,10 @@ const StyledCard = styled(Card)`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 50%;
   margin: 0 auto;
   position: relative;
-  top: calc(50vh - 200px);
+  top: calc(50vh - 240px);
 `;
 
 const StyledCircularProgress = styled(CircularProgress)`
@@ -104,7 +104,7 @@ class JoinRoom extends Component {
 
   render() {
     return (
-      <StyledGrid item xs={6}>
+      <StyledGrid item xs={12}>
         <StyledCard>
           <Wrapper>
             <Typography variant="h3" align={"center"} >
@@ -134,26 +134,6 @@ class JoinRoom extends Component {
               margin="normal"
             />
 
-            {this.props.store.jira.jiraBoardsFetching && <StyledCircularProgress/>}
-            {this.props.store.jira.jiraBoards.values.length > 0 &&
-            !this.props.store.jira.jiraBoardsFetching &&
-            <React.Fragment>
-              <FormLabel> Jira Board </FormLabel>
-              <StyledSelect
-                inputProps={{
-                  name: "board",
-                  id: "board"
-                }}
-                value={this.state.board} onChange={this.handleChangeBoard}>
-                {this.props.store.jira.jiraBoards.values.map((data, index) => {
-                  return (
-                    <MenuItem key={index} value={data.id}>
-                      {data.name}
-                    </MenuItem>
-                  );
-                })}
-              </StyledSelect>
-            </React.Fragment>}
             <Grid style={{marginTop:"40px"}} container>
               <Grid item xs={6} >
                 <StyledButton  color="primary" variant="contained" onClick={this.handleSubmit}>

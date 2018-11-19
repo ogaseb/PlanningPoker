@@ -9,6 +9,8 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import AddCircle from "@material-ui/icons/AddCircle"
+import {ArrowUpBold} from "mdi-material-ui";
+
 
 
 const StyledGrid = styled(Grid)`
@@ -26,15 +28,15 @@ const StyledCard = styled(Card)`
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 50%;
   margin: 0 auto;
   position: relative;
-  top: calc(50vh - 200px);
+  top: calc(50vh - 240px);
 `;
 
 const StyledButton = styled(Button)`
   &&{
-  margin-top: 40px;
+  width:100%;
   }
 `;
 
@@ -45,6 +47,14 @@ const StyledSelect = styled(Select)`
 const StyledCircularProgress = styled(CircularProgress)`
   &&{
   margin: 0 auto;
+  }
+`;
+
+const StyledTypography = styled(Typography)`
+  &&{
+  text-align:center;
+  position:relative;
+  top:20%;
   }
 `;
 
@@ -87,7 +97,8 @@ class CreateRoom extends Component {
       );
       const interval = setInterval(() => {
         if (this.props.store.user.connected) {
-          this.props.history.push(`/room/${this.state.roomName}/${this.props.store.room.roomId}`)
+          this.props.history.push(`/jira`)
+          // this.props.history.push(`/room/${this.state.roomName}/${this.props.store.room.roomId}`)
           clearInterval(interval)
         }
       }, 100)
@@ -98,6 +109,10 @@ class CreateRoom extends Component {
     }
   };
 
+  handleJoin = () => {
+    this.props.history.push(`/join`)
+  }
+
   handleChangeBoard = event => {
     this.setState({[event.target.name]: event.target.value});
     this.props.store.jira.boardId = event.target.value
@@ -105,7 +120,7 @@ class CreateRoom extends Component {
 
   render() {
     return (
-      <StyledGrid item xs={6}>
+      <StyledGrid item xs={12}>
         <StyledCard>
           <FormWrapper>
             <Typography variant="h3" align={"center"} >
@@ -134,31 +149,44 @@ class CreateRoom extends Component {
               margin="normal"
             />
 
-            {this.props.store.jira.jiraBoardsFetching && <StyledCircularProgress/>}
-            {this.props.store.jira.jiraBoards.values.length > 0 &&
-            !this.props.store.jira.jiraBoardsFetching &&
-            <React.Fragment>
-              <FormLabel> Jira Board </FormLabel>
-              <StyledSelect
-                inputProps={{
-                  name: "board",
-                  id: "board"
-                }}
-                value={this.state.board}
-                onChange={this.handleChangeBoard}>
-                {this.props.store.jira.jiraBoards.values.map((data, index) => {
-                  return (
-                    <MenuItem key={index} value={data.id}>
-                      {data.name}
-                    </MenuItem>
-                  );
-                })}
-              </StyledSelect>
-            </React.Fragment>}
-            <StyledButton color="primary" variant="contained" onClick={this.handleSubmit}>
-              Create Room
-              <AddCircle style={{marginLeft:"10px"}} />
-            </StyledButton>
+            {/*{this.props.store.jira.jiraBoardsFetching && <StyledCircularProgress/>}*/}
+            {/*{this.props.store.jira.jiraBoards.values.length > 0 &&*/}
+            {/*!this.props.store.jira.jiraBoardsFetching &&*/}
+            {/*<React.Fragment>*/}
+              {/*<FormLabel> Jira Board </FormLabel>*/}
+              {/*<StyledSelect*/}
+                {/*inputProps={{*/}
+                  {/*name: "board",*/}
+                  {/*id: "board"*/}
+                {/*}}*/}
+                {/*value={this.state.board}*/}
+                {/*onChange={this.handleChangeBoard}>*/}
+                {/*{this.props.store.jira.jiraBoards.values.map((data, index) => {*/}
+                  {/*return (*/}
+                    {/*<MenuItem key={index} value={data.id}>*/}
+                      {/*{data.name}*/}
+                    {/*</MenuItem>*/}
+                  {/*);*/}
+                {/*})}*/}
+              {/*</StyledSelect>*/}
+            {/*</React.Fragment>}*/}
+            <Grid style={{marginTop:"40px"}} container>
+              <Grid item xs={5} >
+                <StyledButton color="primary" variant="contained" onClick={this.handleSubmit}>
+                  Create Room
+                  <AddCircle style={{marginLeft:"10px"}} />
+                </StyledButton>
+              </Grid>
+              <Grid item xs={2} >
+                <StyledTypography variant="h5"> OR </StyledTypography>
+              </Grid>
+              <Grid item xs={5}>
+                <StyledButton variant="contained" onClick={this.handleJoin}>
+                  Join room
+                  <ArrowUpBold style={{marginLeft:"10px"}} />
+                </StyledButton>
+              </Grid>
+            </Grid>
           </FormWrapper>
         </StyledCard>
       </StyledGrid>

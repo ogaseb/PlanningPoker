@@ -5,15 +5,10 @@ import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import styled from "styled-components";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Fuse from "fuse.js"
 import {decorate, computed, observable, toJS} from "mobx";
+import Select from 'react-select'
+
 
 const StyledTextField = styled(TextField)`
   &&{
@@ -30,33 +25,8 @@ const StyledTitleCard = styled(Card)`
   }
 `;
 
-const StyledExpansionPanelDetails = styled(ExpansionPanelDetails)`
-  &&{
-  padding:0;
-  }
-`;
-
-const StyledTaskContainer = styled(Card)`
-  &&{
-  max-height: 300px;
-  overflow-y:auto;
-  }
-`;
-
-const StyledComment = styled(Card)`
-  &&{
-  margin-bottom:10px;
-  }
-`;
-
-const TitleCard = styled(Card)`
-  &&{
-  padding: 10px; 
-  max-width: 80%; 
-  text-align: left; 
-  background-color:white;
-  color:black;
-  }
+const StyledSelect = styled(Select)`
+  text-align:left;
 `;
 
 class Issue extends Component {
@@ -86,22 +56,14 @@ class Issue extends Component {
     }
   }
 
-  selectIssue = (index) => {
-    const issues = document.getElementById("issues").childNodes
-    for (let i = 0; i < issues.length; i++) {
-      issues[i].style.backgroundColor = "white"
-      issues[i].style.color = "black"
-    }
-    issues[index].style.backgroundColor = "#303F9F"
-    issues[index].style.color = "white"
-
-    this.props.store.jira.title = this.searchResults[index].summary
+  selectIssue = (selectedValue) => {
+    this.props.store.jira.title = selectedValue.issue.summary
     this.props.store.broadcastTitle()
 
-    this.props.store.jira.description = this.searchResults[index].description
+    this.props.store.jira.description = selectedValue.issue.description
     this.props.store.broadcastDescription()
 
-    this.props.store.jira.issueId = this.searchResults[index].id
+    this.props.store.jira.issueId = selectedValue.issue.id
   }
 
 
@@ -123,54 +85,30 @@ class Issue extends Component {
     return this.fuse.search(this.issueFilter)
   }
 
-  render() {
+  get toSelect() {
+    return toJS(this.props.store.jira.activeBoard.issues).map((issue, index) => {
+      return {
+        value: index,
+        label: `${issue.key} - ${issue.summary}`,
+        issue: issue
+      }
+    })
+  }
 
+  render() {
     return (
       <React.Fragment>
-        {this.props.store.jira.activeBoardFetching && <CircularProgress/>}
-        {(this.props.store.jira.activeBoard.issues.length > 0 &&
-          this.props.store.user.admin &&
-          !this.props.store.jira.activeBoardFetching) &&
+        {(this.props.store.jira.activeBoard.issues.length > 0 && this.props.store.user.admin) &&
         <React.Fragment>
           <Typography>Jira Task Picker</Typography>
-          <StyledTaskContainer id="issues">
-            {this.searchResults.map(({key, priorityType, id, description, issueUrl, priorityUrl, summary, comments}, index) => {
-              return (
-                <ExpansionPanel expanded={this.state.expanded === `panel${index}`} onChange={() => {
-                  this.selectIssue(index);
-                  this.handleExpansionChange(`panel${index}`);
-                }}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-                    <TitleCard>
-                      <img alt="issueType" width={16} height={16} src={issueUrl}/>
-                      <img alt="priority" width={16} height={16} src={priorityUrl}/>
-                      {priorityType} | {key} - {summary}
-                    </TitleCard>
-                  </ExpansionPanelSummary>
-                  <StyledExpansionPanelDetails>
-                    <Grid container>
-                      <Grid item xs={comments.length > 0 ? 8 : 12}>
-                      </Grid>
-                      <Grid item xs={comments.length > 0 ? 4 : 0}>
-                        {comments.length > 0 &&
-                        comments.map(({author:{name}, body}) => (
-                          <StyledComment>
-                            <div style={{color: "black"}}>
-                              {name}
-                            </div>
-                            <Divider/>
-                            <div style={{textAlign: "left", color: "black"}}>
-                              {body}
-                            </div>
-                          </StyledComment>)
-                        )}
-                      </Grid>
-                    </Grid>
-                  </StyledExpansionPanelDetails>
-                </ExpansionPanel>
-              );
-            })}
-          </StyledTaskContainer></React.Fragment>}
+          <StyledSelect
+            options={this.toSelect}
+            onChange={this.selectIssue}
+            isDisabled={this.props.store.jira.activeBoardFetching}
+            isLoading={this.props.store.jira.activeBoardFetching}
+            defaultOptions={{value:"", label:"loading"}}
+          />
+        </React.Fragment>}
         <StyledTitleCard>
           <Typography variant="subtitle2">
             Title
