@@ -498,7 +498,7 @@ ShallowWrapper {
                     "Naked": [Function],
                     "attrs": undefined,
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-EHOje",
+                      "componentId": "sc-bxivhb",
                       "isStatic": true,
                       "rules": Array [
                         "
@@ -513,7 +513,7 @@ ShallowWrapper {
                       "name": "MuiButton",
                     },
                     "render": [Function],
-                    "styledComponentId": "sc-EHOje",
+                    "styledComponentId": "sc-bxivhb",
                     "target": [Function],
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -587,7 +587,7 @@ ShallowWrapper {
                     "Naked": [Function],
                     "attrs": undefined,
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-EHOje",
+                      "componentId": "sc-bxivhb",
                       "isStatic": true,
                       "rules": Array [
                         "
@@ -602,7 +602,7 @@ ShallowWrapper {
                       "name": "MuiButton",
                     },
                     "render": [Function],
-                    "styledComponentId": "sc-EHOje",
+                    "styledComponentId": "sc-bxivhb",
                     "target": [Function],
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -1167,7 +1167,7 @@ ShallowWrapper {
                       "Naked": [Function],
                       "attrs": undefined,
                       "componentStyle": ComponentStyle {
-                        "componentId": "sc-EHOje",
+                        "componentId": "sc-bxivhb",
                         "isStatic": true,
                         "rules": Array [
                           "
@@ -1182,7 +1182,7 @@ ShallowWrapper {
                         "name": "MuiButton",
                       },
                       "render": [Function],
-                      "styledComponentId": "sc-EHOje",
+                      "styledComponentId": "sc-bxivhb",
                       "target": [Function],
                       "toString": [Function],
                       "warnTooManyClasses": [Function],
@@ -1256,7 +1256,7 @@ ShallowWrapper {
                       "Naked": [Function],
                       "attrs": undefined,
                       "componentStyle": ComponentStyle {
-                        "componentId": "sc-EHOje",
+                        "componentId": "sc-bxivhb",
                         "isStatic": true,
                         "rules": Array [
                           "
@@ -1271,7 +1271,7 @@ ShallowWrapper {
                         "name": "MuiButton",
                       },
                       "render": [Function],
-                      "styledComponentId": "sc-EHOje",
+                      "styledComponentId": "sc-bxivhb",
                       "target": [Function],
                       "toString": [Function],
                       "warnTooManyClasses": [Function],
