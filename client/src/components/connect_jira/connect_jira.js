@@ -9,8 +9,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import AddCircle from "@material-ui/icons/AddCircle"
 import {ArrowUpBold, Login, Logout} from "mdi-material-ui";
 import {decorate, observable} from "mobx";
-import Jira from '../../img/jira.png'
-import Select from 'react-select'
+import Jira from "../../img/jira.png"
+import Select from "react-select"
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 

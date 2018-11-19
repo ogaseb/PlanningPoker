@@ -7,7 +7,7 @@ import Card from "@material-ui/core/Card";
 import styled from "styled-components";
 import Fuse from "fuse.js"
 import {decorate, computed, observable, toJS} from "mobx";
-import Select from 'react-select'
+import Select from "react-select"
 
 
 const StyledTextField = styled(TextField)`
@@ -90,7 +90,7 @@ class Issue extends Component {
       return {
         value: index,
         label: `${issue.key} - ${issue.summary}`,
-        issue: issue
+        issue
       }
     })
   }

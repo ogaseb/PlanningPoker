@@ -131,7 +131,7 @@ ShallowWrapper {
             "Naked": [Function],
             "attrs": undefined,
             "componentStyle": ComponentStyle {
-              "componentId": "sc-kgoBCf",
+              "componentId": "sc-kAzzGY",
               "isStatic": true,
               "rules": Array [
                 "
@@ -148,7 +148,7 @@ ShallowWrapper {
               "name": "MuiCard",
             },
             "render": [Function],
-            "styledComponentId": "sc-kgoBCf",
+            "styledComponentId": "sc-kAzzGY",
             "target": [Function],
             "toString": [Function],
             "warnTooManyClasses": [Function],
@@ -161,7 +161,7 @@ ShallowWrapper {
           "Naked": [Function],
           "attrs": undefined,
           "componentStyle": ComponentStyle {
-            "componentId": "sc-chPdSV",
+            "componentId": "sc-cSHVUG",
             "isStatic": true,
             "rules": Array [
               "
@@ -177,7 +177,7 @@ ShallowWrapper {
             "name": "MuiGrid",
           },
           "render": [Function],
-          "styledComponentId": "sc-chPdSV",
+          "styledComponentId": "sc-cSHVUG",
           "target": [Function],
           "toString": [Function],
           "warnTooManyClasses": [Function],
@@ -219,7 +219,7 @@ ShallowWrapper {
             "Naked": [Function],
             "attrs": undefined,
             "componentStyle": ComponentStyle {
-              "componentId": "sc-kgoBCf",
+              "componentId": "sc-kAzzGY",
               "isStatic": true,
               "rules": Array [
                 "
@@ -236,7 +236,7 @@ ShallowWrapper {
               "name": "MuiCard",
             },
             "render": [Function],
-            "styledComponentId": "sc-kgoBCf",
+            "styledComponentId": "sc-kAzzGY",
             "target": [Function],
             "toString": [Function],
             "warnTooManyClasses": [Function],
@@ -249,7 +249,7 @@ ShallowWrapper {
           "Naked": [Function],
           "attrs": undefined,
           "componentStyle": ComponentStyle {
-            "componentId": "sc-chPdSV",
+            "componentId": "sc-cSHVUG",
             "isStatic": true,
             "rules": Array [
               "
@@ -265,7 +265,7 @@ ShallowWrapper {
             "name": "MuiGrid",
           },
           "render": [Function],
-          "styledComponentId": "sc-chPdSV",
+          "styledComponentId": "sc-cSHVUG",
           "target": [Function],
           "toString": [Function],
           "warnTooManyClasses": [Function],
@@ -375,7 +375,7 @@ ShallowWrapper {
               "Naked": [Function],
               "attrs": undefined,
               "componentStyle": ComponentStyle {
-                "componentId": "sc-kgoBCf",
+                "componentId": "sc-kAzzGY",
                 "isStatic": true,
                 "rules": Array [
                   "
@@ -392,7 +392,7 @@ ShallowWrapper {
                 "name": "MuiCard",
               },
               "render": [Function],
-              "styledComponentId": "sc-kgoBCf",
+              "styledComponentId": "sc-kAzzGY",
               "target": [Function],
               "toString": [Function],
               "warnTooManyClasses": [Function],
@@ -405,7 +405,7 @@ ShallowWrapper {
             "Naked": [Function],
             "attrs": undefined,
             "componentStyle": ComponentStyle {
-              "componentId": "sc-chPdSV",
+              "componentId": "sc-cSHVUG",
               "isStatic": true,
               "rules": Array [
                 "
@@ -421,7 +421,7 @@ ShallowWrapper {
               "name": "MuiGrid",
             },
             "render": [Function],
-            "styledComponentId": "sc-chPdSV",
+            "styledComponentId": "sc-cSHVUG",
             "target": [Function],
             "toString": [Function],
             "warnTooManyClasses": [Function],
@@ -463,7 +463,7 @@ ShallowWrapper {
               "Naked": [Function],
               "attrs": undefined,
               "componentStyle": ComponentStyle {
-                "componentId": "sc-kgoBCf",
+                "componentId": "sc-kAzzGY",
                 "isStatic": true,
                 "rules": Array [
                   "
@@ -480,7 +480,7 @@ ShallowWrapper {
                 "name": "MuiCard",
               },
               "render": [Function],
-              "styledComponentId": "sc-kgoBCf",
+              "styledComponentId": "sc-kAzzGY",
               "target": [Function],
               "toString": [Function],
               "warnTooManyClasses": [Function],
@@ -493,7 +493,7 @@ ShallowWrapper {
             "Naked": [Function],
             "attrs": undefined,
             "componentStyle": ComponentStyle {
-              "componentId": "sc-chPdSV",
+              "componentId": "sc-cSHVUG",
               "isStatic": true,
               "rules": Array [
                 "
@@ -509,7 +509,7 @@ ShallowWrapper {
               "name": "MuiGrid",
             },
             "render": [Function],
-            "styledComponentId": "sc-chPdSV",
+            "styledComponentId": "sc-cSHVUG",
             "target": [Function],
             "toString": [Function],
             "warnTooManyClasses": [Function],

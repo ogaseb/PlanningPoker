@@ -2,10 +2,6 @@ import React, {Component} from "react";
 import {Grid, Card, Button, TextField} from "@material-ui/core";
 import styled from "styled-components";
 import {inject, observer} from "mobx-react";
-import FormLabel from "@material-ui/core/FormLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Select from "@material-ui/core/Select";
 import DeleteIcon from "@material-ui/icons/Delete"
 import {ArrowUpBold} from "mdi-material-ui"
 import Typography from "@material-ui/core/Typography/Typography";
@@ -25,16 +21,6 @@ const Wrapper = styled.div`
   margin: 0 auto;
   position: relative;
   top: calc(50vh - 240px);
-`;
-
-const StyledCircularProgress = styled(CircularProgress)`
-  &&{
-  margin: 0 auto;
-  }
-`;
-
-const StyledSelect = styled(Select)`
-  width:100%;
 `;
 
 const StyledButton = styled(Button)`

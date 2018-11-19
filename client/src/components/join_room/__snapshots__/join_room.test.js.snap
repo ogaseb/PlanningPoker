@@ -71,7 +71,6 @@ ShallowWrapper {
             value=""
             variant="standard"
           />
-          <ForwardRef />
           <WithStyles(Grid)
             container={true}
             style={
@@ -122,7 +121,7 @@ ShallowWrapper {
         </ForwardRef>
       </ForwardRef>,
       "item": true,
-      "xs": 6,
+      "xs": 12,
     },
     "ref": null,
     "rendered": Object {
@@ -169,7 +168,6 @@ ShallowWrapper {
             value=""
             variant="standard"
           />
-          <ForwardRef />
           <WithStyles(Grid)
             container={true}
             style={
@@ -264,8 +262,6 @@ ShallowWrapper {
               value=""
               variant="standard"
             />,
-            <ForwardRef />,
-            false,
             <WithStyles(Grid)
               container={true}
               style={
@@ -386,43 +382,6 @@ ShallowWrapper {
             "rendered": null,
             "type": [Function],
           },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {},
-            "ref": null,
-            "rendered": null,
-            "type": Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "Naked": [Function],
-              "attrs": undefined,
-              "componentStyle": ComponentStyle {
-                "componentId": "sc-bxivhb",
-                "isStatic": true,
-                "rules": Array [
-                  "
-  &&{
-  margin: 0 auto;
-  }
-",
-                ],
-              },
-              "displayName": "Styled(WithStyles(CircularProgress))",
-              "options": Object {
-                "flip": false,
-                "name": "MuiCircularProgress",
-              },
-              "render": [Function],
-              "styledComponentId": "sc-bxivhb",
-              "target": [Function],
-              "toString": [Function],
-              "warnTooManyClasses": [Function],
-              "withComponent": [Function],
-              Symbol(Symbol.hasInstance): [Function],
-            },
-          },
-          false,
           Object {
             "instance": null,
             "key": undefined,
@@ -667,10 +626,10 @@ ShallowWrapper {
               "
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 50%;
   margin: 0 auto;
   position: relative;
-  top: calc(50vh - 200px);
+  top: calc(50vh - 240px);
 ",
             ],
           },
@@ -781,7 +740,6 @@ ShallowWrapper {
               value=""
               variant="standard"
             />
-            <ForwardRef />
             <WithStyles(Grid)
               container={true}
               style={
@@ -832,7 +790,7 @@ ShallowWrapper {
           </ForwardRef>
         </ForwardRef>,
         "item": true,
-        "xs": 6,
+        "xs": 12,
       },
       "ref": null,
       "rendered": Object {
@@ -879,7 +837,6 @@ ShallowWrapper {
               value=""
               variant="standard"
             />
-            <ForwardRef />
             <WithStyles(Grid)
               container={true}
               style={
@@ -974,8 +931,6 @@ ShallowWrapper {
                 value=""
                 variant="standard"
               />,
-              <ForwardRef />,
-              false,
               <WithStyles(Grid)
                 container={true}
                 style={
@@ -1096,43 +1051,6 @@ ShallowWrapper {
               "rendered": null,
               "type": [Function],
             },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {},
-              "ref": null,
-              "rendered": null,
-              "type": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "Naked": [Function],
-                "attrs": undefined,
-                "componentStyle": ComponentStyle {
-                  "componentId": "sc-bxivhb",
-                  "isStatic": true,
-                  "rules": Array [
-                    "
-  &&{
-  margin: 0 auto;
-  }
-",
-                  ],
-                },
-                "displayName": "Styled(WithStyles(CircularProgress))",
-                "options": Object {
-                  "flip": false,
-                  "name": "MuiCircularProgress",
-                },
-                "render": [Function],
-                "styledComponentId": "sc-bxivhb",
-                "target": [Function],
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-                Symbol(Symbol.hasInstance): [Function],
-              },
-            },
-            false,
             Object {
               "instance": null,
               "key": undefined,
@@ -1377,10 +1295,10 @@ ShallowWrapper {
                 "
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 50%;
   margin: 0 auto;
   position: relative;
-  top: calc(50vh - 200px);
+  top: calc(50vh - 240px);
 ",
               ],
             },

@@ -6,6 +6,9 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <Controls
     store={
       Object {
+        "jira": Object {
+          "jiraLoggedIn": true,
+        },
         "room": Object {
           "cardResults": Array [],
           "cardsAreTheSame": false,

@@ -37,7 +37,6 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         false,
-        false,
         <ForwardRef>
           <WithStyles(Typography)
             variant="subtitle2"
@@ -68,7 +67,6 @@ ShallowWrapper {
     },
     "ref": null,
     "rendered": Array [
-      false,
       false,
       Object {
         "instance": null,
@@ -285,7 +283,6 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           false,
-          false,
           <ForwardRef>
             <WithStyles(Typography)
               variant="subtitle2"
@@ -316,7 +313,6 @@ ShallowWrapper {
       },
       "ref": null,
       "rendered": Array [
-        false,
         false,
         Object {
           "instance": null,

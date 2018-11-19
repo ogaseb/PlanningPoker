@@ -53,10 +53,7 @@ ShallowWrapper {
           users : 
           0
         </WithStyles(Typography)>,
-        <ForwardRef
-          onClick={[Function]}
-          size={0}
-        />,
+        <ForwardRef />,
         <ForwardRef>
           <ForwardRef
             onClick={[Function]}
@@ -151,7 +148,7 @@ ShallowWrapper {
           "$$typeof": Symbol(react.forward_ref),
           "attrs": undefined,
           "componentStyle": ComponentStyle {
-            "componentId": "sc-bwzfXH",
+            "componentId": "sc-bdVaJa",
             "isStatic": true,
             "rules": Array [
               "
@@ -163,7 +160,7 @@ ShallowWrapper {
           },
           "displayName": "styled.div",
           "render": [Function],
-          "styledComponentId": "sc-bwzfXH",
+          "styledComponentId": "sc-bdVaJa",
           "target": "div",
           "toString": [Function],
           "warnTooManyClasses": [Function],
@@ -193,8 +190,6 @@ ShallowWrapper {
         "nodeType": "function",
         "props": Object {
           "children": false,
-          "onClick": [Function],
-          "size": 0,
         },
         "ref": null,
         "rendered": false,
@@ -202,18 +197,21 @@ ShallowWrapper {
           "$$typeof": Symbol(react.forward_ref),
           "attrs": undefined,
           "componentStyle": ComponentStyle {
-            "componentId": "sc-bdVaJa",
+            "componentId": "sc-htpNat",
             "isStatic": true,
             "rules": Array [
               "
-  width:100%;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  flex-wrap: wrap;
 ",
             ],
           },
-          "displayName": "styled.select",
+          "displayName": "styled.div",
           "render": [Function],
-          "styledComponentId": "sc-bdVaJa",
-          "target": "select",
+          "styledComponentId": "sc-htpNat",
+          "target": "div",
           "toString": [Function],
           "warnTooManyClasses": [Function],
           "withComponent": [Function],
@@ -443,7 +441,7 @@ ShallowWrapper {
           "$$typeof": Symbol(react.forward_ref),
           "attrs": undefined,
           "componentStyle": ComponentStyle {
-            "componentId": "sc-htpNat",
+            "componentId": "sc-bwzfXH",
             "isStatic": true,
             "rules": Array [
               "
@@ -456,7 +454,7 @@ ShallowWrapper {
           },
           "displayName": "styled.div",
           "render": [Function],
-          "styledComponentId": "sc-htpNat",
+          "styledComponentId": "sc-bwzfXH",
           "target": "div",
           "toString": [Function],
           "warnTooManyClasses": [Function],
@@ -508,10 +506,7 @@ ShallowWrapper {
             users : 
             0
           </WithStyles(Typography)>,
-          <ForwardRef
-            onClick={[Function]}
-            size={0}
-          />,
+          <ForwardRef />,
           <ForwardRef>
             <ForwardRef
               onClick={[Function]}
@@ -606,7 +601,7 @@ ShallowWrapper {
             "$$typeof": Symbol(react.forward_ref),
             "attrs": undefined,
             "componentStyle": ComponentStyle {
-              "componentId": "sc-bwzfXH",
+              "componentId": "sc-bdVaJa",
               "isStatic": true,
               "rules": Array [
                 "
@@ -618,7 +613,7 @@ ShallowWrapper {
             },
             "displayName": "styled.div",
             "render": [Function],
-            "styledComponentId": "sc-bwzfXH",
+            "styledComponentId": "sc-bdVaJa",
             "target": "div",
             "toString": [Function],
             "warnTooManyClasses": [Function],
@@ -648,8 +643,6 @@ ShallowWrapper {
           "nodeType": "function",
           "props": Object {
             "children": false,
-            "onClick": [Function],
-            "size": 0,
           },
           "ref": null,
           "rendered": false,
@@ -657,18 +650,21 @@ ShallowWrapper {
             "$$typeof": Symbol(react.forward_ref),
             "attrs": undefined,
             "componentStyle": ComponentStyle {
-              "componentId": "sc-bdVaJa",
+              "componentId": "sc-htpNat",
               "isStatic": true,
               "rules": Array [
                 "
-  width:100%;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  flex-wrap: wrap;
 ",
               ],
             },
-            "displayName": "styled.select",
+            "displayName": "styled.div",
             "render": [Function],
-            "styledComponentId": "sc-bdVaJa",
-            "target": "select",
+            "styledComponentId": "sc-htpNat",
+            "target": "div",
             "toString": [Function],
             "warnTooManyClasses": [Function],
             "withComponent": [Function],
@@ -898,7 +894,7 @@ ShallowWrapper {
             "$$typeof": Symbol(react.forward_ref),
             "attrs": undefined,
             "componentStyle": ComponentStyle {
-              "componentId": "sc-htpNat",
+              "componentId": "sc-bwzfXH",
               "isStatic": true,
               "rules": Array [
                 "
@@ -911,7 +907,7 @@ ShallowWrapper {
             },
             "displayName": "styled.div",
             "render": [Function],
-            "styledComponentId": "sc-htpNat",
+            "styledComponentId": "sc-bwzfXH",
             "target": "div",
             "toString": [Function],
             "warnTooManyClasses": [Function],

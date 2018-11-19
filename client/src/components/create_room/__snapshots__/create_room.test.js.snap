@@ -67,24 +67,66 @@ ShallowWrapper {
             value=""
             variant="standard"
           />
-          <ForwardRef
-            color="primary"
-            onClick={[Function]}
-            variant="contained"
-          >
-            Create Room
-            <pure(AddCircleIcon)
-              style={
-                Object {
-                  "marginLeft": "10px",
-                }
+          <WithStyles(Grid)
+            container={true}
+            style={
+              Object {
+                "marginTop": "40px",
               }
-            />
-          </ForwardRef>
+            }
+          >
+            <WithStyles(Grid)
+              item={true}
+              xs={5}
+            >
+              <ForwardRef
+                color="primary"
+                onClick={[Function]}
+                variant="contained"
+              >
+                Create Room
+                <pure(AddCircleIcon)
+                  style={
+                    Object {
+                      "marginLeft": "10px",
+                    }
+                  }
+                />
+              </ForwardRef>
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              item={true}
+              xs={2}
+            >
+              <ForwardRef
+                variant="h5"
+              >
+                 OR 
+              </ForwardRef>
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              item={true}
+              xs={5}
+            >
+              <ForwardRef
+                onClick={[Function]}
+                variant="contained"
+              >
+                Join room
+                <Icon
+                  style={
+                    Object {
+                      "marginLeft": "10px",
+                    }
+                  }
+                />
+              </ForwardRef>
+            </WithStyles(Grid)>
+          </WithStyles(Grid)>
         </ForwardRef>
       </ForwardRef>,
       "item": true,
-      "xs": 6,
+      "xs": 12,
     },
     "ref": null,
     "rendered": Object {
@@ -130,20 +172,62 @@ ShallowWrapper {
             value=""
             variant="standard"
           />
-          <ForwardRef
-            color="primary"
-            onClick={[Function]}
-            variant="contained"
-          >
-            Create Room
-            <pure(AddCircleIcon)
-              style={
-                Object {
-                  "marginLeft": "10px",
-                }
+          <WithStyles(Grid)
+            container={true}
+            style={
+              Object {
+                "marginTop": "40px",
               }
-            />
-          </ForwardRef>
+            }
+          >
+            <WithStyles(Grid)
+              item={true}
+              xs={5}
+            >
+              <ForwardRef
+                color="primary"
+                onClick={[Function]}
+                variant="contained"
+              >
+                Create Room
+                <pure(AddCircleIcon)
+                  style={
+                    Object {
+                      "marginLeft": "10px",
+                    }
+                  }
+                />
+              </ForwardRef>
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              item={true}
+              xs={2}
+            >
+              <ForwardRef
+                variant="h5"
+              >
+                 OR 
+              </ForwardRef>
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              item={true}
+              xs={5}
+            >
+              <ForwardRef
+                onClick={[Function]}
+                variant="contained"
+              >
+                Join room
+                <Icon
+                  style={
+                    Object {
+                      "marginLeft": "10px",
+                    }
+                  }
+                />
+              </ForwardRef>
+            </WithStyles(Grid)>
+          </WithStyles(Grid)>
         </ForwardRef>,
       },
       "ref": null,
@@ -190,22 +274,62 @@ ShallowWrapper {
               value=""
               variant="standard"
             />,
-            false,
-            false,
-            <ForwardRef
-              color="primary"
-              onClick={[Function]}
-              variant="contained"
-            >
-              Create Room
-              <pure(AddCircleIcon)
-                style={
-                  Object {
-                    "marginLeft": "10px",
-                  }
+            <WithStyles(Grid)
+              container={true}
+              style={
+                Object {
+                  "marginTop": "40px",
                 }
-              />
-            </ForwardRef>,
+              }
+            >
+              <WithStyles(Grid)
+                item={true}
+                xs={5}
+              >
+                <ForwardRef
+                  color="primary"
+                  onClick={[Function]}
+                  variant="contained"
+                >
+                  Create Room
+                  <pure(AddCircleIcon)
+                    style={
+                      Object {
+                        "marginLeft": "10px",
+                      }
+                    }
+                  />
+                </ForwardRef>
+              </WithStyles(Grid)>
+              <WithStyles(Grid)
+                item={true}
+                xs={2}
+              >
+                <ForwardRef
+                  variant="h5"
+                >
+                   OR 
+                </ForwardRef>
+              </WithStyles(Grid)>
+              <WithStyles(Grid)
+                item={true}
+                xs={5}
+              >
+                <ForwardRef
+                  onClick={[Function]}
+                  variant="contained"
+                >
+                  Join room
+                  <Icon
+                    style={
+                      Object {
+                        "marginLeft": "10px",
+                      }
+                    }
+                  />
+                </ForwardRef>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>,
           ],
         },
         "ref": null,
@@ -278,71 +402,302 @@ ShallowWrapper {
             "rendered": null,
             "type": [Function],
           },
-          false,
-          false,
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "function",
+            "nodeType": "class",
             "props": Object {
               "children": Array [
-                "Create Room",
-                <pure(AddCircleIcon)
-                  style={
-                    Object {
-                      "marginLeft": "10px",
-                    }
-                  }
-                />,
+                <WithStyles(Grid)
+                  item={true}
+                  xs={5}
+                >
+                  <ForwardRef
+                    color="primary"
+                    onClick={[Function]}
+                    variant="contained"
+                  >
+                    Create Room
+                    <pure(AddCircleIcon)
+                      style={
+                        Object {
+                          "marginLeft": "10px",
+                        }
+                      }
+                    />
+                  </ForwardRef>
+                </WithStyles(Grid)>,
+                <WithStyles(Grid)
+                  item={true}
+                  xs={2}
+                >
+                  <ForwardRef
+                    variant="h5"
+                  >
+                     OR 
+                  </ForwardRef>
+                </WithStyles(Grid)>,
+                <WithStyles(Grid)
+                  item={true}
+                  xs={5}
+                >
+                  <ForwardRef
+                    onClick={[Function]}
+                    variant="contained"
+                  >
+                    Join room
+                    <Icon
+                      style={
+                        Object {
+                          "marginLeft": "10px",
+                        }
+                      }
+                    />
+                  </ForwardRef>
+                </WithStyles(Grid)>,
               ],
-              "color": "primary",
-              "onClick": [Function],
-              "variant": "contained",
+              "container": true,
+              "style": Object {
+                "marginTop": "40px",
+              },
             },
             "ref": null,
             "rendered": Array [
-              "Create Room",
               Object {
                 "instance": null,
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "style": Object {
-                    "marginLeft": "10px",
-                  },
+                  "children": <ForwardRef
+                    color="primary"
+                    onClick={[Function]}
+                    variant="contained"
+                  >
+                    Create Room
+                    <pure(AddCircleIcon)
+                      style={
+                        Object {
+                          "marginLeft": "10px",
+                        }
+                      }
+                    />
+                  </ForwardRef>,
+                  "item": true,
+                  "xs": 5,
                 },
                 "ref": null,
-                "rendered": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "children": Array [
+                      "Create Room",
+                      <pure(AddCircleIcon)
+                        style={
+                          Object {
+                            "marginLeft": "10px",
+                          }
+                        }
+                      />,
+                    ],
+                    "color": "primary",
+                    "onClick": [Function],
+                    "variant": "contained",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "Create Room",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "style": Object {
+                          "marginLeft": "10px",
+                        },
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "Naked": [Function],
+                    "attrs": undefined,
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-bxivhb",
+                      "isStatic": true,
+                      "rules": Array [
+                        "
+  &&{
+  width:100%;
+  }
+",
+                      ],
+                    },
+                    "displayName": "Styled(WithStyles(Button))",
+                    "options": Object {
+                      "name": "MuiButton",
+                    },
+                    "render": [Function],
+                    "styledComponentId": "sc-bxivhb",
+                    "target": [Function],
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                    Symbol(Symbol.hasInstance): [Function],
+                  },
+                },
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": <ForwardRef
+                    variant="h5"
+                  >
+                     OR 
+                  </ForwardRef>,
+                  "item": true,
+                  "xs": 2,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "children": " OR ",
+                    "variant": "h5",
+                  },
+                  "ref": null,
+                  "rendered": " OR ",
+                  "type": Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "Naked": [Function],
+                    "attrs": undefined,
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-bZQynM",
+                      "isStatic": true,
+                      "rules": Array [
+                        "
+  &&{
+  text-align:center;
+  position:relative;
+  top:20%;
+  }
+",
+                      ],
+                    },
+                    "displayName": "Styled(WithStyles(Typography))",
+                    "options": Object {
+                      "name": "MuiTypography",
+                      "withTheme": true,
+                    },
+                    "render": [Function],
+                    "styledComponentId": "sc-bZQynM",
+                    "target": [Function],
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                    Symbol(Symbol.hasInstance): [Function],
+                  },
+                },
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": <ForwardRef
+                    onClick={[Function]}
+                    variant="contained"
+                  >
+                    Join room
+                    <Icon
+                      style={
+                        Object {
+                          "marginLeft": "10px",
+                        }
+                      }
+                    />
+                  </ForwardRef>,
+                  "item": true,
+                  "xs": 5,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "children": Array [
+                      "Join room",
+                      <Icon
+                        style={
+                          Object {
+                            "marginLeft": "10px",
+                          }
+                        }
+                      />,
+                    ],
+                    "onClick": [Function],
+                    "variant": "contained",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    "Join room",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "function",
+                      "props": Object {
+                        "style": Object {
+                          "marginLeft": "10px",
+                        },
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "Naked": [Function],
+                    "attrs": undefined,
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-bxivhb",
+                      "isStatic": true,
+                      "rules": Array [
+                        "
+  &&{
+  width:100%;
+  }
+",
+                      ],
+                    },
+                    "displayName": "Styled(WithStyles(Button))",
+                    "options": Object {
+                      "name": "MuiButton",
+                    },
+                    "render": [Function],
+                    "styledComponentId": "sc-bxivhb",
+                    "target": [Function],
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                    Symbol(Symbol.hasInstance): [Function],
+                  },
+                },
                 "type": [Function],
               },
             ],
-            "type": Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "Naked": [Function],
-              "attrs": undefined,
-              "componentStyle": ComponentStyle {
-                "componentId": "sc-bxivhb",
-                "isStatic": true,
-                "rules": Array [
-                  "
-  &&{
-  margin-top: 40px;
-  }
-",
-                ],
-              },
-              "displayName": "Styled(WithStyles(Button))",
-              "options": Object {
-                "name": "MuiButton",
-              },
-              "render": [Function],
-              "styledComponentId": "sc-bxivhb",
-              "target": [Function],
-              "toString": [Function],
-              "warnTooManyClasses": [Function],
-              "withComponent": [Function],
-              Symbol(Symbol.hasInstance): [Function],
-            },
+            "type": [Function],
           },
         ],
         "type": Object {
@@ -355,10 +710,10 @@ ShallowWrapper {
               "
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 50%;
   margin: 0 auto;
   position: relative;
-  top: calc(50vh - 200px);
+  top: calc(50vh - 240px);
 ",
             ],
           },
@@ -472,24 +827,66 @@ ShallowWrapper {
               value=""
               variant="standard"
             />
-            <ForwardRef
-              color="primary"
-              onClick={[Function]}
-              variant="contained"
-            >
-              Create Room
-              <pure(AddCircleIcon)
-                style={
-                  Object {
-                    "marginLeft": "10px",
-                  }
+            <WithStyles(Grid)
+              container={true}
+              style={
+                Object {
+                  "marginTop": "40px",
                 }
-              />
-            </ForwardRef>
+              }
+            >
+              <WithStyles(Grid)
+                item={true}
+                xs={5}
+              >
+                <ForwardRef
+                  color="primary"
+                  onClick={[Function]}
+                  variant="contained"
+                >
+                  Create Room
+                  <pure(AddCircleIcon)
+                    style={
+                      Object {
+                        "marginLeft": "10px",
+                      }
+                    }
+                  />
+                </ForwardRef>
+              </WithStyles(Grid)>
+              <WithStyles(Grid)
+                item={true}
+                xs={2}
+              >
+                <ForwardRef
+                  variant="h5"
+                >
+                   OR 
+                </ForwardRef>
+              </WithStyles(Grid)>
+              <WithStyles(Grid)
+                item={true}
+                xs={5}
+              >
+                <ForwardRef
+                  onClick={[Function]}
+                  variant="contained"
+                >
+                  Join room
+                  <Icon
+                    style={
+                      Object {
+                        "marginLeft": "10px",
+                      }
+                    }
+                  />
+                </ForwardRef>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>
           </ForwardRef>
         </ForwardRef>,
         "item": true,
-        "xs": 6,
+        "xs": 12,
       },
       "ref": null,
       "rendered": Object {
@@ -535,20 +932,62 @@ ShallowWrapper {
               value=""
               variant="standard"
             />
-            <ForwardRef
-              color="primary"
-              onClick={[Function]}
-              variant="contained"
-            >
-              Create Room
-              <pure(AddCircleIcon)
-                style={
-                  Object {
-                    "marginLeft": "10px",
-                  }
+            <WithStyles(Grid)
+              container={true}
+              style={
+                Object {
+                  "marginTop": "40px",
                 }
-              />
-            </ForwardRef>
+              }
+            >
+              <WithStyles(Grid)
+                item={true}
+                xs={5}
+              >
+                <ForwardRef
+                  color="primary"
+                  onClick={[Function]}
+                  variant="contained"
+                >
+                  Create Room
+                  <pure(AddCircleIcon)
+                    style={
+                      Object {
+                        "marginLeft": "10px",
+                      }
+                    }
+                  />
+                </ForwardRef>
+              </WithStyles(Grid)>
+              <WithStyles(Grid)
+                item={true}
+                xs={2}
+              >
+                <ForwardRef
+                  variant="h5"
+                >
+                   OR 
+                </ForwardRef>
+              </WithStyles(Grid)>
+              <WithStyles(Grid)
+                item={true}
+                xs={5}
+              >
+                <ForwardRef
+                  onClick={[Function]}
+                  variant="contained"
+                >
+                  Join room
+                  <Icon
+                    style={
+                      Object {
+                        "marginLeft": "10px",
+                      }
+                    }
+                  />
+                </ForwardRef>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>
           </ForwardRef>,
         },
         "ref": null,
@@ -595,22 +1034,62 @@ ShallowWrapper {
                 value=""
                 variant="standard"
               />,
-              false,
-              false,
-              <ForwardRef
-                color="primary"
-                onClick={[Function]}
-                variant="contained"
-              >
-                Create Room
-                <pure(AddCircleIcon)
-                  style={
-                    Object {
-                      "marginLeft": "10px",
-                    }
+              <WithStyles(Grid)
+                container={true}
+                style={
+                  Object {
+                    "marginTop": "40px",
                   }
-                />
-              </ForwardRef>,
+                }
+              >
+                <WithStyles(Grid)
+                  item={true}
+                  xs={5}
+                >
+                  <ForwardRef
+                    color="primary"
+                    onClick={[Function]}
+                    variant="contained"
+                  >
+                    Create Room
+                    <pure(AddCircleIcon)
+                      style={
+                        Object {
+                          "marginLeft": "10px",
+                        }
+                      }
+                    />
+                  </ForwardRef>
+                </WithStyles(Grid)>
+                <WithStyles(Grid)
+                  item={true}
+                  xs={2}
+                >
+                  <ForwardRef
+                    variant="h5"
+                  >
+                     OR 
+                  </ForwardRef>
+                </WithStyles(Grid)>
+                <WithStyles(Grid)
+                  item={true}
+                  xs={5}
+                >
+                  <ForwardRef
+                    onClick={[Function]}
+                    variant="contained"
+                  >
+                    Join room
+                    <Icon
+                      style={
+                        Object {
+                          "marginLeft": "10px",
+                        }
+                      }
+                    />
+                  </ForwardRef>
+                </WithStyles(Grid)>
+              </WithStyles(Grid)>,
             ],
           },
           "ref": null,
@@ -683,71 +1162,302 @@ ShallowWrapper {
               "rendered": null,
               "type": [Function],
             },
-            false,
-            false,
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  "Create Room",
-                  <pure(AddCircleIcon)
-                    style={
-                      Object {
-                        "marginLeft": "10px",
-                      }
-                    }
-                  />,
+                  <WithStyles(Grid)
+                    item={true}
+                    xs={5}
+                  >
+                    <ForwardRef
+                      color="primary"
+                      onClick={[Function]}
+                      variant="contained"
+                    >
+                      Create Room
+                      <pure(AddCircleIcon)
+                        style={
+                          Object {
+                            "marginLeft": "10px",
+                          }
+                        }
+                      />
+                    </ForwardRef>
+                  </WithStyles(Grid)>,
+                  <WithStyles(Grid)
+                    item={true}
+                    xs={2}
+                  >
+                    <ForwardRef
+                      variant="h5"
+                    >
+                       OR 
+                    </ForwardRef>
+                  </WithStyles(Grid)>,
+                  <WithStyles(Grid)
+                    item={true}
+                    xs={5}
+                  >
+                    <ForwardRef
+                      onClick={[Function]}
+                      variant="contained"
+                    >
+                      Join room
+                      <Icon
+                        style={
+                          Object {
+                            "marginLeft": "10px",
+                          }
+                        }
+                      />
+                    </ForwardRef>
+                  </WithStyles(Grid)>,
                 ],
-                "color": "primary",
-                "onClick": [Function],
-                "variant": "contained",
+                "container": true,
+                "style": Object {
+                  "marginTop": "40px",
+                },
               },
               "ref": null,
               "rendered": Array [
-                "Create Room",
                 Object {
                   "instance": null,
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "style": Object {
-                      "marginLeft": "10px",
-                    },
+                    "children": <ForwardRef
+                      color="primary"
+                      onClick={[Function]}
+                      variant="contained"
+                    >
+                      Create Room
+                      <pure(AddCircleIcon)
+                        style={
+                          Object {
+                            "marginLeft": "10px",
+                          }
+                        }
+                      />
+                    </ForwardRef>,
+                    "item": true,
+                    "xs": 5,
                   },
                   "ref": null,
-                  "rendered": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "children": Array [
+                        "Create Room",
+                        <pure(AddCircleIcon)
+                          style={
+                            Object {
+                              "marginLeft": "10px",
+                            }
+                          }
+                        />,
+                      ],
+                      "color": "primary",
+                      "onClick": [Function],
+                      "variant": "contained",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      "Create Room",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "style": Object {
+                            "marginLeft": "10px",
+                          },
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                    ],
+                    "type": Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "Naked": [Function],
+                      "attrs": undefined,
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-bxivhb",
+                        "isStatic": true,
+                        "rules": Array [
+                          "
+  &&{
+  width:100%;
+  }
+",
+                        ],
+                      },
+                      "displayName": "Styled(WithStyles(Button))",
+                      "options": Object {
+                        "name": "MuiButton",
+                      },
+                      "render": [Function],
+                      "styledComponentId": "sc-bxivhb",
+                      "target": [Function],
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                      Symbol(Symbol.hasInstance): [Function],
+                    },
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <ForwardRef
+                      variant="h5"
+                    >
+                       OR 
+                    </ForwardRef>,
+                    "item": true,
+                    "xs": 2,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "children": " OR ",
+                      "variant": "h5",
+                    },
+                    "ref": null,
+                    "rendered": " OR ",
+                    "type": Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "Naked": [Function],
+                      "attrs": undefined,
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-bZQynM",
+                        "isStatic": true,
+                        "rules": Array [
+                          "
+  &&{
+  text-align:center;
+  position:relative;
+  top:20%;
+  }
+",
+                        ],
+                      },
+                      "displayName": "Styled(WithStyles(Typography))",
+                      "options": Object {
+                        "name": "MuiTypography",
+                        "withTheme": true,
+                      },
+                      "render": [Function],
+                      "styledComponentId": "sc-bZQynM",
+                      "target": [Function],
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                      Symbol(Symbol.hasInstance): [Function],
+                    },
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": <ForwardRef
+                      onClick={[Function]}
+                      variant="contained"
+                    >
+                      Join room
+                      <Icon
+                        style={
+                          Object {
+                            "marginLeft": "10px",
+                          }
+                        }
+                      />
+                    </ForwardRef>,
+                    "item": true,
+                    "xs": 5,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "children": Array [
+                        "Join room",
+                        <Icon
+                          style={
+                            Object {
+                              "marginLeft": "10px",
+                            }
+                          }
+                        />,
+                      ],
+                      "onClick": [Function],
+                      "variant": "contained",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      "Join room",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "function",
+                        "props": Object {
+                          "style": Object {
+                            "marginLeft": "10px",
+                          },
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                    ],
+                    "type": Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "Naked": [Function],
+                      "attrs": undefined,
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-bxivhb",
+                        "isStatic": true,
+                        "rules": Array [
+                          "
+  &&{
+  width:100%;
+  }
+",
+                        ],
+                      },
+                      "displayName": "Styled(WithStyles(Button))",
+                      "options": Object {
+                        "name": "MuiButton",
+                      },
+                      "render": [Function],
+                      "styledComponentId": "sc-bxivhb",
+                      "target": [Function],
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                      Symbol(Symbol.hasInstance): [Function],
+                    },
+                  },
                   "type": [Function],
                 },
               ],
-              "type": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "Naked": [Function],
-                "attrs": undefined,
-                "componentStyle": ComponentStyle {
-                  "componentId": "sc-bxivhb",
-                  "isStatic": true,
-                  "rules": Array [
-                    "
-  &&{
-  margin-top: 40px;
-  }
-",
-                  ],
-                },
-                "displayName": "Styled(WithStyles(Button))",
-                "options": Object {
-                  "name": "MuiButton",
-                },
-                "render": [Function],
-                "styledComponentId": "sc-bxivhb",
-                "target": [Function],
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-                Symbol(Symbol.hasInstance): [Function],
-              },
+              "type": [Function],
             },
           ],
           "type": Object {
@@ -760,10 +1470,10 @@ ShallowWrapper {
                 "
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 50%;
   margin: 0 auto;
   position: relative;
-  top: calc(50vh - 200px);
+  top: calc(50vh - 240px);
 ",
               ],
             },

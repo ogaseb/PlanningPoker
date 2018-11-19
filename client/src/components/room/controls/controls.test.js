@@ -8,7 +8,8 @@ describe("Controls", () => {
   it("renders without errors", () => {
     const store = {
       room: { cardsAreTheSame : false, cardResults : []},
-      user: {admin: true}
+      user: {admin: true},
+      jira: {jiraLoggedIn: true}
     }
 
     const component = shallow(<Controls store={store} />)
