@@ -87,7 +87,6 @@ class CreateRoom extends Component {
       const interval = setInterval(() => {
         if (this.props.store.user.connected) {
           this.props.history.push(`/jira`)
-          // this.props.history.push(`/room/${this.state.roomName}/${this.props.store.room.roomId}`)
           clearInterval(interval)
         }
       }, 100)

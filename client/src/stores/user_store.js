@@ -1,7 +1,6 @@
 import {decorate, observable} from "mobx";
 import socketIOClient from "socket.io-client";
 import sortBy from "lodash/sortBy"
-import {Redirect, withRouter} from 'react-router-dom'
 import React from "react";
 
 class UserStore {
@@ -127,7 +126,7 @@ class UserStore {
         this.notificationVariant = "error";
         this.notificationMessage = description.error
         if (description.error === "Room not found") {
-          return <Redirect push to="/" />
+
         }
       }
     })

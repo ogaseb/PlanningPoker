@@ -40,7 +40,6 @@ function createRoomObject() {
 }
 
 io.on("connection", socket => {
-  console.log(process.env.NODE_ENV);
   console.log("User -> connected to server id:", socket.id);
 
   function fetchRooms() {
@@ -131,10 +130,10 @@ io.on("connection", socket => {
     Room.roomId = RoomId;
     Room.createTimestamp = timestamp;
 
-    bcrypt.hash(roomPassword, 10, function(err, hash) {
+    bcrypt.hash(roomPassword, 10, function (err, hash) {
       roomsPassword.set(RoomId, hash);
-      if (err){
-        socket.emit("errors", {error:err})
+      if (err) {
+        socket.emit("errors", {error: err})
       }
     });
 
@@ -153,11 +152,11 @@ io.on("connection", socket => {
   }, 1000);
 
   socket.on("joinRoom", ({roomId, roomPassword, userName}) => {
-    let temp_room = rooms.get(roomId);
-    if (temp_room) {
+    if (rooms.has(roomId)) {
+      let temp_room = rooms.get(roomId);
       const password = roomsPassword.get(roomId);
-      bcrypt.compare(roomPassword, password, function(err, res) {
-        if(res) {
+      bcrypt.compare(roomPassword, password, function (err, res) {
+        if (res) {
           temp_room.user.push({userId: socket.id, userName});
 
           users.set(socket.id, roomId);
@@ -189,24 +188,26 @@ io.on("connection", socket => {
   });
 
   socket.on("deleteRoom", ({roomId, roomPassword}) => {
-    const password = roomsPassword.get(roomId);
-    bcrypt.compare(roomPassword, password, function(err, res) {
-      if(res) {
-        let index = findIndex(fetchRoom, function (o) {
-          return o.roomId === roomId;
-        });
-        fetchRoom.splice(index, 1);
-        rooms.delete(roomId)
-        console.log("User -> Deleted room! RoomId:", roomId);
-      }else {
-        socket.emit("errors", {error: "Invalid Password (delete)"})
-      }
-    });
+    if (roomsPassword.has(roomId)) {
+      const password = roomsPassword.get(roomId);
+      bcrypt.compare(roomPassword, password, function (err, res) {
+        if (res) {
+          let index = findIndex(fetchRoom, function (o) {
+            return o.roomId === roomId;
+          });
+          fetchRoom.splice(index, 1);
+          rooms.delete(roomId)
+          console.log("User -> Deleted room! RoomId:", roomId);
+        } else {
+          socket.emit("errors", {error: "Invalid Password (delete)"})
+        }
+      });
+    }
   });
 
   socket.on("sendCard", ({roomId, userName, cardValue}) => {
-    let temp_room = rooms.get(roomId);
-    if (temp_room) {
+    if (rooms.has(roomId)) {
+      let temp_room = rooms.get(roomId);
       temp_room.game.push({userName, cardValue});
 
       let index = findIndex(temp_room.user, function (o) {
@@ -226,9 +227,8 @@ io.on("connection", socket => {
   });
 
   socket.on("resetCards", ({roomId}) => {
-    let temp_room = rooms.get(roomId);
-    if (temp_room) {
-
+    if (rooms.has(roomId)) {
+      let temp_room = rooms.get(roomId);
       for (let i = 0; i < temp_room.user.length; i++) {
         let splitted = temp_room.user[i].userName.split(" - ");
         temp_room.user[i].userName = splitted[0]
@@ -248,8 +248,8 @@ io.on("connection", socket => {
 
   socket.on("fetchUsers", ({roomId}) => {
     setInterval(() => {
-      const temp_room = rooms.get(roomId);
-      if (temp_room) {
+      if (rooms.has(roomId)) {
+        const temp_room = rooms.get(roomId);
         io.in(roomId).emit("fetchUsers", temp_room.user);
         if (temp_room.user.length === 1) {
           io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
@@ -259,8 +259,9 @@ io.on("connection", socket => {
   });
 
   socket.on("kickUser", ({userId}) => {
-    let roomId = users.get(userId);
-    if (roomId) {
+    if (users.has(userId)) {
+      let roomId = users.get(userId);
+
       let temp_room = rooms.get(roomId.toString());
       let index = findIndex(temp_room.user, function (o) {
         return o.userId === userId;
@@ -280,8 +281,9 @@ io.on("connection", socket => {
   });
 
   socket.on("changeAdmin", ({userId}) => {
-    let roomId = users.get(userId);
-    if (roomId) {
+    if (users.has(userId)) {
+      let roomId = users.get(userId);
+
       let temp_room = rooms.get(roomId.toString());
       let index = findIndex(temp_room.user, function (o) {
         return o.userId === userId;
@@ -294,38 +296,43 @@ io.on("connection", socket => {
   });
 
   socket.on("broadcastTitle", ({roomId, title}) => {
-    let temp_room = rooms.get(roomId);
-    if (temp_room.title !== title) {
-      temp_room.title = title;
-      socket.broadcast.to(roomId).emit("broadcastTitle", title);
-      rooms.set(roomId, temp_room)
+    if (rooms.has(roomId)) {
+      let temp_room = rooms.get(roomId);
+      if (temp_room.title !== title) {
+        temp_room.title = title;
+        socket.broadcast.to(roomId).emit("broadcastTitle", title);
+        rooms.set(roomId, temp_room)
+      }
     }
   });
 
   socket.on("broadcastDescription", ({roomId, description}) => {
-    let temp_room = rooms.get(roomId);
-    if (temp_room.description !== description) {
-      temp_room.description = description;
-      socket.broadcast.to(roomId).emit("broadcastDescription", description);
-      rooms.set(roomId, temp_room)
+    if (rooms.has(roomId)) {
+      let temp_room = rooms.get(roomId);
+      if (temp_room.description !== description) {
+        temp_room.description = description;
+        socket.broadcast.to(roomId).emit("broadcastDescription", description);
+        rooms.set(roomId, temp_room)
+      }
     }
   });
 
   socket.on("disconnect", () => {
-    let roomId = users.get(socket.id);
-    if (roomId !== undefined) {
-      let temp_room = rooms.get(roomId.toString());
-      if (temp_room !== undefined) {
+    if (users.has(socket.id)) {
+      let userId = users.get(socket.id);
+
+      if (rooms.has(userId.toString())) {
+        let temp_room = rooms.get(userId.toString());
         let index = findIndex(temp_room.user, function (o) {
           return o.userId === socket.id;
         });
         if (index !== -1) {
           temp_room.user.splice(index, 1);
-          io.in(roomId.toString()).emit("waitingFor", temp_room.game.length);
+          io.in(userId.toString()).emit("waitingFor", temp_room.game.length);
           if (temp_room.user.length === 1) {
-            io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
+            io.in(userId.toString()).emit("changeAdmin", temp_room.user[0].userId)
           }
-          rooms.set(roomId.toString(), temp_room);
+          rooms.set(userId.toString(), temp_room);
           console.log("User -> disconnected from room")
         }
       }
@@ -347,9 +354,17 @@ io.on("connection", socket => {
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get('*', function(req, res) {
-  debugger
-  res.sendFile("index.html", { root: path.join(__dirname, 'client/build') })
+// app.get('/room/.*?/:uuid', function (req, res, next) {
+//   const {uuid} = req.params
+//   if (rooms.has(uuid)) {
+//     next()
+//   } else {
+//     res.status(404)
+//   }
+// })
+
+app.get('*', function (req, res) {
+  res.sendFile("index.html", {root: path.join(__dirname, 'client/build')})
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
