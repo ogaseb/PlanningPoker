@@ -345,15 +345,11 @@ io.on("connection", socket => {
   });
 });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  console.log(__dirname)
+app.use(express.static(path.join(__dirname, 'client/build')));
 
-  app.get('*', function(req, res) {
-
-    res.sendFile("index.html", { root: path.join(__dirname, 'client/build') })
-  });
-
-}
+app.get('*', function(req, res) {
+  debugger
+  res.sendFile("index.html", { root: path.join(__dirname, 'client/build') })
+});
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
