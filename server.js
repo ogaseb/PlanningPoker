@@ -40,6 +40,7 @@ function createRoomObject() {
 }
 
 io.on("connection", socket => {
+  console.log(process.env.NODE_ENV);
   console.log("User -> connected to server id:", socket.id);
 
   function fetchRooms() {
@@ -346,9 +347,13 @@ io.on("connection", socket => {
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
+  console.log(__dirname)
+
   app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+
+    res.sendFile("index.html", { root: path.join(__dirname, 'client/build') })
   });
+
 }
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
