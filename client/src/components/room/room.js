@@ -9,11 +9,23 @@ import Issue from "./issue/issue";
 import CardResults from "./card_results/card_results";
 import Controls from "./controls/controls";
 import Lists from "./lists/lists";
+import {
+  BrowserView,
+  MobileView
+} from "react-device-detect";
 
 const StyledGrid = styled(Grid)`
   &&{
   height: calc(100vh - 48px);
   text-align:center;
+  flex:1;
+  }
+`;
+
+const StyledGridMobile = styled(Grid)`
+  &&{
+  text-align:center;
+  flex:1;
   }
 `;
 
@@ -51,24 +63,41 @@ class Room extends Component {
       this.props.store.notificationVariant = "warning"
       this.props.history.push("/")
     }, 100)
-  }
+  };
 
   render() {
     return (
       <React.Fragment>
-        <JoinDialog/>
-        <StyledGrid item xs={10}>
-          <StyledCard>
-            <Issue/>
-            <CardResults/>
-            <Controls/>
-          </StyledCard>
-        </StyledGrid>
-        <StyledGrid item xs={2}>
-          <StyledCard>
-            <Lists/>
-          </StyledCard>
-        </StyledGrid>
+        <BrowserView style={{display: "flex", margin: "0 auto"}}>
+          <JoinDialog/>
+          <StyledGrid item md={10}>
+            <StyledCard>
+              <Issue/>
+              <CardResults/>
+              <Controls/>
+            </StyledCard>
+          </StyledGrid>
+          <StyledGrid item md={2}>
+            <StyledCard>
+              <Lists/>
+            </StyledCard>
+          </StyledGrid>
+        </BrowserView>
+        <MobileView >
+          <JoinDialog/>
+          <StyledGrid item md={12}>
+            <StyledCard>
+              <Issue/>
+              <CardResults/>
+              <Controls/>
+            </StyledCard>
+          </StyledGrid>
+          <StyledGridMobile item md={12}>
+            <StyledCard>
+              <Lists/>
+            </StyledCard>
+          </StyledGridMobile>
+        </MobileView>
       </React.Fragment>
     );
   }

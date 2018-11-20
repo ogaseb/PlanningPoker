@@ -581,7 +581,7 @@ ShallowWrapper {
                     "Naked": [Function],
                     "attrs": undefined,
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-bZQynM",
+                      "componentId": "sc-ifAKCX",
                       "isStatic": true,
                       "rules": Array [
                         "
@@ -599,7 +599,7 @@ ShallowWrapper {
                       "withTheme": true,
                     },
                     "render": [Function],
-                    "styledComponentId": "sc-bZQynM",
+                    "styledComponentId": "sc-ifAKCX",
                     "target": [Function],
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -708,6 +708,9 @@ ShallowWrapper {
             "isStatic": true,
             "rules": Array [
               "
+  @media only screen and (max-width: 768px) {
+     width: 90%;
+  }
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -1341,7 +1344,7 @@ ShallowWrapper {
                       "Naked": [Function],
                       "attrs": undefined,
                       "componentStyle": ComponentStyle {
-                        "componentId": "sc-bZQynM",
+                        "componentId": "sc-ifAKCX",
                         "isStatic": true,
                         "rules": Array [
                           "
@@ -1359,7 +1362,7 @@ ShallowWrapper {
                         "withTheme": true,
                       },
                       "render": [Function],
-                      "styledComponentId": "sc-bZQynM",
+                      "styledComponentId": "sc-ifAKCX",
                       "target": [Function],
                       "toString": [Function],
                       "warnTooManyClasses": [Function],
@@ -1468,6 +1471,9 @@ ShallowWrapper {
               "isStatic": true,
               "rules": Array [
                 "
+  @media only screen and (max-width: 768px) {
+     width: 90%;
+  }
   display: flex;
   flex-direction: column;
   width: 50%;

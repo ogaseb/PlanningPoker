@@ -3,11 +3,7 @@ import {Grid, Card, Button, TextField} from "@material-ui/core";
 import styled from "styled-components";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
-import MenuItem from "@material-ui/core/MenuItem/MenuItem";
-import Select from "@material-ui/core/Select/Select";
-import FormLabel from "@material-ui/core/FormLabel";
 import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import AddCircle from "@material-ui/icons/AddCircle"
 import {ArrowUpBold} from "mdi-material-ui";
 
@@ -26,6 +22,9 @@ const StyledCard = styled(Card)`
 `;
 
 const FormWrapper = styled.div`
+  @media only screen and (max-width: 768px) {
+     width: 90%;
+  }
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -37,16 +36,6 @@ const FormWrapper = styled.div`
 const StyledButton = styled(Button)`
   &&{
   width:100%;
-  }
-`;
-
-const StyledSelect = styled(Select)`
-  width:100%;
-`;
-
-const StyledCircularProgress = styled(CircularProgress)`
-  &&{
-  margin: 0 auto;
   }
 `;
 

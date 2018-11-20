@@ -17,10 +17,12 @@ const Wrapper = styled(Card)`
 
 const CardsWrapper = styled.div`
   &&{
+  display:flex;
   margin: 0 auto;
   width: 90%;
   margin-bottom:10px;
   display:flex;
+  flex-wrap: auto;
   }
 `;
 

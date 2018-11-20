@@ -8916,6 +8916,11 @@ react-dev-utils@^6.0.5:
     strip-ansi "4.0.0"
     text-table "0.2.0"
 
+react-device-detect@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/react-device-detect/-/react-device-detect-1.6.1.tgz#3730e74e25fd79be19ac99fc6a07e751255b9232"
+  integrity sha512-TTmKu3JK3W7gWrjnm4K1OS0v5CMtkFtG4pIrQvZ8mJu6xvqfmXnkMO5jkh3Tz2homaFYIaJ6Pzbx4E51mg5neA==
+
 react-dom-factories@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-dom-factories/-/react-dom-factories-1.0.2.tgz#eb7705c4db36fb501b3aa38ff759616aa0ff96e0"

@@ -28,6 +28,9 @@ const StyledCard = styled(Card)`
 `;
 
 const FormWrapper = styled.div`
+  @media only screen and (max-width: 768px) {
+     width: 90%;
+  }
   display: flex;
   flex-direction: column;
   width: 50%;

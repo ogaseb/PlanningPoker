@@ -97,7 +97,7 @@ class UserList extends Component {
           {this.props.store.user.users.length > 0 &&
           this.props.store.user.users.map((data, index) => {
             return (
-              <StyledCard>
+              <StyledCard key={index + Math.random()}>
                 {data.userName}
               </StyledCard>
             );
