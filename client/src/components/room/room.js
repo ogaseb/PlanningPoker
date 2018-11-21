@@ -14,7 +14,7 @@ import {
   MobileView
 } from "react-device-detect";
 import {decorate, observable} from "mobx";
-import Redirect from "react-router-dom/es/Redirect";
+import Redirect from "react-router-dom/Redirect";
 
 const StyledGrid = styled(Grid)`
   &&{
