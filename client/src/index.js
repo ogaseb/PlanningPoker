@@ -10,17 +10,18 @@ import UserStore from "./stores/user_store";
 
 const userStore = new UserStore();
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={userStore}>
-      <App/>
-    </Provider>
-  </BrowserRouter>
-  ,
-  document.getElementById("root")
-);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
+
+document.addEventListener('DOMContentLoaded', function() {
+  ReactDOM.render(
+    <BrowserRouter>
+      <Provider store={userStore}>
+        <App/>
+      </Provider>
+    </BrowserRouter>
+    ,
+    document.getElementById("root")
+  );
+}, false)
+
 serviceWorker.unregister()

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { inject, observer } from "mobx-react";
+import {inject, observer, Provider} from "mobx-react";
 import { withRouter } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import Header from "./components/static/header";

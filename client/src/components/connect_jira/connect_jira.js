@@ -231,7 +231,7 @@ class ConnectJira extends Component {
                 </StyledButton>}
                 {!this.props.store.jira.jiraLoggedIn &&
                 <StyledButton variant="contained" onClick={this.goToRoom}>
-                  Cancel and go to room
+                  Skip and go to room
                   <ArrowUpBold style={{marginLeft: "10px"}}/>
                 </StyledButton>}
               </Grid>

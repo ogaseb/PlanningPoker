@@ -13,6 +13,8 @@ import {
   BrowserView,
   MobileView
 } from "react-device-detect";
+import {decorate, observable} from "mobx";
+import Redirect from "react-router-dom/es/Redirect";
 
 const StyledGrid = styled(Grid)`
   &&{
@@ -36,11 +38,17 @@ const StyledCard = styled(Card)`
   text-align:center;
   }
 `;
-
 class Room extends Component {
+  constructor(props){
+    super(props);
+
+  }
+
   componentDidMount() {
+    this.notFound = window.__THIS_IS_404_PAGE__
     this.props.store.fetchUsers()
     window.onpopstate = this.onBackButtonEvent
+
     setInterval(() => {
       if (this.props.store.user.kicked) {
         this.props.history.push("/")
@@ -59,7 +67,7 @@ class Room extends Component {
     this.props.store.user.admin = this.props.store.user.connected = false
     this.props.store.user.userName = this.props.store.user.userId = this.props.store.room.roomName = this.props.store.room.roomId = ""
     setTimeout(() => {
-      this.props.store.notificationMessage = "You have leaved the Room"
+      this.props.store.notificationMessage = "You have left the Room"
       this.props.store.notificationVariant = "warning"
       this.props.history.push("/")
     }, 100)
@@ -68,6 +76,7 @@ class Room extends Component {
   render() {
     return (
       <React.Fragment>
+        {this.notFound && <Redirect to="/404"/>}
         <BrowserView style={{display: "flex", margin: "0 auto"}}>
           <JoinDialog/>
           <StyledGrid item md={10}>
@@ -102,6 +111,10 @@ class Room extends Component {
     );
   }
 }
+
+decorate(Room, {
+  notFound: observable,
+});
 
 export {Room}
 export default inject("store")(withRouter(observer(Room)));

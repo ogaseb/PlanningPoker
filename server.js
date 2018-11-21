@@ -1,5 +1,6 @@
 import express from "express"
 import http from "http"
+import fs from 'fs'
 import socketIO from "socket.io"
 import findIndex from "lodash/findIndex"
 import path from "path"
@@ -354,14 +355,23 @@ io.on("connection", socket => {
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// app.get('/room/.*?/:uuid', function (req, res, next) {
-//   const {uuid} = req.params
-//   if (rooms.has(uuid)) {
-//     next()
-//   } else {
-//     res.status(404)
-//   }
-// })
+app.get('/room/*/:uuid', function (req, res, next) {
+  const {uuid} = req.params
+  console.log("Room not found!: ", uuid)
+  if (rooms.has(uuid)) {
+    next()
+  } else {
+    const index = fs.readFileSync(path.join(__dirname, 'client/build/index.html'), 'utf-8');
+    debugger
+    const body = index.replace('</body>', `
+      <script>
+        window.__THIS_IS_404_PAGE__ = true
+      </script>
+    </body>`)
+
+    res.status(404).send(body)
+  }
+})
 
 app.get('*', function (req, res) {
   res.sendFile("index.html", {root: path.join(__dirname, 'client/build')})
