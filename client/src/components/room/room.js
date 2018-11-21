@@ -45,7 +45,7 @@ class Room extends Component {
   }
 
   componentDidMount() {
-    this.notFound = window.__THIS_IS_404_PAGE__
+    this.notFound = window.__ROOM_NOT_FOUND__
     this.props.store.fetchUsers()
     window.onpopstate = this.onBackButtonEvent
 
@@ -76,7 +76,7 @@ class Room extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.notFound && <Redirect to="/404"/>}
+        {this.notFound && <Redirect to="/error"/>}
         <BrowserView style={{display: "flex", margin: "0 auto"}}>
           <JoinDialog/>
           <StyledGrid item md={10}>

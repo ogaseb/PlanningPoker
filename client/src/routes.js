@@ -2,7 +2,7 @@ const routes = {
   root: () => "/",
   join: () => "/join",
   jira: () => "/jira",
-  notFound: () => "/404",
+  error: () => "/error",
   room: (roomName,id) => `/room/${roomName}/${id}`,
 }
 

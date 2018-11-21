@@ -365,7 +365,7 @@ app.get('/room/*/:uuid', function (req, res, next) {
     debugger
     const body = index.replace('</body>', `
       <script>
-        window.__THIS_IS_404_PAGE__ = true
+        window.__ROOM_NOT_FOUND__ = true
       </script>
     </body>`)
 

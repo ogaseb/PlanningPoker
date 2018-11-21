@@ -5,7 +5,7 @@ import CreateRoom from "../../components/create_room/create_room"
 import JoinRoom from "../../components/join_room/join_room"
 import Room from "../../components/room/room"
 import ConnectJira from "../../components/connect_jira/connect_jira"
-import NotFound from "../../components/not_found/not_found"
+import Error from "../error/error"
 
 
 import routes from "../../routes"
@@ -31,8 +31,8 @@ class Router extends React.Component {
         />
         <Route
           exact
-          path={routes.notFound()}
-          component={NotFound}
+          path={routes.error()}
+          component={Error}
         />
         <Route
           path={routes.room(":roomName",":id")}
