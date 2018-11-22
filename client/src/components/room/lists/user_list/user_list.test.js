@@ -33,7 +33,7 @@ describe("HistoryList", () => {
     const component = shallow(<UserList {...props}/>)
     const instance = component.instance()
     instance.userId = "user"
-    instance.handleKick()
+    instance.handleKick(1234)
     expect(props.store.kickUser.called).toBe(true)
   });
 
@@ -50,7 +50,7 @@ describe("HistoryList", () => {
     const component = shallow(<UserList {...props}/>)
     const instance = component.instance()
     instance.userId = "user"
-    instance.handleAdmin()
+    instance.handleAdmin(1234)
     expect(props.store.changeAdmin.called).toBe(true)
   });
 })

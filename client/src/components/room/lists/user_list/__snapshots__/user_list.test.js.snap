@@ -53,18 +53,9 @@ ShallowWrapper {
           users : 
           0
         </WithStyles(Typography)>,
+        undefined,
         <ForwardRef />,
         <ForwardRef>
-          <ForwardRef
-            onClick={[Function]}
-          >
-            Kick User
-          </ForwardRef>
-          <ForwardRef
-            onClick={[Function]}
-          >
-            Give admin 
-          </ForwardRef>
           <ForwardRef
             id="room-password"
             label="Room Password"
@@ -184,6 +175,7 @@ ShallowWrapper {
         ],
         "type": [Function],
       },
+      undefined,
       Object {
         "instance": null,
         "key": undefined,
@@ -224,16 +216,6 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <ForwardRef
-              onClick={[Function]}
-            >
-              Kick User
-            </ForwardRef>,
-            <ForwardRef
-              onClick={[Function]}
-            >
-              Give admin 
-            </ForwardRef>,
-            <ForwardRef
               id="room-password"
               label="Room Password"
               margin="normal"
@@ -258,82 +240,6 @@ ShallowWrapper {
         },
         "ref": null,
         "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "children": "Kick User",
-              "onClick": [Function],
-            },
-            "ref": null,
-            "rendered": "Kick User",
-            "type": Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "Naked": [Function],
-              "attrs": undefined,
-              "componentStyle": ComponentStyle {
-                "componentId": "sc-ifAKCX",
-                "isStatic": true,
-                "rules": Array [
-                  "
-  &&{
-  width:100%;
-  }
-",
-                ],
-              },
-              "displayName": "Styled(WithStyles(Button))",
-              "options": Object {
-                "name": "MuiButton",
-              },
-              "render": [Function],
-              "styledComponentId": "sc-ifAKCX",
-              "target": [Function],
-              "toString": [Function],
-              "warnTooManyClasses": [Function],
-              "withComponent": [Function],
-              Symbol(Symbol.hasInstance): [Function],
-            },
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "children": "Give admin ",
-              "onClick": [Function],
-            },
-            "ref": null,
-            "rendered": "Give admin ",
-            "type": Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "Naked": [Function],
-              "attrs": undefined,
-              "componentStyle": ComponentStyle {
-                "componentId": "sc-ifAKCX",
-                "isStatic": true,
-                "rules": Array [
-                  "
-  &&{
-  width:100%;
-  }
-",
-                ],
-              },
-              "displayName": "Styled(WithStyles(Button))",
-              "options": Object {
-                "name": "MuiButton",
-              },
-              "render": [Function],
-              "styledComponentId": "sc-ifAKCX",
-              "target": [Function],
-              "toString": [Function],
-              "warnTooManyClasses": [Function],
-              "withComponent": [Function],
-              Symbol(Symbol.hasInstance): [Function],
-            },
-          },
           Object {
             "instance": null,
             "key": undefined,
@@ -506,18 +412,9 @@ ShallowWrapper {
             users : 
             0
           </WithStyles(Typography)>,
+          undefined,
           <ForwardRef />,
           <ForwardRef>
-            <ForwardRef
-              onClick={[Function]}
-            >
-              Kick User
-            </ForwardRef>
-            <ForwardRef
-              onClick={[Function]}
-            >
-              Give admin 
-            </ForwardRef>
             <ForwardRef
               id="room-password"
               label="Room Password"
@@ -637,6 +534,7 @@ ShallowWrapper {
           ],
           "type": [Function],
         },
+        undefined,
         Object {
           "instance": null,
           "key": undefined,
@@ -677,16 +575,6 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <ForwardRef
-                onClick={[Function]}
-              >
-                Kick User
-              </ForwardRef>,
-              <ForwardRef
-                onClick={[Function]}
-              >
-                Give admin 
-              </ForwardRef>,
-              <ForwardRef
                 id="room-password"
                 label="Room Password"
                 margin="normal"
@@ -711,82 +599,6 @@ ShallowWrapper {
           },
           "ref": null,
           "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "children": "Kick User",
-                "onClick": [Function],
-              },
-              "ref": null,
-              "rendered": "Kick User",
-              "type": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "Naked": [Function],
-                "attrs": undefined,
-                "componentStyle": ComponentStyle {
-                  "componentId": "sc-ifAKCX",
-                  "isStatic": true,
-                  "rules": Array [
-                    "
-  &&{
-  width:100%;
-  }
-",
-                  ],
-                },
-                "displayName": "Styled(WithStyles(Button))",
-                "options": Object {
-                  "name": "MuiButton",
-                },
-                "render": [Function],
-                "styledComponentId": "sc-ifAKCX",
-                "target": [Function],
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-                Symbol(Symbol.hasInstance): [Function],
-              },
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "children": "Give admin ",
-                "onClick": [Function],
-              },
-              "ref": null,
-              "rendered": "Give admin ",
-              "type": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "Naked": [Function],
-                "attrs": undefined,
-                "componentStyle": ComponentStyle {
-                  "componentId": "sc-ifAKCX",
-                  "isStatic": true,
-                  "rules": Array [
-                    "
-  &&{
-  width:100%;
-  }
-",
-                  ],
-                },
-                "displayName": "Styled(WithStyles(Button))",
-                "options": Object {
-                  "name": "MuiButton",
-                },
-                "render": [Function],
-                "styledComponentId": "sc-ifAKCX",
-                "target": [Function],
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-                Symbol(Symbol.hasInstance): [Function],
-              },
-            },
             Object {
               "instance": null,
               "key": undefined,

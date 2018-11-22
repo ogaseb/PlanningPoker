@@ -44,7 +44,9 @@ ShallowWrapper {
           style={
             Object {
               "display": "flex",
+              "flexWrap": "wrap",
               "margin": "0 auto",
+              "width": "100%",
             }
           }
         >
@@ -68,25 +70,24 @@ ShallowWrapper {
             </ForwardRef>
           </ForwardRef>
         </BrowserView>,
-        <MobileView>
+        <MobileView
+          style={
+            Object {
+              "display": "flex",
+              "flexWrap": "wrap",
+              "margin": "0 auto",
+              "width": "100%",
+            }
+          }
+        >
           <inject-withRouter(JoinDialog)-with-store />
-          <ForwardRef
-            item={true}
-            md={12}
-          >
-            <ForwardRef>
-              <inject-withRouter(Issue)-with-store />
-              <inject-withRouter(CardResults)-with-store />
-              <inject-withRouter(Controls)-with-store />
-            </ForwardRef>
+          <ForwardRef>
+            <inject-withRouter(Issue)-with-store />
+            <inject-withRouter(CardResults)-with-store />
+            <inject-withRouter(Controls)-with-store />
           </ForwardRef>
-          <ForwardRef
-            item={true}
-            md={12}
-          >
-            <ForwardRef>
-              <inject-withRouter(Lists)-with-store />
-            </ForwardRef>
+          <ForwardRef>
+            <inject-withRouter(Lists)-with-store />
           </ForwardRef>
         </MobileView>,
       ],
@@ -122,7 +123,9 @@ ShallowWrapper {
           ],
           "style": Object {
             "display": "flex",
+            "flexWrap": "wrap",
             "margin": "0 auto",
+            "width": "100%",
           },
         },
         "ref": null,
@@ -196,7 +199,7 @@ ShallowWrapper {
                 "Naked": [Function],
                 "attrs": undefined,
                 "componentStyle": ComponentStyle {
-                  "componentId": "sc-chPdSV",
+                  "componentId": "sc-kAzzGY",
                   "isStatic": true,
                   "rules": Array [
                     "
@@ -204,6 +207,7 @@ ShallowWrapper {
   height: calc(100vh - 48px);
   overflow-y: auto;
   text-align:center;
+  width:100%;
   }
 ",
                   ],
@@ -213,7 +217,7 @@ ShallowWrapper {
                   "name": "MuiCard",
                 },
                 "render": [Function],
-                "styledComponentId": "sc-chPdSV",
+                "styledComponentId": "sc-kAzzGY",
                 "target": [Function],
                 "toString": [Function],
                 "warnTooManyClasses": [Function],
@@ -285,7 +289,7 @@ ShallowWrapper {
                 "Naked": [Function],
                 "attrs": undefined,
                 "componentStyle": ComponentStyle {
-                  "componentId": "sc-chPdSV",
+                  "componentId": "sc-kAzzGY",
                   "isStatic": true,
                   "rules": Array [
                     "
@@ -293,6 +297,7 @@ ShallowWrapper {
   height: calc(100vh - 48px);
   overflow-y: auto;
   text-align:center;
+  width:100%;
   }
 ",
                   ],
@@ -302,7 +307,7 @@ ShallowWrapper {
                   "name": "MuiCard",
                 },
                 "render": [Function],
-                "styledComponentId": "sc-chPdSV",
+                "styledComponentId": "sc-kAzzGY",
                 "target": [Function],
                 "toString": [Function],
                 "warnTooManyClasses": [Function],
@@ -350,25 +355,21 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             <inject-withRouter(JoinDialog)-with-store />,
-            <ForwardRef
-              item={true}
-              md={12}
-            >
-              <ForwardRef>
-                <inject-withRouter(Issue)-with-store />
-                <inject-withRouter(CardResults)-with-store />
-                <inject-withRouter(Controls)-with-store />
-              </ForwardRef>
+            <ForwardRef>
+              <inject-withRouter(Issue)-with-store />
+              <inject-withRouter(CardResults)-with-store />
+              <inject-withRouter(Controls)-with-store />
             </ForwardRef>,
-            <ForwardRef
-              item={true}
-              md={12}
-            >
-              <ForwardRef>
-                <inject-withRouter(Lists)-with-store />
-              </ForwardRef>
+            <ForwardRef>
+              <inject-withRouter(Lists)-with-store />
             </ForwardRef>,
           ],
+          "style": Object {
+            "display": "flex",
+            "flexWrap": "wrap",
+            "margin": "0 auto",
+            "width": "100%",
+          },
         },
         "ref": null,
         "rendered": Array [
@@ -386,109 +387,66 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "function",
             "props": Object {
-              "children": <ForwardRef>
-                <inject-withRouter(Issue)-with-store />
-                <inject-withRouter(CardResults)-with-store />
-                <inject-withRouter(Controls)-with-store />
-              </ForwardRef>,
-              "item": true,
-              "md": 12,
+              "children": Array [
+                <inject-withRouter(Issue)-with-store />,
+                <inject-withRouter(CardResults)-with-store />,
+                <inject-withRouter(Controls)-with-store />,
+              ],
             },
             "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "children": Array [
-                  <inject-withRouter(Issue)-with-store />,
-                  <inject-withRouter(CardResults)-with-store />,
-                  <inject-withRouter(Controls)-with-store />,
-                ],
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
               },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {},
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {},
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {},
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-              ],
-              "type": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "Naked": [Function],
-                "attrs": undefined,
-                "componentStyle": ComponentStyle {
-                  "componentId": "sc-chPdSV",
-                  "isStatic": true,
-                  "rules": Array [
-                    "
-  &&{
-  height: calc(100vh - 48px);
-  overflow-y: auto;
-  text-align:center;
-  }
-",
-                  ],
-                },
-                "displayName": "Styled(WithStyles(Card))",
-                "options": Object {
-                  "name": "MuiCard",
-                },
-                "render": [Function],
-                "styledComponentId": "sc-chPdSV",
-                "target": [Function],
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-                Symbol(Symbol.hasInstance): [Function],
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
               },
-            },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
             "type": Object {
               "$$typeof": Symbol(react.forward_ref),
               "Naked": [Function],
               "attrs": undefined,
               "componentStyle": ComponentStyle {
-                "componentId": "sc-cSHVUG",
+                "componentId": "sc-kAzzGY",
                 "isStatic": true,
                 "rules": Array [
                   "
   &&{
   height: calc(100vh - 48px);
+  overflow-y: auto;
   text-align:center;
-  flex:1;
+  width:100%;
   }
 ",
                 ],
               },
-              "displayName": "Styled(WithStyles(Grid))",
+              "displayName": "Styled(WithStyles(Card))",
               "options": Object {
-                "name": "MuiGrid",
+                "name": "MuiCard",
               },
               "render": [Function],
-              "styledComponentId": "sc-cSHVUG",
+              "styledComponentId": "sc-kAzzGY",
               "target": [Function],
               "toString": [Function],
               "warnTooManyClasses": [Function],
@@ -501,59 +459,17 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "function",
             "props": Object {
-              "children": <ForwardRef>
-                <inject-withRouter(Lists)-with-store />
-              </ForwardRef>,
-              "item": true,
-              "md": 12,
+              "children": <inject-withRouter(Lists)-with-store />,
             },
             "ref": null,
             "rendered": Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "children": <inject-withRouter(Lists)-with-store />,
-              },
+              "nodeType": "class",
+              "props": Object {},
               "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {},
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              "type": Object {
-                "$$typeof": Symbol(react.forward_ref),
-                "Naked": [Function],
-                "attrs": undefined,
-                "componentStyle": ComponentStyle {
-                  "componentId": "sc-chPdSV",
-                  "isStatic": true,
-                  "rules": Array [
-                    "
-  &&{
-  height: calc(100vh - 48px);
-  overflow-y: auto;
-  text-align:center;
-  }
-",
-                  ],
-                },
-                "displayName": "Styled(WithStyles(Card))",
-                "options": Object {
-                  "name": "MuiCard",
-                },
-                "render": [Function],
-                "styledComponentId": "sc-chPdSV",
-                "target": [Function],
-                "toString": [Function],
-                "warnTooManyClasses": [Function],
-                "withComponent": [Function],
-                Symbol(Symbol.hasInstance): [Function],
-              },
+              "rendered": null,
+              "type": [Function],
             },
             "type": Object {
               "$$typeof": Symbol(react.forward_ref),
@@ -565,15 +481,17 @@ ShallowWrapper {
                 "rules": Array [
                   "
   &&{
+  height: calc(100vh - 48px);
+  overflow-y: auto;
   text-align:center;
-  flex:1;
+  width:100%;
   }
 ",
                 ],
               },
-              "displayName": "Styled(WithStyles(Grid))",
+              "displayName": "Styled(WithStyles(Card))",
               "options": Object {
-                "name": "MuiGrid",
+                "name": "MuiCard",
               },
               "render": [Function],
               "styledComponentId": "sc-kAzzGY",
@@ -602,7 +520,9 @@ ShallowWrapper {
             style={
               Object {
                 "display": "flex",
+                "flexWrap": "wrap",
                 "margin": "0 auto",
+                "width": "100%",
               }
             }
           >
@@ -626,25 +546,24 @@ ShallowWrapper {
               </ForwardRef>
             </ForwardRef>
           </BrowserView>,
-          <MobileView>
+          <MobileView
+            style={
+              Object {
+                "display": "flex",
+                "flexWrap": "wrap",
+                "margin": "0 auto",
+                "width": "100%",
+              }
+            }
+          >
             <inject-withRouter(JoinDialog)-with-store />
-            <ForwardRef
-              item={true}
-              md={12}
-            >
-              <ForwardRef>
-                <inject-withRouter(Issue)-with-store />
-                <inject-withRouter(CardResults)-with-store />
-                <inject-withRouter(Controls)-with-store />
-              </ForwardRef>
+            <ForwardRef>
+              <inject-withRouter(Issue)-with-store />
+              <inject-withRouter(CardResults)-with-store />
+              <inject-withRouter(Controls)-with-store />
             </ForwardRef>
-            <ForwardRef
-              item={true}
-              md={12}
-            >
-              <ForwardRef>
-                <inject-withRouter(Lists)-with-store />
-              </ForwardRef>
+            <ForwardRef>
+              <inject-withRouter(Lists)-with-store />
             </ForwardRef>
           </MobileView>,
         ],
@@ -680,7 +599,9 @@ ShallowWrapper {
             ],
             "style": Object {
               "display": "flex",
+              "flexWrap": "wrap",
               "margin": "0 auto",
+              "width": "100%",
             },
           },
           "ref": null,
@@ -754,7 +675,7 @@ ShallowWrapper {
                   "Naked": [Function],
                   "attrs": undefined,
                   "componentStyle": ComponentStyle {
-                    "componentId": "sc-chPdSV",
+                    "componentId": "sc-kAzzGY",
                     "isStatic": true,
                     "rules": Array [
                       "
@@ -762,6 +683,7 @@ ShallowWrapper {
   height: calc(100vh - 48px);
   overflow-y: auto;
   text-align:center;
+  width:100%;
   }
 ",
                     ],
@@ -771,7 +693,7 @@ ShallowWrapper {
                     "name": "MuiCard",
                   },
                   "render": [Function],
-                  "styledComponentId": "sc-chPdSV",
+                  "styledComponentId": "sc-kAzzGY",
                   "target": [Function],
                   "toString": [Function],
                   "warnTooManyClasses": [Function],
@@ -843,7 +765,7 @@ ShallowWrapper {
                   "Naked": [Function],
                   "attrs": undefined,
                   "componentStyle": ComponentStyle {
-                    "componentId": "sc-chPdSV",
+                    "componentId": "sc-kAzzGY",
                     "isStatic": true,
                     "rules": Array [
                       "
@@ -851,6 +773,7 @@ ShallowWrapper {
   height: calc(100vh - 48px);
   overflow-y: auto;
   text-align:center;
+  width:100%;
   }
 ",
                     ],
@@ -860,7 +783,7 @@ ShallowWrapper {
                     "name": "MuiCard",
                   },
                   "render": [Function],
-                  "styledComponentId": "sc-chPdSV",
+                  "styledComponentId": "sc-kAzzGY",
                   "target": [Function],
                   "toString": [Function],
                   "warnTooManyClasses": [Function],
@@ -908,25 +831,21 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <inject-withRouter(JoinDialog)-with-store />,
-              <ForwardRef
-                item={true}
-                md={12}
-              >
-                <ForwardRef>
-                  <inject-withRouter(Issue)-with-store />
-                  <inject-withRouter(CardResults)-with-store />
-                  <inject-withRouter(Controls)-with-store />
-                </ForwardRef>
+              <ForwardRef>
+                <inject-withRouter(Issue)-with-store />
+                <inject-withRouter(CardResults)-with-store />
+                <inject-withRouter(Controls)-with-store />
               </ForwardRef>,
-              <ForwardRef
-                item={true}
-                md={12}
-              >
-                <ForwardRef>
-                  <inject-withRouter(Lists)-with-store />
-                </ForwardRef>
+              <ForwardRef>
+                <inject-withRouter(Lists)-with-store />
               </ForwardRef>,
             ],
+            "style": Object {
+              "display": "flex",
+              "flexWrap": "wrap",
+              "margin": "0 auto",
+              "width": "100%",
+            },
           },
           "ref": null,
           "rendered": Array [
@@ -944,109 +863,66 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "children": <ForwardRef>
-                  <inject-withRouter(Issue)-with-store />
-                  <inject-withRouter(CardResults)-with-store />
-                  <inject-withRouter(Controls)-with-store />
-                </ForwardRef>,
-                "item": true,
-                "md": 12,
+                "children": Array [
+                  <inject-withRouter(Issue)-with-store />,
+                  <inject-withRouter(CardResults)-with-store />,
+                  <inject-withRouter(Controls)-with-store />,
+                ],
               },
               "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "function",
-                "props": Object {
-                  "children": Array [
-                    <inject-withRouter(Issue)-with-store />,
-                    <inject-withRouter(CardResults)-with-store />,
-                    <inject-withRouter(Controls)-with-store />,
-                  ],
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
                 },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {},
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {},
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {},
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                ],
-                "type": Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "Naked": [Function],
-                  "attrs": undefined,
-                  "componentStyle": ComponentStyle {
-                    "componentId": "sc-chPdSV",
-                    "isStatic": true,
-                    "rules": Array [
-                      "
-  &&{
-  height: calc(100vh - 48px);
-  overflow-y: auto;
-  text-align:center;
-  }
-",
-                    ],
-                  },
-                  "displayName": "Styled(WithStyles(Card))",
-                  "options": Object {
-                    "name": "MuiCard",
-                  },
-                  "render": [Function],
-                  "styledComponentId": "sc-chPdSV",
-                  "target": [Function],
-                  "toString": [Function],
-                  "warnTooManyClasses": [Function],
-                  "withComponent": [Function],
-                  Symbol(Symbol.hasInstance): [Function],
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
                 },
-              },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+              ],
               "type": Object {
                 "$$typeof": Symbol(react.forward_ref),
                 "Naked": [Function],
                 "attrs": undefined,
                 "componentStyle": ComponentStyle {
-                  "componentId": "sc-cSHVUG",
+                  "componentId": "sc-kAzzGY",
                   "isStatic": true,
                   "rules": Array [
                     "
   &&{
   height: calc(100vh - 48px);
+  overflow-y: auto;
   text-align:center;
-  flex:1;
+  width:100%;
   }
 ",
                   ],
                 },
-                "displayName": "Styled(WithStyles(Grid))",
+                "displayName": "Styled(WithStyles(Card))",
                 "options": Object {
-                  "name": "MuiGrid",
+                  "name": "MuiCard",
                 },
                 "render": [Function],
-                "styledComponentId": "sc-cSHVUG",
+                "styledComponentId": "sc-kAzzGY",
                 "target": [Function],
                 "toString": [Function],
                 "warnTooManyClasses": [Function],
@@ -1059,59 +935,17 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "children": <ForwardRef>
-                  <inject-withRouter(Lists)-with-store />
-                </ForwardRef>,
-                "item": true,
-                "md": 12,
+                "children": <inject-withRouter(Lists)-with-store />,
               },
               "ref": null,
               "rendered": Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
-                "props": Object {
-                  "children": <inject-withRouter(Lists)-with-store />,
-                },
+                "nodeType": "class",
+                "props": Object {},
                 "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {},
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                "type": Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "Naked": [Function],
-                  "attrs": undefined,
-                  "componentStyle": ComponentStyle {
-                    "componentId": "sc-chPdSV",
-                    "isStatic": true,
-                    "rules": Array [
-                      "
-  &&{
-  height: calc(100vh - 48px);
-  overflow-y: auto;
-  text-align:center;
-  }
-",
-                    ],
-                  },
-                  "displayName": "Styled(WithStyles(Card))",
-                  "options": Object {
-                    "name": "MuiCard",
-                  },
-                  "render": [Function],
-                  "styledComponentId": "sc-chPdSV",
-                  "target": [Function],
-                  "toString": [Function],
-                  "warnTooManyClasses": [Function],
-                  "withComponent": [Function],
-                  Symbol(Symbol.hasInstance): [Function],
-                },
+                "rendered": null,
+                "type": [Function],
               },
               "type": Object {
                 "$$typeof": Symbol(react.forward_ref),
@@ -1123,15 +957,17 @@ ShallowWrapper {
                   "rules": Array [
                     "
   &&{
+  height: calc(100vh - 48px);
+  overflow-y: auto;
   text-align:center;
-  flex:1;
+  width:100%;
   }
 ",
                   ],
                 },
-                "displayName": "Styled(WithStyles(Grid))",
+                "displayName": "Styled(WithStyles(Card))",
                 "options": Object {
-                  "name": "MuiGrid",
+                  "name": "MuiCard",
                 },
                 "render": [Function],
                 "styledComponentId": "sc-kAzzGY",
