@@ -53,7 +53,6 @@ ShallowWrapper {
           users : 
           0
         </WithStyles(Typography)>,
-        undefined,
         <ForwardRef />,
         <ForwardRef>
           <ForwardRef
@@ -175,7 +174,6 @@ ShallowWrapper {
         ],
         "type": [Function],
       },
-      undefined,
       Object {
         "instance": null,
         "key": undefined,
@@ -412,7 +410,6 @@ ShallowWrapper {
             users : 
             0
           </WithStyles(Typography)>,
-          undefined,
           <ForwardRef />,
           <ForwardRef>
             <ForwardRef
@@ -534,7 +531,6 @@ ShallowWrapper {
           ],
           "type": [Function],
         },
-        undefined,
         Object {
           "instance": null,
           "key": undefined,
