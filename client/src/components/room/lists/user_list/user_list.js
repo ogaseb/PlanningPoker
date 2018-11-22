@@ -4,12 +4,15 @@ import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button"
-import {decorate, observable} from "mobx";
+import {decorate, observable, computed} from "mobx";
 import DeleteIcon from "@material-ui/icons/Delete"
-import MoreVertIcon from "@material-ui/icons/MoreVert"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import {TextField} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import IconButton from "@material-ui/core/IconButton/IconButton";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Grid from "@material-ui/core/Grid/Grid";
 
 const RoomName = styled.div`
   && {
@@ -49,7 +52,7 @@ const StyledTextField = styled(TextField)`
   }
 `;
 
-const StyledCard = styled(Card)`
+const StyledExpansionPanel = styled(ExpansionPanel)`
   &&{
   width:100%;
   }
@@ -57,18 +60,22 @@ const StyledCard = styled(Card)`
 
 
 class UserList extends Component {
+  state = {
+    anchorEl: null,
+  };
+
   handleSelect = e => {
     this.userId = e.target.value
   };
 
-  handleKick = () => {
-    if (this.userId) {
-      this.props.store.kickUser(this.userId)
+  handleKick = (userId) => {
+    if (userId) {
+      this.props.store.kickUser(userId)
     }
   }
-  handleAdmin = () => {
-    if (this.userId) {
-      this.props.store.changeAdmin(this.userId)
+  handleAdmin = (userId) => {
+    if (userId) {
+      this.props.store.changeAdmin(userId)
     }
   }
 
@@ -87,6 +94,15 @@ class UserList extends Component {
     }
   };
 
+
+  handleClick = event => {
+    this.setState({anchorEl: event.currentTarget});
+  };
+
+  handleClose = () => {
+    this.setState({anchorEl: null});
+  };
+
   render() {
     return (
       <UserDiv>
@@ -95,27 +111,41 @@ class UserList extends Component {
           {this.props.store.room.roomName !== "" && <div> Room Name: {this.props.store.room.roomName}</div>}
         </RoomName>
         <Typography>users : {this.props.store.user.users.length}</Typography>
+        {console.log(this.props.store.user.users)}
         <UserWrapper>
           {this.props.store.user.users.length > 0 &&
           this.props.store.user.users.map((data, index) => {
             return (
-              <StyledCard key={index + Math.random()}>
-                {data.userName}
-                <IconButton
-                  aria-label="More"
-                  aria-haspopup="true"
-                  onClick={this.handleClick}
-                >
-                  <MoreVertIcon/>
-                </IconButton>
-              </StyledCard>
+              <StyledExpansionPanel>
+                <ExpansionPanelSummary expandIcon={this.props.store.user.admin && <ExpandMoreIcon/>}>
+                  <Typography>
+                    {data.userName}
+                  </Typography>
+                </ExpansionPanelSummary>
+                {this.props.store.user.admin && <ExpansionPanelDetails>
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <Button color="secondary" variant="contained" onClick={() => {
+                        this.handleKick(data.userId)
+                      }}>
+                        kick
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button color="primary" variant="contained" onClick={() => {
+                        this.handleAdmin(data.userId)
+                      }}>
+                        admin
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </ExpansionPanelDetails>}
+              </StyledExpansionPanel>
             );
           })}
         </UserWrapper>
         {this.props.store.user.admin && (
           <Wrapper>
-            <StyledButton onClick={this.handleKick}>Kick User</StyledButton>
-            <StyledButton onClick={this.handleAdmin}>Give admin </StyledButton>
             <StyledTextField
               id="room-password"
               label="Room Password"

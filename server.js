@@ -198,6 +198,7 @@ io.on("connection", socket => {
           });
           fetchRoom.splice(index, 1);
           rooms.delete(roomId)
+          socket.emit("deleteRoom")
           console.log("User -> Deleted room! RoomId:", roomId);
         } else {
           socket.emit("errors", {error: "Invalid Password (delete)"})
@@ -362,7 +363,6 @@ app.get('/room/*/:uuid', function (req, res, next) {
     next()
   } else {
     const index = fs.readFileSync(path.join(__dirname, 'client/build/index.html'), 'utf-8');
-    debugger
     const body = index.replace('</body>', `
       <script>
         window.__ROOM_NOT_FOUND__ = true

@@ -24,18 +24,12 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
-const StyledGridMobile = styled(Grid)`
-  &&{
-  text-align:center;
-  flex:1;
-  }
-`;
-
 const StyledCard = styled(Card)`
   &&{
   height: calc(100vh - 48px);
   overflow-y: auto;
   text-align:center;
+  width:100%;
   }
 `;
 class Room extends Component {
@@ -77,7 +71,7 @@ class Room extends Component {
     return (
       <React.Fragment>
         {this.notFound && <Redirect to="/error"/>}
-        <BrowserView style={{display: "flex", margin: "0 auto"}}>
+        <BrowserView style={{display: "flex",flexWrap:"wrap", margin: "0 auto", width:"100%"}}>
           <JoinDialog/>
           <StyledGrid item md={10}>
             <StyledCard>
@@ -92,20 +86,16 @@ class Room extends Component {
             </StyledCard>
           </StyledGrid>
         </BrowserView>
-        <MobileView >
+        <MobileView style={{display: "flex", flexWrap:"wrap", margin: "0 auto", width:"100%"}} >
           <JoinDialog/>
-          <StyledGrid item md={12}>
             <StyledCard>
               <Issue/>
               <CardResults/>
               <Controls/>
             </StyledCard>
-          </StyledGrid>
-          <StyledGridMobile item md={12}>
             <StyledCard>
               <Lists/>
             </StyledCard>
-          </StyledGridMobile>
         </MobileView>
       </React.Fragment>
     );

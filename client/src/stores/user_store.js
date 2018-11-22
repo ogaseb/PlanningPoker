@@ -121,6 +121,10 @@ class UserStore {
       this.jira.description = description
     });
 
+    this.socket.on("deleteRoom", () => {
+      window.location.href = "/"
+    });
+
     this.socket.on("errors", (description) => {
       if (description){
         this.notificationVariant = "error";
