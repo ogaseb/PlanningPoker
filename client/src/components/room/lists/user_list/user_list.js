@@ -111,7 +111,6 @@ class UserList extends Component {
           {this.props.store.room.roomName !== "" && <div> Room Name: {this.props.store.room.roomName}</div>}
         </RoomName>
         <Typography>users : {this.props.store.user.users.length}</Typography>
-        {console.log(this.props.store.user.users)}
         <UserWrapper>
           {this.props.store.user.users.length > 0 &&
           this.props.store.user.users.map((data, index) => {
