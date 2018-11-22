@@ -125,9 +125,6 @@ class UserStore {
       if (description){
         this.notificationVariant = "error";
         this.notificationMessage = description.error
-        if (description.error === "Room not found") {
-
-        }
       }
     })
   }

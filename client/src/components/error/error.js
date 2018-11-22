@@ -6,7 +6,7 @@ import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import {AlertCircleOutline} from "mdi-material-ui"
 import {decorate, observable} from "mobx";
-import {Notification} from "../notification/notification";
+import Button from "@material-ui/core/Button";
 
 
 const StyledGrid = styled(Grid)`
@@ -45,6 +45,10 @@ class Error extends Component {
     }
   }
 
+  goBack = () => {
+    this.props.history.push("/")
+  }
+
   render() {
     return (
       <StyledGrid item xs={12}>
@@ -57,6 +61,7 @@ class Error extends Component {
             <Typography variant={"display2"}>
               ¯\_(ツ)_/¯
             </Typography>
+            <Button color="primary" variant="contained" onClick={this.goBack}>Take me back</Button>
           </ErrorWrapper>
         </StyledCard>
       </StyledGrid>

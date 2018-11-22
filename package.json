@@ -5,10 +5,11 @@
     "client": "cd client && yarn start",
     "server": "nodemon --exec babel-node server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "node server.min.js",
+    "start": "pm2-runtime server.min.js -i 1",
     "debug": "node --inspect-brk server.min.js",
     "test": "cd client && CI=true yarn test",
     "heroku-postbuild": "webpack --config webpack.server.config.js && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "preinstall": "npm install pm2 -g",
     "precommit": "lint-staged",
     "prepush": "CI=true yarn test",
     "webpack": "webpack --config webpack.server.config.js"

@@ -6,8 +6,10 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button"
 import {decorate, observable} from "mobx";
 import DeleteIcon from "@material-ui/icons/Delete"
+import MoreVertIcon from "@material-ui/icons/MoreVert"
 import {TextField} from "@material-ui/core";
 import Card from "@material-ui/core/Card";
+import IconButton from "@material-ui/core/IconButton/IconButton";
 
 const RoomName = styled.div`
   && {
@@ -81,7 +83,7 @@ class UserList extends Component {
 
   handleChange = e => {
     if (e.target.id === "room-password") {
-     this.roomPassword = e.target.value
+      this.roomPassword = e.target.value
     }
   };
 
@@ -99,27 +101,34 @@ class UserList extends Component {
             return (
               <StyledCard key={index + Math.random()}>
                 {data.userName}
+                <IconButton
+                  aria-label="More"
+                  aria-haspopup="true"
+                  onClick={this.handleClick}
+                >
+                  <MoreVertIcon/>
+                </IconButton>
               </StyledCard>
             );
           })}
         </UserWrapper>
         {this.props.store.user.admin && (
-            <Wrapper>
-              <StyledButton onClick={this.handleKick}>Kick User</StyledButton>
-              <StyledButton onClick={this.handleAdmin}>Give admin </StyledButton>
-              <StyledTextField
-                id="room-password"
-                label="Room Password"
-                value={this.roomPassword}
-                onChange={this.handleChange}
-                type="password"
-                margin="normal"
-              />
-              <StyledButton color="secondary" variant="contained" onClick={this.handleDelete}>
-                Delete room
-                <DeleteIcon style={{marginLeft: "10px"}}/>
-              </StyledButton>
-            </Wrapper>
+          <Wrapper>
+            <StyledButton onClick={this.handleKick}>Kick User</StyledButton>
+            <StyledButton onClick={this.handleAdmin}>Give admin </StyledButton>
+            <StyledTextField
+              id="room-password"
+              label="Room Password"
+              value={this.roomPassword}
+              onChange={this.handleChange}
+              type="password"
+              margin="normal"
+            />
+            <StyledButton color="secondary" variant="contained" onClick={this.handleDelete}>
+              Delete room
+              <DeleteIcon style={{marginLeft: "10px"}}/>
+            </StyledButton>
+          </Wrapper>
 
         )}
       </UserDiv>
