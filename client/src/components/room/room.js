@@ -40,7 +40,6 @@ class Room extends Component {
 
   componentDidMount() {
     this.notFound = window.__ROOM_NOT_FOUND__
-    this.props.store.fetchUsers()
     window.onpopstate = this.onBackButtonEvent
 
     setInterval(() => {

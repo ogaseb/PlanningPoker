@@ -63,10 +63,6 @@ class UserList extends Component {
     anchorEl: null,
   };
 
-  handleSelect = e => {
-    this.userId = e.target.value
-  };
-
   handleKick = (userId) => {
     if (userId) {
       this.props.store.kickUser(userId)

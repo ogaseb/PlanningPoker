@@ -9,6 +9,13 @@ import JiraClient from "jira-connector"
 import date from "date-and-time"
 import bcrypt from "bcrypt"
 import {Client} from 'pg'
+import Rollbar from 'rollbar'
+
+let rollbar = new Rollbar({
+  accessToken: 'ad6df4a89ab94a3591c267d78367ad3a',
+  captureUncaught: true,
+  captureUnhandledRejections: true
+});
 
 
 const port = process.env.PORT || 5000;
@@ -44,7 +51,6 @@ function createRoomObject() {
 async function insertRoomToDb(roomName, hash, RoomId, timestamp) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-    ssl: true,
   })
   client.connect()
 
@@ -58,7 +64,6 @@ async function insertRoomToDb(roomName, hash, RoomId, timestamp) {
 async function deleteRoomFromDb(roomId) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-    ssl: true,
 
   })
   client.connect()
@@ -73,7 +78,6 @@ async function deleteRoomFromDb(roomId) {
 async function updateTimestampDb(roomId,timestamp) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-    ssl: true,
 
   })
   client.connect()
@@ -88,7 +92,6 @@ async function updateTimestampDb(roomId,timestamp) {
 async function fetchRoomsfromDb() {
   const client = new Client({
     connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-    ssl: true,
 
   })
   client.connect()
@@ -227,6 +230,7 @@ io.on("connection", socket => {
   socket.on("joinRoom", ({roomId, roomPassword, userName}) => {
     if (rooms.has(roomId)) {
       let temp_room = rooms.get(roomId);
+      console.log(temp_room)
       const password = roomsPassword.get(roomId);
       bcrypt.compare(roomPassword, password, function (err, res) {
         if (res) {
@@ -256,6 +260,8 @@ io.on("connection", socket => {
           if (temp_room.user.length === 1) {
             io.in(roomId).emit("changeAdmin", temp_room.user[0].userId)
           }
+          console.log(temp_room)
+
         } else {
           // Passwords don't match
           socket.emit("errors", {error: "Invalid Password"})
@@ -328,7 +334,6 @@ io.on("connection", socket => {
   });
 
   socket.on("fetchUsers", ({roomId}) => {
-    setInterval(() => {
       if (rooms.has(roomId)) {
         const temp_room = rooms.get(roomId);
         io.in(roomId).emit("fetchUsers", temp_room.user);
@@ -336,7 +341,6 @@ io.on("connection", socket => {
           io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
         }
       }
-    }, 1000)
   });
 
   socket.on("kickUser", ({userId}) => {

@@ -29,7 +29,6 @@ class JoinDialog extends Component {
     const {match: {params}} = this.props
     this.props.store.joinRoom(params.id, password, name)
     this.props.store.openJoinDialog = false
-    this.props.store.user.connected = true
 
   }
 

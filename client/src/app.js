@@ -7,9 +7,6 @@ import Router from "./components/router/router";
 import Notification from "./components/notification/notification"
 
 class App extends Component {
-  componentDidMount() {
-    this.props.store.fetchRooms();
-  }
   render() {
     return (
       <div className="App">

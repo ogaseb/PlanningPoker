@@ -186,6 +186,7 @@ class UserStore {
       this.room.cardHistory = response.gameHistory
       this.notificationVariant = "success"
       this.notificationMessage = "You have joined to the Room"
+      this.fetchUsers()
     });
   }
 
@@ -210,7 +211,9 @@ class UserStore {
     const data = {
       roomId: this.room.roomId,
     };
-    this.socket.emit("fetchUsers", data)
+    setInterval(()=>{
+      this.socket.emit("fetchUsers", data)
+    }, 1000)
     this.socket.on("fetchUsers", (response) => {
       this.user.users = response;
     });
