@@ -151,6 +151,7 @@ class UserStore {
       this.user.admin = true;
       this.notificationVariant = "success";
       this.notificationMessage = "You have created a Room";
+      this.fetchUsers()
     });
   }
 
@@ -160,12 +161,6 @@ class UserStore {
       roomPassword
     };
     this.socket.emit("deleteRoom", data);
-  }
-
-  fetchRooms() {
-    this.socket.on("fetchRooms", (response) => {
-      this.room.rooms = response;
-    });
   }
 
   joinRoom(roomId, roomPassword, userName) {
