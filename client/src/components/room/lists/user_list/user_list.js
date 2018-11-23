@@ -4,11 +4,10 @@ import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button"
-import {decorate, observable, computed} from "mobx";
+import {decorate, observable} from "mobx";
 import DeleteIcon from "@material-ui/icons/Delete"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import {TextField} from "@material-ui/core";
-import Card from "@material-ui/core/Card";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -113,7 +112,7 @@ class UserList extends Component {
         <Typography>users : {this.props.store.user.users.length}</Typography>
         <UserWrapper>
           {this.props.store.user.users.length > 0 &&
-          this.props.store.user.users.map((data, index) => {
+          this.props.store.user.users.map((data) => {
             return (
               <StyledExpansionPanel>
                 <ExpansionPanelSummary expandIcon={this.props.store.user.admin && <ExpandMoreIcon/>}>

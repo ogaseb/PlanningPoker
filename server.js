@@ -8,6 +8,7 @@ import uuid from "uuid/v4"
 import JiraClient from "jira-connector"
 import date from "date-and-time"
 import bcrypt from "bcrypt"
+import {Client} from 'pg'
 
 
 const port = process.env.PORT || 5000;
@@ -32,13 +33,75 @@ function createRoomObject() {
     {
       roomName: "",
       roomId: "",
-      createTimestamp: "",
+      timestamp: "",
       user: [],
       game: [],
       gameHistory: []
     }
   )
 }
+
+async function insertRoomToDb(roomName, hash, RoomId, timestamp) {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek'
+  })
+  client.connect()
+
+  await client.query(`INSERT INTO rooms(roomName,roomPassword,roomId,timeStamp) VALUES('${roomName}', '${hash}', '${RoomId}', '${timestamp}')`,
+    (err, res) => {
+      console.log(err, res);
+      client.end()
+    });
+}
+
+async function deleteRoomFromDb(roomId) {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek'
+  })
+  client.connect()
+
+  await client.query(`DELETE FROM rooms WHERE roomId = '${roomId}'`,
+    (err, res) => {
+      console.log(err, res);
+      client.end()
+    });
+}
+
+async function updateTimestampDb(roomId,timestamp) {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek'
+  })
+  client.connect()
+
+  await client.query(`UPDATE rooms SET timestamp = '${timestamp}' WHERE roomId = '${roomId}'`,
+    (err, res) => {
+      console.log(err, res);
+      client.end()
+    });
+}
+
+async function fetchRoomsfromDb() {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek'
+  })
+  client.connect()
+
+  await client.query(`SELECT * FROM rooms`,
+    (err, res) => {
+      console.log(err, res);
+      res.rows.map(({roomname, roomid, roompassword, timestamp}) => {
+        const Room = createRoomObject();
+        Room.roomName = roomname;
+        Room.roomId = roomid;
+        Room.timestamp = timestamp;
+        roomsPassword.set(roomid, roompassword);
+        rooms.set(roomid, Room);
+      })
+      client.end()
+    });
+}
+fetchRoomsfromDb()
+
 
 io.on("connection", socket => {
   console.log("User -> connected to server id:", socket.id);
@@ -126,17 +189,19 @@ io.on("connection", socket => {
     const RoomId = createHash();
     let timestamp = new Date();
     timestamp = date.format(timestamp, "YYYY/MM/DD HH:mm:ss");
+
     Room.user.push({userId: socket.id, userName});
     Room.roomName = roomName;
     Room.roomId = RoomId;
-    Room.createTimestamp = timestamp;
-
-    bcrypt.hash(roomPassword, 10, function (err, hash) {
+    Room.timestamp = timestamp;
+    bcrypt.hash(roomPassword, 10, (err, hash) => {
       roomsPassword.set(RoomId, hash);
+      insertRoomToDb(roomName, hash, RoomId, timestamp)
       if (err) {
         socket.emit("errors", {error: err})
       }
     });
+    // console.log(roomsPassword.get(RoomId))
 
     rooms.set(RoomId, Room);
     users.set(socket.id, RoomId);
@@ -158,6 +223,10 @@ io.on("connection", socket => {
       const password = roomsPassword.get(roomId);
       bcrypt.compare(roomPassword, password, function (err, res) {
         if (res) {
+          let timestamp = new Date();
+          timestamp = date.format(timestamp, "YYYY/MM/DD HH:mm:ss");
+          temp_room.timestamp = timestamp
+          updateTimestampDb(roomId, timestamp)
           temp_room.user.push({userId: socket.id, userName});
 
           users.set(socket.id, roomId);
@@ -177,13 +246,15 @@ io.on("connection", socket => {
           rooms.set(roomId, temp_room);
           io.in(roomId).emit("waitingFor", temp_room.game.length)
 
+          if (temp_room.user.length === 1) {
+            io.in(roomId).emit("changeAdmin", temp_room.user[0].userId)
+          }
         } else {
           // Passwords don't match
           socket.emit("errors", {error: "Invalid Password"})
         }
       });
-    }
-    else {
+    } else {
       socket.emit("errors", {error: "Room not found"})
     }
   });
@@ -198,6 +269,7 @@ io.on("connection", socket => {
           });
           fetchRoom.splice(index, 1);
           rooms.delete(roomId)
+          deleteRoomFromDb(roomId)
           socket.emit("deleteRoom")
           console.log("User -> Deleted room! RoomId:", roomId);
         } else {
@@ -279,7 +351,11 @@ io.on("connection", socket => {
         rooms.set(roomId.toString(), temp_room);
         console.log("User -> kicked")
       }
+    } else {
+      socket.emit("errors", {error: "Cant find user you trying to kick"})
+
     }
+
   });
 
   socket.on("changeAdmin", ({userId}) => {
@@ -294,7 +370,10 @@ io.on("connection", socket => {
         io.in(roomId.toString()).emit("changeAdmin", temp_room.user[index].userId);
         console.log("User -> admin permissions given")
       }
+    } else {
+      socket.emit("errors", {error: "Cant find user you trying to give admin"})
     }
+
   });
 
   socket.on("broadcastTitle", ({roomId, title}) => {

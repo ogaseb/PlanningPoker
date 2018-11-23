@@ -8,7 +8,7 @@
     "start": "pm2-runtime server.min.js -i 1",
     "debug": "node --inspect-brk server.min.js",
     "test": "cd client && CI=true yarn test",
-    "heroku-postbuild": "webpack --config webpack.server.config.js && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "heroku-postbuild": "webpack --config webpack.server.config.js && node models/database.js && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "preinstall": "npm install pm2 -g",
     "precommit": "lint-staged",
     "prepush": "CI=true yarn test",
@@ -22,6 +22,7 @@
     "express": "^4.16.4",
     "jira-connector": "^2.9.0",
     "lodash": "^4.17.11",
+    "pg": "^7.6.1",
     "socket.io": "^2.1.1",
     "uuid": "^3.3.2",
     "webpack-node-externals": "^1.7.2"
