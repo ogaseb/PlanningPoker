@@ -43,7 +43,8 @@ function createRoomObject() {
 
 async function insertRoomToDb(roomName, hash, RoomId, timestamp) {
   const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek'
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
+    ssl: true,
   })
   client.connect()
 
@@ -56,7 +57,9 @@ async function insertRoomToDb(roomName, hash, RoomId, timestamp) {
 
 async function deleteRoomFromDb(roomId) {
   const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek'
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
+    ssl: true,
+
   })
   client.connect()
 
@@ -69,7 +72,9 @@ async function deleteRoomFromDb(roomId) {
 
 async function updateTimestampDb(roomId,timestamp) {
   const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek'
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
+    ssl: true,
+
   })
   client.connect()
 
@@ -82,7 +87,9 @@ async function updateTimestampDb(roomId,timestamp) {
 
 async function fetchRoomsfromDb() {
   const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek'
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
+    ssl: true,
+
   })
   client.connect()
 
