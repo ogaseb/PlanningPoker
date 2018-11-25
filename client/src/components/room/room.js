@@ -42,6 +42,7 @@ class Room extends Component {
     this.notFound = window.__ROOM_NOT_FOUND__
     window.onpopstate = this.onBackButtonEvent
 
+
     setInterval(() => {
       if (this.props.store.user.kicked) {
         this.props.history.push("/")
@@ -49,6 +50,7 @@ class Room extends Component {
       }
       if (!this.props.store.user.connected) {
         this.props.store.openJoinDialog = true
+
       }
     }, 250)
   }

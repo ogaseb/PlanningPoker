@@ -6,11 +6,6 @@ import UserList from "./user_list/user_list";
 import HistoryList from "./history_list/history_list";
 
 class Lists extends Component {
-  selectBoard = (e) => {
-    this.props.store.jira.boardId = e.target.value
-    this.props.store.selectBoard(e.target.value)
-  }
-
   render() {
     return (
       <React.Fragment>

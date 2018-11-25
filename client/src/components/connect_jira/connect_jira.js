@@ -122,11 +122,15 @@ class ConnectJira extends Component {
   }
 
   goToRoom = () => {
+    if (this.props.store.jira.jiraLoggedIn){
+      console.log(this.board,this.props.store.room.roomId)
+      this.props.store.saveBoardId(this.board,this.props.store.room.roomId)
+    }
     this.props.history.push(`/room/${this.props.store.room.roomName}/${this.props.store.room.roomId}`)
   }
 
   handleChangeBoard = selectedElement => {
-    this.board = selectedElement.label
+    this.board = selectedElement.value
     this.props.store.jira.boardId = selectedElement.value
   };
 

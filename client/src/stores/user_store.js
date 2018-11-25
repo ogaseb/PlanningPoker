@@ -155,6 +155,14 @@ class UserStore {
     });
   }
 
+  saveBoardId(boardId, roomId){
+    const data = {
+      roomId,
+      boardId,
+    };
+    this.socket.emit("saveBoardId", data);
+  }
+
   deleteRoom(roomId, roomPassword){
     const data = {
       roomId,
@@ -175,12 +183,23 @@ class UserStore {
     this.user.connected = true
     this.socket.emit("joinRoom", data);
     this.socket.on("joinRoom", (response) => {
+      if (localStorage.getItem("jira-credentials") !== null && localStorage.getItem("jira-subdomains") !== null) {
+        const data = JSON.parse(localStorage.getItem("jira-credentials"));
+        const subdomains = JSON.parse(localStorage.getItem("jira-subdomains"));
+        this.jiraLogin(subdomains[0], data.jiraLogin, data.jiraPassword)
+      }
+      console.log(response)
       this.user.userId = response.user[response.user.length - 1].userId;
       this.room.roomId = response.roomId;
       this.room.roomName = response.roomName
-      this.room.cardHistory = response.gameHistory
+      this.room.cardHistory = response.gameHistory || []
+      this.jira.boardId = response.boardId
+
       this.notificationVariant = "success"
       this.notificationMessage = "You have joined to the Room"
+      if (response.boardId) {
+        this.selectBoard(this.jira.boardId)
+      }
       this.fetchUsers()
     });
   }

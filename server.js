@@ -41,6 +41,7 @@ function createRoomObject() {
       roomName: "",
       roomId: "",
       timestamp: "",
+      boardId: "",
       user: [],
       game: [],
       gameHistory: []
@@ -57,6 +58,8 @@ async function insertRoomToDb(roomName, hash, RoomId, timestamp) {
   await client.query(`INSERT INTO rooms(roomName,roomPassword,roomId,timeStamp) VALUES('${roomName}', '${hash}', '${RoomId}', '${timestamp}')`,
     (err, res) => {
       console.log(err, res);
+      console.log("DB -> save room");
+
       client.end()
     });
 }
@@ -71,6 +74,8 @@ async function deleteRoomFromDb(roomId) {
   await client.query(`DELETE FROM rooms WHERE roomId = '${roomId}'`,
     (err, res) => {
       console.log(err, res);
+      console.log("DB -> delete room");
+
       client.end()
     });
 }
@@ -85,6 +90,39 @@ async function updateTimestampDb(roomId,timestamp) {
   await client.query(`UPDATE rooms SET timestamp = '${timestamp}' WHERE roomId = '${roomId}'`,
     (err, res) => {
       console.log(err, res);
+      console.log("DB -> update room timestamp");
+      client.end()
+    });
+}
+
+async function updateRoomBoardIdDb(roomId,boardId) {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
+
+  })
+  client.connect()
+
+  await client.query(`UPDATE rooms SET roomboardid = '${boardId}' WHERE roomId = '${roomId}'`,
+    (err, res) => {
+      console.log(err, res);
+      console.log("DB -> update room boardId");
+
+      client.end()
+    });
+}
+
+async function updateRoomHistoryDb(roomId,history) {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
+
+  })
+  client.connect()
+
+  await client.query(`UPDATE rooms SET roomhistory = '${history}' WHERE roomId = '${roomId}'`,
+    (err, res) => {
+      console.log(err, res);
+      console.log("DB -> update room history");
+
       client.end()
     });
 }
@@ -95,20 +133,26 @@ async function fetchRoomsfromDb() {
 
   })
   client.connect()
+  try {
+    const res = await client.query(`SELECT * FROM rooms`);
+    client.end()
+    res.rows.map(({roomname, roomid, roompassword, timestamp, roomhistory, roomboardid}) => {
+      const Room = createRoomObject();
+      Room.roomName = roomname;
+      Room.roomId = roomid;
+      Room.timestamp = timestamp;
+      Room.gameHistory = JSON.parse(roomhistory);
+      if (roomboardid){
+        Room.boardId = roomboardid;
+      }
+      roomsPassword.set(roomid, roompassword);
+      rooms.set(roomid, Room);
+    })
+  }
+  catch (e) {
+    console.log(e)
+  }
 
-  await client.query(`SELECT * FROM rooms`,
-    (err, res) => {
-      console.log(err, res);
-      res.rows.map(({roomname, roomid, roompassword, timestamp}) => {
-        const Room = createRoomObject();
-        Room.roomName = roomname;
-        Room.roomId = roomid;
-        Room.timestamp = timestamp;
-        roomsPassword.set(roomid, roompassword);
-        rooms.set(roomid, Room);
-      })
-      client.end()
-    });
 }
 fetchRoomsfromDb()
 
@@ -223,6 +267,11 @@ io.on("connection", socket => {
     console.log("User -> Created room! RoomId:", RoomId)
   });
 
+  socket.on("saveBoardId", ({roomId, boardId }) => {
+    updateRoomBoardIdDb(roomId, boardId)
+    console.log("User -> Created room! RoomId:", RoomId)
+  });
+
   setInterval(() => {
     fetchRooms()
   }, 1000);
@@ -323,7 +372,8 @@ io.on("connection", socket => {
 
       temp_room.gameHistory.push(temp_room.game);
       io.in(roomId).emit("resetCards", temp_room.gameHistory);
-
+      const gameHistoryDb = JSON.stringify(temp_room.gameHistory)
+      updateRoomHistoryDb(roomId, gameHistoryDb)
       temp_room.game = [];
       temp_room.title = "";
       temp_room.description = "";
