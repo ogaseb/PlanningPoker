@@ -113,9 +113,6 @@ class ConnectJira extends Component {
     if (e.target.id === "subdomain-jira") {
       this.jiraSubdomain = e.target.value
     }
-    if (e.target.id === "more-subdomain-jira") {
-      this.jiraSubdomainMore = e.target.value
-    }
     if (e.target.id === "save-credentials") {
       this.saveCredentials = e.target.checked
     }
@@ -123,7 +120,6 @@ class ConnectJira extends Component {
 
   goToRoom = () => {
     if (this.props.store.jira.jiraLoggedIn){
-      console.log(this.board,this.props.store.room.roomId)
       this.props.store.saveBoardId(this.board,this.props.store.room.roomId)
     }
     this.props.history.push(`/room/${this.props.store.room.roomName}/${this.props.store.room.roomId}`)
