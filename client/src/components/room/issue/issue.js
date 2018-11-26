@@ -64,15 +64,9 @@ class Issue extends Component {
     this.props.store.broadcastDescription()
 
     this.props.store.jira.issueId = selectedValue.issue.id
+    this.props.store.jira.issueKey = selectedValue.issue.key
+
   }
-
-
-  handleExpansionChange = (panel) => {
-    this.setState({
-      expanded: panel
-    });
-
-  };
 
   get fuse() {
     return new Fuse(toJS(this.props.store.jira.activeBoard.issues), {

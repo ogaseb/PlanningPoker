@@ -272,7 +272,7 @@ io.on("connection", socket => {
 
   socket.on("saveBoardId", ({roomId, boardId }) => {
     updateRoomBoardIdDb(roomId, boardId)
-    console.log("User -> Created room! RoomId:", RoomId)
+    console.log("User -> Created room! RoomId:", roomId)
   });
 
   setInterval(() => {

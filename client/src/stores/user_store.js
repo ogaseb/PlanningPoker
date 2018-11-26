@@ -36,6 +36,7 @@ class UserStore {
       description: "",
       jiraLoggedIn: false,
       issueId:"",
+      issueKey:"",
       boardId:"",
       estimationScore: ""
     };
@@ -214,10 +215,18 @@ class UserStore {
   }
 
   resetCards() {
-    const data = {
-      roomId: this.room.roomId,
-    };
-    this.socket.emit("resetCards", data);
+    if (this.jira.issueKey){
+      const data = {
+        roomId: this.room.roomId,
+        issueKey: this.jira.issueKey
+      };
+      this.socket.emit("resetCards", data);
+    }else {
+      const data = {
+        roomId: this.room.roomId,
+      };
+      this.socket.emit("resetCards", data);
+    }
 
   }
 
