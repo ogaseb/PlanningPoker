@@ -20,19 +20,4 @@ describe("HistoryList", () => {
     expect(component).toMatchSnapshot()
   })
 
-  it("selects room", () => {
-    const props = {
-      store: {
-        selectBoard: sinon.spy(),
-        room: {cardsAreTheSame: false, cardResults: [], cardHistory: []},
-        jira: {boardId:""}
-      },
-    }
-
-    const component = shallow(<HistoryList {...props}/>)
-    const instance = component.instance()
-    const e = {target:{value:0}}
-    instance.selectBoard(e)
-    expect(props.store.selectBoard.called).toBe(true)
-  });
 })
