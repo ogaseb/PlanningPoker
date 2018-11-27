@@ -30,7 +30,7 @@ const StyledCard = styled(Card)`
   &&{
     width:57px;
     height:89px;
-    font-size: -webkit-xxx-large;
+    font-size: 30px;
     line-height: 89px;
     margin: 5px;
     margin: 0 auto;

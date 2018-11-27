@@ -141,7 +141,7 @@ async function fetchRoomsfromDb() {
       Room.roomName = roomname;
       Room.roomId = roomid;
       Room.timestamp = timestamp;
-      Room.gameHistory = JSON.parse(roomhistory);
+      Room.gameHistory = roomhistory;
       if (roomboardid){
         Room.boardId = roomboardid;
       }
