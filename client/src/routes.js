@@ -1,7 +1,7 @@
 const routes = {
   root: () => "/",
-  join: () => "/join",
   jira: () => "/jira",
+  join: () => "/join",
   error: () => "/error",
   room: (roomName,id) => `/room/${roomName}/${id}`,
 }

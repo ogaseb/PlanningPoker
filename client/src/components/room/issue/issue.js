@@ -35,41 +35,42 @@ class Issue extends Component {
   }
 
   componentDidMount() {
-    if (this.props.store.jira.jiraLoggedIn && this.props.store.jira.boardId !== "") {
-      this.props.store.selectBoard(this.props.store.jira.boardId)
+    const {store: {jiraStore: {jiraLoggedIn, selectBoard}}} = this.props
+    if (jiraLoggedIn) {
+      selectBoard()
     }
   }
 
-  handleChange = (e) => {
-    if (e.target.id === "title") {
-      if (this.props.store.user.admin) {
-        this.issueFilter = e.target.value
-        this.props.store.jira.title = e.target.value
-        this.props.store.broadcastTitle()
-      }
+  handleChangeTitle = (e) => {
+    const {store: {userStore: {admin}, jiraStore: {setTitle, broadcastTitle}}} = this.props
+    if (admin) {
+      this.issueFilter = e.target.value
+      setTitle(e.target.value)
+      broadcastTitle()
     }
-    if (e.target.id === "description") {
-      if (this.props.store.user.admin) {
-        this.props.store.jira.description = e.target.value
-        this.props.store.broadcastDescription()
-      }
+  }
+
+  handleChangeDescription = (e) => {
+    const {store: {userStore: {admin}, jiraStore: {setDescription, broadcastDescription}}} = this.props
+    if (admin) {
+      setDescription(e.target.value)
+      broadcastDescription()
     }
   }
 
   selectIssue = (selectedValue) => {
-    this.props.store.jira.title = selectedValue.issue.summary
-    this.props.store.broadcastTitle()
-
-    this.props.store.jira.description = selectedValue.issue.description
-    this.props.store.broadcastDescription()
-
-    this.props.store.jira.issueId = selectedValue.issue.id
-    this.props.store.jira.issueKey = selectedValue.issue.key
-
+    const {store: {jiraStore: {setTitle, setDescription, broadcastTitle, broadcastDescription, setIssueId, setIssueKey}}} = this.props
+    setTitle(selectedValue.issue.summary)
+    broadcastTitle()
+    setDescription(selectedValue.issue.description)
+    broadcastDescription()
+    setIssueId(selectedValue.issue.id)
+    setIssueKey(selectedValue.issue.key)
   }
 
   get fuse() {
-    return new Fuse(toJS(this.props.store.jira.activeBoard.issues), {
+    const {store: {jiraStore: {activeBoard}}} = this.props
+    return new Fuse(toJS(activeBoard.issues), {
       keys: ["key", "summary"],
       threshold: 0.6
     })
@@ -80,7 +81,8 @@ class Issue extends Component {
   }
 
   get toSelect() {
-    return toJS(this.props.store.jira.activeBoard.issues).map((issue, index) => {
+    const {store: {jiraStore: {activeBoard}}} = this.props
+    return toJS(activeBoard.issues).map((issue, index) => {
       return {
         value: index,
         label: `${issue.key} - ${issue.summary}`,
@@ -90,17 +92,19 @@ class Issue extends Component {
   }
 
   render() {
+    const {store: {jiraStore: {activeBoard, activeBoardFetching, title, description}, userStore: {admin}}} = this.props
+    console.log(activeBoard)
     return (
       <React.Fragment>
-        {(this.props.store.jira.activeBoard.issues.length > 0 && this.props.store.user.admin) &&
+        {(activeBoard.length > 0 && admin) &&
         <React.Fragment>
           <Typography>Jira Task Picker</Typography>
           <StyledSelect
             options={this.toSelect}
             onChange={this.selectIssue}
-            isDisabled={this.props.store.jira.activeBoardFetching}
-            isLoading={this.props.store.jira.activeBoardFetching}
-            defaultOptions={{value:"", label:"loading"}}
+            isDisabled={activeBoardFetching}
+            isLoading={activeBoardFetching}
+            defaultOptions={{value: "", label: "loading"}}
           />
         </React.Fragment>}
         <StyledTitleCard>
@@ -109,9 +113,8 @@ class Issue extends Component {
           </Typography>
           <StyledTextField
             multiline
-            id="title"
-            value={this.props.store.jira.title}
-            onChange={this.handleChange}
+            value={title}
+            onChange={this.handleChangeTitle}
             margin="normal"
           />
         </StyledTitleCard>
@@ -121,9 +124,8 @@ class Issue extends Component {
           </Typography>
           <StyledTextField
             multiline
-            id="description"
-            value={this.props.store.jira.description}
-            onChange={this.handleChange}
+            value={description}
+            onChange={this.handleChangeDescription}
             margin="normal"
           />
         </StyledTitleCard>
@@ -140,5 +142,5 @@ decorate(Issue, {
 });
 
 export {Issue}
-export default inject("store")(withRouter(observer(Issue)));
+export default inject("store")(observer(Issue));
 

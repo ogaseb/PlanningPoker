@@ -13,8 +13,9 @@ import {
   BrowserView,
   MobileView
 } from "react-device-detect";
-import {decorate, observable} from "mobx";
+import {decorate, observable, when} from "mobx";
 import Redirect from "react-router-dom/Redirect";
+import routes from "routes"
 
 const StyledGrid = styled(Grid)`
   &&{
@@ -32,47 +33,42 @@ const StyledCard = styled(Card)`
   width:100%;
   }
 `;
+
 class Room extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
   }
 
   componentDidMount() {
+    const {store: {userStore: {kicked, setKicked, setConnected}}} = this.props
     this.notFound = window.__ROOM_NOT_FOUND__
     window.onpopstate = this.onBackButtonEvent
 
+    when(
+      () => kicked,
+      () => {
+        this.props.history.push(routes.root());
+        setKicked(false);
+        setConnected(false)
+      },
+    )
 
-    setInterval(() => {
-      if (this.props.store.user.kicked) {
-        this.props.history.push("/")
-        this.props.store.user.kicked = false
-      }
-      if (!this.props.store.user.connected) {
-        this.props.store.openJoinDialog = true
-
-      }
-    }, 250)
   }
 
   onBackButtonEvent = (e) => {
     e.preventDefault()
-    this.props.store.kickUser(this.props.store.user.userId)
-    this.props.store.room.rooms = this.props.store.user.users = []
-    this.props.store.user.admin = this.props.store.user.connected = false
-    this.props.store.user.userName = this.props.store.user.userId = this.props.store.room.roomName = this.props.store.room.roomId = ""
-    setTimeout(() => {
-      this.props.store.notificationMessage = "You have left the Room"
-      this.props.store.notificationVariant = "warning"
-      this.props.history.push("/")
-    }, 100)
+    const {store: {userStore: {leaveRoom}, socketStore: {openNotification}}, history: {push}} = this.props
+    leaveRoom()
+    openNotification("You have left the Room", "warning")
+    push(routes.root())
   };
 
   render() {
     return (
       <React.Fragment>
         {this.notFound && <Redirect to="/error"/>}
-        <BrowserView style={{display: "flex",flexWrap:"wrap", margin: "0 auto", width:"100%"}}>
+        <BrowserView style={{display: "flex", flexWrap: "wrap", margin: "0 auto", width: "100%"}}>
           <JoinDialog/>
           <StyledGrid item md={10}>
             <StyledCard>
@@ -87,16 +83,16 @@ class Room extends Component {
             </StyledCard>
           </StyledGrid>
         </BrowserView>
-        <MobileView style={{display: "flex", flexWrap:"wrap", margin: "0 auto", width:"100%"}} >
+        <MobileView style={{display: "flex", flexWrap: "wrap", margin: "0 auto", width: "100%"}}>
           <JoinDialog/>
-            <StyledCard>
-              <Issue/>
-              <CardResults/>
-              <Controls/>
-            </StyledCard>
-            <StyledCard>
-              <Lists/>
-            </StyledCard>
+          <StyledCard>
+            <Issue/>
+            <CardResults/>
+            <Controls/>
+          </StyledCard>
+          <StyledCard>
+            <Lists/>
+          </StyledCard>
         </MobileView>
       </React.Fragment>
     );

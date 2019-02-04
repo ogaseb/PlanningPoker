@@ -59,34 +59,35 @@ const StyledExpansionPanel = styled(ExpansionPanel)`
 
 
 class UserList extends Component {
+  constructor(props) {
+    super(props);
+    this.roomPassword = ""
+  }
+
   state = {
     anchorEl: null,
   };
 
   handleKick = (userId) => {
     if (userId) {
-      this.props.store.kickUser(userId)
+      this.props.store.userStore.kickUser(userId)
     }
   }
   handleAdmin = (userId) => {
     if (userId) {
-      this.props.store.changeAdmin(userId)
+      this.props.store.userStore.changeAdmin(userId)
     }
   }
-
   handleDelete = () => {
-    if (this.roomPassword !== "" && this.props.store.room.roomId !== "") {
-      this.props.store.deleteRoom(
-        this.props.store.room.roomId,
+    if (this.roomPassword) {
+      this.props.store.roomStore.deleteRoom(
         this.roomPassword
       );
     }
   };
 
   handleChange = e => {
-    if (e.target.id === "room-password") {
-      this.roomPassword = e.target.value
-    }
+    this.roomPassword = e.target.value
   };
 
 
@@ -99,24 +100,25 @@ class UserList extends Component {
   };
 
   render() {
+    const {store: {userStore: {userName, admin}, roomStore: {roomName, roomUsers}}} = this.props
     return (
       <UserDiv>
         <RoomName variant="body1" color="inherit">
-          {this.props.store.user.userName !== "" && <div> User Name: {this.props.store.user.userName}</div>}
-          {this.props.store.room.roomName !== "" && <div> Room Name: {this.props.store.room.roomName}</div>}
+          <div> User Name: {userName}</div>
+          <div> Room Name: {roomName}</div>
         </RoomName>
-        <Typography>users : {this.props.store.user.users.length}</Typography>
+        <Typography>users : {roomUsers.length}</Typography>
         <UserWrapper>
-          {this.props.store.user.users.length > 0 &&
-          this.props.store.user.users.map((data) => {
+          {roomUsers.length > 0 &&
+          roomUsers.map((data) => {
             return (
               <StyledExpansionPanel>
-                <ExpansionPanelSummary expandIcon={this.props.store.user.admin && <ExpandMoreIcon/>}>
+                <ExpansionPanelSummary expandIcon={admin && <ExpandMoreIcon/>}>
                   <Typography>
                     {data.userName}
                   </Typography>
                 </ExpansionPanelSummary>
-                {this.props.store.user.admin && <ExpansionPanelDetails>
+                {admin && <ExpansionPanelDetails>
                   <Grid container>
                     <Grid item xs={6}>
                       <Button color="secondary" variant="contained" onClick={() => {
@@ -138,7 +140,7 @@ class UserList extends Component {
             );
           })}
         </UserWrapper>
-        {this.props.store.user.admin && (
+        {admin && (
           <Wrapper>
             <StyledTextField
               id="room-password"

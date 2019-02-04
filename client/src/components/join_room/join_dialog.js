@@ -9,38 +9,47 @@ import Button from "@material-ui/core/Button"
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import {decorate, observable} from "mobx";
+import routes from "routes"
 
 class JoinDialog extends Component {
-  componentDidMount() {
-    if (localStorage.getItem("userName") !== null) {
-      this.userName = JSON.parse(localStorage.getItem("userName"))
-    }
+  constructor(props) {
+    super(props)
+    this.userName = ""
+    this.roomPassword = ""
   }
 
-  handleChange = e => {
-    if (e.target.id === "userName") {
-      this.userName = e.target.value
-    }
-    if (e.target.id === "roomPassword") {
-      this.roomPassword = e.target.value
-    }
-  };
-  joinRoom = (name, password) => {
-    const {match: {params}} = this.props
-    this.props.store.joinRoom(params.id, password, name)
-    this.props.store.openJoinDialog = false
+  componentDidMount() {
+    // if (localStorage.getItem("userName") !== null) {
+    //   this.userName = JSON.parse(localStorage.getItem("userName"))
+    // }
+  }
 
+  handleChangUserName = e => {
+    this.userName = e.target.value
+  };
+
+  handleChangRoomPassword = e => {
+    this.roomPassword = e.target.value
+  };
+  joinRoom = () => {
+    const {match: {params}, store: {roomStore: {joinRoom}, socketStore: {openNotification}, userStore: {setUserName}}} = this.props
+    if (this.userName && this.roomPassword) {
+      setUserName(this.userName)
+      joinRoom(this.userName, params.id, this.roomPassword)
+    } else {
+      openNotification("To join a room you need to fill all inputs", "warning")
+    }
   }
 
   cancelJoinRoom = () => {
-    this.props.history.push("/")
+    this.props.history.push(routes.root())
   }
 
   render() {
-    const {store:{openJoinDialog}} = this.props
+    const {store: {userStore: {isConnected}}} = this.props
     return (
       <Dialog
-        open={openJoinDialog}
+        open={!isConnected}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Join Room</DialogTitle>
@@ -56,26 +65,24 @@ class JoinDialog extends Component {
             type="text"
             fullWidth
             value={this.userName}
-            onChange={this.handleChange}
+            onChange={this.handleChangUserName}
           />
           <TextField
             autoFocus
             margin="dense"
             id="roomPassword"
             label="Room Password"
-            type="text"
+            type="password"
             fullWidth
             value={this.roomPassword}
-            onChange={this.handleChange}
+            onChange={this.handleChangRoomPassword}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={this.cancelJoinRoom} color="primary">
             Cancel Join
           </Button>
-          <Button onClick={() => {
-            this.joinRoom(this.userName, this.roomPassword)
-          }} color="primary" variant="contained">
+          <Button onClick={this.joinRoom} color="primary" variant="contained">
             Join Room
           </Button>
         </DialogActions>

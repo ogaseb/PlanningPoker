@@ -6,8 +6,8 @@ import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import AddCircle from "@material-ui/icons/AddCircle"
 import {ArrowUpBold} from "mdi-material-ui";
-
-
+import {decorate, observable, reaction,} from "mobx";
+import routes from "routes"
 
 const StyledGrid = styled(Grid)`
   &&{
@@ -47,118 +47,133 @@ const StyledTypography = styled(Typography)`
   }
 `;
 
-class CreateRoom extends Component {
-  state = {
-    userName: "",
-    roomName: "",
-    roomPassword: "",
-    board: ""
-  };
+const StyledAddCircle = styled(AddCircle)`
+  &&{
+  margin-left: 10px;
+  }
+`;
 
-  componentDidMount() {
-    if (localStorage.getItem("userName") !== null) {
-      this.setState({userName: JSON.parse(localStorage.getItem("userName"))});
-    }
+const StyledArrowUpBold = styled(ArrowUpBold)`
+  &&{
+  margin-left: 10px;
+  }
+`;
+
+const StyledButtonGrid = styled(Grid)`
+  &&{
+  margin-top: 40px;
+  }
+`;
+
+class CreateRoom extends Component {
+  constructor(props) {
+    super(props)
+    this.userName = ""
+    this.roomName = ""
+    this.roomPassword = ""
+
+    reaction(
+      () => this.props.store.userStore.connected,
+      () => {
+        if (this.props.store.userStore.connected) {
+          this.props.history.push(routes.jira())
+        }
+      },
+    )
   }
 
-  handleChange = e => {
-    if (e.target.id === "user-name") {
-      this.setState({userName: e.target.value});
-    }
-    if (e.target.id === "room-name") {
-      this.setState({roomName: e.target.value});
-    }
-    if (e.target.id === "room-password") {
-      this.setState({roomPassword: e.target.value});
-    }
+  handleChangeUserName = (e) => {
+    this.userName = e.target.value
+  };
+
+  handleChangeRoomName = (e) => {
+    this.roomName = e.target.value
+  };
+
+  handleChangeRoomPassword = (e) => {
+    this.roomPassword = e.target.value
   };
 
   handleSubmit = async () => {
+    const {store: {socketStore: {openNotification}, roomStore: {createRoom}}} = this.props
     if (
-      this.state.userName !== "" &&
-      this.state.roomName !== "" &&
-      this.state.roomPassword !== ""
+      this.userName &&
+      this.roomName &&
+      this.roomPassword
     ) {
-      this.props.store.createRoom(
-        this.state.userName,
-        this.state.roomName,
-        this.state.roomPassword
+      createRoom(
+        this.userName,
+        this.roomName,
+        this.roomPassword
       );
-      const interval = setInterval(() => {
-        if (this.props.store.user.connected) {
-          this.props.history.push(`/jira`)
-          clearInterval(interval)
-        }
-      }, 100)
-    }
-    else {
-      this.props.store.notificationVariant = "warning"
-      this.props.store.notificationMessage = "To create a room you need to fill all inputs"
+    } else {
+      openNotification("To create a room you need to fill all inputs", "warning")
     }
   };
 
   handleJoin = () => {
-    this.props.history.push(`/join`)
+    this.props.history.push(routes.join())
   }
-
-  handleChangeBoard = event => {
-    this.setState({[event.target.name]: event.target.value});
-    this.props.store.jira.boardId = event.target.value
-  };
 
   render() {
     return (
       <StyledGrid item xs={12}>
         <StyledCard>
           <FormWrapper>
-            <Typography variant="h3" align={"center"} >
+            <Typography variant="h3" align={"center"}>
               Create Room
             </Typography>
             <TextField
-              id="user-name"
+              type="text"
               label="User Name"
-              value={this.state.userName}
-              onChange={this.handleChange}
+              value={this.userName}
+              onChange={this.handleChangeUserName}
               margin="normal"
             />
             <TextField
-              id="room-name"
+              type="text"
               label="Room Name"
-              value={this.state.roomName}
-              onChange={this.handleChange}
+              value={this.roomName}
+              onChange={this.handleChangeRoomName}
               margin="normal"
             />
             <TextField
-              id="room-password"
-              label="Room Password"
-              value={this.state.roomPassword}
-              onChange={this.handleChange}
               type="password"
+              label="Room Password"
+              value={this.roomPassword}
+              onChange={this.handleChangeRoomPassword}
               margin="normal"
             />
 
-            <Grid style={{marginTop:"40px"}} container>
-              <Grid item xs={5} >
+            <StyledButtonGrid container>
+              <Grid item xs={5}>
                 <StyledButton color="primary" variant="contained" onClick={this.handleSubmit}>
                   Create Room
-                  <AddCircle style={{marginLeft:"10px"}} />
+                  <StyledAddCircle/>
                 </StyledButton>
               </Grid>
-              <Grid item xs={2} >
+              <Grid item xs={2}>
                 <StyledTypography variant="h5"> OR </StyledTypography>
               </Grid>
               <Grid item xs={5}>
                 <StyledButton variant="contained" onClick={this.handleJoin}>
                   Join room
-                  <ArrowUpBold style={{marginLeft:"10px"}} />
+                  <StyledArrowUpBold/>
                 </StyledButton>
               </Grid>
-            </Grid>
+            </StyledButtonGrid>
           </FormWrapper>
         </StyledCard>
       </StyledGrid>
     );
   }
 }
+
+decorate(CreateRoom, {
+  userName: observable,
+  roomName: observable,
+  roomPassword: observable
+});
+
 export {CreateRoom}
 export default inject("store")(withRouter(observer(CreateRoom)));

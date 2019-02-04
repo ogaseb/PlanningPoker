@@ -4,19 +4,25 @@ import fs from 'fs'
 import socketIO from "socket.io"
 import findIndex from "lodash/findIndex"
 import path from "path"
-import uuid from "uuid/v4"
-import JiraClient from "jira-connector"
 import date from "date-and-time"
 import bcrypt from "bcrypt"
-import {Client} from 'pg'
 import Rollbar from 'rollbar'
+import {
+  insertRoomToDb,
+  fetchRoomsFromDb,
+  deleteRoomFromDb,
+  updateRoomBoardIdDb,
+  updateRoomHistoryDb,
+  updateTimestampDb
+} from "./db"
+import {createHash, createRoomObject} from "./helpers"
+import {jiraLogin, jiraGetBacklogIssues, jiraGetBoardIssues} from "./jira"
 
-let rollbar = new Rollbar({
-  accessToken: 'ad6df4a89ab94a3591c267d78367ad3a',
-  captureUncaught: true,
-  captureUnhandledRejections: true
-});
-
+// let rollbar = new Rollbar({
+//   accessToken: 'ad6df4a89ab94a3591c267d78367ad3a',
+//   captureUncaught: true,
+//   captureUnhandledRejections: true
+// });
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -29,255 +35,122 @@ let fetchRoom = [];
 let users = new Map();
 let rooms = new Map();
 let roomsPassword = new Map();
-let jira;
 
-function createHash() {
-  return uuid()
-}
-
-function createRoomObject() {
-  return (
-    {
-      roomName: "",
-      roomId: "",
-      timestamp: "",
-      boardId: "",
-      user: [],
-      game: [],
-      gameHistory: []
-    }
-  )
-}
-
-async function insertRoomToDb(roomName, hash, RoomId, timestamp) {
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-  })
-  client.connect()
-
-  await client.query(`INSERT INTO rooms(roomName,roomPassword,roomId,timeStamp) VALUES('${roomName}', '${hash}', '${RoomId}', '${timestamp}')`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> save room");
-
-      client.end()
-    });
-}
-
-async function deleteRoomFromDb(roomId) {
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-
-  })
-  client.connect()
-
-  await client.query(`DELETE FROM rooms WHERE roomId = '${roomId}'`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> delete room");
-
-      client.end()
-    });
-}
-
-async function updateTimestampDb(roomId,timestamp) {
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-
-  })
-  client.connect()
-
-  await client.query(`UPDATE rooms SET timestamp = '${timestamp}' WHERE roomId = '${roomId}'`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> update room timestamp");
-      client.end()
-    });
-}
-
-async function updateRoomBoardIdDb(roomId,boardId) {
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-
-  })
-  client.connect()
-
-  await client.query(`UPDATE rooms SET roomboardid = '${boardId}' WHERE roomId = '${roomId}'`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> update room boardId");
-
-      client.end()
-    });
-}
-
-async function updateRoomHistoryDb(roomId,history) {
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-
-  })
-  client.connect()
-
-  await client.query(`UPDATE rooms SET roomhistory = '${history}' WHERE roomId = '${roomId}'`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> update room history");
-
-      client.end()
-    });
-}
-
-async function fetchRoomsfromDb() {
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgres://sebastianogarek:@localhost:5432/sebastianogarek',
-
-  })
-  client.connect()
-  try {
-    const res = await client.query(`SELECT * FROM rooms`);
-    client.end()
+fetchRoomsFromDb()
+  .then(res => {
     res.rows.map(({roomname, roomid, roompassword, timestamp, roomhistory, roomboardid}) => {
       const Room = createRoomObject();
       Room.roomName = roomname;
       Room.roomId = roomid;
       Room.timestamp = timestamp;
       Room.gameHistory = roomhistory;
-      if (roomboardid){
+      if (roomboardid) {
         Room.boardId = roomboardid;
       }
       roomsPassword.set(roomid, roompassword);
       rooms.set(roomid, Room);
-    })
-  }
-  catch (e) {
-    console.log(e)
-  }
-
-}
-fetchRoomsfromDb()
-
+    });
+    console.log("DB -> fetching rooms from DB");
+  })
 
 io.on("connection", socket => {
   console.log("User -> connected to server id:", socket.id);
-
-  function fetchRooms() {
-    socket.emit("fetchRooms", fetchRoom)
-  }
-
-  socket.on("jiraLogin", ({jiraLogin: username, jiraPassword: password, jiraSubdomain}) => {
-    jira = new JiraClient({
-      host: `${jiraSubdomain}.atlassian.net`,
-      basic_auth: {username, password}
-    });
-    if (jira) {
-      jira.board.getAllBoards({startAt: 0}, function (error, boards) {
+  socket.on("jiraLogin", (data) => {
+    jiraLogin(data)
+      .then(boards => {
         socket.emit("jiraLogin", boards);
-        console.log("Jira -> connecting and fetching boards", error);
-        if (error) {
-          socket.emit("errors", {error})
-        }
       })
-    }
+      .catch(error => {
+        socket.emit("errors", {error})
+      })
   });
 
   socket.on("jiraGetBoard", (boardId) => {
-    jira.board.getIssuesForBacklog({boardId}, function (error, board) {
-      if (board.issues.length > 0){
-        let sendBoard = [];
-        for (let i = 0; i < board.issues.length; i++) {
-          sendBoard.push(
-            {
-              id: board.issues[i].id,
-              key: board.issues[i].key,
-              summary: board.issues[i].fields.summary,
-              description: board.issues[i].fields.description,
-              comments: board.issues[i].fields.comment.comments,
-              priorityType: board.issues[i].fields.priority.name,
-              priorityUrl: board.issues[i].fields.priority.iconUrl,
-              issueUrl: board.issues[i].fields.issuetype.iconUrl
-            }
-          )
+    jiraGetBacklogIssues(boardId)
+      .then(board => {
+        if (board.issues.length > 0) {
+          let sendBoard = [];
+          for (let i = 0; i < board.issues.length; i++) {
+            sendBoard.push(
+              {
+                id: board.issues[i].id,
+                key: board.issues[i].key,
+                summary: board.issues[i].fields.summary,
+                description: board.issues[i].fields.description,
+                comments: board.issues[i].fields.comment.comments,
+                priorityType: board.issues[i].fields.priority.name,
+                priorityUrl: board.issues[i].fields.priority.iconUrl,
+                issueUrl: board.issues[i].fields.issuetype.iconUrl
+              }
+            )
+          }
+          socket.emit("jiraGetBacklogBoard", sendBoard);
+          console.log("Jira -> fetching singe board");
         }
-        socket.emit("jiraGetBacklogBoard", sendBoard);
-        console.log("Jira -> fetching singe board");
-        if (error) {
-          socket.emit("errors", {error})
-        }
-      }
-    });
-
-    jira.board.getIssuesForBoard({boardId}, function (error, board) {
-      if (board.issues.length > 0){
-        let sendBoard = [];
-        for (let i = 0; i < board.issues.length; i++) {
-          sendBoard.push(
-            {
-              id: board.issues[i].id,
-              key: board.issues[i].key,
-              summary: board.issues[i].fields.summary,
-              description: board.issues[i].fields.description,
-              comments: board.issues[i].fields.comment.comments,
-              priorityType: board.issues[i].fields.priority.name,
-              priorityUrl: board.issues[i].fields.priority.iconUrl,
-              issueUrl: board.issues[i].fields.issuetype.iconUrl
-            }
-          )
-        }
-        socket.emit("jiraGetBoard", sendBoard);
-        console.log("Jira -> fetching singe board");
-        if (error) {
-          socket.emit("errors", {error})
-        }
-      }
-    })
-  });
-
-  socket.on("jiraSetEstimation", ({issueId, boardId, estimationScore}) => {
-    jira.issue.setIssueEstimation({issueId, boardId, value: estimationScore}, function (error) {
-      console.log(`Jira -> setting estimation for id: ${issueId} value: ${estimationScore}`);
-      if (error) {
+      })
+      .catch(error => {
         socket.emit("errors", {error})
-      }
-    })
+      })
+    jiraGetBoardIssues(boardId)
+      .then(board => {
+        if (board.issues.length > 0) {
+          let sendBoard = [];
+          for (let i = 0; i < board.issues.length; i++) {
+            sendBoard.push(
+              {
+                id: board.issues[i].id,
+                key: board.issues[i].key,
+                summary: board.issues[i].fields.summary,
+                description: board.issues[i].fields.description,
+                comments: board.issues[i].fields.comment.comments,
+                priorityType: board.issues[i].fields.priority.name,
+                priorityUrl: board.issues[i].fields.priority.iconUrl,
+                issueUrl: board.issues[i].fields.issuetype.iconUrl
+              }
+            )
+          }
+          socket.emit("jiraGetBoard", sendBoard);
+          console.log("Jira -> fetching singe board");
+        }
+      })
+      .catch(error => {
+        socket.emit("errors", {error})
+      })
   });
 
   socket.on("createRoom", ({userName, roomName, roomPassword}) => {
-    const Room = createRoomObject();
-    const RoomId = createHash();
+    const room = createRoomObject();
+    const roomId = createHash();
     let timestamp = new Date();
     timestamp = date.format(timestamp, "YYYY/MM/DD HH:mm:ss");
 
-    Room.user.push({userId: socket.id, userName});
-    Room.roomName = roomName;
-    Room.roomId = RoomId;
-    Room.timestamp = timestamp;
+    room.user.push({userId: socket.id, userName});
+    room.roomName = roomName;
+    room.roomId = roomId;
+    room.timestamp = timestamp;
     bcrypt.hash(roomPassword, 10, (err, hash) => {
-      roomsPassword.set(RoomId, hash);
-      insertRoomToDb(roomName, hash, RoomId, timestamp)
+      roomsPassword.set(roomId, hash);
+      insertRoomToDb(roomName, hash, roomId, timestamp)
       if (err) {
         socket.emit("errors", {error: err})
       }
     });
-    // console.log(roomsPassword.get(RoomId))
+    rooms.set(roomId, room);
+    users.set(socket.id, roomId);
+    fetchRoom.push(room);
+    socket.join(roomId);
 
-    rooms.set(RoomId, Room);
-    users.set(socket.id, RoomId);
-    fetchRoom.push(Room);
-    socket.join(RoomId);
+    socket.emit("createRoom", room);
+    io.in(roomId).emit("waitingFor", room.game.length);
+    io.in(roomId).emit("fetchRoomUsers", room.user);
 
-    socket.emit("createRoom", Room);
-    io.in(RoomId).emit("waitingFor", Room.game.length);
-    console.log("User -> Created room! RoomId:", RoomId)
-  });
-
-  socket.on("saveBoardId", ({roomId, boardId }) => {
-    updateRoomBoardIdDb(roomId, boardId)
     console.log("User -> Created room! RoomId:", roomId)
   });
 
-  setInterval(() => {
-    fetchRooms()
-  }, 1000);
+  socket.on("saveBoardId", ({roomId, boardId}) => {
+    updateRoomBoardIdDb(roomId, boardId)
+    console.log("User -> Created room! RoomId:", roomId)
+  });
 
   socket.on("joinRoom", ({roomId, roomPassword, userName}) => {
     if (rooms.has(roomId)) {
@@ -303,11 +176,12 @@ io.on("connection", socket => {
             fetchRoom[index].user.push({userId: socket.id, userName})
           }
 
-          console.log("User -> Joined room! RoomId:", roomId);
+          console.log("User -> Joinsed room! RoomId:", roomId);
           socket.emit("joinRoom", temp_room);
 
           rooms.set(roomId, temp_room);
           io.in(roomId).emit("waitingFor", temp_room.game.length)
+          io.in(roomId).emit("fetchRoomUsers", temp_room.user);
 
           if (temp_room.user.length === 1) {
             io.in(roomId).emit("changeAdmin", temp_room.user[0].userId)
@@ -344,16 +218,20 @@ io.on("connection", socket => {
     }
   });
 
-  socket.on("sendCard", ({roomId, userName, cardValue}) => {
+  socket.on("sendCard", ({roomId, userId, userName, cardValue}) => {
     if (rooms.has(roomId)) {
       let temp_room = rooms.get(roomId);
       temp_room.game.push({userName, cardValue});
+      console.log(roomId, userId, cardValue)
 
       let index = findIndex(temp_room.user, function (o) {
-        return o.userName === userName;
+        return o.userId === userId;
       });
 
-      temp_room.user[index].userName = `${temp_room.user[index].userName} - ✔`;
+      if (index !== -1){
+        temp_room.user[index].userName = `${temp_room.user[index].userName} - ✔`;
+        io.in(roomId).emit("fetchRoomUsers", temp_room.user);
+      }
 
       if (temp_room.user.length === temp_room.game.length) {
         io.in(roomId).emit("sendCard", temp_room.game);
@@ -375,6 +253,8 @@ io.on("connection", socket => {
 
       temp_room.gameHistory.push(temp_room.game);
       io.in(roomId).emit("resetCards", temp_room.gameHistory);
+      io.in(roomId).emit("fetchRoomUsers", temp_room.user);
+
       const gameHistoryDb = JSON.stringify(temp_room.gameHistory)
       updateRoomHistoryDb(roomId, gameHistoryDb)
       temp_room.game = [];
@@ -386,17 +266,17 @@ io.on("connection", socket => {
     }
   });
 
-  socket.on("fetchUsers", ({roomId}) => {
-      if (rooms.has(roomId)) {
-        const temp_room = rooms.get(roomId);
-        io.in(roomId).emit("fetchUsers", temp_room.user);
-        if (temp_room.user.length === 1) {
-          io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
-        }
+  socket.on("fetchRoomUsers", ({roomId}) => {
+    if (rooms.has(roomId)) {
+      const temp_room = rooms.get(roomId);
+      io.in(roomId).emit("fetchRoomUsers", temp_room.user);
+      if (temp_room.user.length === 1) {
+        io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
       }
+    }
   });
 
-  socket.on("kickUser", ({userId}) => {
+  socket.on("kickUser", ({userId, userLeaved}) => {
     if (users.has(userId)) {
       let roomId = users.get(userId);
 
@@ -405,22 +285,28 @@ io.on("connection", socket => {
         return o.userId === userId;
       });
       if (index !== -1) {
-        io.in(roomId.toString()).emit("kickUser", temp_room.user[index]);
+
+        if (!userLeaved){
+          io.in(roomId).emit("kickUser", temp_room.user[index]);
+        }
 
         temp_room.user.splice(index, 1);
-        io.in(roomId.toString()).emit("waitingFor", temp_room.game.length);
+        io.in(roomId).emit("waitingFor", temp_room.game.length);
+        io.in(roomId).emit("fetchRoomUsers", temp_room.user);
+
         if (temp_room.user.length === 1) {
-          io.in(roomId.toString()).emit("changeAdmin", temp_room.user[0].userId)
+          io.in(roomId).emit("changeAdmin", temp_room.user[0].userId)
         }
-        rooms.set(roomId.toString(), temp_room);
+        rooms.set(roomId, temp_room);
         console.log("User -> kicked")
       }
     } else {
       socket.emit("errors", {error: "Cant find user you trying to kick"})
 
     }
-
   });
+
+
 
   socket.on("changeAdmin", ({userId}) => {
     if (users.has(userId)) {
@@ -495,7 +381,8 @@ io.on("connection", socket => {
   socket.on("reconnect", () => {
     console.log("User -> user reconnected")
   });
-});
+})
+;
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 

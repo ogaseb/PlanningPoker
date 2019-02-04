@@ -51,6 +51,7 @@ class UserStore {
     this.socket.on("sendCard", (response) => {
       this.room.waiting = [];
       if (response){
+        console.log(response, "sendCard")
         this.blockReset = false;
         let card = sortBy(response, "cardValue");
         const allEqual = arr => arr.every( v => v.cardValue === arr[0].cardValue );
@@ -71,7 +72,10 @@ class UserStore {
     this.socket.on("waitingFor", (response) => {
       if (response && this.room.cardResults.length === 0){
         this.room.waiting = [];
+
         for (let i = 0; i < response; i ++){
+          console.log(response, "waitingFor")
+
           this.room.waiting.push(true)
         }
       }
@@ -85,6 +89,7 @@ class UserStore {
       this.notificationVariant = "info";
       this.notificationMessage = "Card reset";
       if (data){
+        console.log(data, "cardHistory")
         this.room.cardHistory = data
       }
 

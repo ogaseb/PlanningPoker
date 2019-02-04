@@ -8,20 +8,17 @@ import {decorate, observable} from "mobx";
 
 const StyledButtonCard = styled(Button)`
   &&{
-  width: 10%;
   height: 10vh;
-  margin:5px;
+  margin:1px;
   flex:1;
   }
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   margin: 0 auto;
-  width: 83.333333%;
+  width: 100%;
   height: 10vh;
-  flex-wrap: wrap;
 `;
 
 const YourCard = styled(Card)`
@@ -34,7 +31,7 @@ const YourCard = styled(Card)`
   text-align: center;
 `;
 
-const cards = ["☕",0,0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
+const cards = ["☕", 0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
 
 class Controls extends Component {
   constructor(props) {
@@ -43,14 +40,13 @@ class Controls extends Component {
   }
 
   handleReset = () => {
-    this.props.store.resetCards()
-    this.props.store.room.cardResults = []
-    this.props.store.jira.issueId = ""
+    this.props.store.roomStore.resetCards()
   }
 
   handleCard = () => {
-    this.props.store.sendCard(this.selectedCard)
-    this.props.store.blockCard = true
+    const {store: {roomStore: {sendCard, setBlockCard}}} = this.props
+    sendCard(this.selectedCard)
+    setBlockCard(true)
     this.selectedCard = ""
   }
 
@@ -58,39 +54,39 @@ class Controls extends Component {
     this.selectedCard = card
   }
 
-  handleEstimation = () => {
-    this.props.store.setIssueEstimation()
-    this.props.store.jira.issueId = ""
-    this.props.store.selectBoard(this.props.store.jira.boardId)
-  }
-
   render() {
+    const {store: {roomStore: {blockCard, blockReset, cardsAreTheSame}, userStore: {admin}, jiraStore: {jiraLoggedIn}}} = this.props
     return (
-      <React.Fragment>
-        <Button disabled={this.props.store.blockCard} variant="contained" color="secondary"
-                onClick={this.handleCard}>Send Card</Button>
-        {this.props.store.user.admin && (
-          <React.Fragment>
+      <>
+        <Button
+          disabled={blockCard}
+          variant="contained"
+          color="secondary"
+          onClick={this.handleCard}>
+          Send Card
+        </Button>
+        {admin && (
+          <>
             <Button
-              disabled={this.props.store.blockReset}
+              disabled={blockReset}
               onClick={this.handleReset}>Reset cards</Button>
-            {this.props.store.jira.jiraLoggedIn && <Button
-              disabled={!this.props.store.room.cardsAreTheSame}
+            {jiraLoggedIn && <Button
+              disabled={!cardsAreTheSame}
               onClick={this.handleEstimation}>Set estimation point</Button>
             }
-          </React.Fragment>
+          </>
         )}
-        {this.selectedCard !== "" && <YourCard> {this.selectedCard}</YourCard>}
+        {this.selectedCard && <YourCard>{this.selectedCard}</YourCard>}
         <ButtonWrapper>
           {cards.map((card, index) => {
             return (
-              <StyledButtonCard variant="contained" color="primary" key={index} onClick={() => {
-                this.chooseCard(card, index);
+              <StyledButtonCard variant="contained" color="primary" key={index} onClick={(e) => {
+                this.chooseCard(card, e);
               }}>{card}</StyledButtonCard>
             )
           })}
         </ButtonWrapper>
-      </React.Fragment>
+      </>
     )
   }
 }
@@ -100,5 +96,5 @@ decorate(Controls, {
 });
 
 export {Controls}
-export default inject("store")(withRouter(observer(Controls)));
+export default inject("store")(observer(Controls));
 
