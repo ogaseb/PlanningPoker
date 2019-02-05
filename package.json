@@ -8,8 +8,8 @@
     "start": "yarn webpack && cd server && pm2-runtime server.min.js -i 1",
     "debug": "node --inspect-brk server.min.js",
     "test": "cd client && yarn test",
-    "heroku-postbuild": "webpack --config webpack.server.config.js && node models/database.js && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-    "preinstall": "npm install pm2 -g",
+    "heroku-postbuild": "webpack --config webpack.server.config.js && node models/database.js && cd client && yarn install && yarn add --dev && yarn build",
+    "preinstall": "yarn global add pm2 && yarn global add webpack",
     "precommit": "lint-staged",
     "prepush": "CI=true yarn test",
     "webpack": "webpack --config webpack.server.config.js"
