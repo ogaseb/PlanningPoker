@@ -383,7 +383,7 @@ io.on("connection", socket => {
 })
 ;
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.get('/room/*/:uuid', function (req, res, next) {
   const {uuid} = req.params
@@ -391,7 +391,7 @@ app.get('/room/*/:uuid', function (req, res, next) {
   if (rooms.has(uuid)) {
     next()
   } else {
-    const index = fs.readFileSync(path.join(__dirname, 'client/build/index.html'), 'utf-8');
+    const index = fs.readFileSync(path.join(__dirname, '../client/build/index.html'), 'utf-8');
     const body = index.replace('</body>', `
       <script>
         window.__ROOM_NOT_FOUND__ = true
@@ -403,7 +403,7 @@ app.get('/room/*/:uuid', function (req, res, next) {
 })
 
 app.get('*', function (req, res) {
-  res.sendFile("index.html", {root: path.join(__dirname, 'client/build')})
+  res.sendFile("index.html", {root: path.join(__dirname, '../client/build')})
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
