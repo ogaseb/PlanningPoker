@@ -1,485 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CreateRoom renders without crashing 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <JoinDialog
-    store={
-      Object {
-        "openJoinDialog": true,
-      }
-    }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "aria-labelledby": "form-dialog-title",
-      "children": Array [
-        <WithStyles(DialogTitle)
-          id="form-dialog-title"
-        >
-          Join Room
-        </WithStyles(DialogTitle)>,
-        <WithStyles(DialogContent)>
-          <WithStyles(DialogContentText)>
-            Please write your username below if you want to join to the room.
-          </WithStyles(DialogContentText)>
-          <TextField
-            autoFocus={true}
-            fullWidth={true}
-            id="userName"
-            label="User Name"
-            margin="dense"
-            onChange={[Function]}
-            required={false}
-            select={false}
-            type="text"
-            variant="standard"
-          />
-          <TextField
-            autoFocus={true}
-            fullWidth={true}
-            id="roomPassword"
-            label="Room Password"
-            margin="dense"
-            onChange={[Function]}
-            required={false}
-            select={false}
-            type="text"
-            variant="standard"
-          />
-        </WithStyles(DialogContent)>,
-        <WithStyles(DialogActions)>
-          <WithStyles(Button)
-            color="primary"
-            onClick={[Function]}
-          >
-            Cancel Join
-          </WithStyles(Button)>
-          <WithStyles(Button)
-            color="primary"
-            onClick={[Function]}
-            variant="contained"
-          >
-            Join Room
-          </WithStyles(Button)>
-        </WithStyles(DialogActions)>,
-      ],
-      "open": true,
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "children": "Join Room",
-          "id": "form-dialog-title",
-        },
-        "ref": null,
-        "rendered": "Join Room",
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "children": Array [
-            <WithStyles(DialogContentText)>
-              Please write your username below if you want to join to the room.
-            </WithStyles(DialogContentText)>,
-            <TextField
-              autoFocus={true}
-              fullWidth={true}
-              id="userName"
-              label="User Name"
-              margin="dense"
-              onChange={[Function]}
-              required={false}
-              select={false}
-              type="text"
-              variant="standard"
-            />,
-            <TextField
-              autoFocus={true}
-              fullWidth={true}
-              id="roomPassword"
-              label="Room Password"
-              margin="dense"
-              onChange={[Function]}
-              required={false}
-              select={false}
-              type="text"
-              variant="standard"
-            />,
-          ],
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": "Please write your username below if you want to join to the room.",
-            },
-            "ref": null,
-            "rendered": "Please write your username below if you want to join to the room.",
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "autoFocus": true,
-              "fullWidth": true,
-              "id": "userName",
-              "label": "User Name",
-              "margin": "dense",
-              "onChange": [Function],
-              "required": false,
-              "select": false,
-              "type": "text",
-              "value": undefined,
-              "variant": "standard",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "autoFocus": true,
-              "fullWidth": true,
-              "id": "roomPassword",
-              "label": "Room Password",
-              "margin": "dense",
-              "onChange": [Function],
-              "required": false,
-              "select": false,
-              "type": "text",
-              "value": undefined,
-              "variant": "standard",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-        ],
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "children": Array [
-            <WithStyles(Button)
-              color="primary"
-              onClick={[Function]}
-            >
-              Cancel Join
-            </WithStyles(Button)>,
-            <WithStyles(Button)
-              color="primary"
-              onClick={[Function]}
-              variant="contained"
-            >
-              Join Room
-            </WithStyles(Button)>,
-          ],
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": "Cancel Join",
-              "color": "primary",
-              "onClick": [Function],
-            },
-            "ref": null,
-            "rendered": "Cancel Join",
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": "Join Room",
-              "color": "primary",
-              "onClick": [Function],
-              "variant": "contained",
-            },
-            "ref": null,
-            "rendered": "Join Room",
-            "type": [Function],
-          },
-        ],
-        "type": [Function],
-      },
-    ],
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "aria-labelledby": "form-dialog-title",
-        "children": Array [
-          <WithStyles(DialogTitle)
-            id="form-dialog-title"
-          >
-            Join Room
-          </WithStyles(DialogTitle)>,
-          <WithStyles(DialogContent)>
-            <WithStyles(DialogContentText)>
-              Please write your username below if you want to join to the room.
-            </WithStyles(DialogContentText)>
-            <TextField
-              autoFocus={true}
-              fullWidth={true}
-              id="userName"
-              label="User Name"
-              margin="dense"
-              onChange={[Function]}
-              required={false}
-              select={false}
-              type="text"
-              variant="standard"
-            />
-            <TextField
-              autoFocus={true}
-              fullWidth={true}
-              id="roomPassword"
-              label="Room Password"
-              margin="dense"
-              onChange={[Function]}
-              required={false}
-              select={false}
-              type="text"
-              variant="standard"
-            />
-          </WithStyles(DialogContent)>,
-          <WithStyles(DialogActions)>
-            <WithStyles(Button)
-              color="primary"
-              onClick={[Function]}
-            >
-              Cancel Join
-            </WithStyles(Button)>
-            <WithStyles(Button)
-              color="primary"
-              onClick={[Function]}
-              variant="contained"
-            >
-              Join Room
-            </WithStyles(Button)>
-          </WithStyles(DialogActions)>,
-        ],
-        "open": true,
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": "Join Room",
-            "id": "form-dialog-title",
-          },
-          "ref": null,
-          "rendered": "Join Room",
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": Array [
-              <WithStyles(DialogContentText)>
-                Please write your username below if you want to join to the room.
-              </WithStyles(DialogContentText)>,
-              <TextField
-                autoFocus={true}
-                fullWidth={true}
-                id="userName"
-                label="User Name"
-                margin="dense"
-                onChange={[Function]}
-                required={false}
-                select={false}
-                type="text"
-                variant="standard"
-              />,
-              <TextField
-                autoFocus={true}
-                fullWidth={true}
-                id="roomPassword"
-                label="Room Password"
-                margin="dense"
-                onChange={[Function]}
-                required={false}
-                select={false}
-                type="text"
-                variant="standard"
-              />,
-            ],
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "children": "Please write your username below if you want to join to the room.",
-              },
-              "ref": null,
-              "rendered": "Please write your username below if you want to join to the room.",
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "autoFocus": true,
-                "fullWidth": true,
-                "id": "userName",
-                "label": "User Name",
-                "margin": "dense",
-                "onChange": [Function],
-                "required": false,
-                "select": false,
-                "type": "text",
-                "value": undefined,
-                "variant": "standard",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "autoFocus": true,
-                "fullWidth": true,
-                "id": "roomPassword",
-                "label": "Room Password",
-                "margin": "dense",
-                "onChange": [Function],
-                "required": false,
-                "select": false,
-                "type": "text",
-                "value": undefined,
-                "variant": "standard",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-          ],
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": Array [
-              <WithStyles(Button)
-                color="primary"
-                onClick={[Function]}
-              >
-                Cancel Join
-              </WithStyles(Button)>,
-              <WithStyles(Button)
-                color="primary"
-                onClick={[Function]}
-                variant="contained"
-              >
-                Join Room
-              </WithStyles(Button)>,
-            ],
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "children": "Cancel Join",
-                "color": "primary",
-                "onClick": [Function],
-              },
-              "ref": null,
-              "rendered": "Cancel Join",
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "children": "Join Room",
-                "color": "primary",
-                "onClick": [Function],
-                "variant": "contained",
-              },
-              "ref": null,
-              "rendered": "Join Room",
-              "type": [Function],
-            },
-          ],
-          "type": [Function],
-        },
-      ],
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-  },
-}
+exports[`JoinRoom renders without crashing 1`] = `
+<WithStyles(Dialog)
+  aria-labelledby="form-dialog-title"
+  open={true}
+>
+  <WithStyles(DialogTitle)
+    id="form-dialog-title"
+  >
+    Join Room
+  </WithStyles(DialogTitle)>
+  <WithStyles(DialogContent)>
+    <WithStyles(DialogContentText)>
+      Please write your username below if you want to join to the room.
+    </WithStyles(DialogContentText)>
+    <TextField
+      autoFocus={true}
+      fullWidth={true}
+      id="userName"
+      label="User Name"
+      margin="dense"
+      onChange={[Function]}
+      required={false}
+      select={false}
+      type="text"
+      value=""
+      variant="standard"
+    />
+    <TextField
+      autoFocus={true}
+      fullWidth={true}
+      id="roomPassword"
+      label="Room Password"
+      margin="dense"
+      onChange={[Function]}
+      required={false}
+      select={false}
+      type="password"
+      value=""
+      variant="standard"
+    />
+  </WithStyles(DialogContent)>
+  <WithStyles(DialogActions)>
+    <WithStyles(Button)
+      color="primary"
+      onClick={[Function]}
+    >
+      Cancel Join
+    </WithStyles(Button)>
+    <WithStyles(Button)
+      color="primary"
+      onClick={[Function]}
+      variant="contained"
+    >
+      Join Room
+    </WithStyles(Button)>
+  </WithStyles(DialogActions)>
+</WithStyles(Dialog)>
 `;

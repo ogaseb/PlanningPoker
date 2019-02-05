@@ -93,7 +93,6 @@ class Issue extends Component {
 
   render() {
     const {store: {jiraStore: {activeBoard, activeBoardFetching, title, description}, userStore: {admin}}} = this.props
-    console.log(activeBoard)
     return (
       <React.Fragment>
         {(activeBoard.length > 0 && admin) &&

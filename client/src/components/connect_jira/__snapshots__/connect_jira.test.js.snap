@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateRoom renders without crashing 1`] = `
+<Styled(WithStyles(Grid))
+  item={true}
+  xs={12}
+>
+  <Styled(WithStyles(Card))>
+    <styled.div>
+      <inject-withRouter(ConnectJiraLoggedOut)-with-store />
+    </styled.div>
+  </Styled(WithStyles(Card))>
+</Styled(WithStyles(Grid))>
+`;

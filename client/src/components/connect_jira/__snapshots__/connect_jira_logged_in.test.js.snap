@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateRoom renders without crashing 1`] = `
+<Fragment>
+  <styled.img
+    alt="Jira logo"
+    src="jira.png"
+  />
+  <WithStyles(Typography)
+    align="center"
+    variant="h3"
+  >
+    Jira Integration
+  </WithStyles(Typography)>
+  <WithStyles(Typography)>
+    Select board you want to make an estimations for and go to your room
+  </WithStyles(Typography)>
+  <Styled(WithStyles(Grid))
+    container={true}
+  >
+    <WithStyles(Grid)
+      item={true}
+      xs={5}
+    >
+      <Styled(WithStyles(Button))
+        color="primary"
+        disabled={true}
+        onClick={[Function]}
+        variant="contained"
+      >
+        Go to room
+        <Styled(pure(AddCircleIcon)) />
+      </Styled(WithStyles(Button))>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      item={true}
+      xs={2}
+    >
+      <Styled(WithStyles(Typography))
+        variant="h5"
+      >
+         OR 
+      </Styled(WithStyles(Typography))>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      item={true}
+      xs={5}
+    >
+      <Styled(WithStyles(Button))
+        color="primary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Logout from Jira
+        <Styled(Icon) />
+      </Styled(WithStyles(Button))>
+    </WithStyles(Grid)>
+  </Styled(WithStyles(Grid))>
+</Fragment>
+`;

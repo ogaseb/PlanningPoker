@@ -10,6 +10,7 @@
 # production
 /client/build
 /dist
+/server/server.min.js
 
 # misc
 .idea

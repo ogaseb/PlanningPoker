@@ -5,9 +5,9 @@
     "client": "cd client && yarn start",
     "server": "cd server && nodemon --exec babel-node server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "cd server && pm2-runtime server.min.js -i 1",
+    "start": "yarn webpack && cd server && pm2-runtime server.min.js -i 1",
     "debug": "node --inspect-brk server.min.js",
-    "test": "cd client && CI=true yarn test",
+    "test": "cd client && yarn test",
     "heroku-postbuild": "webpack --config webpack.server.config.js && node models/database.js && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "preinstall": "npm install pm2 -g",
     "precommit": "lint-staged",
@@ -47,7 +47,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "cd client && yarn test"
     }
   },
   "lint-staged": {
@@ -58,16 +59,6 @@
     "client/**/*.js": [
       "eslint --fix",
       "git add"
-    ]
-  },
-  "jest": {
-    "modulePaths": [
-      "<rootDir>/client/src",
-      "<rootDir>/client",
-      "<rootDir>"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
     ]
   }
 }

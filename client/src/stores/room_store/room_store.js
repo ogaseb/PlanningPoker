@@ -66,7 +66,7 @@ const RoomStore = types
       socket.emit("resetCards", {roomId: self.roomId});
     },
     initialize() {
-      const {userStore: {setUserId, setAdmin, setConnected}, socketStore: {socket, openNotification}, jiraStore:{setDescription, setTitle}} = getRoot(self)
+      const {userStore: {setUserId, setAdmin, setConnected}, socketStore: {socket, openNotification}, jiraStore: {setDescription, setTitle}} = getRoot(self)
       socket.on("createRoom", ({user, roomId, roomName}) => {
         setUserId(user[user.length - 1].userId);
         setAdmin(true);

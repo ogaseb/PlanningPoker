@@ -54,8 +54,8 @@ class Error extends Component {
       <StyledGrid item xs={12}>
         <StyledCard>
           <ErrorWrapper>
-            <AlertCircleOutline color="error" style={{width:"128px", height:"auto"}} />
-            <Typography variant={"display2"}  style={{marginBottom:"40px"}}>
+            <AlertCircleOutline color="error" style={{width: "128px", height: "auto"}}/>
+            <Typography variant={"display2"} style={{marginBottom: "40px"}}>
               {this.errorInfo}
             </Typography>
             <Typography variant={"display2"}>

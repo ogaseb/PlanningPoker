@@ -1,18 +1,14 @@
 import React from "react"
 import {HistoryList} from "./history_list"
-import {configure, shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import sinon from "sinon";
-
-configure({adapter: new Adapter()});
+import { shallow} from "enzyme";
 
 describe("HistoryList", () => {
   it("renders without errors", () => {
     const props = {
       store: {
-        room: {cardsAreTheSame: false, cardResults: [], cardHistory: []},
-        user: {admin: true, users: []},
-        jira: {activeBoardFetching: false, activeBoard: {issues: []}}
+        roomStore: {cardsAreTheSame: false, cardResults: [], cardHistory: []},
+        userStore: {admin: true, users: []},
+        jiraStore: {activeBoardFetching: false, activeBoard: {issues: []}}
       }
     }
 

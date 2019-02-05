@@ -1,135 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Jira renders without errors 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Icon
-    store={
-      Object {
-        "jira": Object {
-          "activeBoard": Object {
-            "issues": Array [],
-          },
-          "activeBoardFetching": false,
-        },
-        "room": Object {
-          "cardHistory": Array [],
-          "cardResults": Array [],
-          "cardsAreTheSame": false,
-        },
-        "user": Object {
-          "admin": true,
-          "users": Array [],
-        },
-      }
-    }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "children": <path
-        d="M11.53,2C11.53,4.4 13.5,6.35 15.88,6.35H17.66V8.05C17.66,10.45 19.6,12.39 22,12.4V2.84C22,2.38 21.62,2 21.16,2H11.53M6.77,6.8C6.78,9.19 8.72,11.13 11.11,11.14H12.91V12.86C12.92,15.25 14.86,17.19 17.25,17.2V7.63C17.24,7.17 16.88,6.81 16.42,6.8H6.77M2,11.6C2,14 3.95,15.94 6.35,15.94H8.13V17.66C8.14,20.05 10.08,22 12.47,22V12.43C12.47,11.97 12.09,11.59 11.63,11.59L2,11.6Z"
-      />,
-      "store": Object {
-        "jira": Object {
-          "activeBoard": Object {
-            "issues": Array [],
-          },
-          "activeBoardFetching": false,
-        },
-        "room": Object {
-          "cardHistory": Array [],
-          "cardResults": Array [],
-          "cardsAreTheSame": false,
-        },
-        "user": Object {
-          "admin": true,
-          "users": Array [],
-        },
-      },
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "d": "M11.53,2C11.53,4.4 13.5,6.35 15.88,6.35H17.66V8.05C17.66,10.45 19.6,12.39 22,12.4V2.84C22,2.38 21.62,2 21.16,2H11.53M6.77,6.8C6.78,9.19 8.72,11.13 11.11,11.14H12.91V12.86C12.92,15.25 14.86,17.19 17.25,17.2V7.63C17.24,7.17 16.88,6.81 16.42,6.8H6.77M2,11.6C2,14 3.95,15.94 6.35,15.94H8.13V17.66C8.14,20.05 10.08,22 12.47,22V12.43C12.47,11.97 12.09,11.59 11.63,11.59L2,11.6Z",
-      },
-      "ref": null,
-      "rendered": null,
-      "type": "path",
-    },
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
+<WithStyles(SvgIcon)
+  store={
     Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": <path
-          d="M11.53,2C11.53,4.4 13.5,6.35 15.88,6.35H17.66V8.05C17.66,10.45 19.6,12.39 22,12.4V2.84C22,2.38 21.62,2 21.16,2H11.53M6.77,6.8C6.78,9.19 8.72,11.13 11.11,11.14H12.91V12.86C12.92,15.25 14.86,17.19 17.25,17.2V7.63C17.24,7.17 16.88,6.81 16.42,6.8H6.77M2,11.6C2,14 3.95,15.94 6.35,15.94H8.13V17.66C8.14,20.05 10.08,22 12.47,22V12.43C12.47,11.97 12.09,11.59 11.63,11.59L2,11.6Z"
-        />,
-        "store": Object {
-          "jira": Object {
-            "activeBoard": Object {
-              "issues": Array [],
-            },
-            "activeBoardFetching": false,
-          },
-          "room": Object {
-            "cardHistory": Array [],
-            "cardResults": Array [],
-            "cardsAreTheSame": false,
-          },
-          "user": Object {
-            "admin": true,
-            "users": Array [],
-          },
+      "jira": Object {
+        "activeBoard": Object {
+          "issues": Array [],
         },
+        "activeBoardFetching": false,
       },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "d": "M11.53,2C11.53,4.4 13.5,6.35 15.88,6.35H17.66V8.05C17.66,10.45 19.6,12.39 22,12.4V2.84C22,2.38 21.62,2 21.16,2H11.53M6.77,6.8C6.78,9.19 8.72,11.13 11.11,11.14H12.91V12.86C12.92,15.25 14.86,17.19 17.25,17.2V7.63C17.24,7.17 16.88,6.81 16.42,6.8H6.77M2,11.6C2,14 3.95,15.94 6.35,15.94H8.13V17.66C8.14,20.05 10.08,22 12.47,22V12.43C12.47,11.97 12.09,11.59 11.63,11.59L2,11.6Z",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": "path",
+      "room": Object {
+        "cardHistory": Array [],
+        "cardResults": Array [],
+        "cardsAreTheSame": false,
       },
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getDerivedStateFromProps": true,
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
+      "user": Object {
+        "admin": true,
+        "users": Array [],
       },
-    },
-  },
-}
+    }
+  }
+>
+  <path
+    d="M11.53,2C11.53,4.4 13.5,6.35 15.88,6.35H17.66V8.05C17.66,10.45 19.6,12.39 22,12.4V2.84C22,2.38 21.62,2 21.16,2H11.53M6.77,6.8C6.78,9.19 8.72,11.13 11.11,11.14H12.91V12.86C12.92,15.25 14.86,17.19 17.25,17.2V7.63C17.24,7.17 16.88,6.81 16.42,6.8H6.77M2,11.6C2,14 3.95,15.94 6.35,15.94H8.13V17.66C8.14,20.05 10.08,22 12.47,22V12.43C12.47,11.97 12.09,11.59 11.63,11.59L2,11.6Z"
+  />
+</WithStyles(SvgIcon)>
 `;

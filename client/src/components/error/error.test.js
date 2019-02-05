@@ -1,10 +1,8 @@
 import React from "react";
-import {JoinRoom} from "./join_room";
-import { shallow} from "enzyme";
+import {shallow} from "enzyme";
+import {Error} from "./error";
 
-
-const noop = () => {}
-describe("JoinRoom", () => {
+describe("Error", () => {
 
   it("renders without crashing", () => {
     const props = {
@@ -12,7 +10,7 @@ describe("JoinRoom", () => {
         userStore: {connected: false}
       }
     }
-    const component = shallow(<JoinRoom {...props}/>)
+    const component = shallow(<Error {...props}/>)
     expect(component).toMatchSnapshot()
   });
 

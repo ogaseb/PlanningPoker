@@ -1,17 +1,15 @@
 import React from "react"
 import {Room} from "./room"
-import { configure, shallow } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import { shallow } from "enzyme";
 
 const noop = () => {}
 
 describe("Room", () => {
   it("renders without errors", () => {
     const store = {
-      room: { cardsAreTheSame : false, cardResults : [], cardHistory: []},
-      user: {admin: true, users: []},
-      jira: {activeBoardFetching: false,  activeBoard: { issues: []}},
+      roomStore: { cardsAreTheSame : false, cardResults : [], cardHistory: []},
+      userStore: {admin: true, users: []},
+      jiraStore: {activeBoardFetching: false,  activeBoard: { issues: []}},
       fetchUsers: noop
     }
 

@@ -228,7 +228,7 @@ io.on("connection", socket => {
         return o.userId === userId;
       });
 
-      if (index !== -1){
+      if (index !== -1) {
         temp_room.user[index].userName = `${temp_room.user[index].userName} - ✔`;
         io.in(roomId).emit("fetchRoomUsers", temp_room.user);
       }
@@ -286,7 +286,7 @@ io.on("connection", socket => {
       });
       if (index !== -1) {
 
-        if (!userLeaved){
+        if (!userLeaved) {
           io.in(roomId).emit("kickUser", temp_room.user[index]);
         }
 
@@ -305,7 +305,6 @@ io.on("connection", socket => {
 
     }
   });
-
 
 
   socket.on("changeAdmin", ({userId}) => {

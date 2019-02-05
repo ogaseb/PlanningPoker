@@ -1,8 +1,6 @@
 import React from "react"
 import {Lists} from "./lists"
-import { configure, shallow } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import { shallow } from "enzyme";
 
 describe("UserList", () => {
   it("renders without errors", () => {

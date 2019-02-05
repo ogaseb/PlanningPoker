@@ -1,15 +1,15 @@
 import React from "react";
 import {shallow} from "enzyme";
-import {CreateRoom} from "./create_room";
+import {ConnectJira} from "./connect_jira";
 
 describe("CreateRoom", () => {
   it("renders without crashing", () => {
     const props = {
       store: {
-        userStore: {connected: false}
+        jiraStore:{}
       }
     }
-    const component = shallow(<CreateRoom {...props}/>)
+    const component = shallow(<ConnectJira {...props}/>)
     expect(component).toMatchSnapshot()
   });
 });

@@ -10,7 +10,7 @@ class UserStore {
       userId: "",
       users: [],
       kicked: false,
-      userIsConnecting:false,
+      userIsConnecting: false,
       connected: false,
       admin: false
     };
@@ -35,9 +35,9 @@ class UserStore {
       title: "",
       description: "",
       jiraLoggedIn: false,
-      issueId:"",
-      issueKey:"",
-      boardId:"",
+      issueId: "",
+      issueKey: "",
+      boardId: "",
       estimationScore: ""
     };
 
@@ -50,17 +50,17 @@ class UserStore {
 
     this.socket.on("sendCard", (response) => {
       this.room.waiting = [];
-      if (response){
+      if (response) {
         console.log(response, "sendCard")
         this.blockReset = false;
         let card = sortBy(response, "cardValue");
-        const allEqual = arr => arr.every( v => v.cardValue === arr[0].cardValue );
-        this.room.cardsAreTheSame = allEqual( card );
+        const allEqual = arr => arr.every(v => v.cardValue === arr[0].cardValue);
+        this.room.cardsAreTheSame = allEqual(card);
 
         if (!this.room.cardsAreTheSame) {
-          card[card.length -1].color =  card[0].color = "#E33B3B";
+          card[card.length - 1].color = card[0].color = "#E33B3B";
           this.room.cardResults = card
-        }else {
+        } else {
           for (let i = 0; i < card.length; i++) {
             card[i].color = "#37C26D"
           }
@@ -70,10 +70,10 @@ class UserStore {
     });
 
     this.socket.on("waitingFor", (response) => {
-      if (response && this.room.cardResults.length === 0){
+      if (response && this.room.cardResults.length === 0) {
         this.room.waiting = [];
 
-        for (let i = 0; i < response; i ++){
+        for (let i = 0; i < response; i++) {
           console.log(response, "waitingFor")
 
           this.room.waiting.push(true)
@@ -88,7 +88,7 @@ class UserStore {
       this.jira.description = this.jira.title = "";
       this.notificationVariant = "info";
       this.notificationMessage = "Card reset";
-      if (data){
+      if (data) {
         console.log(data, "cardHistory")
         this.room.cardHistory = data
       }
@@ -96,7 +96,7 @@ class UserStore {
     });
 
     this.socket.on("kickUser", (data) => {
-      if (data){
+      if (data) {
         if (this.user.userId !== "" && this.user.userId === data.userId) {
           this.user.kicked = true;
           this.user.admin = this.openJoinDialog = false;
@@ -108,7 +108,7 @@ class UserStore {
     });
 
     this.socket.on("changeAdmin", (data) => {
-      if (data){
+      if (data) {
         if (this.user.userId === data && this.user.admin === false) {
           this.user.admin = true;
           this.notificationVariant = "info";
@@ -118,7 +118,7 @@ class UserStore {
     });
 
     this.socket.on("broadcastTitle", (title) => {
-      if (title){
+      if (title) {
         this.jira.title = title
       }
     });
@@ -132,7 +132,7 @@ class UserStore {
     });
 
     this.socket.on("errors", (description) => {
-      if (description){
+      if (description) {
         this.notificationVariant = "error";
         this.notificationMessage = description.error
       }
@@ -161,7 +161,7 @@ class UserStore {
     });
   }
 
-  saveBoardId(boardId, roomId){
+  saveBoardId(boardId, roomId) {
     const data = {
       roomId,
       boardId,
@@ -169,7 +169,7 @@ class UserStore {
     this.socket.emit("saveBoardId", data);
   }
 
-  deleteRoom(roomId, roomPassword){
+  deleteRoom(roomId, roomPassword) {
     const data = {
       roomId,
       roomPassword
@@ -220,13 +220,13 @@ class UserStore {
   }
 
   resetCards() {
-    if (this.jira.issueKey){
+    if (this.jira.issueKey) {
       const data = {
         roomId: this.room.roomId,
         issueKey: this.jira.issueKey
       };
       this.socket.emit("resetCards", data);
-    }else {
+    } else {
       const data = {
         roomId: this.room.roomId,
       };
@@ -239,7 +239,7 @@ class UserStore {
     const data = {
       roomId: this.room.roomId,
     };
-    setInterval(()=>{
+    setInterval(() => {
       this.socket.emit("fetchUsers", data)
     }, 1000)
     this.socket.on("fetchUsers", (response) => {
@@ -286,7 +286,7 @@ class UserStore {
     };
     this.socket.emit("jiraLogin", data)
     this.socket.on("jiraLogin", (data) => {
-      if (data){
+      if (data) {
         this.jira.jiraLoggedIn = true
         this.jira.jiraBoards = data
         this.jira.jiraBoardsFetching = false

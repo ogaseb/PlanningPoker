@@ -88,7 +88,7 @@ const JiraStore = types
     setActiveBoardsFetching(value) {
       self.activeBoardFetching = value
     },
-    setActiveBoard(value){
+    setActiveBoard(value) {
       self.activeBoard.concat(value)
     },
     setJiraBoards(value) {
