@@ -4,7 +4,10 @@ exports[`CardResults renders without errors 1`] = `
 <Fragment>
   <Styled(WithStyles(Card))>
     <styled.div />
-    <styled.div />
+    <Styled(styled.div) />
+    <DropTarget(CardTable)
+      handleSelectedCard={[Function]}
+    />
   </Styled(WithStyles(Card))>
 </Fragment>
 `;

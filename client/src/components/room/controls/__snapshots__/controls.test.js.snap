@@ -20,102 +20,54 @@ exports[`Controls renders without errors 1`] = `
     Set estimation point
   </WithStyles(Button)>
   <styled.div>
-    <Styled(WithStyles(Button))
-      color="primary"
+    <DragSource(ButtonDnd)
       key="0"
-      onClick={[Function]}
-      variant="contained"
-    >
-      ☕
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value="☕"
+    />
+    <DragSource(ButtonDnd)
       key="1"
-      onClick={[Function]}
-      variant="contained"
-    >
-      0
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={0}
+    />
+    <DragSource(ButtonDnd)
       key="2"
-      onClick={[Function]}
-      variant="contained"
-    >
-      0.5
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={0.5}
+    />
+    <DragSource(ButtonDnd)
       key="3"
-      onClick={[Function]}
-      variant="contained"
-    >
-      1
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={1}
+    />
+    <DragSource(ButtonDnd)
       key="4"
-      onClick={[Function]}
-      variant="contained"
-    >
-      2
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={2}
+    />
+    <DragSource(ButtonDnd)
       key="5"
-      onClick={[Function]}
-      variant="contained"
-    >
-      3
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={3}
+    />
+    <DragSource(ButtonDnd)
       key="6"
-      onClick={[Function]}
-      variant="contained"
-    >
-      5
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={5}
+    />
+    <DragSource(ButtonDnd)
       key="7"
-      onClick={[Function]}
-      variant="contained"
-    >
-      8
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={8}
+    />
+    <DragSource(ButtonDnd)
       key="8"
-      onClick={[Function]}
-      variant="contained"
-    >
-      13
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={13}
+    />
+    <DragSource(ButtonDnd)
       key="9"
-      onClick={[Function]}
-      variant="contained"
-    >
-      20
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={20}
+    />
+    <DragSource(ButtonDnd)
       key="10"
-      onClick={[Function]}
-      variant="contained"
-    >
-      40
-    </Styled(WithStyles(Button))>
-    <Styled(WithStyles(Button))
-      color="primary"
+      value={40}
+    />
+    <DragSource(ButtonDnd)
       key="11"
-      onClick={[Function]}
-      variant="contained"
-    >
-      100
-    </Styled(WithStyles(Button))>
+      value={100}
+    />
   </styled.div>
 </Fragment>
 `;
