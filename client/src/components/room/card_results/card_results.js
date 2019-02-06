@@ -1,36 +1,37 @@
 import React, {Component} from "react"
 import {inject, observer} from "mobx-react";
-import Typography from "@material-ui/core/Typography";
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from "styled-components";
 import Card from "@material-ui/core/Card";
 import Zoom from '@material-ui/core/Zoom';
 import ReactCardFlip from 'react-card-flip';
 import {decorate, observable, reaction} from "mobx";
+import CardTable from "./card_table_dnd"
 
 
 const Wrapper = styled(Card)`
   display: flex;
   flex-direction: row;
-  margin: 10px auto 0;
+  margin: 50px auto 0;
   width: 90%;
+  height: 89px;
   flex-wrap: wrap;
 `;
 
-const CardsWrapper = styled.div`
+const CardsWrapperWaiting = styled.div`
   &&{
+  position: relative;
   display:flex;
-  width: 90%;
-  margin: 20px auto 10px;
+  height:89px;
+  width: 100%;
   flex-wrap: wrap;
   }
 `;
-
-const Wrap = styled.div`
-  width: 100px;
-  min-height: 20px;
-  perspective: 1000px;
-`
+const CardsWrapperResults = styled(CardsWrapperWaiting)`
+  &&{
+  bottom: 89px;
+  }
+`;
 
 const StyledCard = styled(Card)`
   &&{
@@ -38,14 +39,12 @@ const StyledCard = styled(Card)`
     height:89px;
     font-size: 30px;
     line-height: 89px;
-    margin: 5px;
-    margin: 0 auto;
     background-color:${props => props.color || "#303F9F"};
     color:white;
   }
 `;
 
-const StyledResultCard = styled(Card)`
+const CardMargin = styled.div`
   &&{
     margin-right: 20px;
   }
@@ -71,43 +70,49 @@ class CardResults extends Component {
       this.isFlipped[index] = false
       setTimeout(() => {
         this.isFlipped[index] = true
-      }, 1000 * (index + 1))
+      }, 500 * (index + 1))
     })
   }
 
   render() {
-    const {store: {roomStore: {waiting, cardResults}}} = this.props
+    const {store: {roomStore: {waiting, cardResults, setSelectedCard, selectedCard}}} = this.props
     return (
       <React.Fragment>
         <Wrapper>
-          <CardsWrapper>
-            {waiting.length > 0 && waiting.map((result, index) => (
-              <Card key={index}>
+          <CardsWrapperWaiting>
+            {waiting.map((result, index) => (
+              <CardMargin>
                 <StyledCard color={"#303F9F"}>
                 </StyledCard>
-              </Card>
+              </CardMargin>
             ))}
-          </CardsWrapper>
-          <CardsWrapper>
+            {selectedCard &&
+            <CardMargin><StyledCard color={"#303F9F"}>{selectedCard}</StyledCard></CardMargin>}
+          </CardsWrapperWaiting>
+          <CardsWrapperResults>
             {cardResults.length > 0 && cardResults.map((result, index) => {
               return (
-                <ReactCardFlip isFlipped={this.isFlipped[index]}>
-                  <StyledResultCard key="front">
+                <ReactCardFlip flipSpeedFrontToBack={0.5} isFlipped={this.isFlipped[index]}>
+                  <CardMargin key="front">
                     <StyledCard color={"#303F9F"}>
                     </StyledCard>
-                  </StyledResultCard>
-                  <StyledResultCard key="back">
-                    <Tooltip  placement="top" TransitionComponent={Zoom} title={result.userName}>
+                  </CardMargin>
+                  <CardMargin key="back">
+                    <Tooltip placement="top" TransitionComponent={Zoom} title={result.userName}>
                       <StyledCard color={result.color}>
                         {result.cardValue}
                       </StyledCard>
                     </Tooltip>
-                  </StyledResultCard>
+                  </CardMargin>
                 </ReactCardFlip>
               )
             })
             }
-          </CardsWrapper>
+          </CardsWrapperResults>
+          <CardTable selectedCard={selectedCard} handleSelectedCard={(value) => {
+            setSelectedCard(value)
+          }}>
+          </CardTable>
         </Wrapper>
       </React.Fragment>
     )

@@ -13,7 +13,8 @@ const RoomStore = types
     cardsAreTheSame: types.optional(types.boolean, false),
     waiting: types.optional(types.array(types.boolean), []),
     blockCard: types.optional(types.boolean, false),
-    blockReset: types.optional(types.boolean, false)
+    blockReset: types.optional(types.boolean, false),
+    selectedCard: types.union(types.maybe(types.string), types.maybe(types.number))
   })
   .views(self => ({
     get isRoomCreated() {
@@ -51,14 +52,15 @@ const RoomStore = types
         roomPassword
       });
     },
-    sendCard(card) {
+    sendCard() {
       const {socketStore: {socket}, userStore: {userId, userName}} = getRoot(self)
       socket.emit("sendCard", {
         roomId: self.roomId,
         userId,
         userName,
-        cardValue: card
+        cardValue: self.selectedCard
       });
+      self.setSelectedCard("")
     },
     resetCards() {
       const {socketStore: {socket}} = getRoot(self)
@@ -137,6 +139,9 @@ const RoomStore = types
     },
     setRoomId(value) {
       self.roomId = value
+    },
+    setSelectedCard(value) {
+      self.selectedCard = value
     },
     clearWaiting() {
       self.waiting = []

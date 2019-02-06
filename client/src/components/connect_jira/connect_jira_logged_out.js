@@ -4,13 +4,12 @@ import styled from "styled-components";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-import {ArrowUpBold, Login, Logout} from "mdi-material-ui";
+import {ArrowUpBold, Login} from "mdi-material-ui";
 import {decorate, observable} from "mobx";
 import Jira from "img/jira.png"
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel/FormControlLabel";
 import routes from "routes"
-import AddCircle from "@material-ui/core/SvgIcon/SvgIcon";
 
 const StyledButton = styled(Button)`
   &&{

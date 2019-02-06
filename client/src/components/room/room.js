@@ -16,6 +16,7 @@ import {
 import {decorate, observable, when} from "mobx";
 import Redirect from "react-router-dom/Redirect";
 import routes from "routes"
+import ItemPreview from "drag_layer";
 
 const StyledGrid = styled(Grid)`
   &&{
@@ -35,11 +36,6 @@ const StyledCard = styled(Card)`
 `;
 
 class Room extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
   componentDidMount() {
     const {store: {userStore: {kicked, setKicked, setConnected}}} = this.props
     this.notFound = window.__ROOM_NOT_FOUND__
@@ -67,6 +63,7 @@ class Room extends Component {
   render() {
     return (
       <React.Fragment>
+        <ItemPreview/>
         {this.notFound && <Redirect to="/error"/>}
         <BrowserView style={{display: "flex", flexWrap: "wrap", margin: "0 auto", width: "100%"}}>
           <JoinDialog/>

@@ -4,7 +4,6 @@ import IconButton from "@material-ui/core/IconButton"
 import CloseIcon from "@material-ui/icons/Close"
 import {inject, observer} from "mobx-react"
 import styled from "styled-components"
-import {decorate, observable} from "mobx";
 
 const NotificationSnackbar = styled(Snackbar)`
   & > div {
