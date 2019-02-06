@@ -1,3 +1,6 @@
+require("dotenv").config()
+import passport from "passport"
+import passportSetup from "./config/passport_setup"
 import express from "express"
 import http from "http"
 import fs from 'fs'
@@ -383,7 +386,18 @@ io.on("connection", socket => {
 })
 ;
 
+
 app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get("/login/google", passport.authenticate("google", {
+  scope: ["profile"]
+}, function (req, res) {
+  console.log(res, req)
+}))
+
+app.get("/login/google/redirect", function (req, res) {
+  res.send(console.log("get redirect"))
+})
 
 app.get('/room/*/:uuid', function (req, res, next) {
   const {uuid} = req.params

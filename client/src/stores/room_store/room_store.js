@@ -98,6 +98,7 @@ const RoomStore = types
         if (response) {
           self.setBlockReset(false)
           let card = sortBy(response, "cardValue");
+
           const allEqual = arr => arr.every(v => v.cardValue === arr[0].cardValue);
           self.setCardsAreTheSame(allEqual(card))
 

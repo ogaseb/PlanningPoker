@@ -7,6 +7,8 @@ import GithubCircle from "mdi-material-ui/GithubCircle";
 import styled from "styled-components";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import axios from "axios"
 
 const StyledIconButton = styled(IconButton)`
   && {
@@ -17,7 +19,15 @@ const StyledIconButton = styled(IconButton)`
 
 
 class Header extends Component {
-
+  handleLogin = () =>{
+    axios.get("/login/google")
+      .then(function (response) {
+        // handle success
+        console.log(response.data)
+        // window.open(response.data, "windowname1", 'width=800, height=600');
+        // console.log(response);
+      })
+  }
   render() {
     return (
       <AppBar position="static" color="default">
@@ -25,6 +35,7 @@ class Header extends Component {
           <Typography variant="title" color="inherit">
             Planning Poker
           </Typography>
+          <Button onClick={this.handleLogin} >Login via Google</Button>
           <StyledIconButton
             href="https://github.com/ProPanek/ScrumPoker"
             aria-haspopup="true"

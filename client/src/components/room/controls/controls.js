@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import {inject, observer} from "mobx-react";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
-import ButtonDnd from "./controlsbutton_dnd"
+import ButtonDnd from "./controls_button_dnd"
 
 const ButtonWrapper = styled.div`
   display: block;
@@ -11,7 +11,7 @@ const ButtonWrapper = styled.div`
   height: 10vh;
 `;
 
-const cards = ["☕", 0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
+const cards = ["☕", "0", 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
 
 class Controls extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class Controls extends Component {
         <ButtonWrapper>
           {cards.map((card, index) => {
             return (
-                <ButtonDnd key={index} value={card}/>
+              <ButtonDnd key={index} value={card}/>
             )
           })}
         </ButtonWrapper>
