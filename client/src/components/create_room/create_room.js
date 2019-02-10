@@ -95,14 +95,14 @@ class CreateRoom extends Component {
   };
 
   handleSubmit = async () => {
-    const {store: {socketStore: {openNotification}, roomStore: {createRoom}}} = this.props
+    const {store: {socketStore: {openNotification}, roomStore: {createRoom}, userStore: {loggedIn, userName}}} = this.props
     if (
-      this.userName &&
-      this.roomName &&
-      this.roomPassword
+      loggedIn ? userName : this.userName &&
+        this.roomName &&
+        this.roomPassword
     ) {
       createRoom(
-        this.userName,
+        loggedIn ? userName : this.userName,
         this.roomName,
         this.roomPassword
       );
@@ -116,6 +116,7 @@ class CreateRoom extends Component {
   }
 
   render() {
+    const {store: {userStore: {loggedIn}}} = this.props
     return (
       <StyledGrid item xs={12}>
         <StyledCard>
@@ -123,13 +124,13 @@ class CreateRoom extends Component {
             <Typography variant="h3" align={"center"}>
               Create Room
             </Typography>
-            <TextField
+            {!loggedIn && (<TextField
               type="text"
               label="User Name"
               value={this.userName}
               onChange={this.handleChangeUserName}
               margin="normal"
-            />
+            />)}
             <TextField
               type="text"
               label="Room Name"

@@ -11,7 +11,7 @@ import {withRouter} from "react-router-dom";
 import {decorate, observable} from "mobx";
 import routes from "routes"
 
-class JoinDialog extends Component {
+class JoinDialogComponent extends Component {
   constructor(props) {
     super(props)
     this.userName = ""
@@ -32,21 +32,24 @@ class JoinDialog extends Component {
     this.roomPassword = e.target.value
   };
   joinRoom = () => {
-    const {match: {params}, store: {roomStore: {joinRoom}, socketStore: {openNotification}, userStore: {setUserName}}} = this.props
-    if (this.userName && this.roomPassword) {
-      setUserName(this.userName)
-      joinRoom(this.userName, params.id, this.roomPassword)
+    const {match: {params}, store: {roomStore: {joinRoom}, socketStore: {openNotification}, userStore: {setUserName, userName, loggedIn}}} = this.props
+    if (loggedIn ? userName : this.userName && this.roomPassword) {
+      if (!loggedIn) {
+        setUserName(this.userName)
+      }
+      joinRoom(loggedIn ? userName : this.userName, params.id, this.roomPassword)
     } else {
       openNotification("To join a room you need to fill all inputs", "warning")
     }
   }
 
   cancelJoinRoom = () => {
-    this.props.history.push(routes.root())
+    const {store: {userStore: {loggedIn}}, history: {push}} = this.props
+    loggedIn ? push(routes.rooms()) : push(routes.root())
   }
 
   render() {
-    const {store: {userStore: {isConnected}}} = this.props
+    const {store: {userStore: {isConnected, loggedIn}}} = this.props
     return (
       <Dialog
         open={!isConnected}
@@ -57,7 +60,7 @@ class JoinDialog extends Component {
           <DialogContentText>
             Please write your username below if you want to join to the room.
           </DialogContentText>
-          <TextField
+          {!loggedIn && (<TextField
             autoFocus
             margin="dense"
             id="userName"
@@ -66,7 +69,7 @@ class JoinDialog extends Component {
             fullWidth
             value={this.userName}
             onChange={this.handleChangUserName}
-          />
+          />)}
           <TextField
             autoFocus
             margin="dense"
@@ -91,11 +94,11 @@ class JoinDialog extends Component {
   }
 }
 
-decorate(JoinDialog, {
+decorate(JoinDialogComponent, {
   userName: observable,
   roomPassword: observable
 });
 
-export {JoinDialog}
-export default inject("store")(withRouter(observer(JoinDialog)));
+export {JoinDialogComponent}
+export default inject("store")(withRouter(observer(JoinDialogComponent)));
 

@@ -1,6 +1,6 @@
 import React from "react";
 import {shallow} from "enzyme";
-import {JoinDialog} from "./join_dialog";
+import {JoinDialog} from "./join_dialog_component";
 
 
 const noop = () => {}

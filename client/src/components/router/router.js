@@ -1,6 +1,8 @@
 import React from "react"
 import {Route, withRouter, Switch} from "react-router-dom"
 import {inject, observer} from "mobx-react"
+import MainPage from "components/main_page/main_page"
+import Rooms from "components/rooms/rooms"
 import CreateRoom from "components/create_room/create_room"
 import JoinRoom from "components/join_room/join_room"
 import Room from "components/room/room"
@@ -17,6 +19,16 @@ class Router extends React.Component {
           <Route
             exact
             path={routes.root()}
+            component={MainPage}
+          />
+          <Route
+            exact
+            path={routes.rooms()}
+            component={Rooms}
+          />
+          <Route
+            exact
+            path={routes.create()}
             component={CreateRoom}
           />
           <Route

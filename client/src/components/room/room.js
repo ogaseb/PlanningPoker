@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router-dom";
-import JoinDialog from "../join_room/join_dialog";
+import JoinDialog from "../join_room/join_dialog_component";
 import Issue from "./issue/issue";
 import CardResults from "./card_results/card_results";
 import Controls from "./controls/controls";
@@ -54,15 +54,19 @@ class Room extends Component {
 
   onBackButtonEvent = (e) => {
     e.preventDefault()
-    const {store: {userStore: {leaveRoom}, socketStore: {openNotification}}, history: {push}} = this.props
+    const {store: {userStore: {leaveRoom, loggedIn}, socketStore: {openNotification}}, history: {push}} = this.props
     leaveRoom()
     openNotification("You have left the Room", "warning")
-    push(routes.root())
+    if (loggedIn){
+      push(routes.rooms())
+    } else {
+      push(routes.root())
+    }
   };
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <ItemPreview/>
         {this.notFound && <Redirect to="/error"/>}
         <BrowserView style={{display: "flex", flexWrap: "wrap", margin: "0 auto", width: "100%"}}>
@@ -91,7 +95,7 @@ class Room extends Component {
             <Lists/>
           </StyledCard>
         </MobileView>
-      </React.Fragment>
+      </>
     );
   }
 }

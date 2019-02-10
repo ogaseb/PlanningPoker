@@ -23,19 +23,19 @@ const RoomStore = types
   }))
   .actions(self => ({
     createRoom(userName, roomName, roomPassword) {
-      const {userStore: {setUserName}, socketStore: {socket}} = getRoot(self)
+      const {userStore: {setUserName, loginUserId}, socketStore: {socket}} = getRoot(self)
       setUserName(userName)
       localStorage.setItem("userName", JSON.stringify(userName));
       // setConnected(true)
       socket.emit("createRoom", {
         userName,
         roomName,
-        roomPassword
+        roomPassword,
+        userId: loginUserId ? loginUserId : false
       });
     },
     joinRoom(userName, roomId, roomPassword) {
       const {socketStore: {socket}} = getRoot(self)
-
       localStorage.setItem("userName", JSON.stringify(userName));
       // this.user.connected = true
       socket.emit("joinRoom", {
@@ -43,14 +43,21 @@ const RoomStore = types
         roomId,
         roomPassword
       });
-
     },
-    deleteRoom(roomPassword) {
-      const {socketStore: {socket}} = getRoot(self)
-      socket.emit("deleteRoom", {
-        roomId: self.roomId,
-        roomPassword
-      });
+    deleteRoom(roomPassword, roomId) {
+      const {socketStore: {socket}, userStore: {loginUserId}} = getRoot(self)
+      if (roomId) {
+        socket.emit("deleteRoom", {
+          roomId,
+          userId: loginUserId
+        });
+      }
+      if (roomPassword) {
+        socket.emit("deleteRoom", {
+          roomId: self.roomId,
+          roomPassword,
+        });
+      }
     },
     sendCard() {
       const {socketStore: {socket}, userStore: {userId, userName}} = getRoot(self)
@@ -68,9 +75,9 @@ const RoomStore = types
       socket.emit("resetCards", {roomId: self.roomId});
     },
     initialize() {
-      const {userStore: {setUserId, setAdmin, setConnected}, socketStore: {socket, openNotification}, jiraStore: {setDescription, setTitle}} = getRoot(self)
+      const {userStore: {setSocketId, setAdmin, setConnected, fetchUserRooms}, socketStore: {socket, openNotification}, jiraStore: {setDescription, setTitle}} = getRoot(self)
       socket.on("createRoom", ({user, roomId, roomName}) => {
-        setUserId(user[user.length - 1].userId);
+        setSocketId(user[user.length - 1].socketId);
         setAdmin(true);
         setConnected(true)
         self.setRoomId(roomId)
@@ -79,7 +86,7 @@ const RoomStore = types
       });
       socket.on("joinRoom", ({user, roomId, roomName, gameHistory}) => {
         setConnected(true)
-        setUserId(user[user.length - 1].userId)
+        setSocketId(user[user.length - 1].socketId)
         self.setRoomId(roomId)
         self.setRoomName(roomName)
         self.setCardHistory(gameHistory || [])
@@ -135,7 +142,8 @@ const RoomStore = types
         }
       });
       socket.on("deleteRoom", () => {
-        window.location.href = "/"
+        fetchUserRooms()
+        openNotification("Room is removed", "info")
       });
     },
     setRoomId(value) {
