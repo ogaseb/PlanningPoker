@@ -4,12 +4,11 @@
   "scripts": {
     "client": "cd client && yarn start",
     "server": "cd server && nodemon --exec babel-node server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "dev": "concurrently --kill-others-on-fail \"yarn start\" \"yarn client\"",
     "start": "webpack --config webpack.server.config.js && pm2-runtime server/server.min.js -i 1",
     "debug": "node --inspect-brk server.min.js",
     "test": "cd client && yarn test",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-    "preinstall": "npm install pm2 -g",
     "precommit": "lint-staged",
     "prepush": "CI=true yarn test",
     "webpack": "webpack --config webpack.server.config.js"
@@ -17,6 +16,8 @@
   "dependencies": {
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "date-and-time": "^0.6.3",
     "dotenv": "^6.2.0",
@@ -47,21 +48,5 @@
     "lint-staged": "^8.0.4",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "cd client && yarn test"
-    }
-  },
-  "lint-staged": {
-    "client/*.js": [
-      "eslint --fix",
-      "git add"
-    ],
-    "client/**/*.js": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }

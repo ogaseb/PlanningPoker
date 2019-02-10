@@ -2,25 +2,25 @@ import JiraClient from "jira-connector";
 
 let jira;
 
-export function jiraLogin({jiraLogin: username, jiraPassword: password, jiraSubdomain}) {
+export async function jiraLogin({jiraLogin: username, jiraPassword: password, jiraSubdomain}) {
   jira = new JiraClient({
     host: `${jiraSubdomain}.atlassian.net`,
     basic_auth: {username, password}
   });
   if (jira) {
-    return jira.board.getAllBoards({startAt: 0});
+    return await jira.board.getAllBoards({startAt: 0});
   }
 }
 
-export function jiraGetBacklogIssues(boardId) {
+export async function jiraGetBacklogIssues(boardId) {
   if (jira) {
-    return jira.board.getIssuesForBacklog({boardId});
+    return await jira.board.getIssuesForBacklog({boardId});
   }
 }
 
-export function jiraGetBoardIssues() {
+export async function jiraGetBoardIssues(boardId) {
   if (jira) {
-    return jira.board.getIssuesForBoard({boardId});
+    return await jira.board.getIssuesForBoard({boardId});
   }
 }
 

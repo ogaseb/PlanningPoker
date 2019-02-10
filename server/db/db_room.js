@@ -16,69 +16,87 @@ export async function fetchRoomsFromDb() {
   }
 }
 
+export async function fetchUserRoomsFromDb(userId) {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+  })
+  await client.connect();
+  try {
+    const res = await client.query(`SELECT * FROM rooms WHERE user_id = '${userId}'`);
+    client.end()
+    return res;
+
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export async function insertRoomToDb(roomName, hash, RoomId, timestamp, userId) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
   })
-  await client.connect()
-  await client.query(`INSERT INTO rooms(roomName,roomPassword,roomId,timeStamp, userId) VALUES('${roomName}', '${hash}', '${RoomId}', '${timestamp}', '${userId}')`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> save room");
-      client.end()
-    });
+  try {
+    await client.connect()
+    await client.query(`INSERT INTO rooms(room_name,room_password,room_id,room_timestamp,user_id) VALUES('${roomName}', '${hash}', '${RoomId}', '${timestamp}', '${userId}')`)
+    console.log("DB -> save room");
+    await client.end()
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export async function deleteRoomFromDb(roomId) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
   })
-  await client.connect()
-  await client.query(`DELETE FROM rooms WHERE roomId = '${roomId}'`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> delete room");
-
-      client.end()
-    });
+  try {
+    await client.connect()
+    await client.query(`DELETE FROM rooms WHERE room_id = '${roomId}'`)
+    console.log("DB -> delete room");
+    await client.end()
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export async function updateTimestampDb(roomId, timestamp) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
   })
-  await client.connect()
-  await client.query(`UPDATE rooms SET timestamp = '${timestamp}' WHERE roomId = '${roomId}'`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> update room timestamp");
-      client.end()
-    });
+  try {
+    await client.connect()
+    await client.query(`UPDATE rooms SET room_timestamp = '${timestamp}' WHERE room_id = '${roomId}'`)
+    console.log("DB -> update room timestamp");
+    client.end()
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export async function updateRoomBoardIdDb(roomId, boardId) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
   })
-  await client.connect()
-  await client.query(`UPDATE rooms SET roomboardid = '${boardId}' WHERE roomId = '${roomId}'`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> update room boardId");
-
-      client.end()
-    });
+  try {
+    await client.connect()
+    await client.query(`UPDATE rooms SET room_board_id = '${boardId}' WHERE room_id = '${roomId}'`)
+    console.log("DB -> update room boardId");
+    client.end()
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export async function updateRoomHistoryDb(roomId, history) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
   })
-  await client.connect()
-  await client.query(`UPDATE rooms SET roomhistory = '${history}' WHERE roomId = '${roomId}'`,
-    (err, res) => {
-      console.log(err, res);
-      console.log("DB -> update room history");
-      client.end()
-    });
+  try {
+    await client.connect()
+    await client.query(`UPDATE rooms SET room_history = '${history}' WHERE room_id = '${roomId}'`)
+    console.log("DB -> update room history");
+    client.end()
+  } catch (e) {
+    console.log(e)
+  }
 }

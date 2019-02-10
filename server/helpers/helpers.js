@@ -4,16 +4,17 @@ export function createHash() {
   return uuid()
 };
 
-export function createRoomObject() {
+export function createRoomObject(roomName, roomId, userId, roomTimestamp, boardId, user, game, gameHistory) {
   return (
     {
-      roomName: "",
-      roomId: "",
-      timestamp: "",
-      boardId: "",
-      user: [],
-      game: [],
-      gameHistory: []
+      roomName: roomName || "",
+      roomId: roomId || "",
+      userId: userId,
+      timestamp: roomTimestamp || "",
+      boardId: boardId || "",
+      user: user || [],
+      game: game || [],
+      gameHistory: gameHistory || []
     }
   )
 };
