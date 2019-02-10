@@ -1,22 +1,22 @@
-import React, {Component} from "react"
-import {inject, observer} from "mobx-react";
-import styled from "styled-components";
-import Button from "@material-ui/core/Button";
-import ButtonDnd from "./controls_button_dnd"
+import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
+import styled from 'styled-components'
+import Button from '@material-ui/core/Button'
+import ButtonDnd from './controls_button_dnd'
 
 const ButtonWrapper = styled.div`
   display: block;
   margin: 0 auto;
   width: 100%;
   height: 10vh;
-`;
+`
 
-const cards = ["☕", "0", 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
+const cards = ['☕', '0', 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100]
 
 class Controls extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
-    this.selectedCard = ""
+    this.selectedCard = ''
   }
 
   handleReset = () => {
@@ -24,38 +24,51 @@ class Controls extends Component {
   }
 
   handleCard = () => {
-    const {store: {roomStore: {sendCard, setBlockCard}}} = this.props
+    const {
+      store: {
+        roomStore: { sendCard, setBlockCard }
+      }
+    } = this.props
     sendCard()
     setBlockCard(true)
   }
 
-  render() {
-    const {store: {roomStore: {blockCard, blockReset, cardsAreTheSame}, userStore: {admin}, jiraStore: {jiraLoggedIn}}} = this.props
+  render () {
+    const {
+      store: {
+        roomStore: { blockCard, blockReset, cardsAreTheSame },
+        userStore: { admin },
+        jiraStore: { jiraLoggedIn }
+      }
+    } = this.props
     return (
       <>
         <Button
           disabled={blockCard}
-          variant="contained"
-          color="secondary"
-          onClick={this.handleCard}>
+          variant='contained'
+          color='secondary'
+          onClick={this.handleCard}
+        >
           Send Card
         </Button>
         {admin && (
           <>
-            <Button
-              disabled={blockReset}
-              onClick={this.handleReset}>Reset cards</Button>
-            {jiraLoggedIn && <Button
-              disabled={!cardsAreTheSame}
-              onClick={this.handleEstimation}>Set estimation point</Button>
-            }
+            <Button disabled={blockReset} onClick={this.handleReset}>
+              Reset cards
+            </Button>
+            {jiraLoggedIn && (
+              <Button
+                disabled={!cardsAreTheSame}
+                onClick={this.handleEstimation}
+              >
+                Set estimation point
+              </Button>
+            )}
           </>
         )}
         <ButtonWrapper>
           {cards.map((card, index) => {
-            return (
-              <ButtonDnd key={index} value={card}/>
-            )
+            return <ButtonDnd key={index} value={card} />
           })}
         </ButtonWrapper>
       </>
@@ -63,6 +76,5 @@ class Controls extends Component {
   }
 }
 
-export {Controls}
-export default inject("store")(observer(Controls));
-
+export { Controls }
+export default inject('store')(observer(Controls))

@@ -1,11 +1,11 @@
-import {types, getRoot} from "mobx-state-tree"
+import { types, getRoot } from 'mobx-state-tree'
 
 const UserStore = types
-  .model("userStore", {
-    userName: types.optional(types.string, ""),
-    socketId: types.optional(types.string, ""),
-    userId: types.optional(types.string, ""),
-    userEmail: types.optional(types.string, ""),
+  .model('userStore', {
+    userName: types.optional(types.string, ''),
+    socketId: types.optional(types.string, ''),
+    userId: types.optional(types.string, ''),
+    userEmail: types.optional(types.string, ''),
     userRooms: types.frozen(),
     kicked: types.optional(types.boolean, false),
     userIsConnecting: types.optional(types.boolean, false),
@@ -15,98 +15,108 @@ const UserStore = types
     loggedIn: types.optional(types.boolean, false)
   })
   .views(self => ({
-    get isConnected() {
+    get isConnected () {
       return self.connected
     }
   }))
   .actions(self => ({
-    kickUser(socketId) {
-      const {socketStore: {socket}} = getRoot(self)
-      socket.emit("kickUser", {socketId, userLeaved: false})
+    kickUser (socketId) {
+      const {
+        socketStore: { socket }
+      } = getRoot(self)
+      socket.emit('kickUser', { socketId, userLeaved: false })
     },
-    changeAdmin() {
-      const {socketStore: {socket}} = getRoot(self)
-      socket.emit("changeAdmin", {socketId: self.socketId})
+    changeAdmin () {
+      const {
+        socketStore: { socket }
+      } = getRoot(self)
+      socket.emit('changeAdmin', { socketId: self.socketId })
     },
-    initialize(){
-      const {socketStore: {socket, openNotification}} = getRoot(self)
-      socket.on("kickUser", (data) => {
-        if (data){
-          if (self.socketId !== "" && self.socketId === data.socketId) {
+    initialize () {
+      const {
+        socketStore: { socket, openNotification }
+      } = getRoot(self)
+      socket.on('kickUser', data => {
+        if (data) {
+          if (self.socketId !== '' && self.socketId === data.socketId) {
             self.setKicked(true)
             self.setAdmin(false)
             self.setConnected(false)
-            setTimeout(()=>{
+            setTimeout(() => {
               self.setKicked(false)
             }, 3000)
-            openNotification("You have been kicked from the Room", "error")
+            openNotification('You have been kicked from the Room', 'error')
           }
         }
-      });
-      socket.on("changeAdmin", (data) => {
-        if (data){
+      })
+      socket.on('changeAdmin', data => {
+        if (data) {
           if (self.socketId === data && self.admin === false) {
             self.setAdmin(true)
-            openNotification("You have been given admin privileges", "info")
+            openNotification('You have been given admin privileges', 'info')
           }
         }
-      });
-      socket.on("fetchUserRooms", (data) => {
-        if (data){
+      })
+      socket.on('fetchUserRooms', data => {
+        if (data) {
           self.setUserRooms(data.rows)
         }
-      });
+      })
     },
-    leaveRoom() {
-      const {socketStore: {socket, openNotification}} = getRoot(self)
-      socket.emit("kickUser", {socketId : self.socketId, userLeaved: true})
+    leaveRoom () {
+      const {
+        socketStore: { socket, openNotification }
+      } = getRoot(self)
+      socket.emit('kickUser', { socketId: self.socketId, userLeaved: true })
       self.setAdmin(false)
       self.setConnected(false)
-      openNotification("You have leaved the room", "info")
+      openNotification('You have leaved the room', 'info')
     },
-    loginUser(userId, userName, userEmail){
+    loginUser (userId, userName, userEmail) {
       self.userName = userName
       self.userId = userId
       self.userEmail = userEmail
       self.loggedIn = true
-      console.log("loggedIn")
+      console.log('loggedIn')
     },
-    logout(){
+    logout () {
       self.loggedIn = false
-      self.userName = ""
-      self.userId = ""
-      self.userEmail = ""
+      self.userName = ''
+      self.userId = ''
+      self.userEmail = ''
     },
-    fetchUserRooms(){
-      const {socketStore: {socket}} = getRoot(self)
-      if (self.userId){
-        socket.emit("fetchUserRooms", {userId: self.userId})
+    fetchUserRooms () {
+      const {
+        socketStore: { socket }
+      } = getRoot(self)
+      if (self.userId) {
+        socket.emit('fetchUserRooms', { userId: self.userId })
       }
     },
-    onCreateRoom(userName) {
+    onCreateRoom (userName) {
       self.userName = userName
     },
-    setUserName(value) {
+    setUserName (value) {
       self.userName = value
     },
-    setSocketId(value) {
+    setSocketId (value) {
       self.socketId = value
     },
-    setUserRooms(value) {
+    setUserRooms (value) {
       self.userRooms = value
     },
-    setUserIsConnecting(value) {
+    setUserIsConnecting (value) {
       self.userIsConnecting = value
     },
-    setConnected(value) {
+    setConnected (value) {
       self.connected = value
     },
-    setKicked(value) {
+    setKicked (value) {
       self.kicked = value
     },
-    setAdmin(value) {
+    setAdmin (value) {
       self.admin = value
-    },
+    }
   }))
 
 export default UserStore

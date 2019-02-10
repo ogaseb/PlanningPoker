@@ -1,47 +1,55 @@
-import React, {Component} from "react"
-import TextField from "@material-ui/core/TextField"
-import {inject, observer} from "mobx-react";
-import Typography from "@material-ui/core/Typography";
-import Card from "@material-ui/core/Card";
-import styled from "styled-components";
-import Fuse from "fuse.js"
-import {decorate, computed, observable, toJS} from "mobx";
-import Select from "react-select"
-
+import React, { Component } from 'react'
+import TextField from '@material-ui/core/TextField'
+import { inject, observer } from 'mobx-react'
+import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card'
+import styled from 'styled-components'
+import Fuse from 'fuse.js'
+import { decorate, computed, observable, toJS } from 'mobx'
+import Select from 'react-select'
 
 const StyledTextField = styled(TextField)`
-  &&{
-  width:90%;
+  && {
+    width: 90%;
   }
-`;
+`
 
 const StyledTitleCard = styled(Card)`
-  &&{
-  margin: 0 auto;
-  margin-top:20px;
-  width:100%;
-  margin-bottom: 15px;
+  && {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 15px;
   }
-`;
+`
 
 const StyledSelect = styled(Select)`
-  text-align:left;
-`;
+  text-align: left;
+`
 
 class Issue extends Component {
   state = {
-    expanded: null,
+    expanded: null
   }
 
-  componentDidMount() {
-    const {store: {jiraStore: {jiraLoggedIn, selectBoard}}} = this.props
+  componentDidMount () {
+    const {
+      store: {
+        jiraStore: { jiraLoggedIn, selectBoard }
+      }
+    } = this.props
     if (jiraLoggedIn) {
       selectBoard()
     }
   }
 
-  handleChangeTitle = (e) => {
-    const {store: {userStore: {admin}, jiraStore: {setTitle, broadcastTitle}}} = this.props
+  handleChangeTitle = e => {
+    const {
+      store: {
+        userStore: { admin },
+        jiraStore: { setTitle, broadcastTitle }
+      }
+    } = this.props
     if (admin) {
       this.issueFilter = e.target.value
       setTitle(e.target.value)
@@ -49,16 +57,32 @@ class Issue extends Component {
     }
   }
 
-  handleChangeDescription = (e) => {
-    const {store: {userStore: {admin}, jiraStore: {setDescription, broadcastDescription}}} = this.props
+  handleChangeDescription = e => {
+    const {
+      store: {
+        userStore: { admin },
+        jiraStore: { setDescription, broadcastDescription }
+      }
+    } = this.props
     if (admin) {
       setDescription(e.target.value)
       broadcastDescription()
     }
   }
 
-  selectIssue = (selectedValue) => {
-    const {store: {jiraStore: {setTitle, setDescription, broadcastTitle, broadcastDescription, setIssueId, setIssueKey}}} = this.props
+  selectIssue = selectedValue => {
+    const {
+      store: {
+        jiraStore: {
+          setTitle,
+          setDescription,
+          broadcastTitle,
+          broadcastDescription,
+          setIssueId,
+          setIssueKey
+        }
+      }
+    } = this.props
     setTitle(selectedValue.issue.summary)
     broadcastTitle()
     setDescription(selectedValue.issue.description)
@@ -67,20 +91,28 @@ class Issue extends Component {
     setIssueKey(selectedValue.issue.key)
   }
 
-  get fuse() {
-    const {store: {jiraStore: {activeBoard}}} = this.props
+  get fuse () {
+    const {
+      store: {
+        jiraStore: { activeBoard }
+      }
+    } = this.props
     return new Fuse(toJS(activeBoard.issues), {
-      keys: ["key", "summary"],
+      keys: ['key', 'summary'],
       threshold: 0.6
     })
   }
 
-  get searchResults() {
+  get searchResults () {
     return this.fuse.search(this.issueFilter)
   }
 
-  get toSelect() {
-    const {store: {jiraStore: {activeBoard}}} = this.props
+  get toSelect () {
+    const {
+      store: {
+        jiraStore: { activeBoard }
+      }
+    } = this.props
     return toJS(activeBoard.issues).map((issue, index) => {
       return {
         value: index,
@@ -90,41 +122,43 @@ class Issue extends Component {
     })
   }
 
-  render() {
-    const {store: {jiraStore: {activeBoard, activeBoardFetching, title, description}, userStore: {admin}}} = this.props
+  render () {
+    const {
+      store: {
+        jiraStore: { activeBoard, activeBoardFetching, title, description },
+        userStore: { admin }
+      }
+    } = this.props
     return (
       <React.Fragment>
-        {(activeBoard.length > 0 && admin) &&
-        <React.Fragment>
-          <Typography>Jira Task Picker</Typography>
-          <StyledSelect
-            options={this.toSelect}
-            onChange={this.selectIssue}
-            isDisabled={activeBoardFetching}
-            isLoading={activeBoardFetching}
-            defaultOptions={{value: "", label: "loading"}}
-          />
-        </React.Fragment>}
+        {activeBoard.length > 0 && admin && (
+          <React.Fragment>
+            <Typography>Jira Task Picker</Typography>
+            <StyledSelect
+              options={this.toSelect}
+              onChange={this.selectIssue}
+              isDisabled={activeBoardFetching}
+              isLoading={activeBoardFetching}
+              defaultOptions={{ value: '', label: 'loading' }}
+            />
+          </React.Fragment>
+        )}
         <StyledTitleCard>
-          <Typography variant="subtitle2">
-            Title
-          </Typography>
+          <Typography variant='subtitle2'>Title</Typography>
           <StyledTextField
             multiline
             value={title}
             onChange={this.handleChangeTitle}
-            margin="normal"
+            margin='normal'
           />
         </StyledTitleCard>
         <StyledTitleCard>
-          <Typography variant="subtitle2">
-            Description
-          </Typography>
+          <Typography variant='subtitle2'>Description</Typography>
           <StyledTextField
             multiline
             value={description}
             onChange={this.handleChangeDescription}
-            margin="normal"
+            margin='normal'
           />
         </StyledTitleCard>
       </React.Fragment>
@@ -137,8 +171,7 @@ decorate(Issue, {
   issueBoard: observable,
   fuse: computed,
   searchResults: computed
-});
+})
 
-export {Issue}
-export default inject("store")(observer(Issue));
-
+export { Issue }
+export default inject('store')(observer(Issue))

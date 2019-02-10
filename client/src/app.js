@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import {inject, observer} from "mobx-react";
-import { withRouter } from "react-router-dom";
-import { Grid } from "@material-ui/core";
-import Header from "./components/static/header";
-import Router from "./components/router/router";
-import Notification from "./components/notification/notification"
+import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
+import { Grid } from '@material-ui/core'
+import Header from './components/static/header'
+import Router from './components/router/router'
+import Notification from './components/notification/notification'
 
 class App extends Component {
-  constructor(props){
+  constructor (props) {
     super(props)
     this.props.store.socketStore.initialize()
     this.props.store.userStore.initialize()
@@ -15,18 +15,17 @@ class App extends Component {
     this.props.store.jiraStore.initialize()
   }
 
-  render() {
+  render () {
     return (
-      <div className="App">
+      <div className='App'>
         <Notification />
         <Header />
-          <Grid container>
-           <Router />
-          </Grid>
+        <Grid container>
+          <Router />
+        </Grid>
       </div>
-    );
+    )
   }
 }
-export {App};
-export default inject("store")(withRouter(observer(App)));
-
+export { App }
+export default inject('store')(withRouter(observer(App)))

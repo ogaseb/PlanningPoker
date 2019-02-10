@@ -1,19 +1,16 @@
-import React from "react";
-import {shallow} from "enzyme";
-import {JoinDialog} from "./join_dialog_component";
-
+import React from 'react'
+import { shallow } from 'enzyme'
+import { JoinDialog } from './join_dialog_component'
 
 const noop = () => {}
-describe("JoinRoom", () => {
-
-  it("renders without crashing", () => {
+describe('JoinRoom', () => {
+  it('renders without crashing', () => {
     const props = {
       store: {
-        userStore: {connected: false}
+        userStore: { connected: false }
       }
     }
-    const component = shallow(<JoinDialog {...props}/>)
+    const component = shallow(<JoinDialog {...props} />)
     expect(component).toMatchSnapshot()
-  });
-
-});
+  })
+})

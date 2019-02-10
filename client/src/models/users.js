@@ -1,6 +1,6 @@
-import { types } from "mobx-state-tree"
+import { types } from 'mobx-state-tree'
 
-const Users = types.model("Users", {
+const Users = types.model('Users', {
   userId: types.maybe(types.string),
   userName: types.maybe(types.string)
 })
