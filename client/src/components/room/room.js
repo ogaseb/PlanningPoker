@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid'
 import styled from 'styled-components'
-import { inject, observer } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
-import JoinDialog from '../join_room/join_dialog_component'
+import {inject, observer} from 'mobx-react'
+import {withRouter} from 'react-router-dom'
+import DialogPopup from 'components/dialog_popup/dialog_popup'
 import Issue from './issue/issue'
 import CardResults from './card_results/card_results'
 import Controls from './controls/controls'
 import Lists from './lists/lists'
-import { BrowserView, MobileView } from 'react-device-detect'
-import { decorate, observable, when } from 'mobx'
+import {BrowserView, MobileView} from 'react-device-detect'
+import {decorate, observable, when} from 'mobx'
 import Redirect from 'react-router-dom/Redirect'
 import routes from 'routes'
 import ItemPreview from 'drag_layer'
@@ -33,10 +33,10 @@ const StyledCard = styled(Card)`
 `
 
 class Room extends Component {
-  componentDidMount () {
+  componentDidMount() {
     const {
       store: {
-        userStore: { kicked, setKicked, setConnected }
+        userStore: {kicked, setKicked, setConnected}
       }
     } = this.props
     this.notFound = window.__ROOM_NOT_FOUND__
@@ -56,10 +56,10 @@ class Room extends Component {
     e.preventDefault()
     const {
       store: {
-        userStore: { leaveRoom, loggedIn },
-        socketStore: { openNotification }
+        userStore: {leaveRoom, loggedIn},
+        socketStore: {openNotification}
       },
-      history: { push }
+      history: {push}
     } = this.props
     leaveRoom()
     openNotification('You have left the Room', 'warning')
@@ -70,11 +70,11 @@ class Room extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <>
-        <ItemPreview />
-        {this.notFound && <Redirect to='/error' />}
+        <ItemPreview/>
+        {this.notFound && <Redirect to='/error'/>}
         <BrowserView
           style={{
             display: 'flex',
@@ -83,17 +83,17 @@ class Room extends Component {
             width: '100%'
           }}
         >
-          <JoinDialog />
+          <DialogPopup joinDialog/>
           <StyledGrid item md={10}>
             <StyledCard>
-              <Issue />
-              <CardResults />
-              <Controls />
+              <Issue/>
+              <CardResults/>
+              <Controls/>
             </StyledCard>
           </StyledGrid>
           <StyledGrid item md={2}>
             <StyledCard>
-              <Lists />
+              <Lists/>
             </StyledCard>
           </StyledGrid>
         </BrowserView>
@@ -105,14 +105,14 @@ class Room extends Component {
             width: '100%'
           }}
         >
-          <JoinDialog />
+          <DialogPopup joinDialog/>
           <StyledCard>
-            <Issue />
-            <CardResults />
-            <Controls />
+            <Issue/>
+            <CardResults/>
+            <Controls/>
           </StyledCard>
           <StyledCard>
-            <Lists />
+            <Lists/>
           </StyledCard>
         </MobileView>
       </>
@@ -124,5 +124,5 @@ decorate(Room, {
   notFound: observable
 })
 
-export { Room }
+export {Room}
 export default inject('store')(withRouter(observer(Room)))

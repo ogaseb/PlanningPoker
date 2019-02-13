@@ -109,6 +109,7 @@ class UserList extends Component {
         </RoomName>
         <Typography>users : {roomUsers.length}</Typography>
         <UserWrapper>
+          {console.log(roomUsers)}
           {roomUsers.length > 0 &&
             roomUsers.map(data => {
               return (
@@ -126,7 +127,7 @@ class UserList extends Component {
                             color='secondary'
                             variant='contained'
                             onClick={() => {
-                              this.handleKick(data.userId)
+                              this.handleKick(data.socketId)
                             }}
                           >
                             kick
@@ -137,7 +138,7 @@ class UserList extends Component {
                             color='primary'
                             variant='contained'
                             onClick={() => {
-                              this.handleAdmin(data.userId)
+                              this.handleAdmin(data.socketId)
                             }}
                           >
                             admin

@@ -35,11 +35,12 @@ class Issue extends Component {
   componentDidMount () {
     const {
       store: {
+        userStore: { loggedIn },
         jiraStore: { jiraLoggedIn, selectBoard }
       }
     } = this.props
-    if (jiraLoggedIn) {
-      selectBoard()
+    if (jiraLoggedIn && loggedIn) {
+      // selectBoard()
     }
   }
 

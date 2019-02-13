@@ -1,62 +1,85 @@
-import React, { Component } from 'react'
-import { Button, Card, Grid } from '@material-ui/core'
+import React, {Component} from 'react'
+import {Button, Card, Grid} from '@material-ui/core'
 import styled from 'styled-components'
-import { inject, observer } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
-import { decorate, observable, reaction } from 'mobx'
-import { withCookies } from 'react-cookie'
-import ReactTags from 'react-tag-autocomplete'
-import CreateDialog from 'components/create_room/create_dialog'
-import DialogPopup from 'components/dialog_popup/dialog_popup'
-
+import {inject, observer} from 'mobx-react'
+import {withRouter} from 'react-router-dom'
+import {decorate, observable, reaction} from 'mobx'
 import routes from 'routes'
+import Chip from "@material-ui/core/Chip";
+import Avatar from "@material-ui/core/Avatar";
+import {Atlassian, Cards} from "mdi-material-ui"
+import DialogPopup from "components/dialog_popup/dialog_popup";
 
 const StyledGrid = styled(Grid)`
   && {
     min-height: 300px;
+    margin-top: 8px;
   }
 `
 
 const StyledCard = styled(Card)`
   && {
     min-height: 300px;
+    position: relative;
+  }
+`
+
+const StyledChip = styled(Chip)`
+  && {
+    margin-top: 5px;
+    width: 90%;
+    float: left;
+    text-align: left;
+    margin-left: 5%;
+    justify-content:left;
+    &:last-child {
+      margin-bottom: 5px;
+    }
+  }
+`
+
+const ButtonWrapper = styled.div`
+  && {
+    display: inline-flex;
+    position: absolute;
+    left: 0;
+    bottom: 0;;
+    width: 100%;
+  }
+`
+
+const StyledButton = styled(Button)`
+  && {
+    flex: 1;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+  }
+`
+
+const Wrapper = styled(Grid)`
+  && {
+    height: calc(100vh - 64px);
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 `
 
 class Rooms extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
-    this.userName = ''
-    this.roomName = ''
-    this.roomPassword = ''
     this.tags = [[{}]]
-    reaction(
-      () => props.store.userStore.loggedIn,
-      () => {
-        if (props.store.userStore.loggedIn) {
-          console.log(this.props.store.userStore.userId)
-          props.store.userStore.fetchUserRooms()
-        }
-      }
-    )
-    // this.roomFetchInterval = null
+    this.openLinkDialog = false
+    this.openEditDialog = false
+    this.openJiraDialog = false
   }
 
-  componentDidMount () {
-    const {
-      store: {
-        userStore: { loggedIn }
-      }
-    } = this.props
-
-    // this.roomFetchInterval = setInterval(() => {
-    //   this.props.store.userStore.fetchUserRooms()
-    // }, 1000)
+  componentDidMount() {
+    this.props.store.userStore.fetchUserRooms()
   }
 
   handleJoinRoom = (roomName, roomId) => {
     const {
-      history: { push }
+      history: {push}
     } = this.props
     push(routes.room(roomName, roomId))
   }
@@ -64,101 +87,137 @@ class Rooms extends Component {
   handleDeleteRoom = roomId => {
     const {
       store: {
-        roomStore: { deleteRoom }
+        roomStore: {deleteRoom}
       }
     } = this.props
     deleteRoom(false, roomId)
   }
 
-  handleAdditionTag = tag => {
-    console.log(tag)
-    this.tags = [...this.tags, tag]
-    // {id: tag, text: tag}
-  }
-
-  handleDeleteTag (i) {
-    this.tags.splice(i, 1)
-  }
-
-  render () {
+  handleLinkDialog = (index) => {
     const {
       store: {
-        userStore: { userRooms }
+        userStore: {userRooms}
+      }
+    } = this.props
+    this.linkData = userRooms[index]
+    this.openLinkDialog = true
+  }
+
+  handleEditDialog = (index) => {
+    const {
+      store: {
+        userStore: {userRooms}
+      }
+    } = this.props
+    this.editData = userRooms[index]
+    this.openEditDialog = true
+  }
+
+  handleCloseLinkDialog = () => {
+    this.openLinkDialog = false
+  }
+
+  handleCloseEditDialog = () => {
+    this.openEditDialog = false
+  }
+
+  render() {
+    const {
+      store: {
+        userStore: {userRooms}
       }
     } = this.props
     return (
       <>
-        <CreateDialog />
-        {console.table(userRooms)}
-        <Grid container spacing={16}>
+        <Wrapper container spacing={16}>
+          <DialogPopup
+            linkDialog={this.openLinkDialog}
+            data={this.linkData}
+            closeLinkDialog={this.handleCloseLinkDialog}
+          />
+          <DialogPopup
+            editDialog={this.openEditDialog}
+            data={this.editData}
+            closeEditDialog={this.handleCloseEditDialog}
+          />
           {userRooms &&
-            userRooms.map(data => (
-              <StyledGrid item xs={3}>
-                <StyledCard>
-                  {data.room_name}
-                  {data.room_id}
-                  <Button
+          userRooms.map((data, index) => (
+            <StyledGrid item xs={12} sm={6} md={6} lg={4} key={index}>
+              {console.log(data.room_history !== null ? data.room_history.length : "none")}
+              <StyledCard>
+                <Grid container>
+                  <Grid xs={12}>
+                    <StyledChip variant="outlined" avatar={<Avatar>RN</Avatar>} label={data.room_name} color="primary"/>
+                  </Grid>
+                  <Grid xs={12}>
+                    <StyledChip variant="outlined" avatar={<Avatar>ID</Avatar>} label={data.room_id} color="primary"/>
+                  </Grid>
+                  <Grid xs={6}>
+                    <StyledChip
+                      variant="outlined"
+                      avatar={<Avatar><Atlassian/></Avatar>}
+                      label={data.room_board_id || "none"}
+                      color="primary"/>
+                  </Grid>
+                  <Grid xs={6}>
+                    <StyledChip
+                      variant="outlined" avatar={<Avatar><Cards/></Avatar>}
+                      label={`deals played: ${data.room_history !== null ? data.room_history.length : "none"}` || "none"}
+                      color="primary"/>
+                  </Grid>
+                </Grid>
+                <ButtonWrapper>
+                  <StyledButton
                     onClick={() => {
                       this.handleJoinRoom(data.room_name, data.room_id)
                     }}
+                    color="primary"
+                    variant="contained"
                   >
-                    Join Room
-                  </Button>
-                  <Button
+                    Join
+                  </StyledButton>
+                  <StyledButton
+                    onClick={() => {
+                      this.handleEditDialog(index)
+                    }}
+                    variant="contained"
+                  >
+                    Edit
+                  </StyledButton>
+                  <StyledButton
+                    onClick={() => {
+                      this.handleLinkDialog(index)
+                    }}
+                    variant="contained"
+                  >
+                    Link
+                  </StyledButton>
+                  <StyledButton
                     onClick={() => {
                       this.handleDeleteRoom(data.room_id)
                     }}
+                    color="secondary"
+                    variant="contained"
                   >
-                    Delete Room
-                  </Button>
-                  <ReactTags
-                    autoresize
-                    tags={this.tags}
-                    handleDelete={this.handleDeleteTag}
-                    handleAddition={this.handleAdditionTag}
-                  />
-                </StyledCard>
-              </StyledGrid>
-            ))}
-          {/*<StyledCard>*/}
-          {/*<FormWrapper>*/}
-          {/*<Typography variant="h3" align={"center"}>*/}
-          {/*Welcome to Planning Poker app*/}
-          {/*</Typography>*/}
-          {/*<Typography variant={"display1"}> please choose if you want to simply create one room or login to manage and*/}
-          {/*access all you rooms</Typography>*/}
-          {/*<StyledButtonGrid container>*/}
-          {/*<Grid item xs={5}>*/}
-          {/*<GoogleButton type="light" onClick={this.handleLogin}/>*/}
-          {/*/!*<StyledButton variant="contained" onClick={this.handleJoin}>*!/*/}
-          {/*/!*Join room*!/*/}
-          {/*/!*<StyledArrowUpBold/>*!/*/}
-          {/*/!*</StyledButton>*!/*/}
-          {/*</Grid>*/}
-          {/*<Grid item xs={2}>*/}
-          {/*<StyledTypography variant="h5"> OR </StyledTypography>*/}
-          {/*</Grid>*/}
-          {/*<Grid item xs={5}>*/}
-          {/*<StyledButton color="primary" variant="contained" onClick={this.createGuestAccount}>*/}
-          {/*guest sign in*/}
-          {/*<StyledAddCircle/>*/}
-          {/*</StyledButton>*/}
-          {/*</Grid>*/}
-          {/*</StyledButtonGrid>*/}
-          {/*</FormWrapper>*/}
-          {/*</StyledCard>*/}
-        </Grid>
+                    Delete
+                  </StyledButton>
+                </ButtonWrapper>
+              </StyledCard>
+            </StyledGrid>
+          ))}
+        </Wrapper>
       </>
     )
   }
 }
 
 decorate(Rooms, {
-  userName: observable,
-  roomName: observable,
-  roomPassword: observable,
-  tags: observable
+  linkData: observable,
+  editData: observable,
+  tags: observable,
+  openLinkDialog: observable,
+  openEditDialog: observable,
 })
 
-export { Rooms }
-export default inject('store')(withCookies(withRouter(observer(Rooms))))
+export {Rooms}
+export default inject('store')(withRouter(observer(Rooms)))

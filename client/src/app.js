@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
-import Header from './components/static/header'
-import Router from './components/router/router'
-import Notification from './components/notification/notification'
+import Header from 'components/header/header'
+import Router from 'components/router/router'
+import Notification from 'components/notification/notification'
+import DialogPopup from 'components/dialog_popup/dialog_popup'
 
 class App extends Component {
   constructor (props) {
@@ -18,6 +19,7 @@ class App extends Component {
   render () {
     return (
       <div className='App'>
+        <DialogPopup establishingConnection />
         <Notification />
         <Header />
         <Grid container>

@@ -59,6 +59,7 @@ const UserStore = types
       })
       socket.on('fetchUserRooms', data => {
         if (data) {
+          console.table(data.rows)
           self.setUserRooms(data.rows)
         }
       })

@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { Grid, Button, TextField } from '@material-ui/core'
+import React, {Component} from 'react'
+import {Grid, Button, TextField} from '@material-ui/core'
 import styled from 'styled-components'
-import { inject, observer } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
+import {inject, observer} from 'mobx-react'
+import {withRouter} from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
-import { ArrowUpBold, Login } from 'mdi-material-ui'
-import { decorate, observable } from 'mobx'
+import {ArrowUpBold, Login} from 'mdi-material-ui'
+import {decorate, observable} from 'mobx'
 import Jira from 'img/jira.png'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel'
@@ -38,7 +38,7 @@ const StyledLogin = styled(Login)`
 `
 
 class ConnectJiraLoggedOut extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.saveCredentials = true
     this.jiraLogin = ''
@@ -85,22 +85,18 @@ class ConnectJiraLoggedOut extends Component {
   goToRoom = () => {
     const {
       store: {
-        jiraStore: { jiraLoggedIn, saveBoardId },
-        roomStore: { roomName, roomId }
+        roomStore: {roomName, roomId}
       },
-      history: { push }
+      history: {push}
     } = this.props
-    if (jiraLoggedIn) {
-      saveBoardId(this.board)
-    }
     push(routes.room(roomName, roomId))
   }
 
-  render () {
+  render() {
     return (
       <>
         <img
-          style={{ width: '100px', margin: '0 auto' }}
+          style={{width: '100px', margin: '0 auto'}}
           src={Jira}
           alt={'Jira logo'}
         />
@@ -109,7 +105,7 @@ class ConnectJiraLoggedOut extends Component {
         </Typography>
         <Typography>
           Do you want to setup Jira integration? This will allow you to select
-          issues and set ther story points directly from Planning Poker
+          issues and set their story points directly from Planning Poker
         </Typography>
         <TextField
           id='subdomain-jira'
@@ -156,7 +152,7 @@ class ConnectJiraLoggedOut extends Component {
               onClick={this.handleJiraLogin}
             >
               Connect to Jira
-              <StyledLogin />
+              <StyledLogin/>
             </StyledButton>
           </Grid>
           <Grid item xs={2}>
@@ -165,7 +161,7 @@ class ConnectJiraLoggedOut extends Component {
           <Grid item xs={5}>
             <StyledButton variant='contained' onClick={this.goToRoom}>
               Skip and go to room
-              <StyledArrowUpBold />
+              <StyledArrowUpBold/>
             </StyledButton>
           </Grid>
         </StyledGrid>
@@ -183,5 +179,5 @@ decorate(ConnectJiraLoggedOut, {
   saveCredentials: observable
 })
 
-export { ConnectJiraLoggedOut }
+export {ConnectJiraLoggedOut}
 export default inject('store')(withRouter(observer(ConnectJiraLoggedOut)))
