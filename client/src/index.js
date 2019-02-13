@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 import App from './app'
-import {Provider} from 'mobx-react'
-import {BrowserRouter} from 'react-router-dom'
+import { Provider } from 'mobx-react'
+import { BrowserRouter } from 'react-router-dom'
 import TouchBackend from 'react-dnd-touch-backend'
-import {DragDropContextProvider} from 'react-dnd'
+import { DragDropContextProvider } from 'react-dnd'
 import AppStore from 'stores/app_store/app_store'
 
 const store = AppStore.create(window.INITIAL_STATE)
@@ -18,9 +18,9 @@ document.addEventListener(
       <BrowserRouter>
         <Provider store={store}>
           <DragDropContextProvider
-            backend={TouchBackend({enableMouseEvents: true})}
+            backend={TouchBackend({ enableMouseEvents: true })}
           >
-            <App/>
+            <App />
           </DragDropContextProvider>
         </Provider>
       </BrowserRouter>,

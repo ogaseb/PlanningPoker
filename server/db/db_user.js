@@ -1,7 +1,7 @@
 require('dotenv').config()
-import {Client} from 'pg/lib'
+import { Client } from 'pg/lib'
 
-export async function createUser(userId, userName, userEmail) {
+export async function createUser (userId, userName, userEmail) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
   })
@@ -17,14 +17,21 @@ export async function createUser(userId, userName, userEmail) {
   }
 }
 
-export async function editUserJira(jiraLogin, jiraPassword, jiraSubdomain, userId) {
+export async function editUserJira (
+  jiraLogin,
+  jiraPassword,
+  jiraSubdomain,
+  userId
+) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
   })
   await client.connect()
   try {
     await client.query(
-      `UPDATE users SET jira_email = '${jiraLogin}', jira_api_key = '${jiraPassword}', jira_subdomain = '${[jiraSubdomain]}'  WHERE user_id = '${userId}'`
+      `UPDATE users SET jira_email = '${jiraLogin}', jira_api_key = '${jiraPassword}', jira_subdomain = '${[
+        jiraSubdomain
+      ]}'  WHERE user_id = '${userId}'`
     )
     console.log('DB -> save jira credentials in DB')
     await client.end()
@@ -33,7 +40,7 @@ export async function editUserJira(jiraLogin, jiraPassword, jiraSubdomain, userI
   }
 }
 
-export async function findUser(userId) {
+export async function findUser (userId) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
   })

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -6,21 +6,19 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import TextField from '@material-ui/core/TextField'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
-import {inject, observer} from 'mobx-react'
-import {withRouter} from 'react-router-dom'
-import {decorate, observable} from 'mobx'
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
+import { decorate, observable } from 'mobx'
 import routes from 'routes'
 
 class JoinDialogComponent extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.userName = ''
     this.roomPassword = ''
   }
 
-  componentDidMount() {
-
-  }
+  componentDidMount () {}
 
   handleChangUserName = e => {
     this.userName = e.target.value
@@ -31,11 +29,11 @@ class JoinDialogComponent extends Component {
   }
   joinRoom = () => {
     const {
-      match: {params},
+      match: { params },
       store: {
-        roomStore: {joinRoom, setRoomPassword, setRoomId},
-        socketStore: {openNotification},
-        userStore: {setUserName, userName, loggedIn}
+        roomStore: { joinRoom, setRoomPassword, setRoomId },
+        socketStore: { openNotification },
+        userStore: { setUserName, userName, loggedIn }
       }
     } = this.props
     if (loggedIn ? userName : this.userName && this.roomPassword) {
@@ -57,17 +55,17 @@ class JoinDialogComponent extends Component {
   cancelJoinRoom = () => {
     const {
       store: {
-        userStore: {loggedIn}
+        userStore: { loggedIn }
       },
-      history: {push}
+      history: { push }
     } = this.props
     loggedIn ? push(routes.rooms()) : push(routes.root())
   }
 
-  render() {
+  render () {
     const {
       store: {
-        userStore: {isConnected, loggedIn}
+        userStore: { isConnected, loggedIn }
       }
     } = this.props
     return (
@@ -118,5 +116,5 @@ decorate(JoinDialogComponent, {
   roomPassword: observable
 })
 
-export {JoinDialogComponent}
+export { JoinDialogComponent }
 export default inject('store')(withRouter(observer(JoinDialogComponent)))

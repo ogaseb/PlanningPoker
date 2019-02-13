@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -6,10 +6,10 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import TextField from '@material-ui/core/TextField'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
-import {inject, observer} from 'mobx-react'
-import {withRouter} from 'react-router-dom'
-import {decorate, observable} from 'mobx'
-import styled from "styled-components"
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
+import { decorate, observable } from 'mobx'
+import styled from 'styled-components'
 
 const StyledDialog = styled(Dialog)`
   & > div > div {
@@ -18,32 +18,32 @@ const StyledDialog = styled(Dialog)`
 `
 
 class LinkDialog extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.openDialog = true
-    this.link = ""
+    this.link = ''
   }
 
-  componentWillUpdate() {
+  componentWillUpdate () {
     const {
-      data: {room_name, room_id}
+      data: { room_name, room_id }
     } = this.props
     this.openDialog = true
     this.link = `${window.location.host}/room/${room_name}/${room_id}`
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const {
-      data: {room_name, room_id}
+      data: { room_name, room_id }
     } = this.props
     this.openDialog = true
     this.link = `${window.location.host}/room/${room_name}/${room_id}`
   }
 
   handleCopy = () => {
-    let copyText = document.getElementById("link");
+    let copyText = document.getElementById('link')
     copyText.select()
-    document.execCommand("copy");
+    document.execCommand('copy')
     this.props.handleClose()
   }
 
@@ -52,23 +52,25 @@ class LinkDialog extends Component {
     this.props.handleClose()
   }
 
-  render() {
-    const {
-      open
-    } = this.props
+  render () {
+    const { open } = this.props
     return (
-      <StyledDialog open={open && this.openDialog} aria-labelledby='form-dialog-title'>
+      <StyledDialog
+        open={open && this.openDialog}
+        aria-labelledby='form-dialog-title'
+      >
         <DialogTitle id='form-dialog-title'>Create Link</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Copy your room link and past it to your coworkers if you want them to join you.
+            Copy your room link and past it to your coworkers if you want them
+            to join you.
           </DialogContentText>
           <TextField
             InputProps={{
-              readOnly: true,
+              readOnly: true
             }}
             fullWidth
-            id="link"
+            id='link'
             type='text'
             label='Link'
             value={this.link}
@@ -93,5 +95,5 @@ decorate(LinkDialog, {
   link: observable
 })
 
-export {LinkDialog}
+export { LinkDialog }
 export default inject('store')(withRouter(observer(LinkDialog)))

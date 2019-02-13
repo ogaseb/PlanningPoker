@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -6,15 +6,15 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import TextField from '@material-ui/core/TextField'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
-import {inject, observer} from 'mobx-react'
-import {withRouter} from 'react-router-dom'
-import {decorate, observable, reaction} from 'mobx'
-import styled from "styled-components"
-import Jira from "img/jira.png";
-import Typography from "@material-ui/core/Typography"
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import cookie from "react-cookies";
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
+import { decorate, observable, reaction } from 'mobx'
+import styled from 'styled-components'
+import Jira from 'img/jira.png'
+import Typography from '@material-ui/core/Typography'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import cookie from 'react-cookies'
 // import {ConnectJiraLoggedOut} from "../../connect_jira/connect_jira_logged_out";
 
 const StyledDialog = styled(Dialog)`
@@ -24,7 +24,7 @@ const StyledDialog = styled(Dialog)`
 `
 
 class JiraDialog extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.openDialog = true
     this.saveCredentials = true
@@ -34,7 +34,7 @@ class JiraDialog extends Component {
 
     reaction(
       () => this.props.store.jiraStore.jiraLoggedIn,
-      () => this.props.store.jiraStore.jiraLoggedIn ? this.cancelJira() : null
+      () => (this.props.store.jiraStore.jiraLoggedIn ? this.cancelJira() : null)
     )
   }
 
@@ -56,11 +56,7 @@ class JiraDialog extends Component {
 
   nextWeek = () => {
     let today = new Date()
-    return new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() + 7
-    )
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7)
   }
 
   handleJiraLogin = () => {
@@ -72,11 +68,15 @@ class JiraDialog extends Component {
       )
 
       if (this.saveCredentials) {
-        cookie.save('userJiraData', {
-          jiraSubdomain: this.jiraSubdomain,
-          jiraLogin: this.jiraLogin,
-          jiraPassword: this.jiraPassword
-        }, {path: '/', expires: this.nextWeek()})
+        cookie.save(
+          'userJiraData',
+          {
+            jiraSubdomain: this.jiraSubdomain,
+            jiraLogin: this.jiraLogin,
+            jiraPassword: this.jiraPassword
+          },
+          { path: '/', expires: this.nextWeek() }
+        )
       }
     }
   }
@@ -86,19 +86,25 @@ class JiraDialog extends Component {
     this.props.handleClose()
   }
 
-  render() {
-    const {
-      open
-    } = this.props
+  render () {
+    const { open } = this.props
     return (
-      <StyledDialog open={open && this.openDialog} aria-labelledby='form-dialog-title'>
+      <StyledDialog
+        open={open && this.openDialog}
+        aria-labelledby='form-dialog-title'
+      >
         <DialogTitle id='form-dialog-title'>Jira Login</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Copy your room link and past it to your coworkers if you want them to join you.
+            Copy your room link and past it to your coworkers if you want them
+            to join you.
           </DialogContentText>
           <img
-            style={{width: '100px', position: "relative", left: "calc(50% - 50px)"}}
+            style={{
+              width: '100px',
+              position: 'relative',
+              left: 'calc(50% - 50px)'
+            }}
             src={Jira}
             alt={'Jira logo'}
           />
@@ -154,7 +160,11 @@ class JiraDialog extends Component {
           <Button onClick={this.cancelJira} color='primary'>
             Cancel
           </Button>
-          <Button onClick={this.handleJiraLogin} color='primary' variant='contained'>
+          <Button
+            onClick={this.handleJiraLogin}
+            color='primary'
+            variant='contained'
+          >
             Login to jira
           </Button>
         </DialogActions>
@@ -173,5 +183,5 @@ decorate(JiraDialog, {
   saveCredentials: observable
 })
 
-export {JiraDialog}
+export { JiraDialog }
 export default inject('store')(withRouter(observer(JiraDialog)))

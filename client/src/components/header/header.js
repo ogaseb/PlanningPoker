@@ -1,17 +1,17 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import GithubCircle from 'mdi-material-ui/GithubCircle'
 import styled from 'styled-components'
-import {inject, observer} from 'mobx-react'
-import {withRouter} from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import cookie from 'react-cookies'
 import routes from 'routes'
-import {decorate, observable} from 'mobx'
-import DialogPopup from "components/dialog_popup/dialog_popup";
+import { decorate, observable } from 'mobx'
+import DialogPopup from 'components/dialog_popup/dialog_popup'
 
 const StyledIconButton = styled(IconButton)`
   && {
@@ -50,9 +50,8 @@ const StyledAppBar = styled(AppBar)`
   }
 `
 
-
 class Header extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.openCreateDialog = false
     this.openJiraDialog = false
@@ -63,7 +62,7 @@ class Header extends Component {
     return link[3] !== 'room'
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const userData = cookie.load('userLoginData')
     if (userData) {
       this.props.store.userStore.loginUser(
@@ -92,13 +91,12 @@ class Header extends Component {
   }
 
   handleLogout = () => {
-    cookie.remove('userLoginData', {path: '/'})
-    cookie.remove('userJiraData', {path: '/'})
+    cookie.remove('userLoginData', { path: '/' })
+    cookie.remove('userJiraData', { path: '/' })
     this.props.store.userStore.logout()
     this.props.store.jiraStore.logout()
     this.props.history.push(routes.root())
   }
-
 
   handleCreateRoom = () => {
     this.openCreateDialog = true
@@ -116,11 +114,11 @@ class Header extends Component {
     this.openJiraDialog = false
   }
 
-  render() {
+  render () {
     const {
       store: {
-        userStore: {loggedIn},
-        jiraStore: {jiraLoggedIn},
+        userStore: { loggedIn },
+        jiraStore: { jiraLoggedIn },
         location
       }
     } = this.props
@@ -128,14 +126,19 @@ class Header extends Component {
     return (
       <StyledAppBar position='static' color='default'>
         {console.log(location)}
-        <DialogPopup createDialog={this.openCreateDialog} closeCreateDialog={this.handleCloseCreateDialog}/>
-        <DialogPopup jiraDialog={this.openJiraDialog} closeJiraDialog={this.handleCloseJiraDialog}/>
+        <DialogPopup
+          createDialog={this.openCreateDialog}
+          closeCreateDialog={this.handleCloseCreateDialog}
+        />
+        <DialogPopup
+          jiraDialog={this.openJiraDialog}
+          closeJiraDialog={this.handleCloseJiraDialog}
+        />
         <Toolbar>
           <Typography variant='title' color='inherit'>
             Planning Poker
           </Typography>
           <ButtonWrapper>
-
             {loggedIn && this.checkIfIsInRoom() && (
               <StyledCreateRoomButton
                 onClick={this.handleCreateRoom}
@@ -168,7 +171,7 @@ class Header extends Component {
               aria-haspopup='true'
               color='inherit'
             >
-              <GithubCircle/>
+              <GithubCircle />
             </StyledIconButton>
           </ButtonWrapper>
         </Toolbar>
@@ -179,7 +182,7 @@ class Header extends Component {
 
 decorate(Header, {
   openCreateDialog: observable,
-  openJiraDialog: observable,
+  openJiraDialog: observable
 })
 
 export default inject('store')(withRouter(observer(Header)))

@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
-import {Button, Card, Grid} from '@material-ui/core'
+import React, { Component } from 'react'
+import { Button, Card, Grid } from '@material-ui/core'
 import styled from 'styled-components'
-import {inject, observer} from 'mobx-react'
-import {withRouter} from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
 import AddCircle from '@material-ui/icons/AddCircle'
-import {ArrowUpBold} from 'mdi-material-ui'
-import {decorate, observable, reaction} from 'mobx'
+import { ArrowUpBold } from 'mdi-material-ui'
+import { decorate, observable, reaction } from 'mobx'
 import cookie from 'react-cookies'
 import GoogleButton from 'react-google-button'
 
@@ -70,7 +70,7 @@ const StyledButtonGrid = styled(Grid)`
 `
 
 class MainPage extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.userName = ''
     this.roomName = ''
@@ -79,9 +79,9 @@ class MainPage extends Component {
 
   handleLogin = () => {
     const {
-      history: {push},
+      history: { push },
       store: {
-        userStore: {loginUser}
+        userStore: { loginUser }
       }
     } = this.props
 
@@ -96,7 +96,7 @@ class MainPage extends Component {
 
     window.addEventListener('message', receiveMessage, false)
 
-    function nextWeek() {
+    function nextWeek () {
       let today = new Date()
       return new Date(
         today.getFullYear(),
@@ -105,10 +105,13 @@ class MainPage extends Component {
       )
     }
 
-    function receiveMessage(event) {
+    function receiveMessage (event) {
       if (event.origin !== 'http://localhost:3001') return
       clearInterval(interval)
-      cookie.save('userLoginData', event.data, {path: '/', expires: nextWeek()})
+      cookie.save('userLoginData', event.data, {
+        path: '/',
+        expires: nextWeek()
+      })
       loginUser(event.data.userId, event.data.userName, event.data.userEmail)
       push(routes.rooms())
     }
@@ -118,7 +121,7 @@ class MainPage extends Component {
     this.props.history.push(routes.create())
   }
 
-  render() {
+  render () {
     return (
       <StyledGrid item xs={12}>
         <StyledCard>
@@ -133,7 +136,7 @@ class MainPage extends Component {
             </Typography>
             <StyledButtonGrid container>
               <Grid item xs={5}>
-                <GoogleButton type='light' onClick={this.handleLogin}/>
+                <GoogleButton type='light' onClick={this.handleLogin} />
                 {/*<StyledButton variant="contained" onClick={this.handleJoin}>*/}
                 {/*Join room*/}
                 {/*<StyledArrowUpBold/>*/}
@@ -149,7 +152,7 @@ class MainPage extends Component {
                   onClick={this.createGuestAccount}
                 >
                   guest sign in
-                  <StyledAddCircle/>
+                  <StyledAddCircle />
                 </StyledButton>
               </Grid>
             </StyledButtonGrid>
@@ -166,5 +169,5 @@ decorate(MainPage, {
   roomPassword: observable
 })
 
-export {MainPage}
+export { MainPage }
 export default inject('store')(withRouter(observer(MainPage)))

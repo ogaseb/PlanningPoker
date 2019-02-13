@@ -1,6 +1,5 @@
-import {types} from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import socketIOClient from 'socket.io-client'
-
 
 const SocketStore = types
   .model('socketStore', {
@@ -15,12 +14,12 @@ const SocketStore = types
     socket: undefined
   }))
   .views(self => ({
-    get isSocket() {
+    get isSocket () {
       return !!self.socket
     }
   }))
   .actions(self => ({
-    initialize() {
+    initialize () {
       self.socket = socketIOClient(process.env.ENDPOINT, {
         reconnection: true,
         reconnectionDelay: 1000,
@@ -32,21 +31,21 @@ const SocketStore = types
           self.openNotification(description.error, 'error')
         }
       })
-      self.socket.on('connect', (res) => {
+      self.socket.on('connect', res => {
         self.setDisconnected(false)
       })
-      self.socket.on('disconnect', (res) => {
+      self.socket.on('disconnect', res => {
         self.setDisconnected(true)
       })
     },
-    setDisconnected(value) {
+    setDisconnected (value) {
       self.disconnected = value
     },
-    openNotification(message, variant) {
+    openNotification (message, variant) {
       self.notificationMessage = message
       self.notificationVariant = variant
     },
-    closeNotification() {
+    closeNotification () {
       self.notificationMessage = null
     }
   }))

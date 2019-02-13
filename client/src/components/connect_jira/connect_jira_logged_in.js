@@ -1,14 +1,14 @@
-import React, {Component} from 'react'
-import {Grid, Button} from '@material-ui/core'
+import React, { Component } from 'react'
+import { Grid, Button } from '@material-ui/core'
 import styled from 'styled-components'
-import {inject, observer} from 'mobx-react'
-import {withRouter} from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
 import FormLabel from '@material-ui/core/FormLabel'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import AddCircle from '@material-ui/icons/AddCircle'
-import {Logout} from 'mdi-material-ui'
-import {decorate, observable} from 'mobx'
+import { Logout } from 'mdi-material-ui'
+import { decorate, observable } from 'mobx'
 import Jira from 'img/jira.png'
 import Select from 'react-select'
 import routes from 'routes'
@@ -57,7 +57,7 @@ const StyledLogout = styled(Logout)`
 `
 
 class ConnectJiraLoggedIn extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.board = false
   }
@@ -71,10 +71,10 @@ class ConnectJiraLoggedIn extends Component {
   goToRoom = () => {
     const {
       store: {
-        jiraStore: {jiraLoggedIn, saveBoardId},
-        roomStore: {roomName, roomId}
+        jiraStore: { jiraLoggedIn, saveBoardId },
+        roomStore: { roomName, roomId }
       },
-      history: {push}
+      history: { push }
     } = this.props
     if (jiraLoggedIn) {
       saveBoardId(this.board)
@@ -83,26 +83,29 @@ class ConnectJiraLoggedIn extends Component {
   }
 
   handleChangeBoard = selectedElement => {
-    this.board = {value: selectedElement.value, label: selectedElement.label}
-    this.props.store.jiraStore.setBoardId({value: selectedElement.value, label: selectedElement.label})
+    this.board = { value: selectedElement.value, label: selectedElement.label }
+    this.props.store.jiraStore.setBoardId({
+      value: selectedElement.value,
+      label: selectedElement.label
+    })
   }
 
-  render() {
+  render () {
     const {
       store: {
-        jiraStore: {jiraBoardsFetching, jiraBoards}
+        jiraStore: { jiraBoardsFetching, jiraBoards }
       }
     } = this.props
     return (
       <>
-        <StyledImg src={Jira} alt={'Jira logo'}/>
+        <StyledImg src={Jira} alt={'Jira logo'} />
         <Typography variant='h3' align={'center'}>
           Jira Integration
         </Typography>
         <Typography>
           Select board you want to make an estimations for and go to your room
         </Typography>
-        {jiraBoardsFetching && <StyledCircularProgress/>}
+        {jiraBoardsFetching && <StyledCircularProgress />}
         {jiraBoards.values.length > 0 && !jiraBoardsFetching && (
           <>
             <FormLabel> Jira Board </FormLabel>
@@ -126,7 +129,7 @@ class ConnectJiraLoggedIn extends Component {
               onClick={this.goToRoom}
             >
               Go to room
-              <StyledAddCircle/>
+              <StyledAddCircle />
             </StyledButton>
           </Grid>
           <Grid item xs={2}>
@@ -139,7 +142,7 @@ class ConnectJiraLoggedIn extends Component {
               onClick={this.handleJiraLogout}
             >
               Logout from Jira
-              <StyledLogout/>
+              <StyledLogout />
             </StyledButton>
           </Grid>
         </StyledGrid>
@@ -152,5 +155,5 @@ decorate(ConnectJiraLoggedIn, {
   board: observable
 })
 
-export {ConnectJiraLoggedIn}
+export { ConnectJiraLoggedIn }
 export default inject('store')(withRouter(observer(ConnectJiraLoggedIn)))

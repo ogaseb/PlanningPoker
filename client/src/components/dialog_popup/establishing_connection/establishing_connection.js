@@ -1,17 +1,17 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
-import {inject, observer} from 'mobx-react'
-import {withRouter} from 'react-router-dom'
-import {decorate, observable, reaction} from 'mobx'
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
+import { decorate, observable, reaction } from 'mobx'
 import routes from 'routes'
-import CircularProgress from "@material-ui/core/CircularProgress";
-import styled from "styled-components";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import CircularProgress from '@material-ui/core/CircularProgress'
+import styled from 'styled-components'
+import LinearProgress from '@material-ui/core/LinearProgress'
 
 const StyledCircularProgress = styled(CircularProgress)`
   && {
@@ -21,13 +21,11 @@ const StyledCircularProgress = styled(CircularProgress)`
 `
 
 class EstablishingConnection extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
-
-
   }
 
-  componentDidMount() {
+  componentDidMount () {
     reaction(
       () => this.props.store.socketStore.disconnected,
       () => {
@@ -39,7 +37,7 @@ class EstablishingConnection extends Component {
               this.props.store.roomStore.roomPassword
             )
           } else {
-            window.location.reload();
+            window.location.reload()
           }
         }
       }
@@ -52,10 +50,10 @@ class EstablishingConnection extends Component {
     return link[3] !== 'room'
   }
 
-  render() {
+  render () {
     const {
       store: {
-        socketStore: {disconnected}
+        socketStore: { disconnected }
       }
     } = this.props
     return (
@@ -86,5 +84,5 @@ decorate(EstablishingConnection, {
   roomPassword: observable
 })
 
-export {EstablishingConnection}
+export { EstablishingConnection }
 export default inject('store')(withRouter(observer(EstablishingConnection)))

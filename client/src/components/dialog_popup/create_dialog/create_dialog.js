@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -6,10 +6,10 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import TextField from '@material-ui/core/TextField'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
-import {inject, observer} from 'mobx-react'
-import {withRouter} from 'react-router-dom'
-import {decorate, observable} from 'mobx'
-import styled from "styled-components";
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
+import { decorate, observable } from 'mobx'
+import styled from 'styled-components'
 
 const StyledDialog = styled(Dialog)`
   & > div > div {
@@ -18,14 +18,14 @@ const StyledDialog = styled(Dialog)`
 `
 
 class CreateDialogComponent extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.openDialog = true
-    this.roomName = ""
-    this.roomPassword = ""
+    this.roomName = ''
+    this.roomPassword = ''
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.openDialog = true
   }
 
@@ -39,19 +39,13 @@ class CreateDialogComponent extends Component {
   handleCreateRoom = () => {
     const {
       store: {
-        socketStore: {openNotification},
-        roomStore: {createRoom},
-        userStore: {userName}
+        socketStore: { openNotification },
+        roomStore: { createRoom },
+        userStore: { userName }
       }
     } = this.props
-    if (
-      userName && this.roomName && this.roomPassword
-    ) {
-      createRoom(
-        userName,
-        this.roomName,
-        this.roomPassword
-      )
+    if (userName && this.roomName && this.roomPassword) {
+      createRoom(userName, this.roomName, this.roomPassword)
       this.openDialog = false
       this.props.handleClose()
     } else {
@@ -67,12 +61,13 @@ class CreateDialogComponent extends Component {
     this.props.handleClose()
   }
 
-  render() {
-    const {
-      open
-    } = this.props
+  render () {
+    const { open } = this.props
     return (
-      <StyledDialog open={open && this.openDialog} aria-labelledby='form-dialog-title'>
+      <StyledDialog
+        open={open && this.openDialog}
+        aria-labelledby='form-dialog-title'
+      >
         <DialogTitle id='form-dialog-title'>Create Room</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -85,7 +80,6 @@ class CreateDialogComponent extends Component {
             value={this.roomName}
             onChange={this.handleChangeRoomName}
             margin='dense'
-
           />
           <TextField
             fullWidth
@@ -100,7 +94,11 @@ class CreateDialogComponent extends Component {
           <Button onClick={this.cancelJoinRoom} color='primary'>
             Cancel
           </Button>
-          <Button onClick={this.handleCreateRoom} color='primary' variant='contained'>
+          <Button
+            onClick={this.handleCreateRoom}
+            color='primary'
+            variant='contained'
+          >
             Create Room
           </Button>
         </DialogActions>
@@ -115,5 +113,5 @@ decorate(CreateDialogComponent, {
   roomPassword: observable
 })
 
-export {CreateDialogComponent}
+export { CreateDialogComponent }
 export default inject('store')(withRouter(observer(CreateDialogComponent)))
