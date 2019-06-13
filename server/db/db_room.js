@@ -1,7 +1,7 @@
 require('dotenv').config()
-import { Client } from 'pg/lib'
+import {Client} from 'pg/lib'
 
-export async function fetchRoomsFromDb () {
+export async function fetchRoomsFromDb() {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
   })
@@ -15,7 +15,7 @@ export async function fetchRoomsFromDb () {
   }
 }
 
-export async function fetchUserRoomsFromDb (userId) {
+export async function fetchUserRoomsFromDb(userId) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
   })
@@ -32,12 +32,13 @@ export async function fetchUserRoomsFromDb (userId) {
   }
 }
 
-export async function insertRoomToDb (
+export async function insertRoomToDb(
   roomName,
   hash,
   RoomId,
   timestamp,
-  userId
+  userId,
+  boardId
 ) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
@@ -45,7 +46,7 @@ export async function insertRoomToDb (
   try {
     await client.connect()
     await client.query(
-      `INSERT INTO rooms(room_name,room_password,room_id,room_timestamp,user_id) VALUES('${roomName}', '${hash}', '${RoomId}', '${timestamp}', '${userId}')`
+      `INSERT INTO rooms(room_name,room_password,room_id,room_timestamp,user_id,room_board_id) VALUES('${roomName}', '${hash}', '${RoomId}', '${timestamp}', '${userId}', '${boardId}')`
     )
     console.log('DB -> save room')
     await client.end()
@@ -54,7 +55,7 @@ export async function insertRoomToDb (
   }
 }
 
-export async function deleteRoomFromDb (roomId) {
+export async function deleteRoomFromDb(roomId) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
   })
@@ -68,7 +69,7 @@ export async function deleteRoomFromDb (roomId) {
   }
 }
 
-export async function updateTimestampDb (roomId, timestamp) {
+export async function updateRoomInformationDb(roomId, roomName, roomPassword, boardId) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
   })
@@ -84,7 +85,23 @@ export async function updateTimestampDb (roomId, timestamp) {
   }
 }
 
-export async function updateRoomBoardIdDb (roomId, boardId) {
+export async function updateTimestampDb(roomId, timestamp) {
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL
+  })
+  try {
+    await client.connect()
+    await client.query(
+      `UPDATE rooms SET room_timestamp = '${timestamp}' WHERE room_id = '${roomId}'`
+    )
+    console.log('DB -> update room timestamp')
+    client.end()
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export async function updateRoomBoardIdDb(roomId, boardId) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
   })
@@ -100,7 +117,7 @@ export async function updateRoomBoardIdDb (roomId, boardId) {
   }
 }
 
-export async function updateRoomHistoryDb (roomId, history) {
+export async function updateRoomHistoryDb(roomId, history) {
   const client = new Client({
     connectionString: process.env.DATABASE_URL
   })

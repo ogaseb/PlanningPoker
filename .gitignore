@@ -12,6 +12,7 @@
 /dist
 
 # misc
+.env
 .idea
 .DS_Store
 .env.local
