@@ -4,6 +4,9 @@ exports[`renders without crashing 1`] = `
 <div
   className="App"
 >
+  <inject-withRouter(DialogPopup)-with-store
+    establishingConnection={true}
+  />
   <inject-Notification-with-store />
   <inject-withRouter(Header)-with-store />
   <WithStyles(Grid)

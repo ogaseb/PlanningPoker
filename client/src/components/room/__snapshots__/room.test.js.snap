@@ -13,7 +13,9 @@ exports[`Room renders without errors 1`] = `
       }
     }
   >
-    <inject-withRouter(JoinDialog)-with-store />
+    <inject-withRouter(DialogPopup)-with-store
+      joinDialog={true}
+    />
     <Styled(WithStyles(Grid))
       item={true}
       md={10}
@@ -43,7 +45,9 @@ exports[`Room renders without errors 1`] = `
       }
     }
   >
-    <inject-withRouter(JoinDialog)-with-store />
+    <inject-withRouter(DialogPopup)-with-store
+      joinDialog={true}
+    />
     <Styled(WithStyles(Card))>
       <inject-Issue-with-store />
       <inject-CardResults-with-store />

@@ -2,6 +2,21 @@
 
 exports[`Issue renders without errors 1`] = `
 <Fragment>
+  <WithStyles(Typography)>
+    Jira Task Picker
+  </WithStyles(Typography)>
+  <Styled(StateManager)
+    defaultOptions={
+      Object {
+        "label": "loading",
+        "value": "",
+      }
+    }
+    isDisabled={false}
+    isLoading={false}
+    onChange={[Function]}
+    options={Array []}
+  />
   <Styled(WithStyles(Card))>
     <WithStyles(Typography)
       variant="subtitle2"
