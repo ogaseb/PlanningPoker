@@ -132,7 +132,7 @@ class Issue extends Component {
     } = this.props
     return (
       <React.Fragment>
-        {activeBoard.length > 0 && admin && (
+        {admin && (
           <React.Fragment>
             <Typography>Jira Task Picker</Typography>
             <StyledSelect

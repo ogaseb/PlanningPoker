@@ -14,7 +14,7 @@ import routes from 'routes'
 
 const StyledGrid = styled(Grid)`
   && {
-    height: calc(100vh - 48px);
+    height: calc(100vh - 64px);
   }
 `
 

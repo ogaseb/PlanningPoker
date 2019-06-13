@@ -125,7 +125,6 @@ class Header extends Component {
 
     return (
       <StyledAppBar position='static' color='default'>
-        {console.log(location)}
         <DialogPopup
           createDialog={this.openCreateDialog}
           closeCreateDialog={this.handleCloseCreateDialog}

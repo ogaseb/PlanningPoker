@@ -1,4 +1,4 @@
-import { types, getRoot } from 'mobx-state-tree'
+import {types, getRoot} from 'mobx-state-tree'
 import Card from 'models/card_result'
 import Users from 'models/users'
 import sortBy from 'lodash/sortBy'
@@ -21,15 +21,15 @@ const RoomStore = types
     )
   })
   .views(self => ({
-    get isRoomCreated () {
+    get isRoomCreated() {
       return !!self.roomName
     }
   }))
   .actions(self => ({
-    createRoom (userName, roomName, roomPassword) {
+    createRoom(userName, roomName, roomPassword, boardId) {
       const {
-        userStore: { setUserName, userId },
-        socketStore: { socket }
+        userStore: {setUserName, userId},
+        socketStore: {socket}
       } = getRoot(self)
       setUserName(userName)
       localStorage.setItem('userName', JSON.stringify(userName))
@@ -37,13 +37,14 @@ const RoomStore = types
         userName,
         roomName,
         roomPassword,
-        userId: userId ? userId : false
+        userId: userId ? userId : false,
+        boardId
       })
     },
-    joinRoom (userName, roomId, roomPassword) {
+    joinRoom(userName, roomId, roomPassword) {
       const {
-        socketStore: { socket },
-        userStore: { userId }
+        socketStore: {socket},
+        userStore: {userId}
       } = getRoot(self)
       localStorage.setItem('userName', JSON.stringify(userName))
       // this.user.connected = true
@@ -54,10 +55,10 @@ const RoomStore = types
         userId: userId ? userId : false
       })
     },
-    deleteRoom (roomPassword, roomId) {
+    deleteRoom(roomPassword, roomId) {
       const {
-        socketStore: { socket },
-        userStore: { userId }
+        socketStore: {socket},
+        userStore: {userId}
       } = getRoot(self)
       if (roomId) {
         socket.emit('deleteRoom', {
@@ -72,11 +73,24 @@ const RoomStore = types
         })
       }
     },
-    editRoom (roomName, roomPassword, boardId) {},
-    sendCard () {
+    editRoom(roomName, roomPassword, boardId, roomId) {
       const {
-        socketStore: { socket },
-        userStore: { userId, userName }
+        socketStore: {socket},
+        userStore: {userId}
+      } = getRoot(self)
+      socket.emit('editRoom', {
+        roomId,
+        userId,
+        roomName: !!roomName ? roomName : false,
+        roomPassword: !!roomPassword ? roomPassword : false,
+        boardId
+      })
+
+    },
+    sendCard() {
+      const {
+        socketStore: {socket},
+        userStore: {userId, userName}
       } = getRoot(self)
       socket.emit('sendCard', {
         roomId: self.roomId,
@@ -86,20 +100,20 @@ const RoomStore = types
       })
       self.setSelectedCard('')
     },
-    resetCards () {
+    resetCards() {
       const {
-        socketStore: { socket }
+        socketStore: {socket}
       } = getRoot(self)
 
-      socket.emit('resetCards', { roomId: self.roomId })
+      socket.emit('resetCards', {roomId: self.roomId})
     },
-    initialize () {
+    initialize() {
       const {
-        userStore: { setSocketId, setAdmin, setConnected, fetchUserRooms },
-        socketStore: { socket, openNotification },
-        jiraStore: { setDescription, setTitle }
+        userStore: {setSocketId, setAdmin, setConnected, fetchUserRooms},
+        socketStore: {socket, openNotification},
+        jiraStore: {setDescription, setTitle, setBoardId, selectBoard}
       } = getRoot(self)
-      socket.on('createRoom', ({ user, roomId, roomName, userId }) => {
+      socket.on('createRoom', ({user, roomId, roomName, userId}) => {
         if (userId === 'guest') {
           setSocketId(user[user.length - 1].socketId)
           setAdmin(true)
@@ -109,18 +123,16 @@ const RoomStore = types
         }
         openNotification('You have created a Room', 'success')
       })
-      socket.on('joinRoom', ({ user, roomId, roomName, gameHistory }) => {
+      socket.on('joinRoom', ({user, roomId, roomName, gameHistory, boardId}) => {
         setConnected(true)
         setSocketId(user[user.length - 1].socketId)
         self.setRoomId(roomId)
         self.setRoomName(roomName)
         self.setCardHistory(gameHistory || [])
-        // setBoardId(boardId)
+        console.log("boardId: " + boardId)
+        setBoardId(boardId)
+        selectBoard()
         openNotification('You have joined to the Room', 'success')
-        // if (response.boardId) {
-        //   this.selectBoard(this.jira.boardId)
-        // }
-        // this.fetchUsers()
       })
       socket.on('fetchRoomUsers', response => {
         console.table(response)
@@ -173,40 +185,40 @@ const RoomStore = types
         openNotification('Room is removed', 'info')
       })
     },
-    setRoomId (value) {
+    setRoomId(value) {
       self.roomId = value
     },
-    setRoomPassword (value) {
+    setRoomPassword(value) {
       self.roomPassword = value
     },
-    setSelectedCard (value) {
+    setSelectedCard(value) {
       self.selectedCard = value
     },
-    clearWaiting () {
+    clearWaiting() {
       self.waiting = []
     },
-    pushWaiting () {
+    pushWaiting() {
       self.waiting.push(true)
     },
-    setRoomName (value) {
+    setRoomName(value) {
       self.roomName = value
     },
-    setRoomUsers (value) {
+    setRoomUsers(value) {
       self.roomUsers = value
     },
-    setCardHistory (value) {
+    setCardHistory(value) {
       self.cardHistory = value
     },
-    setBlockReset (value) {
+    setBlockReset(value) {
       self.blockReset = value
     },
-    setBlockCard (value) {
+    setBlockCard(value) {
       self.blockCard = value
     },
-    setCardsAreTheSame (value) {
+    setCardsAreTheSame(value) {
       self.cardsAreTheSame = value
     },
-    setCardResult (value) {
+    setCardResult(value) {
       self.cardResults = value
     }
   }))

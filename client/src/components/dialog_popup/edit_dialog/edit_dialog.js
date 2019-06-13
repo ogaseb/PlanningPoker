@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -6,9 +6,9 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import TextField from '@material-ui/core/TextField'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
-import { inject, observer } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
-import { decorate, observable } from 'mobx'
+import {inject, observer} from 'mobx-react'
+import {withRouter} from 'react-router-dom'
+import {decorate, observable} from 'mobx'
 import styled from 'styled-components'
 import Select from 'react-select'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -33,20 +33,20 @@ const StyledCircularProgress = styled(CircularProgress)`
 `
 
 class LinkDialog extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.openDialog = true
     this.roomName = ''
     this.board = ''
   }
 
-  componentDidMount () {
-    const { data } = this.props
+  componentDidMount() {
+    const {data} = this.props
     this.roomName = data.room_name
   }
 
-  componentDidUpdate () {
-    const { data } = this.props
+  componentDidUpdate() {
+    const {data} = this.props
     this.roomName = data.room_name
   }
 
@@ -56,12 +56,11 @@ class LinkDialog extends Component {
   }
 
   handleChangeBoard = selectedElement => {
-    console.log(selectedElement)
-    this.board = { value: selectedElement.value, label: selectedElement.label }
-    this.props.store.jiraStore.setBoardId({
-      value: selectedElement.value,
-      label: selectedElement.label
-    })
+    this.board = {value: selectedElement.value, label: selectedElement.label}
+    // this.props.store.jiraStore.setBoardId({
+    //   value: selectedElement.value,
+    //   label: selectedElement.label
+    // })
   }
 
   handleChangeRoomName = e => {
@@ -72,12 +71,15 @@ class LinkDialog extends Component {
     this.roomPassword = e.target.value
   }
 
-  handleEdit = () => {}
+  handleEdit = () => {
+    const {store: {roomStore: {editRoom}}, data} = this.props
+    editRoom(this.roomName, this.roomPassword, this.board.value, data.room_id)
+  }
 
-  render () {
+  render() {
     const {
       store: {
-        jiraStore: { jiraBoardsFetching, jiraBoards }
+        jiraStore: {jiraBoardsFetching, jiraBoards, jiraLoggedIn}
       },
       open,
       data
@@ -87,12 +89,11 @@ class LinkDialog extends Component {
         open={open && this.openDialog}
         aria-labelledby='form-dialog-title'
       >
-        {console.log(data)}
         <DialogTitle id='form-dialog-title'>Edit Room</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Copy your room link and past it to your coworkers if you want them
-            to join you.
+            {/*Copy your room link and past it to your coworkers if you want them*/}
+            {/*to join you.*/}
           </DialogContentText>
           <TextField
             fullWidth
@@ -110,7 +111,7 @@ class LinkDialog extends Component {
             onChange={this.handleChangeRoomPassword}
             margin='dense'
           />
-          {jiraBoardsFetching && <StyledCircularProgress />}
+          {jiraBoardsFetching && <StyledCircularProgress/>}
           {jiraBoards.values.length > 0 && !jiraBoardsFetching && (
             <>
               <FormLabel> Jira Board </FormLabel>
@@ -130,7 +131,7 @@ class LinkDialog extends Component {
           <Button onClick={this.cancelLink} color='primary'>
             Cancel
           </Button>
-          <Button onClick={this.handleCopy} color='primary' variant='contained'>
+          <Button onClick={this.handleEdit} color='primary' variant='contained'>
             Edit room
           </Button>
         </DialogActions>
@@ -144,5 +145,5 @@ decorate(LinkDialog, {
   roomName: observable
 })
 
-export { LinkDialog }
+export {LinkDialog}
 export default inject('store')(withRouter(observer(LinkDialog)))
