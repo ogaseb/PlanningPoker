@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<div
+  className="App"
+>
+  <inject-Notification-with-store />
+  <inject-withRouter(Header)-with-store />
+  <WithStyles(Grid)
+    container={true}
+  >
+    <inject-withRouter(Router)-with-store />
+  </WithStyles(Grid)>
+</div>
+`;

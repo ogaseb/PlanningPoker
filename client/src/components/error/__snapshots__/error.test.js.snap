@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error renders without crashing 1`] = `
+<Styled(WithStyles(Grid))
+  item={true}
+  xs={12}
+>
+  <Styled(WithStyles(Card))>
+    <styled.div>
+      <Icon
+        color="error"
+        style={
+          Object {
+            "height": "auto",
+            "width": "128px",
+          }
+        }
+      />
+      <WithStyles(Typography)
+        style={
+          Object {
+            "marginBottom": "40px",
+          }
+        }
+        variant="display2"
+      >
+        Something went wrong i don't really know what happened
+      </WithStyles(Typography)>
+      <WithStyles(Typography)
+        variant="display2"
+      >
+        ¯\\_(ツ)_/¯
+      </WithStyles(Typography)>
+      <WithStyles(Button)
+        color="primary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Take me back
+      </WithStyles(Button)>
+    </styled.div>
+  </Styled(WithStyles(Card))>
+</Styled(WithStyles(Grid))>
+`;

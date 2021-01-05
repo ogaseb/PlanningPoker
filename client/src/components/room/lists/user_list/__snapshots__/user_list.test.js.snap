@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HistoryList renders without errors 1`] = `
+<styled.div>
+  <styled.div
+    color="inherit"
+    variant="body1"
+  >
+    <div>
+       User Name: 
+    </div>
+    <div>
+       Room Name: 
+    </div>
+  </styled.div>
+  <WithStyles(Typography)>
+    users : 
+    0
+  </WithStyles(Typography)>
+  <styled.div />
+  <styled.div>
+    <Styled(TextField)
+      id="room-password"
+      label="Room Password"
+      margin="normal"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+    <Styled(WithStyles(Button))
+      color="secondary"
+      onClick={[Function]}
+      variant="contained"
+    >
+      Delete room
+      <pure(DeleteIcon)
+        style={
+          Object {
+            "marginLeft": "10px",
+          }
+        }
+      />
+    </Styled(WithStyles(Button))>
+  </styled.div>
+</styled.div>
+`;

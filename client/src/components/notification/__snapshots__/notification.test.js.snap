@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notification renders without errors 1`] = `
+<Styled(WithStyles(Snackbar))
+  action={
+    Array [
+      <WithStyles(IconButton)
+        aria-label="Close"
+        color="inherit"
+        onClick={[Function]}
+      >
+        <pure(CloseIcon)
+          name="close"
+        />
+      </WithStyles(IconButton)>,
+    ]
+  }
+  anchorOrigin={
+    Object {
+      "horizontal": "left",
+      "vertical": "bottom",
+    }
+  }
+  autoHideDuration={3000}
+  onClose={[Function]}
+  open={false}
+  wide={300}
+/>
+`;

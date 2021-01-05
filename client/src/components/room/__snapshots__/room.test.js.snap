@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Room renders without errors 1`] = `
+<Fragment>
+  <DragLayer(ItemPreview) />
+  <BrowserView
+    style={
+      Object {
+        "display": "flex",
+        "flexWrap": "wrap",
+        "margin": "0 auto",
+        "width": "100%",
+      }
+    }
+  >
+    <inject-withRouter(JoinDialog)-with-store />
+    <Styled(WithStyles(Grid))
+      item={true}
+      md={10}
+    >
+      <Styled(WithStyles(Card))>
+        <inject-Issue-with-store />
+        <inject-CardResults-with-store />
+        <inject-Controls-with-store />
+      </Styled(WithStyles(Card))>
+    </Styled(WithStyles(Grid))>
+    <Styled(WithStyles(Grid))
+      item={true}
+      md={2}
+    >
+      <Styled(WithStyles(Card))>
+        <inject-withRouter(Lists)-with-store />
+      </Styled(WithStyles(Card))>
+    </Styled(WithStyles(Grid))>
+  </BrowserView>
+  <MobileView
+    style={
+      Object {
+        "display": "flex",
+        "flexWrap": "wrap",
+        "margin": "0 auto",
+        "width": "100%",
+      }
+    }
+  >
+    <inject-withRouter(JoinDialog)-with-store />
+    <Styled(WithStyles(Card))>
+      <inject-Issue-with-store />
+      <inject-CardResults-with-store />
+      <inject-Controls-with-store />
+    </Styled(WithStyles(Card))>
+    <Styled(WithStyles(Card))>
+      <inject-withRouter(Lists)-with-store />
+    </Styled(WithStyles(Card))>
+  </MobileView>
+</Fragment>
+`;

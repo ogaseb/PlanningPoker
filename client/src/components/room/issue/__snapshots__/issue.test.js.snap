@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Issue renders without errors 1`] = `
+<Fragment>
+  <Styled(WithStyles(Card))>
+    <WithStyles(Typography)
+      variant="subtitle2"
+    >
+      Title
+    </WithStyles(Typography)>
+    <Styled(TextField)
+      margin="normal"
+      multiline={true}
+      onChange={[Function]}
+    />
+  </Styled(WithStyles(Card))>
+  <Styled(WithStyles(Card))>
+    <WithStyles(Typography)
+      variant="subtitle2"
+    >
+      Description
+    </WithStyles(Typography)>
+    <Styled(TextField)
+      margin="normal"
+      multiline={true}
+      onChange={[Function]}
+    />
+  </Styled(WithStyles(Card))>
+</Fragment>
+`;

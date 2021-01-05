@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardResults renders without errors 1`] = `
+<Fragment>
+  <Styled(WithStyles(Card))>
+    <styled.div />
+    <Styled(styled.div) />
+    <DropTarget(CardTable)
+      handleSelectedCard={[Function]}
+    />
+  </Styled(WithStyles(Card))>
+</Fragment>
+`;

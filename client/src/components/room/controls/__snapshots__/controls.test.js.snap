@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Controls renders without errors 1`] = `
+<Fragment>
+  <WithStyles(Button)
+    color="secondary"
+    onClick={[Function]}
+    variant="contained"
+  >
+    Send Card
+  </WithStyles(Button)>
+  <WithStyles(Button)
+    onClick={[Function]}
+  >
+    Reset cards
+  </WithStyles(Button)>
+  <WithStyles(Button)
+    disabled={true}
+  >
+    Set estimation point
+  </WithStyles(Button)>
+  <styled.div>
+    <DragSource(ButtonDnd)
+      key="0"
+      value="☕"
+    />
+    <DragSource(ButtonDnd)
+      key="1"
+      value={0}
+    />
+    <DragSource(ButtonDnd)
+      key="2"
+      value={0.5}
+    />
+    <DragSource(ButtonDnd)
+      key="3"
+      value={1}
+    />
+    <DragSource(ButtonDnd)
+      key="4"
+      value={2}
+    />
+    <DragSource(ButtonDnd)
+      key="5"
+      value={3}
+    />
+    <DragSource(ButtonDnd)
+      key="6"
+      value={5}
+    />
+    <DragSource(ButtonDnd)
+      key="7"
+      value={8}
+    />
+    <DragSource(ButtonDnd)
+      key="8"
+      value={13}
+    />
+    <DragSource(ButtonDnd)
+      key="9"
+      value={20}
+    />
+    <DragSource(ButtonDnd)
+      key="10"
+      value={40}
+    />
+    <DragSource(ButtonDnd)
+      key="11"
+      value={100}
+    />
+  </styled.div>
+</Fragment>
+`;

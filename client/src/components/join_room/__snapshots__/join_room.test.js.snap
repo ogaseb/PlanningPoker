@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JoinRoom renders without crashing 1`] = `
+<Styled(WithStyles(Grid))
+  item={true}
+  xs={12}
+>
+  <Styled(WithStyles(Card))>
+    <styled.div>
+      <WithStyles(Typography)
+        align="center"
+        variant="h3"
+      >
+        Join Room
+      </WithStyles(Typography)>
+      <TextField
+        id="join-user-name"
+        label="User Name"
+        margin="normal"
+        onChange={[Function]}
+        required={false}
+        select={false}
+        value=""
+        variant="standard"
+      />
+      <TextField
+        id="join-room-id"
+        label="Room id"
+        margin="normal"
+        onChange={[Function]}
+        placeholder="ex. 11a2bae1-1b9b-4807-9db6-c54c51989fe9"
+        required={false}
+        select={false}
+        value=""
+        variant="standard"
+      />
+      <TextField
+        id="join-room-password"
+        label="Room Password"
+        margin="normal"
+        onChange={[Function]}
+        required={false}
+        select={false}
+        type="password"
+        value=""
+        variant="standard"
+      />
+      <WithStyles(Grid)
+        container={true}
+        style={
+          Object {
+            "marginTop": "40px",
+          }
+        }
+      >
+        <WithStyles(Grid)
+          item={true}
+          xs={6}
+        >
+          <Styled(WithStyles(Button))
+            color="primary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            Join room
+            <Icon
+              style={
+                Object {
+                  "marginLeft": "10px",
+                }
+              }
+            />
+          </Styled(WithStyles(Button))>
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          xs={6}
+        >
+          <Styled(WithStyles(Button))
+            color="secondary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            Delete room
+            <pure(DeleteIcon)
+              style={
+                Object {
+                  "marginLeft": "10px",
+                }
+              }
+            />
+          </Styled(WithStyles(Button))>
+        </WithStyles(Grid)>
+      </WithStyles(Grid)>
+    </styled.div>
+  </Styled(WithStyles(Card))>
+</Styled(WithStyles(Grid))>
+`;

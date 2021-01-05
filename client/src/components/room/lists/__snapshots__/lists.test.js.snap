@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserList renders without errors 1`] = `
+<Fragment>
+  <inject-withRouter(UserList)-with-store />
+  <inject-HistoryList-with-store />
+</Fragment>
+`;

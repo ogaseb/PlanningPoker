@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateRoom renders without crashing 1`] = `
+<Styled(WithStyles(Grid))
+  item={true}
+  xs={12}
+>
+  <Styled(WithStyles(Card))>
+    <styled.div>
+      <WithStyles(Typography)
+        align="center"
+        variant="h3"
+      >
+        Create Room
+      </WithStyles(Typography)>
+      <TextField
+        label="User Name"
+        margin="normal"
+        onChange={[Function]}
+        required={false}
+        select={false}
+        type="text"
+        value=""
+        variant="standard"
+      />
+      <TextField
+        label="Room Name"
+        margin="normal"
+        onChange={[Function]}
+        required={false}
+        select={false}
+        type="text"
+        value=""
+        variant="standard"
+      />
+      <TextField
+        label="Room Password"
+        margin="normal"
+        onChange={[Function]}
+        required={false}
+        select={false}
+        type="password"
+        value=""
+        variant="standard"
+      />
+      <Styled(WithStyles(Grid))
+        container={true}
+      >
+        <WithStyles(Grid)
+          item={true}
+          xs={5}
+        >
+          <Styled(WithStyles(Button))
+            color="primary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            Create Room
+            <Styled(pure(AddCircleIcon)) />
+          </Styled(WithStyles(Button))>
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          xs={2}
+        >
+          <Styled(WithStyles(Typography))
+            variant="h5"
+          >
+             OR 
+          </Styled(WithStyles(Typography))>
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          xs={5}
+        >
+          <Styled(WithStyles(Button))
+            onClick={[Function]}
+            variant="contained"
+          >
+            Join room
+            <Styled(Icon) />
+          </Styled(WithStyles(Button))>
+        </WithStyles(Grid)>
+      </Styled(WithStyles(Grid))>
+    </styled.div>
+  </Styled(WithStyles(Card))>
+</Styled(WithStyles(Grid))>
+`;
