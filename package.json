@@ -15,7 +15,7 @@
     "webpack": "webpack --config webpack.server.config.js"
   },
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "crypto": "^1.0.1",
     "date-and-time": "^0.14.2",
