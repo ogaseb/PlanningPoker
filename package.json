@@ -19,7 +19,7 @@
     "body-parser": "^1.18.3",
     "crypto": "^1.0.1",
     "date-and-time": "^0.14.2",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "jira-connector": "^2.9.0",
     "lodash": "^4.17.19",
     "pg": "^7.6.1",
